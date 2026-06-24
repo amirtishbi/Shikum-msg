@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>הודעות וואטסאפ – פקיד שיקום</title>
+  <style>
+    :root {
+      --bg: #f0f4f8;
+      --surface: #ffffff;
+      --border: #dde3ea;
+      --text-main: #1a2233;
+      --text-muted: #6b7a90;
+      --cat-studies: #1a6b3a;
+      --cat-rights: #1a4f8b;
+      --cat-terror: #7b2d8b;
+      --cat-routing: #b05c00;
+      --cat-consent: #166e6e;
+      --cat-admin: #8b1a1a;
+      --btn-green: #1daa60;
+      --btn-green-hover: #128c4e;
+      --btn-copied: #4caf50;
+      --radius: 14px;
+      --shadow: 0 2px 10px rgba(0,0,0,0.07);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: var(--text-main);
+      padding: 0 0 40px 0;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #1a2233;
+      color: #fff;
+      padding: 18px 20px 14px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+
+    header h1 { font-size: 1.15rem; font-weight: 700; }
+    header p  { font-size: 0.78rem; color: #a0aec0; margin-top: 3px; }
+
+    main { padding: 18px 14px 0; max-width: 640px; margin: 0 auto; }
+
+    .category { margin-bottom: 28px; }
+
+    /* scroll-margin so sticky header doesn't cover the section */
+    .category { scroll-margin-top: 70px; }
+
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2.5px solid;
+    }
+    .cat-header.studies { border-color: var(--cat-studies); color: var(--cat-studies); }
+    .cat-header.terror  { border-color: var(--cat-terror);  color: var(--cat-terror); }
+    .cat-header.routing { border-color: var(--cat-routing); color: var(--cat-routing); }
+    .cat-header.consent { border-color: var(--cat-consent); color: var(--cat-consent); }
+    .cat-header.admin   { border-color: var(--cat-admin);   color: var(--cat-admin); }
+    .cat-header h2 { font-size: 1rem; font-weight: 700; }
+
+    .cat-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .studies .cat-dot { background: var(--cat-studies); }
+    .terror  .cat-dot { background: var(--cat-terror); }
+    .routing .cat-dot { background: var(--cat-routing); }
+    .consent .cat-dot { background: var(--cat-consent); }
+    .admin   .cat-dot { background: var(--cat-admin); }
+
+    /* ---- Accordion card ---- */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .card-toggle {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 13px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      text-align: right;
+      gap: 8px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .card-toggle-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+      flex: 1;
+      text-align: right;
+    }
+
+    .card-toggle-arrow {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      color: var(--text-muted);
+      transition: transform 0.22s ease;
+    }
+
+    .card.open .card-toggle-arrow {
+      transform: rotate(180deg);
+    }
+
+    .card-collapsible {
+      display: none;
+      border-top: 1px solid var(--border);
+    }
+    .card.open .card-collapsible {
+      display: block;
+    }
+
+    .card-body {
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--text-main);
+      direction: rtl;
+      text-align: right;
+    }
+
+    .card-footer {
+      padding: 10px 16px 13px;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--btn-green);
+      color: #fff;
+      border: none;
+      border-radius: 9px;
+      padding: 10px 22px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+      min-width: 160px;
+      justify-content: center;
+    }
+    .copy-btn:active { transform: scale(0.96); }
+    .copy-btn:hover  { background: var(--btn-green-hover); }
+    .copy-btn.copied { background: var(--btn-copied); }
+    .copy-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    @media (max-width: 400px) {
+      .copy-btn { font-size: 0.85rem; padding: 10px 16px; min-width: 140px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📋 הודעות וואטסאפ מוכנות</h1>
+  <p>פקיד שיקום – ביטוח לאומי</p>
+</header>
+
+<main>
+
+  <!-- ===== לימודים והחזרים ===== -->
+  <section class="category" id="studies">
+    <div class="cat-header studies">
+      <span class="cat-dot"></span>
+      <h2>לימודים והחזרים</h2>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">1 · החזר על רישום לקורס</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg1">איך מקבלים החזר על הרישום לקורס: 💰
+
+שלחו אישור הרשמה ללימודים עם הפרטים הבאים:
+• תאריך התחלה וסיום
+• ימי ושעות לימוד
+• עלות הקורס
+
+בנוסף צרפו קבלה על שכר הלימוד -(לחלק לתשלומים לפי מספר חודשי הלימוד)
+
+מדי חודש: שלחו דוח נוכחות חתום על ידכם - חשוב מאוד לצורך קבלת ההחזרים בזמן
+
+טופס נוכחות בקישור:
+https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
+
+שימו לב: יש לשלוח את כל המסמכים הנדרשים לטיפול מהיר בהחזר! ⚡</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg1', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">2 · מסמכים לקראת שנת הלימודים הבאה</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg2">👨‍🎓👩🏽‍🎓לקראת שנת הלימודים הבאה, שלחו אלי את המסמכים הבאים למייל :
+• גיליון ציונים (אם אתם בשנה שנייה ומעלה)
+• מערכת שעות סמסטר א' – חשוב שיהיה כתוב כמה נ"ז/ש"ס יש
+• קבלות שכר לימוד, כל קבלה שאתם משלמים העבירו אלי למייל. החזר שנתי מקסימלי הינו עד 13079 ש"ח
+• לוח שנה אקדמי</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg2', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">3 · מסמכים לקראת סמסטר ב'</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg3">👨‍🎓👩🏽‍🎓לקראת סמסטר ב', שלחו אלי את המסמכים הבאים למייל :
+• מערכת שעות סמסטר ב'– חשוב שיהיה כתוב כמה נ"ז/ש"ס יש</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg3', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">4 · קישור ישיר לדוח נוכחות חודשי</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg4">https://www.btl.gov.il/%D7%98%D7%A4%D7%A1%D7%99%D7%9D%20%D7%95%D7%90%D7%99%D7%A0%D7%A9%D7%95%D7%A8%D7%99%D7%9D/Documents/t278.pdf
+
+מצורף קישור לדוח נוכחות, יש למלא דוח זה בכל סוף חודש ולשלוח אלי למייל. שימו לב שאין צורך בחתימת מקום ההכשרה, מספיקה חתימה שלכם בלבד.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg4', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">5 · הנחיות להגשת הצעת מחיר לקורס</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg5">📄 הצעת מחיר – הסבר, פרמטרים והנחיות
+
+🔹 מטרת הצעת המחיר:
+כדי לאשר השתתפות בקורסים מקצועיים, יש להגיש הצעת מחיר מסודרת.
+הצעות המחיר נדרשות לצורך השוואה בין מסלולי הלימוד השונים, תוך התייחסות לתוכן הקורס, היקף הלימודים, סוג התעודה המתקבלת, העלויות הכספיות וגורמים נוספים.
+
+באופן כללי, הקורס בעל העלות הנמוכה ביותר ייבחר, אלא אם קיימות סיבות משמעותיות המצדיקות בחירה בהצעה יקרה יותר.
+
+🔹 חישוב עלות הקורס:
+עלות הקורס תיבחן לפי עלות כוללת חלקי מספר שעות הלימוד.
+לדוגמה:
+עלות קורס: 10,000 ₪
+מספר שעות לימוד: 100
+עלות לשעה אקדמית: 100 ₪.
+
+📌 מה חשוב לבקש ממוסדות הלימוד?
+בעת פנייה למוסדות ההכשרה, יש לבקש הצעת מחיר מפורטת שתכלול את הפרטים הבאים:
+1️⃣ תאריך התחלה וסיום הקורס
+2️⃣ מערכת שעות – ימי הלימוד ושעות הפעילות
+3️⃣ מספר שעות הלימוד הכולל (שעות אקדמיות)
+4️⃣ פירוט תוכנית הלימודים</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg5', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== נפגעי פעולות איבה ===== -->
+  <section class="category" id="terror">
+    <div class="cat-header terror">
+      <span class="cat-dot"></span>
+      <h2>נפגעי פעולות איבה</h2>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">6 · סיוע בשכר דירה (50% נכות)</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg6">🛖למי שנקבעו 50% נכות רפואית זכאי לסיוע בשכר דירה בסך 2720 ש"ח לחודש,
+כדי לקבל סיוע זה יש לשלוח אליי למייל:
+1. https://www.gov.il/he/service/testing-real-estate-assets - אישור מחוסר דיור
+2. חוזה שכירות
+3. אישור על העברת תשלום, אישור על העברה בנקאית או צ'ק שנפדה</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg6', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">7 · רפורמת נפש אחת – טיפולים אלטרנטיביים</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg7">שלום, להלן ריכוז המידע והקישורים בנושא רפורמת "נפש אחת":
+
+📞 מוקד שירות טלפוני (לשאלות על טיפולים מוכרים ובירור קבלות)
+• טלפון: 03-5127118
+• שעות פעילות: ימים א'-ה', בין השעות 08:00 ל-16:00
+
+💰 קישורים להגשת קבלות והחזרים
+• להגשת בקשה להחזר טיפולים אלטרנטיביים:
+https://govforms.gov.il/mw/forms/tHithaivout_eiva@btl.gov.il#%21instructions</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg7', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">8 · רפורמת נפש אחת – תרופות וקנאביס</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg8">💊🌿• להגשת בקשה להחזר הוצאות של תרופות וקנאביס רפואי:
+https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
+
+💬 בירורים והמשך מעקב
+הטיפול בבקשות מתבצע במחלקת נפגעי פעולות איבה. במידה ויש שאלות נוספות, ניתן לשלוח הודעה ישירה דרך האזור האישי באתר ביטוח לאומי למחלקת "נפגעי פעולות איבה".</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg8', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">9 · איתור מטפלים נפשיים מורשים</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg9">נפגעי איבה ומשפחות שכולות זכאים לקבל טיפולים נפשיים באמצעות מטפלים המורשים על ידי אגף השיקום.
+במאגר זה תוכלו למצוא מטפל שמתאים לכם, בהתאם לאזור מגוריכם, סוג הטיפול, התמחות, הכשרה מקצועית ועוד.
+https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
+
+אתם יכולים ליצור קשר ישירות עם המטפל להגיד שאתם מוכרים בבטוח לאומי, במידה והוא פנוי ומתאים לכם אז יש להעביר לו את מספר הטלפון שלי כדי שנסדיר את נושא התשלום.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg9', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">13 · התערבות לרווחה רגשית</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg13">🌸 עדכון: אפשרויות לסיוע רגשי ורווחה אישית למשפחות שכולות
+
+שלום רב, אנו מבקשים לעדכן אתכם על הרחבת הזכאות לקבלת מענה רגשי וטיפולי (לפי סעיף 47 לחוק התגמולים). ניתן לממש זכאות זו במקביל לטיפול פסיכולוגי במידה ואתם זכאים לו.
+
+👥 מי זכאי?
+הורים, אלמנים ואלמנות, אחים ואחיות, יתומים, וארוסות.
+
+📑 מה כוללת הזכאות?
+מכסת טיפולים: 162 מפגשים לאורך החיים.
+היקף: מפגש פרטני של שעה אחת בשבוע.
+גובה ההחזר: עד 342 ₪ למפגש (כולל מע"מ).
+מועד תחילת הזכאות: ניתן לקבל החזר על טיפולים שהתקיימו החל מ-1.2.2026.
+
+🎨 מגוון אפשרויות הטיפול המאושרות: לרשותכם רשימה רחבה של תחומים בהם ניתן לקבל החזר:
+
+🧘‍♂️ גוף-נפש: מדיטציה, יוגה תרפיה, מיינדפולנס, טיפול בתנועה/מחול, דמיון מודרך, טאי צ'י, מאסטר טאפינג, רייקי, דיקור, ריצה, אימון כושר, אגרוף, קיר טיפוס, גלישה, פילאטיס, צ'י קונג, רפלקסולוגיה, קינסיולוגיה, שיטת פאולה, כירופרקטיקה, אוסטאופתיה, ביו פידבק, היפנוזה, הומוטקסולוגיה, יוגה רגישת טראומה, שיאצו, טווינא, Somatic Experience, הילינג, EMDR, שטיפה אנרגטית ועיסוי רפואי.
+
+💬 שיח בגישות שונות: פסיכולוגיה חיובית, אימון אישי (Coaching), NLP, שיטת אלבאום, CBT, הדרכה אדלריאנית, Focusing (התמקדות), סכמה תרפיה ושיטת סאטיה.
+
+🎨 כלים הבעתיים והשלכתיים: אמנות חזותית (ציור, פיסול, צילום, קולאז'), ביבליותרפיה, דרמה ופסיכודרמה, מוזיקה, טיפול בשולחן חול ובישול טיפולי.
+
+🐎 מבוססות טבע ובעלי חיים: טיפול בסיוע סוסים, רכיבה טיפולית, אימון כלבים, טבע תרפיה, טיפול באמצעות בעלי חיים, גינון טיפולי, הידרותרפיה, וואטסו, גלישת גלים, רפואת יער, גלישת סאפ ושחייה.
+
+✨ ליווי רוחני: ליווי, תמיכה וייעוץ רוחני.
+
+💰 איך מקבלים החזר?
+בחירת מטפל: באחריותכם האישית. על הטיפול להיות פרטני (אחד על אחד).
+שליחת קבלה: יש להגיש קבלה או חשבונית מס על שם המבוטח.
+דגש חשוב: על הקבלה חייבת להופיע התמחות המטפל והיא חייבת להתאים לסוג הטיפול שבוצע.
+(ביטוח לאומי רשאי לבקש את תעודות המטפל במידת הצורך).
+
+אנו כאן ללוות אתכם בכל שלב.
+בברכה,
+צוות השיקום 🌷</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg13', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">14 · כלב שירות לנפגעי איבה</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg14">בהמשך לשיחתנו בנושא הכלב🐶, אלו התנאים הנדרשים לתהליך:
+
+✓ גישה חיובית לכלבים - חשוב שתהיה נכונות ורצון לקבל כלב
+✓ יכולת מעשית לטיפול בכלב:
+* לצאת לטיולים יומיים
+* לדאוג למזון ומים טריים
+* לשמור על היגיינה וניקיון
+* לקחת לווטרינר כשצריך
+✓ מצב בריאותי ותפקודי תקין שיאפשר טיפול נאות בכלב
+✓ תמיכה משפחתית - הן ביומיום והן כגיבוי למקרי חירום
+✓ כדי להתקדם בתהליך, אנחנו צריכים חוות דעת עדכנית:
+* מהפסיכיאטר המטפל
+* מהפסיכולוג המטפל
+* החוות דעת צריכות להתייחס להתאמתך לגידול וטיפול בכלב שצויינו מעלה.
+
+שלח לי את המסמכים שיהיו לך למייל, לאחר מכן אשלח לך שאלון שצריך למלא וויתור סודיות</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg14', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== ניתוב למחלקות ===== -->
+  <section class="category" id="routing">
+    <div class="cat-header routing">
+      <span class="cat-dot"></span>
+      <h2>ניתוב למחלקות</h2>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">10 · הפניה למחלקת פעולות איבה</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg10">היי, בטוח לאומי מחולק למחלקות שונות, ולכל אחת יש את הידע המקצועי שלה.
+כדי לקבל מענה בנושא, יש להכנס למידע האישי:https://ps.btl.gov.il/#/login
+ללחוץ על צור קשר ובנושא הפנייה לרשום נפגעי פעולות איבה
+במידת הצורך, אפשר גם לפנות ל*6050 והם ישאירו הודעה בשמכם.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg10', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">11 · הפניה למחלקת נכות כללית</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg11">היי, בטוח לאומי מחולק למחלקות שונות, ולכל אחת יש את הידע המקצועי שלה.
+כדי לקבל מענה בנושא, יש להכנס למידע האישי:https://ps.btl.gov.il/#/login
+ללחוץ על צור קשר ובנושא הפנייה לרשום נכות כללית
+במידת הצורך, אפשר גם לפנות ל*6050 והם ישאירו הודעה בשמכם.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg11', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== ויתור סודיות ===== -->
+  <section class="category" id="consent">
+    <div class="cat-header consent">
+      <span class="cat-dot"></span>
+      <h2>ויתור סודיות</h2>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">15 · ויתור סודיות להשמה</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg15">שלום,
+על מנת שאוכל לשלוח הפניה, יש למלא טופס ויתור סודיות.
+
+היכנסו ללינק למילוי הטופס ומלאו את הפרטים הבאים:
+בשאלה ”אני מגיש את הטופס עבור נושא?” סמנו את האפשרות ”וויתור סודיות שיקום”.
+סמנו ✅ ב- ”אישור לביטוח הלאומי למסור מידע”.
+ב-“פרטי מקבל המידע” רשמו ”דנאל”.
+סמנו ✅ ב- ”אישור לביטוח הלאומי לקבל מידע”.
+ברשימת הגורמים, סמנו ✅ ב- ”השמה”.
+
+לינק לטופס:
+https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlaintiff
+
+⏩ אנא שלחו לי אישור לאחר מילוי הטופס.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg15', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== מיקום ומנהלה ===== -->
+  <section class="category" id="admin">
+    <div class="cat-header admin">
+      <span class="cat-dot"></span>
+      <h2>מיקום ומנהלה</h2>
+    </div>
+
+    <div class="card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">12 · הגעה פיזית – סניף רמת גן</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg12">📍הפגישה מתקיימת בבטוח לאומי סניף רמת גן:
+רחוב החשמונאים 15, יש להגיד לשומר שהוזמנתם לפקיד שיקום.
+לעלות לקומה 2, להמשיך ישר עד הסוף מהמעלית ואז שמאלה עד האינטרקום.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg12', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+  // Accordion toggle
+  function toggleCard(btn) {
+    const card = btn.closest('.card');
+    card.classList.toggle('open');
+  }
+
+  // Copy message
+  async function copyMsg(id, btn) {
+    const el = document.getElementById(id);
+    const text = el.innerText;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    const label = btn.querySelector('.btn-label');
+    const orig = label.textContent;
+    btn.classList.add('copied');
+    label.textContent = '✓ הועתק!';
+    setTimeout(() => { btn.classList.remove('copied'); label.textContent = orig; }, 2000);
+  }
+</script>
+
+</body>
+</html>
