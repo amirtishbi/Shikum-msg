@@ -30,6 +30,26 @@
   --radius-lg: 6px;
 }
 
+body.dark-mode {
+  --paper: #1b1d22;
+  --paper-card: #25282f;
+  --ink: #e8e4d8;
+  --ink-soft: #9b958a;
+  --rule: #3a3d44;
+  --rule-strong: #4a4e57;
+  --navy: #11151f;
+  --navy-soft: #1c2230;
+  --stamp-red: #c4453a;
+  --stamp-red-deep: #a6362c;
+
+  --cat-studies: #4a9a72;
+  --cat-terror: #a8669a;
+  --cat-routing: #c98a3a;
+  --cat-consent: #3a9a9a;
+  --cat-admin: #c4453a;
+  --cat-docs: #5a8ac4;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -77,6 +97,31 @@ header {
   justify-content: center;
 }
 .header-emblem svg { width: 20px; height: 20px; stroke: #f3efe4; }
+
+.header-titles { flex: 1; }
+
+.dark-toggle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 16px;
+  background: var(--stamp-red);
+  cursor: pointer;
+  color: #fdf8ee;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  transition: background 0.15s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.dark-toggle:hover { background: var(--stamp-red-deep); }
+.dark-toggle:active { transform: scale(0.93); }
+.dark-toggle-icon { width: 16px; height: 16px; flex-shrink: 0; }
 
 header h1 {
   font-family: 'Frank Ruhl Libre', serif;
@@ -551,10 +596,15 @@ footer.page-footer {
     <div class="header-emblem">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg>
     </div>
-    <div>
+    <div class="header-titles">
       <h1>כל התבניות במקום אחד</h1>
-      <p>אגף השיקום · ביטוח לאומי</p>
+      <p>שיקום מקצועי</p>
     </div>
+    <button type="button" class="dark-toggle" onclick="toggleDarkMode(this)" aria-label="החלפת מצב תצוגה כהה">
+      <svg class="dark-toggle-icon dark-toggle-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg class="dark-toggle-icon dark-toggle-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <span class="dark-toggle-label">מצב כהה</span>
+    </button>
   </div>
 </header>
 
@@ -1242,6 +1292,18 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 </script>
 
 <script>
+  // ===== Dark mode toggle (resets on every page load) =====
+  function toggleDarkMode(btn) {
+    document.body.classList.toggle('dark-mode');
+    const sun = btn.querySelector('.dark-toggle-sun');
+    const moon = btn.querySelector('.dark-toggle-moon');
+    const label = btn.querySelector('.dark-toggle-label');
+    const isDark = document.body.classList.contains('dark-mode');
+    sun.style.display = isDark ? 'none' : 'block';
+    moon.style.display = isDark ? 'block' : 'none';
+    label.textContent = isDark ? 'מצב בהיר' : 'מצב כהה';
+  }
+
   // ===== Category filter bar (multi-select) =====
   function toggleFilter(chip) {
     const allChip = document.querySelector('.filter-chip-all');
