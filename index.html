@@ -24,7 +24,8 @@
   --cat-routing: #a16a1f;
   --cat-consent: #1f6e6e;
   --cat-admin: #8a2c23;
-  --cat-docs: #2f5d8a;
+  --cat-family: #6b4a8a;
+  --cat-kids: #c2664f;
 
   --radius: 4px;
   --radius-lg: 6px;
@@ -47,7 +48,8 @@ body.dark-mode {
   --cat-routing: #c98a3a;
   --cat-consent: #3a9a9a;
   --cat-admin: #c4453a;
-  --cat-docs: #5a8ac4;
+  --cat-family: #9a7ac0;
+  --cat-kids: #e08a6f;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -221,7 +223,8 @@ header p {
 .filter-routing.active { background: var(--cat-routing); border-color: var(--cat-routing); color: #fff; }
 .filter-consent.active { background: var(--cat-consent); border-color: var(--cat-consent); color: #fff; }
 .filter-admin.active   { background: var(--cat-admin);   border-color: var(--cat-admin);   color: #fff; }
-.filter-docs.active    { background: var(--cat-docs);    border-color: var(--cat-docs);    color: #fff; }
+.filter-family.active  { background: var(--cat-family);  border-color: var(--cat-family);  color: #fff; }
+.filter-kids.active    { background: var(--cat-kids);    border-color: var(--cat-kids);    color: #fff; }
 
 .category.filtered-out { display: none; }
 
@@ -264,7 +267,8 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
 .routing { background: var(--cat-routing); color: var(--cat-routing); }
 .consent { background: var(--cat-consent); color: var(--cat-consent); }
 .admin   { background: var(--cat-admin);   color: var(--cat-admin); }
-.docs    { background: var(--cat-docs);    color: var(--cat-docs); }
+.family  { background: var(--cat-family);  color: var(--cat-family); }
+.kids    { background: var(--cat-kids);    color: var(--cat-kids); }
 
 /* ===== Card: like a folder tab / document leaf ===== */
 .card {
@@ -301,7 +305,8 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
 .routing-card { color: var(--cat-routing); }
 .consent-card { color: var(--cat-consent); }
 .admin-card   { color: var(--cat-admin); }
-.docs-card    { color: var(--cat-docs); }
+.family-card  { color: var(--cat-family); }
+.kids-card    { color: var(--cat-kids); }
 
 .card-toggle {
   width: 100%;
@@ -359,7 +364,8 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
 .routing-card.open .card-body { background: rgba(161,106,31,0.05); }
 .consent-card.open .card-body { background: rgba(31,110,110,0.05); }
 .admin-card.open   .card-body { background: rgba(138,44,35,0.05); }
-.docs-card.open    .card-body { background: rgba(47,93,138,0.05); }
+.family-card.open  .card-body { background: rgba(107,74,138,0.05); }
+.kids-card.open    .card-body { background: rgba(194,102,79,0.05); }
 
 #consentTypePreview, #consentPlacePreview {
   font-weight: 700;
@@ -611,12 +617,13 @@ footer.page-footer {
 <nav class="filter-bar" aria-label="סינון לפי קטגוריה">
   <div class="filter-bar-inner">
     <button type="button" class="filter-chip filter-chip-all active" data-filter="all" onclick="toggleFilter(this)">הכל</button>
-    <button type="button" class="filter-chip filter-studies" data-filter="studies" onclick="toggleFilter(this)">לימודים</button>
+    <button type="button" class="filter-chip filter-studies" data-filter="studies" onclick="toggleFilter(this)">לימודים – לנ"כ ונ"ע</button>
     <button type="button" class="filter-chip filter-terror" data-filter="terror" onclick="toggleFilter(this)">נפגעי איבה</button>
+    <button type="button" class="filter-chip filter-family" data-filter="family" onclick="toggleFilter(this)">איבה - משפחות</button>
+    <button type="button" class="filter-chip filter-kids" data-filter="kids" onclick="toggleFilter(this)">ילדים איבה</button>
     <button type="button" class="filter-chip filter-routing" data-filter="routing" onclick="toggleFilter(this)">ניתוב</button>
     <button type="button" class="filter-chip filter-consent" data-filter="consent" onclick="toggleFilter(this)">ויתור סודיות</button>
     <button type="button" class="filter-chip filter-admin" data-filter="admin" onclick="toggleFilter(this)">הגעה לסניף</button>
-    <button type="button" class="filter-chip filter-docs" data-filter="docs" onclick="toggleFilter(this)">העלאת מסמכים</button>
   </div>
 </nav>
 </div>
@@ -639,7 +646,7 @@ footer.page-footer {
       <div class="cat-icon">
         <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
       </div>
-      <h2>לימודים והחזרים</h2>
+      <h2>לימודים והחזרים – לנ"כ ונ"ע</h2>
     </div>
 
     <div class="card studies-card">
@@ -823,7 +830,6 @@ https://govforms.gov.il/mw/forms/tHithaivout_eiva@btl.gov.il#%21instructions</di
         </div>
       </div>
     </div>
-
     <div class="card terror-card">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">רפורמת נפש אחת – תרופות וקנאביס</span>
@@ -847,7 +853,6 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
         </div>
       </div>
     </div>
-
     <div class="card terror-card">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">איתור מטפלים נפשיים מורשים</span>
@@ -871,8 +876,139 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
         </div>
       </div>
     </div>
-
     <div class="card terror-card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">כלב שירות לנפגעי איבה</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg14">בהמשך לשיחתנו בנושא הכלב🐶, אלו התנאים הנדרשים לתהליך:
+
+✓ גישה חיובית לכלבים - חשוב שתהיה נכונות ורצון לקבל כלב
+✓ יכולת מעשית לטיפול בכלב:
+* לצאת לטיולים יומיים
+* לדאוג למזון ומים טריים
+* לשמור על היגיינה וניקיון
+* לקחת לווטרינר כשצריך
+✓ מצב בריאותי ותפקודי תקין שיאפשר טיפול נאות בכלב
+✓ תמיכה משפחתית - הן ביומיום והן כגיבוי למקרי חירום
+✓ כדי להתקדם בתהליך, אנחנו צריכים חוות דעת עדכנית:
+* מהפסיכיאטר המטפל
+* מהפסיכולוג המטפל
+* החוות דעת צריכות להתייחס להתאמתך לגידול וטיפול בכלב שצויינו מעלה.
+
+שלח לי את המסמכים שיהיו לך למייל, לאחר מכן אשלח לך שאלון שצריך למלא וויתור סודיות</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg14', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msg14')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>שלח בוואטסאפ</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card terror-card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">החזר הוצאות ספורט</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg16">🏋️ החזר הוצאות ספורט לנפגעי פעולות איבה
+
+נפגעי פעולות איבה זכאים להחזר שנתי על הוצאות ספורט, בסך עד 4,000 ₪ בשנה.
+
+💰 איך מתבצע החישוב:
+מכל קבלה שתגישו מנוכים 15%, והסכום הנותר הוא ההחזר שיועבר אליכם (עד לתקרה השנתית).
+
+📑 מה צריך לשלוח:
+קבלות על הוצאות הספורט (לא חשבונית מס), עם שם המבוטח מופיע עליהן בבירור.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg16', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msg16')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>שלח בוואטסאפ</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card terror-card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">סיוע בשכר דירה (50% נכות)</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg6">למי שנקבעו 50% נכות רפואית זכאי לסיוע בשכר דירה,
+כדי לקבל סיוע זה יש לשלוח אליי למייל:
+1. https://www.gov.il/he/service/testing-real-estate-assets - אישור מחוסר דיור
+2. חוזה שכירות
+3. אישור על העברת תשלום, אישור על העברה בנקאית או צ'ק שנפדה</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg6', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msg6')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>שלח בוואטסאפ</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card terror-card">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">מדריך: העלאת קבלות – שיקום לנפגעי איבה</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg18">📱 מדריך: העלאת קבלות מהנייד – שיקום לנפגעי איבה 📱
+שלב אחר שלב להגשת קבלות בקלות:
+
+1️⃣ נכנסים לאתר: מתחברים ל"שירות אישי" בביטוח הלאומי (בעזרת קוד חד-פעמי או סיסמה).
+2️⃣ פותחים תפריט: לוחצים על 3 הפסים בפינה העליונה ובוחרים העלאת מסמכים.
+3️⃣ ממלאים פרטים במדויק:
+🔸 נושא: שיקום
+🔸 קטגוריה: שיקום לנפגעי איבה החל מה7.10.23
+🔸 מסמך: חשבוניות/קבלות על הוצאות
+👈 בסיום, לוחצים על הכפתור התכלת צרף קובץ.
+4️⃣ מעלים את הקבלה: מצלמים אותה ישירות מהמצלמה או בוחרים תמונה מוכנה מהגלריה.
+5️⃣ שולחים: ממתינים לחיווי הירוק ("הועלה בהצלחה"), גוללים קצת למטה ולוחצים על הכפתור הכחול שלח מסמך.
+
+📢 חשוב מאוד לדעת:
+• ודאו שהמסמך שאתם מעלים הוא קבלה ולא חשבונית מס.
+• חובה שהשם המלא של המבוטח יופיע על גבי הקבלה באופן ברור.
+• ודאו שצילום הקבלה שלם, מואר וקריא לחלוטין לפני הלחיצה על שליחה.
+• לאחר השליחה, לרוב לוקח כשבועיים עד שהכסף נכנס לחשבון.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg18', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק הודעה</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msg18')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>שלח בוואטסאפ</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== איבה - משפחות ===== -->
+  <section class="category" id="family">
+    <div class="cat-header family">
+      <div class="cat-icon">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <h2>איבה - משפחות</h2>
+    </div>
+
+    <div class="card family-card">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">התערבות לרווחה רגשית</span>
         <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -924,106 +1060,7 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
         </div>
       </div>
     </div>
-
-    <div class="card terror-card">
-      <button class="card-toggle" onclick="toggleCard(this)">
-        <span class="card-toggle-title">כלב שירות לנפגעי איבה</span>
-        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="card-collapsible">
-        <div class="card-body" id="msg14">בהמשך לשיחתנו בנושא הכלב🐶, אלו התנאים הנדרשים לתהליך:
-
-✓ גישה חיובית לכלבים - חשוב שתהיה נכונות ורצון לקבל כלב
-✓ יכולת מעשית לטיפול בכלב:
-* לצאת לטיולים יומיים
-* לדאוג למזון ומים טריים
-* לשמור על היגיינה וניקיון
-* לקחת לווטרינר כשצריך
-✓ מצב בריאותי ותפקודי תקין שיאפשר טיפול נאות בכלב
-✓ תמיכה משפחתית - הן ביומיום והן כגיבוי למקרי חירום
-✓ כדי להתקדם בתהליך, אנחנו צריכים חוות דעת עדכנית:
-* מהפסיכיאטר המטפל
-* מהפסיכולוג המטפל
-* החוות דעת צריכות להתייחס להתאמתך לגידול וטיפול בכלב שצויינו מעלה.
-
-שלח לי את המסמכים שיהיו לך למייל, לאחר מכן אשלח לך שאלון שצריך למלא וויתור סודיות</div>
-        <div class="card-footer">
-          <button class="copy-btn" onclick="copyMsg('msg14', this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
-          </button>
-          <button class="whatsapp-btn" onclick="sendWhatsapp('msg14')">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card terror-card">
-      <button class="card-toggle" onclick="toggleCard(this)">
-        <span class="card-toggle-title">החזר הוצאות ספורט</span>
-        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="card-collapsible">
-        <div class="card-body" id="msg16">🏋️ החזר הוצאות ספורט לנפגעי פעולות איבה
-
-נפגעי פעולות איבה זכאים להחזר שנתי על הוצאות ספורט, בסך עד 4,000 ₪ בשנה.
-
-💰 איך מתבצע החישוב:
-מכל קבלה שתגישו מנוכים 15%, והסכום הנותר הוא ההחזר שיועבר אליכם (עד לתקרה השנתית).
-
-📑 מה צריך לשלוח:
-קבלות על הוצאות הספורט (לא חשבונית מס), עם שם המבוטח מופיע עליהן בבירור.</div>
-        <div class="card-footer">
-          <button class="copy-btn" onclick="copyMsg('msg16', this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
-          </button>
-          <button class="whatsapp-btn" onclick="sendWhatsapp('msg16')">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card terror-card">
-      <button class="card-toggle" onclick="toggleCard(this)">
-        <span class="card-toggle-title">סיוע בשכר דירה (50% נכות)</span>
-        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="card-collapsible">
-        <div class="card-body" id="msg6">למי שנקבעו 50% נכות רפואית זכאי לסיוע בשכר דירה,
-כדי לקבל סיוע זה יש לשלוח אליי למייל:
-1. https://www.gov.il/he/service/testing-real-estate-assets - אישור מחוסר דיור
-2. חוזה שכירות
-3. אישור על העברת תשלום, אישור על העברה בנקאית או צ'ק שנפדה</div>
-        <div class="card-footer">
-          <button class="copy-btn" onclick="copyMsg('msg6', this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
-          </button>
-          <button class="whatsapp-btn" onclick="sendWhatsapp('msg6')">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ===== העלאת מסמכים ===== -->
-  <section class="category" id="docs">
-    <div class="cat-header docs">
-      <div class="cat-icon">
-        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V3"/><path d="M7 8l5-5 5 5"/><path d="M4 17v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
-      </div>
-      <h2>העלאת מסמכים</h2>
-    </div>
-
-    <div class="card docs-card">
+    <div class="card family-card">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">מדריך: העלאת קבלות – משפחות שכולות</span>
         <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -1060,36 +1097,60 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
       </div>
     </div>
 
-    <div class="card docs-card">
+  </section>
+
+  <!-- ===== ילדים איבה ===== -->
+  <section class="category" id="kids">
+    <div class="cat-header kids">
+      <div class="cat-icon">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 21v-2a7 7 0 0114 0v2"/><path d="M9 11l1.5 1.5L15 8"/></svg>
+      </div>
+      <h2>ילדים איבה</h2>
+    </div>
+
+    <div class="card kids-card">
       <button class="card-toggle" onclick="toggleCard(this)">
-        <span class="card-toggle-title">מדריך: העלאת קבלות – שיקום לנפגעי איבה</span>
+        <span class="card-toggle-title">זכויות לילדי נכים</span>
         <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="card-collapsible">
-        <div class="card-body" id="msg18">📱 מדריך: העלאת קבלות מהנייד – שיקום לנפגעי איבה 📱
-שלב אחר שלב להגשת קבלות בקלות:
+        <div class="card-body" id="msg19">📚 1. שיעורי עזר (תגבור לימודי)
 
-1️⃣ נכנסים לאתר: מתחברים ל"שירות אישי" בביטוח הלאומי (בעזרת קוד חד-פעמי או סיסמה).
-2️⃣ פותחים תפריט: לוחצים על 3 הפסים בפינה העליונה ובוחרים העלאת מסמכים.
-3️⃣ ממלאים פרטים במדויק:
-🔸 נושא: שיקום
-🔸 קטגוריה: שיקום לנפגעי איבה החל מה7.10.23
-🔸 מסמך: חשבוניות/קבלות על הוצאות
-👈 בסיום, לוחצים על הכפתור התכלת צרף קובץ.
-4️⃣ מעלים את הקבלה: מצלמים אותה ישירות מהמצלמה או בוחרים תמונה מוכנה מהגלריה.
-5️⃣ שולחים: ממתינים לחיווי הירוק ("הועלה בהצלחה"), גוללים קצת למטה ולוחצים על הכפתור הכחול שלח מסמך.
+מה מקבלים: מימון לשיעורים פרטיים פרונטליים (למעט תלמידי תיכון) עם מורה מוסמך (לא בן משפחה).
+היקף השעות: בשנה הראשונה עד 25 שעות בחודש, וב-3 השנים הבאות עד 10 שעות בחודש.
+(אין שיעורים ביולי-אוגוסט ובחו"ל, ההחזר כנגד קבלות).
 
-📢 חשוב מאוד לדעת:
-• ודאו שהמסמך שאתם מעלים הוא קבלה ולא חשבונית מס.
-• חובה שהשם המלא של המבוטח יופיע על גבי הקבלה באופן ברור.
-• ודאו שצילום הקבלה שלם, מואר וקריא לחלוטין לפני הלחיצה על שליחה.
-• לאחר השליחה, לרוב לוקח כשבועיים עד שהכסף נכנס לחשבון.</div>
+🔍 2. אבחונים דידקטיים ופסיכו-דידקטיים
+
+מה מקבלים: החזר על אבחון לצורך התאמת סיוע, בהמלצת גורם מוסמך (יועצת, פסיכולוג, עו"ס וכו').
+מכסה: אבחון אחד ביסודי, ואבחון אחד בחטיבה/תיכון.
+גובה ההחזר המקסימלי:
+אבחון דידקטי – עד 1,557 ₪
+אבחון פסיכו-דידקטי – עד 2,683 ₪
+אבחון קשב וריכוז – עד 1,470 ₪
+
+🤝 3. חונכות (ליווי חברתי ותפקודי)
+
+מה מקבלים: חונך אישי שיסייע לילד להשתלב ולהתארגן בבית ומחוצה לו (מגיל 5 ועד תום התיכון).
+היקף השעות: ב-3 השנים הראשונות עד 10 שעות בשבוע, ולאחר מכן עד 6 שעות בשבוע.
+(השירות נעשה דרך חברת כוח אדם, לא בזום ולא בחו"ל).
+
+🎨 4. חוגי חוסן והעצמה (לילדים עם פוסט-טראומה)
+
+מה מקבלים: מימון חוגים וקורסים (ספורט, אמנות וכו') לחיזוק החוסן הרגשי והתפקודי.
+גובה ההחזר:
+בשנתיים הראשונות: עד 5,000 ₪ לכל שנה קלנדרית (כנגד קבלות, ניתן לשלב כמה חוגים).
+שנת הארכה (מ-1.9.2026 ועד 1.9.2027): השתתפות של עד 3,000 ₪ לשנה.
+
+💡 חשוב לדעת:
+שומרים על הילד: כדאי לשים לב שלא להעמיס על הילד יותר מדי טיפולים וחוגים במקביל.
+הזכויות לעתיד שמורות: כל עזרה שהילד מקבל כעת אינה באה על חשבון הזכויות שלו כבוגר לאחר גיל 18.</div>
         <div class="card-footer">
-          <button class="copy-btn" onclick="copyMsg('msg18', this)">
+          <button class="copy-btn" onclick="copyMsg('msg19', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             <span class="btn-label">העתק הודעה</span>
           </button>
-          <button class="whatsapp-btn" onclick="sendWhatsapp('msg18')">
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msg19')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
             <span>שלח בוואטסאפ</span>
           </button>
