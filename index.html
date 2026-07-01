@@ -161,10 +161,227 @@ header p {
 
 @media (min-width: 700px) {
   .filter-bar-inner {
-    max-width: 900px;
-    flex-wrap: wrap;
-    overflow-x: visible;
+    max-width: 100%;
+    overflow-x: auto;
   }
+}
+
+/* ===== Copy toast notification ===== */
+.copy-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--navy);
+  color: #f3efe4;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.22);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  border-bottom: 3px solid var(--stamp-red);
+}
+.copy-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ===== Favorites button ===== */
+.fav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #b8860b;
+  color: #fdf8ee;
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px 20px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  font-family: 'Heebo', sans-serif;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  width: calc(50% - 5px);
+  flex-shrink: 0;
+  transition: background 0.15s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.fav-btn:hover { background: #9a6f09; }
+.fav-btn:active { transform: scale(0.95); }
+.fav-btn.active { background: #e6b94d; color: #3d2a06; }
+
+.fav-remove-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink-soft);
+  color: #fdf8ee;
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px 20px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  font-family: 'Heebo', sans-serif;
+  cursor: pointer;
+  width: calc(50% - 5px);
+  flex-shrink: 0;
+  transition: background 0.15s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.fav-remove-btn:hover { background: var(--stamp-red); }
+.fav-remove-btn:active { transform: scale(0.95); }
+
+.favs-section {
+  margin-bottom: 28px;
+  display: none;
+}
+.favs-section.has-favs { display: block; }
+
+.favs-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2.5px solid #e6b94d;
+  color: #8a6500;
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+/* ===== Changelog panel ===== */
+.changelog-btn {
+  flex-shrink: 0;
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(145deg, #e6b94d, #c9950a);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.25);
+  cursor: pointer;
+  color: #3d2a06;
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 1.05rem;
+  font-weight: 900;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.15s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.changelog-btn:hover {
+  box-shadow: 0 5px 14px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.25);
+  transform: translateY(-1px);
+}
+.changelog-btn:active {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  transform: translateY(1px);
+}
+.changelog-btn svg { display: none; }
+
+.changelog-badge {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 14px;
+  height: 14px;
+  background: var(--stamp-red);
+  border-radius: 50%;
+  border: 1.5px solid var(--navy);
+  display: none;
+}
+.changelog-badge.visible { display: block; }
+
+.changelog-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 500;
+  align-items: flex-end;
+  justify-content: center;
+}
+.changelog-overlay.open { display: flex; }
+
+.changelog-panel {
+  background: var(--paper-card);
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+  max-width: 640px;
+  max-height: 75vh;
+  overflow-y: auto;
+  padding: 20px 18px 30px;
+  direction: rtl;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.18);
+}
+
+.changelog-panel h3 {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--rule-strong);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.changelog-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--ink-soft);
+  padding: 0;
+  line-height: 1;
+}
+
+.changelog-entry {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--rule);
+}
+.changelog-entry:last-child { border-bottom: none; margin-bottom: 0; }
+
+.changelog-entry-date {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  font-weight: 700;
+  margin-bottom: 4px;
+  direction: ltr;
+  text-align: left;
+}
+
+.changelog-entry-text {
+  font-size: 0.85rem;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.changelog-entry.recent {
+  background: rgba(166,54,44,0.06);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  margin: 0 -10px 14px;
+  border-bottom: none;
+}
+.changelog-entry.recent .changelog-entry-date::after {
+  content: ' · חדש';
+  color: var(--stamp-red);
+  font-weight: 700;
 }
 
 .intro-box {
@@ -482,6 +699,13 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
   flex-wrap: wrap;
   gap: 10px;
   justify-content: flex-start;
+  align-items: center;
+}
+
+/* Prevent any button in footer from stretching to fill the row */
+.card-footer > * {
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 /* ===== Copy button: stamp aesthetic ===== */
@@ -501,7 +725,8 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
   cursor: pointer;
   transition: background 0.15s, transform 0.12s;
   -webkit-tap-highlight-color: transparent;
-  min-width: 150px;
+  width: calc(50% - 5px);
+  flex-shrink: 0;
   justify-content: center;
   position: relative;
 }
@@ -529,15 +754,41 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
   cursor: pointer;
   transition: background 0.15s, transform 0.12s;
   -webkit-tap-highlight-color: transparent;
-  min-width: 150px;
+  width: calc(50% - 5px);
+  flex-shrink: 0;
   justify-content: center;
 }
 .whatsapp-btn:active { transform: scale(0.95); }
 .whatsapp-btn:hover { background: #1f7a3c; }
 .whatsapp-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 
+.email-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #2a5fa8;
+  color: #fdf8ee;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px 20px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  font-family: 'Heebo', sans-serif;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+  width: calc(50% - 5px);
+  flex-shrink: 0;
+  justify-content: center;
+}
+.email-btn:active { transform: scale(0.95); }
+.email-btn:hover { background: #1f4a85; }
+.email-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
 @media (max-width: 400px) {
-  .copy-btn, .whatsapp-btn { font-size: 0.82rem; padding: 10px 16px; min-width: 130px; }
+  .copy-btn, .whatsapp-btn, .email-btn { font-size: 0.82rem; padding: 10px 16px; min-width: 120px; }
   .card-toggle-title { font-size: 0.86rem; }
 }
 
@@ -621,6 +872,10 @@ footer.page-footer {
       <h1>כל התבניות במקום אחד</h1>
       <p>שיקום מקצועי</p>
     </div>
+    <button type="button" class="changelog-btn" onclick="openChangelog()">
+      i
+      <span class="changelog-badge" id="changelogBadge"></span>
+    </button>
     <button type="button" class="dark-toggle" onclick="toggleDarkMode(this)" aria-label="החלפת מצב תצוגה כהה">
       <svg class="dark-toggle-icon dark-toggle-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
       <svg class="dark-toggle-icon dark-toggle-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -651,11 +906,48 @@ footer.page-footer {
     <div class="intro-box-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
     </div>
-    <p class="intro-box-text">כלי עזר קטן שחוסך זמן — תבניות הודעות מוכנות לשאלות שחוזרות על עצמן. בוחרים קטגוריה, פותחים את ההודעה הרצויה, ולוחצים על כפתור <strong>"העתק הודעה"</strong> — וזהו, ההודעה כבר מועתקת ללוח, מוכנה להדבקה בוואטסאפ או במייל. אפשר גם ללחוץ על <strong>"שלח בוואטסאפ"</strong> כדי לפתוח את וואטסאפ עם ההודעה מוכנה, ולבחור למי לשלוח אותה ישירות.</p>
+    <p class="intro-box-text">כלי עזר קטן שחוסך זמן — תבניות הודעות מוכנות לשאלות שחוזרות על עצמן. בוחרים קטגוריה, פותחים את ההודעה הרצויה, ולוחצים על כפתור <strong>"העתק"</strong> — וזהו, ההודעה כבר מועתקת ללוח, מוכנה להדבקה. אפשר גם ללחוץ על <strong>"וואטסאפ"</strong> לפתיחת וואטסאפ עם ההודעה מוכנה, או על <strong>"מייל"</strong> לפתיחת Outlook ישירות.</p>
+  </div>
+</div>
+
+<!-- ===== Changelog Panel ===== -->
+<div class="changelog-overlay" id="changelogOverlay" onclick="closeChangelog(event)">
+  <div class="changelog-panel">
+    <h3>
+      יומן עדכונים
+      <button class="changelog-close" onclick="closeChangelog()">✕</button>
+    </h3>
+
+    <div class="changelog-entry" data-date="2025-07-02">
+      <div class="changelog-entry-date">2 יולי 2025</div>
+      <div class="changelog-entry-text">הוספת קטגוריית "מטפלים" — מערכת חשבוניות, מאגר מטפלים, הזמנה להצטרף כספק.</div>
+    </div>
+
+    <div class="changelog-entry" data-date="2025-07-02">
+      <div class="changelog-entry-date">2 יולי 2025</div>
+      <div class="changelog-entry-text">הוספת קטגוריות "איבה - משפחות" ו"ילדים איבה" עם הודעות ייעודיות.</div>
+    </div>
+
+    <div class="changelog-entry" data-date="2025-07-01">
+      <div class="changelog-entry-date">1 יולי 2025</div>
+      <div class="changelog-entry-text">הוספת כפתורי שליחה לוואטסאפ ומייל לכל ההודעות. הוספת מועדפים ויומן עדכונים.</div>
+    </div>
+
+    <div class="changelog-entry" data-date="2025-06-15">
+      <div class="changelog-entry-date">15 יוני 2025</div>
+      <div class="changelog-entry-text">השקת האתר — קטגוריות ראשונות: לימודים, נפגעי איבה, ניתוב, ויתור סודיות, הגעה לסניף.</div>
+    </div>
+
   </div>
 </div>
 
 <main>
+
+  <!-- ===== מועדפים ===== -->
+  <section class="favs-section" id="favsSection">
+    <div class="favs-header">⭐ מועדפים</div>
+    <div id="favsContainer"></div>
+  </section>
 
 
   <!-- ===== לימודים והחזרים ===== -->
@@ -691,12 +983,17 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg1', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg1')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg1')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg1" onclick="toggleFav('msg1', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -716,12 +1013,17 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg2', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg2')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg2')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg2" onclick="toggleFav('msg2', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -738,12 +1040,17 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg3', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg3')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg3')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg3" onclick="toggleFav('msg3', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -760,12 +1067,17 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg4', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg4')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg4')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg4" onclick="toggleFav('msg4', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -800,12 +1112,17 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg5', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg5')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg5')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg5" onclick="toggleFav('msg5', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -839,12 +1156,17 @@ https://govforms.gov.il/mw/forms/tHithaivout_eiva@btl.gov.il#%21instructions</di
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg7', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg7')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg7')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg7" onclick="toggleFav('msg7', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -862,12 +1184,17 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg8', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg8')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg8')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg8" onclick="toggleFav('msg8', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -896,12 +1223,17 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg14', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg14')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg14')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg14" onclick="toggleFav('msg14', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -923,12 +1255,17 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg16', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg16')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg16')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg16" onclick="toggleFav('msg16', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -946,12 +1283,17 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg6', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg6')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg6')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg6" onclick="toggleFav('msg6', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -982,12 +1324,17 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg18', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg18')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg18')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg18" onclick="toggleFav('msg18', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -1046,12 +1393,17 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg13', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg13')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg13')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg13" onclick="toggleFav('msg13', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -1082,12 +1434,17 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg17', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg17')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg17')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg17" onclick="toggleFav('msg17', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -1146,12 +1503,17 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg19', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg19')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg19')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg19" onclick="toggleFav('msg19', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -1207,12 +1569,17 @@ https://drive.google.com/file/d/1ao1gY3YYWg4hXoWQZbeyYKHP951SsnSR/view?usp=drive
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg20', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg20')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg20')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg20" onclick="toggleFav('msg20', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -1231,12 +1598,17 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg9', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg9')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg9')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg9" onclick="toggleFav('msg9', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -1259,12 +1631,17 @@ https://govforms.gov.il/mw/forms/t269@btl.gov.il
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg22', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg22')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg22')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg22" onclick="toggleFav('msg22', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -1293,12 +1670,17 @@ https://govforms.gov.il/mw/forms/t269@btl.gov.il
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg10', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg10')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg10')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg10" onclick="toggleFav('msg10', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -1316,12 +1698,17 @@ https://govforms.gov.il/mw/forms/t269@btl.gov.il
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg11', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg11')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg11')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg11" onclick="toggleFav('msg11', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -1377,12 +1764,17 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         <div class="card-footer">
           <button class="copy-btn" onclick="copyConsentMsg(this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendConsentWhatsapp(this)">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendConsentEmail(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg15" onclick="toggleFav('msg15', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -1411,12 +1803,17 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg12', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק הודעה</span>
+            <span class="btn-label">העתק</span>
           </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg12')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>שלח בוואטסאפ</span>
+            <span>וואטסאפ</span>
           </button>
+          <button class="email-btn" onclick="sendEmail('msg12')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg12" onclick="toggleFav('msg12', event)" title="הוסף למועדפים">☆</button>
         </div>
       </div>
     </div>
@@ -1465,6 +1862,113 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
 <script>
   // ===== Dark mode toggle (resets on every page load) =====
+  // ===== Favorites =====
+  const FAVS_KEY = 'shikum_favs';
+
+  function getFavs() {
+    try { return JSON.parse(localStorage.getItem(FAVS_KEY) || '[]'); } catch { return []; }
+  }
+
+  function saveFavs(favs) {
+    try { localStorage.setItem(FAVS_KEY, JSON.stringify(favs)); } catch {}
+  }
+
+  function toggleFav(msgId, event) {
+    event.stopPropagation(); // don't open/close the card
+    const favs = getFavs();
+    const idx = favs.indexOf(msgId);
+    if (idx === -1) favs.push(msgId); else favs.splice(idx, 1);
+    saveFavs(favs);
+    renderFavs();
+  }
+
+  function renderFavs() {
+    const favs = getFavs();
+    const section = document.getElementById('favsSection');
+    const container = document.getElementById('favsContainer');
+
+    // Update all star buttons
+    document.querySelectorAll('.fav-btn').forEach(btn => {
+      const id = btn.id.replace('fav-footer-', '');
+      const isFav = favs.includes(id);
+      btn.textContent = isFav ? '⭐' : '☆';
+      btn.classList.toggle('active', isFav);
+    });
+
+    if (favs.length === 0) {
+      section.classList.remove('has-favs');
+      return;
+    }
+
+    section.classList.add('has-favs');
+    container.innerHTML = '';
+    favs.forEach(msgId => {
+      // Find the original card using the footer fav-btn ID
+      const origBtn = document.getElementById(`fav-footer-${msgId}`);
+      if (!origBtn) return;
+      const origCard = origBtn.closest('.card');
+      if (!origCard) return;
+      const clone = origCard.cloneNode(true);
+      clone.classList.remove('open');
+      clone.classList.add('fav-clone');
+      // Remove cloned fav button from clone to avoid confusion
+      const clonedFavBtn = clone.querySelector('.fav-btn');
+      if (clonedFavBtn) clonedFavBtn.remove();
+      // Fix toggle onclick
+      const toggle = clone.querySelector('.card-toggle');
+      if (toggle) toggle.onclick = function() { toggleCard(this); };
+      // Add remove button to card footer - insert before email button
+      const footer = clone.querySelector('.card-footer');
+      if (footer) {
+        const emailBtn = footer.querySelector('.email-btn');
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'fav-remove-btn';
+        removeBtn.textContent = '✕ הסר';
+        removeBtn.onclick = function(e) { e.stopPropagation(); toggleFav(msgId, e); };
+        if (emailBtn) {
+          footer.insertBefore(removeBtn, emailBtn.nextSibling);
+        } else {
+          footer.appendChild(removeBtn);
+        }
+      }
+      container.appendChild(clone);
+    });
+  }
+
+  // ===== Changelog =====
+  function openChangelog() {
+    document.getElementById('changelogOverlay').classList.add('open');
+  }
+
+  function closeChangelog(event) {
+    if (!event || event.target === document.getElementById('changelogOverlay') || event.currentTarget === event.target) {
+      document.getElementById('changelogOverlay').classList.remove('open');
+    }
+  }
+
+  // Init on load: close all cards + render favs + changelog badge
+  document.addEventListener('DOMContentLoaded', () => {
+    // Close all cards on entry
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('open'));
+
+    renderFavs();
+
+    // Check for entries from last 7 days and show badge
+    const now = new Date();
+    const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
+    let hasRecent = false;
+    document.querySelectorAll('.changelog-entry[data-date]').forEach(entry => {
+      const entryDate = new Date(entry.dataset.date);
+      if (entryDate >= weekAgo) {
+        entry.classList.add('recent');
+        hasRecent = true;
+      }
+    });
+    if (hasRecent) {
+      document.getElementById('changelogBadge').classList.add('visible');
+    }
+  });
+
   function toggleDarkMode(btn) {
     document.body.classList.toggle('dark-mode');
     const sun = btn.querySelector('.dark-toggle-sun');
@@ -1477,7 +1981,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   // ===== Category filter bar (multi-select) =====
-  function toggleFilter(chip) {
+function toggleFilter(chip) {
     const allChip = document.querySelector('.filter-chip-all');
 
     if (chip === allChip) {
@@ -1500,6 +2004,10 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function applyFilters() {
+    // Close all open cards when switching filters
+    document.querySelectorAll('.card.open').forEach(c => c.classList.remove('open'));
+
+
     const activeChips = Array.from(document.querySelectorAll('.filter-chip:not(.filter-chip-all).active'));
     const categories = document.querySelectorAll('.category');
 
@@ -1520,7 +2028,28 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   function toggleCard(btn) {
     const card = btn.closest('.card');
+    const wasOpen = card.classList.contains('open');
     card.classList.toggle('open');
+    if (!wasOpen) {
+      // After CSS transition, scroll so the card footer is visible
+      setTimeout(() => {
+        const footer = card.querySelector('.card-footer');
+        if (footer) {
+          footer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+      }, 560);
+    }
+  }
+
+  function showToast() {
+    const toast = document.getElementById('copyToast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1600);
+  }
+
+  function closeCard(el) {
+    const card = el.closest('.card');
+    if (card) setTimeout(() => card.classList.remove('open'), 1800);
   }
 
   async function copyMsg(id, btn) {
@@ -1538,11 +2067,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       document.execCommand('copy');
       document.body.removeChild(ta);
     }
-    const label = btn.querySelector('.btn-label');
-    const orig = label.textContent;
-    btn.classList.add('copied');
-    label.textContent = '✓ הועתק!';
-    setTimeout(() => { btn.classList.remove('copied'); label.textContent = orig; }, 2000);
+    showToast();
+    closeCard(btn);
   }
 
   function sendWhatsapp(id) {
@@ -1550,6 +2076,18 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     const text = el.innerText;
     const url = 'https://wa.me/?text=' + encodeURIComponent(text);
     window.open(url, '_blank');
+    closeCard(el);
+  }
+
+  function sendEmail(id) {
+    const el = document.getElementById(id);
+    const text = el.innerText;
+    const a = document.createElement('a');
+    a.href = 'mailto:?body=' + encodeURIComponent(text);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    closeCard(el);
   }
 
   // ===== Consent waiver (msg15) interactive fields =====
@@ -1629,11 +2167,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       document.execCommand('copy');
       document.body.removeChild(ta);
     }
-    const label = btn.querySelector('.btn-label');
-    const orig = label.textContent;
-    btn.classList.add('copied');
-    label.textContent = '✓ הועתק!';
-    setTimeout(() => { btn.classList.remove('copied'); label.textContent = orig; }, 2000);
+    showToast();
+    closeCard(btn);
   }
 
   function sendConsentWhatsapp(btn) {
@@ -1642,10 +2177,26 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     if (!text) return;
     const url = 'https://wa.me/?text=' + encodeURIComponent(text);
     window.open(url, '_blank');
+    closeCard(btn);
+  }
+
+  function sendConsentEmail(btn) {
+    const card = btn.closest('.card');
+    const text = buildConsentText(card);
+    if (!text) return;
+    const a = document.createElement('a');
+    a.href = 'mailto:?body=' + encodeURIComponent(text);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    closeCard(btn);
   }
 </script>
 
 
 
 </body>
+
+<div class="copy-toast" id="copyToast">✓ ההודעה הועתקה</div>
+
 </html>
