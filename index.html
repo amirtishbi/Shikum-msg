@@ -303,6 +303,43 @@ header p {
 }
 .changelog-badge.visible { display: block; }
 
+/* ===== Shabbat popup ===== */
+.shabbat-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 600;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.shabbat-overlay.open { display: flex; }
+.shabbat-panel {
+  background: var(--paper-card);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  padding: 28px 22px 24px;
+  direction: rtl;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  position: relative;
+}
+.shabbat-close { position: absolute; top: 12px; left: 14px; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--ink-soft); padding: 4px; line-height: 1; }
+.shabbat-candles { font-size: 2.8rem; margin-bottom: 10px; }
+.shabbat-title { font-family: 'Frank Ruhl Libre', serif; font-size: 1.5rem; font-weight: 900; color: var(--ink); margin-bottom: 6px; }
+.shabbat-subtitle { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.65; }
+.shabbat-divider { border: none; border-top: 1px dashed var(--rule-strong); margin: 16px 0; }
+.shabbat-cta { font-size: 0.86rem; color: var(--ink); line-height: 1.65; margin-bottom: 16px; }
+.shabbat-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.shabbat-email-btn, .shabbat-wa-btn { display: flex; align-items: center; gap: 7px; border: none; border-radius: var(--radius); padding: 10px 18px; font-size: 0.84rem; font-weight: 700; font-family: 'Heebo', sans-serif; cursor: pointer; color: #fdf8ee; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
+.shabbat-email-btn { background: #2a5fa8; }
+.shabbat-email-btn:hover { background: #1f4a85; }
+.shabbat-wa-btn { background: #25954a; }
+.shabbat-wa-btn:hover { background: #1f7a3c; }
+.shabbat-email-btn svg, .shabbat-wa-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
 .changelog-overlay {
   display: none;
   position: fixed;
@@ -383,6 +420,54 @@ header p {
   color: var(--stamp-red);
   font-weight: 700;
 }
+
+.shortcut-guide {
+  background: linear-gradient(135deg, #fdf6e3, #f9ecd0);
+  border: 1.5px solid #e6cf94;
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+
+.shortcut-guide-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #5a3e0a;
+  margin-bottom: 10px;
+}
+
+.shortcut-guide-steps {
+  padding-right: 18px;
+  margin: 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.shortcut-guide-steps li {
+  font-size: 0.84rem;
+  color: #5a3e0a;
+  line-height: 1.5;
+}
+
+.shortcut-guide-steps li strong {
+  color: #3d2a06;
+}
+
+.shortcut-guide-note {
+  font-size: 0.8rem;
+  color: #8a6500;
+  padding-top: 8px;
+  border-top: 1px dashed #e6cf94;
+}
+
+.shortcut-guide-section {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #3d2a06;
+  margin: 10px 0 6px;
+}
+.shortcut-guide-section:first-of-type { margin-top: 2px; }
 
 .intro-box {
   max-width: 640px;
@@ -640,14 +725,15 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
 
 .consent-toggle-group {
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 7px;
 }
 
 .consent-toggle {
   font-family: 'Heebo', sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  padding: 7px 18px;
+  padding: 6px 12px;
   border-radius: 20px;
   border: 1.5px solid var(--cat-consent);
   background: transparent;
@@ -858,6 +944,26 @@ footer.page-footer {
 .footer-contact-link:active { transform: scale(0.96); }
 .footer-contact-link.copied { background: var(--cat-studies); }
 .footer-contact-link svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+.footer-contact-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #25954a;
+  color: #fdf8ee;
+  border: none;
+  padding: 9px 18px;
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: 'Heebo', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.footer-contact-wa:hover { background: #1f7a3c; }
+.footer-contact-wa:active { transform: scale(0.96); }
+.footer-contact-wa svg { width: 15px; height: 15px; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -911,26 +1017,98 @@ footer.page-footer {
 </div>
 
 <!-- ===== Changelog Panel ===== -->
+<!-- ===== Shabbat Popup ===== -->
+<div class="shabbat-overlay" id="shabbatOverlay">
+  <div class="shabbat-panel">
+    <button class="shabbat-close" onclick="closeShabbat()">✕</button>
+    <div class="shabbat-candles">🕯️🕯️</div>
+    <div class="shabbat-title">שבת שלום! 🌟</div>
+    <p class="shabbat-subtitle">לכל צוות אגף השיקום —<br>שתהיה לכם שבת מנוחה ומחזקת.</p>
+    <hr class="shabbat-divider">
+    <p class="shabbat-cta">יש לכם רעיון לתבנית חדשה או הצעה לשיפור הכלי?<br>אשמח לשמוע מכם 😊</p>
+    <div class="shabbat-buttons">
+      <button class="shabbat-email-btn" onclick="shabbatEmail()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        שלח במייל
+      </button>
+      <button class="shabbat-wa-btn" onclick="shabbatWhatsapp()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+        וואטסאפ
+      </button>
+    </div>
+  </div>
+</div>
+
 <div class="changelog-overlay" id="changelogOverlay" onclick="closeChangelog(event)">
   <div class="changelog-panel">
     <h3>
-      יומן עדכונים
+      מידע ועדכונים
       <button class="changelog-close" onclick="closeChangelog()">✕</button>
     </h3>
 
-    <div class="changelog-entry" data-date="2025-07-02">
-      <div class="changelog-entry-date">2 יולי 2025</div>
-      <div class="changelog-entry-text">הוספת קטגוריית "מטפלים" — מערכת חשבוניות, מאגר מטפלים, הזמנה להצטרף כספק.</div>
+    <div class="shortcut-guide">
+      <div class="shortcut-guide-title">📌 איך ליצור קיצור דרך לאתר</div>
+
+      <div class="shortcut-guide-section">💻 במחשב (Chrome)</div>
+      <ol class="shortcut-guide-steps">
+        <li>פתחו את האתר ב-Chrome</li>
+        <li>לחצו על <strong>⋮</strong> בפינה הימנית העליונה</li>
+        <li>בחרו <strong>"שמור ושתף"</strong> ← <strong>"צור קיצור דרך..."</strong></li>
+        <li>תנו שם ולחצו <strong>"צור"</strong></li>
+      </ol>
+
+      <div class="shortcut-guide-section">📱 באנדרואיד (Chrome)</div>
+      <ol class="shortcut-guide-steps">
+        <li>פתחו את האתר ב-Chrome</li>
+        <li>לחצו על <strong>⋮</strong> בפינה הימנית העליונה</li>
+        <li>בחרו <strong>"הוסף ל..."</strong></li>
+        <li>בחרו <strong>"מסך הבית"</strong> ואשרו</li>
+      </ol>
+
+      <div class="shortcut-guide-section">🍎 באייפון (Safari)</div>
+      <ol class="shortcut-guide-steps">
+        <li>פתחו את האתר ב-Safari</li>
+        <li>לחצו על כפתור <strong>שתף</strong> (ריבוע עם חץ)</li>
+        <li>בחרו <strong>"הוסף למסך הבית"</strong> ואשרו</li>
+      </ol>
     </div>
 
-    <div class="changelog-entry" data-date="2025-07-02">
-      <div class="changelog-entry-date">2 יולי 2025</div>
-      <div class="changelog-entry-text">הוספת קטגוריות "איבה - משפחות" ו"ילדים איבה" עם הודעות ייעודיות.</div>
+    <hr class="shabbat-divider" style="margin: 4px 0 16px;">
+    <div style="font-family:'Frank Ruhl Libre',serif;font-size:0.9rem;font-weight:700;color:var(--ink);margin-bottom:12px;">יומן עדכונים</div>
+
+    <div class="changelog-entry" data-date="2025-07-01">
+      <div class="changelog-entry-date">1 יולי 2025</div>
+      <div class="changelog-entry-text">פופאפ שבת שלום — מוצג בכניסה לאתר בשבת, עם אפשרות לשלוח רעיונות במייל או וואטסאפ.</div>
     </div>
 
     <div class="changelog-entry" data-date="2025-07-01">
       <div class="changelog-entry-date">1 יולי 2025</div>
-      <div class="changelog-entry-text">הוספת כפתורי שליחה לוואטסאפ ומייל לכל ההודעות. הוספת מועדפים ויומן עדכונים.</div>
+      <div class="changelog-entry-text">כפתורי יצירת קשר בתחתית — מייל ווואטסאפ ישיר לאמיר לשליחת הצעות לכלי.</div>
+    </div>
+
+    <div class="changelog-entry" data-date="2025-07-01">
+      <div class="changelog-entry-date">1 יולי 2025</div>
+      <div class="changelog-entry-text">ויתור סודיות — הורחב ל-6 קטגוריות: השמה, איבחון, בריאות/קופ״ח, לימודים, רווחה, אחר.</div>
+    </div>
+
+    <div class="changelog-entry" data-date="2025-07-01">
+      <div class="changelog-entry-date">1 יולי 2025</div>
+      <div class="changelog-entry-text">מועדפים — כפתור כוכב בכל הודעה לשמירה מקומית. הודעות מועדפות מוצגות בראש העמוד עם אפשרות הסרה.</div>
+    </div>
+
+    <div class="changelog-entry" data-date="2025-07-01">
+      <div class="changelog-entry-date">1 יולי 2025</div>
+      <div class="changelog-entry-text">הוספת קטגוריית "מטפלים" — מערכת חשבוניות, מאגר מטפלים, הזמנה להצטרף כספק.</div>
+    </div>
+
+    <div class="changelog-entry" data-date="2025-07-01">
+      <div class="changelog-entry-date">1 יולי 2025</div>
+      <div class="changelog-entry-text">הוספת קטגוריות "איבה - משפחות" ו"ילדים איבה" + הודעת זכויות לילדים נכים.</div>
+    </div>
+
+    <div class="changelog-entry" data-date="2025-07-01">
+      <div class="changelog-entry-date">1 יולי 2025</div>
+      <div class="changelog-entry-text">הוספת כפתורי שליחה לוואטסאפ ומייל לכל ההודעות. גלילה אוטומטית לכפתורים בפתיחת הודעה.</div>
     </div>
 
     <div class="changelog-entry" data-date="2025-06-15">
@@ -1737,8 +1915,12 @@ https://govforms.gov.il/mw/forms/t269@btl.gov.il
           <div class="consent-field-group">
             <span class="consent-field-label">סוג הפנייה:</span>
             <div class="consent-toggle-group">
-              <button type="button" class="consent-toggle active" data-value="השמה" onclick="toggleConsentType(this)">השמה</button>
-              <button type="button" class="consent-toggle" data-value="אבחון" onclick="toggleConsentType(this)">אבחון</button>
+              <button type="button" class="consent-toggle" data-value="גורמי השמה" onclick="toggleConsentType(this)">השמה</button>
+              <button type="button" class="consent-toggle" data-value="גורמי איבחון" onclick="toggleConsentType(this)">איבחון</button>
+              <button type="button" class="consent-toggle" data-value="שירותי בריאות / קופת חולים" onclick="toggleConsentType(this)">בריאות / קופ״ח</button>
+              <button type="button" class="consent-toggle" data-value="מוסדות להכשרה מקצועית או לימודים" onclick="toggleConsentType(this)">לימודים</button>
+              <button type="button" class="consent-toggle" data-value="שירותי רווחה" onclick="toggleConsentType(this)">רווחה</button>
+              <button type="button" class="consent-toggle" data-value="אחר" onclick="toggleConsentType(this)">אחר</button>
             </div>
           </div>
           <div class="consent-field-group">
@@ -1755,7 +1937,7 @@ https://govforms.gov.il/mw/forms/t269@btl.gov.il
 סמנו ✅ ב- ”אישור לביטוח הלאומי למסור מידע”.
 ב-“פרטי מקבל המידע” רשמו ”<span id="consentPlacePreview">_____</span>”.
 סמנו ✅ ב- ”אישור לביטוח הלאומי לקבל מידע”.
-ברשימת הגורמים, סמנו ✅ ב- ”<span id="consentTypePreview">השמה</span>”.
+ברשימת הגורמים, סמנו ✅ ב- ”<span id="consentTypePreview">_____</span>”.
 
 לינק לטופס:
 https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlaintiff
@@ -1828,11 +2010,17 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
     </div>
     <div class="footer-contact-body">
-      <p class="footer-contact-text">יש לך רעיון להודעה או תבנית שחסרה כאן? כתבו לי, אמיר תישבי — לוחצים על הכפתור למטה כדי <strong>להעתיק את כתובת המייל</strong>:</p>
-      <button class="footer-contact-link" onclick="copyEmail(this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-        <span class="footer-contact-label">העתק כתובת מייל לשליחת הצעה</span>
-      </button>
+      <p class="footer-contact-text">יש לך רעיון להודעה או תבנית שחסרה כאן? כתבו לי, אמיר תישבי — במייל או בוואטסאפ:</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="footer-contact-link" onclick="copyEmail(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          <span class="footer-contact-label">העתק כתובת מייל</span>
+        </button>
+        <button class="footer-contact-wa" onclick="footerWhatsapp()">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+          וואטסאפ
+        </button>
+      </div>
     </div>
   </div>
 </footer>
@@ -1935,8 +2123,35 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     });
   }
 
+  function footerWhatsapp() {
+    const text = encodeURIComponent('שלום אמיר, יש לי רעיון לכלי ההודעות:\n\n');
+    window.open('https://wa.me/972506287462?text=' + text, '_blank');
+  }
+
+  // ===== Shabbat popup =====
+  function closeShabbat() {
+    document.getElementById('shabbatOverlay').classList.remove('open');
+  }
+
+  function shabbatEmail() {
+    const body = encodeURIComponent('שלום אמיר,\nיש לי הצעה/רעיון לכלי:\n\n');
+    const a = document.createElement('a');
+    a.href = 'mailto:amirti@nioi.gov.il?subject=' + encodeURIComponent('הצעה לכלי ההודעות') + '&body=' + body;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    closeShabbat();
+  }
+
+  function shabbatWhatsapp() {
+    const text = encodeURIComponent('שלום אמיר, יש לי רעיון לכלי ההודעות:\n\n');
+    window.open('https://wa.me/972506287462?text=' + text, '_blank');
+    closeShabbat();
+  }
+
   // ===== Changelog =====
   function openChangelog() {
+    document.getElementById('shabbatOverlay').classList.remove('open');
     document.getElementById('changelogOverlay').classList.add('open');
   }
 
@@ -1950,6 +2165,12 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   document.addEventListener('DOMContentLoaded', () => {
     // Close all cards on entry
     document.querySelectorAll('.card').forEach(c => c.classList.remove('open'));
+
+    // Show Shabbat popup on every visit (temporarily)
+    setTimeout(() => {
+      document.getElementById('changelogOverlay').classList.remove('open');
+      document.getElementById('shabbatOverlay').classList.add('open');
+    }, 1200);
 
     renderFavs();
 
@@ -2029,15 +2250,25 @@ function toggleFilter(chip) {
   function toggleCard(btn) {
     const card = btn.closest('.card');
     const wasOpen = card.classList.contains('open');
-    card.classList.toggle('open');
+
     if (!wasOpen) {
-      // After CSS transition, scroll so the card footer is visible
+      // Open this card first
+      card.classList.add('open');
+      // Then close others after a short delay to avoid layout jump
+      setTimeout(() => {
+        document.querySelectorAll('.card.open').forEach(c => {
+          if (c !== card) c.classList.remove('open');
+        });
+      }, 80);
+      // Scroll to footer after transition
       setTimeout(() => {
         const footer = card.querySelector('.card-footer');
         if (footer) {
           footer.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }
       }, 560);
+    } else {
+      card.classList.remove('open');
     }
   }
 
@@ -2106,7 +2337,7 @@ function toggleFilter(chip) {
   function getConsentTypeValue(card) {
     const activeButtons = Array.from(card.querySelectorAll('.consent-toggle.active'));
     const values = activeButtons.map(b => b.dataset.value);
-    if (values.length === 0) return 'השמה';
+    if (values.length === 0) return null;
     if (values.length === 1) return values[0];
     return values.join('” וגם ”');
   }
@@ -2116,7 +2347,7 @@ function toggleFilter(chip) {
     const typeValue = getConsentTypeValue(card);
     const placeValue = document.getElementById('consentPlace').value.trim();
 
-    document.getElementById('consentTypePreview').textContent = typeValue;
+    document.getElementById('consentTypePreview').textContent = typeValue || '_____';
     document.getElementById('consentPlacePreview').textContent = placeValue || '_____';
   }
 
@@ -2133,6 +2364,16 @@ function toggleFilter(chip) {
     }
 
     const typeValue = getConsentTypeValue(card);
+
+    if (!typeValue) {
+      const group = card.querySelector('.consent-toggle-group');
+      if (group) {
+        group.style.outline = '2px solid var(--stamp-red)';
+        group.style.borderRadius = '8px';
+        setTimeout(() => { group.style.outline = ''; }, 2000);
+      }
+      return null;
+    }
 
     return `שלום,
 על מנת שאוכל לשלוח הפניה, יש למלא טופס ויתור סודיות.
