@@ -171,6 +171,46 @@ header p {
   }
 }
 
+/* ===== Search bar ===== */
+.search-bar {
+  background: var(--paper-card);
+  border-bottom: 1px solid var(--rule);
+  padding: 8px 14px;
+}
+.search-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--paper);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: 24px;
+  padding: 7px 16px;
+  transition: border-color 0.15s;
+}
+.search-inner:focus-within { border-color: var(--navy); }
+.search-icon { flex-shrink: 0; width: 16px; height: 16px; color: var(--ink-soft); }
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.86rem;
+  color: var(--ink);
+  direction: rtl;
+  text-align: right;
+  outline: none;
+}
+.search-input::placeholder { color: var(--ink-soft); }
+.search-input::-webkit-search-cancel-button { display: none; }
+.search-clear { background: none; border: none; color: var(--ink-soft); font-size: 0.9rem; cursor: pointer; padding: 0 2px; }
+.search-clear:hover { color: var(--ink); }
+.card.search-hidden { display: none; }
+.category.search-empty { display: none; }
+.search-no-results { text-align: center; color: var(--ink-soft); font-size: 0.88rem; padding: 24px 0; display: none; }
+.search-no-results.visible { display: block; }
+
 /* ===== Copy toast notification ===== */
 .copy-toast {
   position: fixed;
@@ -1108,6 +1148,14 @@ footer.page-footer {
     <button type="button" class="filter-chip filter-admin" data-filter="admin" onclick="toggleFilter(this)">הגעה לסניף</button>
   </div>
 </nav>
+
+<div class="search-bar">
+  <div class="search-inner">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input type="search" id="searchInput" class="search-input" placeholder="חפש לפי שם הודעה..." oninput="doSearch(this.value)" autocomplete="off">
+    <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none">✕</button>
+  </div>
+</div>
 </div>
 
 
@@ -1243,6 +1291,7 @@ footer.page-footer {
 </div>
 
 <main>
+  <p class="search-no-results" id="searchNoResults">לא נמצאו הודעות התואמות לחיפוש</p>
 
   <!-- ===== מועדפים ===== -->
   <section class="favs-section" id="favsSection">
@@ -1528,7 +1577,7 @@ https://govforms.gov.il/mw/forms/tHithaivout_eiva@btl.gov.il#%21instructions</di
     <div class="card terror-card">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
-        <span class="card-toggle-title">רפורמת נפש אחת – תרופות וקנאביס</span>
+        <span class="card-toggle-title">תרופות וקנאביס – בקשת החזר</span>
         <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="card-quick-actions" onclick="event.stopPropagation()">
@@ -2477,6 +2526,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   // ===== Shabbat popup =====
   function closeShabbat() {
     document.getElementById('shabbatOverlay').classList.remove('open');
+    try { localStorage.setItem('shikum_popup_seen', '1'); } catch(e) {}
   }
 
   function shabbatEmail() {
@@ -2512,11 +2562,13 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     // Close all cards on entry
     document.querySelectorAll('.card').forEach(c => c.classList.remove('open'));
 
-    // Show updates popup on every visit
-    setTimeout(() => {
-      document.getElementById('changelogOverlay').classList.remove('open');
-      document.getElementById('shabbatOverlay').classList.add('open');
-    }, 1200);
+    // Show updates popup only once per user
+    if (!localStorage.getItem('shikum_popup_seen')) {
+      setTimeout(() => {
+        document.getElementById('changelogOverlay').classList.remove('open');
+        document.getElementById('shabbatOverlay').classList.add('open');
+      }, 1200);
+    }
 
     renderFavs();
 
@@ -2548,6 +2600,47 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   // ===== Category filter bar (multi-select) =====
+  // ===== Search (by title only) =====
+  function doSearch(query) {
+    const q = query.trim().toLowerCase();
+    const clearBtn = document.getElementById('searchClear');
+    const noResults = document.getElementById('searchNoResults');
+    clearBtn.style.display = q ? 'block' : 'none';
+
+    const cards = document.querySelectorAll('.card:not(.fav-clone)');
+
+    if (!q) {
+      cards.forEach(c => c.classList.remove('search-hidden'));
+      document.querySelectorAll('.category').forEach(c => c.classList.remove('search-empty'));
+      if (noResults) noResults.classList.remove('visible');
+      return;
+    }
+
+    // Close all open cards
+    cards.forEach(c => c.classList.remove('open'));
+
+    let anyVisible = false;
+    cards.forEach(card => {
+      const match = card.textContent.toLowerCase().includes(q);
+      card.classList.toggle('search-hidden', !match);
+      if (match) anyVisible = true;
+    });
+
+    document.querySelectorAll('.category').forEach(cat => {
+      const visible = cat.querySelectorAll('.card:not(.fav-clone):not(.search-hidden)');
+      cat.classList.toggle('search-empty', visible.length === 0);
+    });
+
+    if (noResults) noResults.classList.toggle('visible', !anyVisible);
+  }
+
+  function clearSearch() {
+    const input = document.getElementById('searchInput');
+    input.value = '';
+    doSearch('');
+    input.focus();
+  }
+
 function toggleFilter(chip) {
     const allChip = document.querySelector('.filter-chip-all');
 
@@ -2573,6 +2666,9 @@ function toggleFilter(chip) {
   function applyFilters() {
     // Close all open cards when switching filters
     document.querySelectorAll('.card.open').forEach(c => c.classList.remove('open'));
+    // Clear search
+    const input = document.getElementById('searchInput');
+    if (input && input.value) { input.value = ''; doSearch(''); }
 
 
     const activeChips = Array.from(document.querySelectorAll('.filter-chip:not(.filter-chip-all).active'));
