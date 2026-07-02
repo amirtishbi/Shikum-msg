@@ -964,6 +964,30 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
   color: #fff;
 }
 
+.dept-toggle-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 12px 14px 4px;
+}
+.dept-toggle {
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--cat-routing);
+  background: transparent;
+  color: var(--cat-routing);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.dept-toggle.active {
+  background: var(--cat-routing);
+  color: #fff;
+}
+
 .consent-input {
   font-family: 'Heebo', sans-serif;
   font-size: 0.84rem;
@@ -1210,7 +1234,7 @@ footer.page-footer {
     <button type="button" class="filter-chip filter-family" data-filter="family" onclick="toggleFilter(this)">איבה - משפחות</button>
     <button type="button" class="filter-chip filter-kids" data-filter="kids" onclick="toggleFilter(this)">ילדים איבה</button>
     <button type="button" class="filter-chip filter-therapists" data-filter="therapists" onclick="toggleFilter(this)">מטפלים</button>
-    <button type="button" class="filter-chip filter-routing" data-filter="routing" onclick="toggleFilter(this)">ניתוב</button>
+    <button type="button" class="filter-chip filter-routing" data-filter="routing" onclick="toggleFilter(this)">הפניה</button>
     <button type="button" class="filter-chip filter-consent" data-filter="consent" onclick="toggleFilter(this)">ויתור סודיות</button>
     <button type="button" class="filter-chip filter-admin" data-filter="admin" onclick="toggleFilter(this)">הגעה לסניף</button>
   </div>
@@ -1247,11 +1271,12 @@ footer.page-footer {
     </div>
     <hr class="shabbat-divider">
     <ul class="shabbat-updates-list">
-      <li>⭐ <strong>מועדפים</strong> — סמנו הודעות נפוצות וגשו אליהן מהר</li>
-      <li>📧 <strong>שליחה ישירה למייל</strong> — לחיצה אחת פותחת Outlook עם ההודעה</li>
-      <li>🧾 <strong>הגשת חשבוניות</strong> — מדריך חדש לספקים (קטגוריית מטפלים)</li>
-      <li>🏋️ <strong>החזר הוצאות ספורט</strong> — הודעה חדשה לנפגעי איבה</li>
-      <li>👥 <strong>הצטרפות למאגר מטפלים</strong> — הזמנה לספקים חדשים</li>
+      <li>🔍 <strong>חיפוש</strong> — חיפוש מהיר בכל ההודעות עם דירוג רלוונטיות</li>
+      <li>⚡ <strong>כפתורי מהירה</strong> — העתק/וואטסאפ/מייל/כוכב ישירות על כל כרטיסייה סגורה</li>
+      <li>⭐ <strong>מועדפים</strong> — סמנו הודעות נפוצות לגישה מהירה מראש הדף</li>
+      <li>🏢 <strong>הפניה למחלקה</strong> — בחירת מחלקה (איבה/נכות/עבודה/ניידות) לפני שליחה</li>
+      <li>📋 <strong>סל שיקום</strong> — הסבר מקיף על סל שיקום לעומת שיקום מקצועי</li>
+      <li>🧾 <strong>מטפלים</strong> — קטגוריה חדשה: חשבוניות, מאגר, הצטרפות כספק</li>
     </ul>
     <hr class="shabbat-divider">
     <p class="shabbat-cta">לכל השינויים המלאים — לחצו על <strong>ⓘ</strong> בכותרת</p>
@@ -1334,11 +1359,23 @@ footer.page-footer {
     <div class="info-tab-content" id="tab-updates">
       <div class="changelog-entry" data-date="2026-07-02">
         <div class="changelog-entry-date">2 יולי 2026</div>
-        <div class="changelog-entry-text">כפתורי פעולה מהירה על כל הודעה — העתק, וואטסאפ, מייל וכוכב ישירות על הכרטיסייה הסגורה.</div>
+        <div class="changelog-entry-text">חיפוש — שדה חיפוש מהיר בכל ההודעות עם דירוג לפי רלוונטיות.</div>
       </div>
       <div class="changelog-entry" data-date="2026-07-02">
         <div class="changelog-entry-date">2 יולי 2026</div>
-        <div class="changelog-entry-text">פופאפ עדכונים — מוצג פעם אחת בכניסה לאתר עם סיכום השינויים האחרונים.</div>
+        <div class="changelog-entry-text">הפניה למחלקה — כרטיסייה דינמית עם בחירת מחלקה: נפגעי איבה, נכות כללית, נפגעי עבודה, ניידות.</div>
+      </div>
+      <div class="changelog-entry" data-date="2026-07-02">
+        <div class="changelog-entry-date">2 יולי 2026</div>
+        <div class="changelog-entry-text">סל שיקום — הסבר מקיף על ההבדל בין סל שיקום לשיקום מקצועי, ואיך מגישים בקשה.</div>
+      </div>
+      <div class="changelog-entry" data-date="2026-07-02">
+        <div class="changelog-entry-date">2 יולי 2026</div>
+        <div class="changelog-entry-text">פאנל "מה הולך פה?" — 3 לשוניות: הסבר על המערכת, יצירת קיצור דרך, ויומן עדכונים.</div>
+      </div>
+      <div class="changelog-entry" data-date="2026-07-02">
+        <div class="changelog-entry-date">2 יולי 2026</div>
+        <div class="changelog-entry-text">כפתורי פעולה מהירה — העתק, וואטסאפ, מייל וכוכב ישירות על הכרטיסייה הסגורה.</div>
       </div>
       <div class="changelog-entry" data-date="2026-07-02">
         <div class="changelog-entry-date">2 יולי 2026</div>
@@ -1346,23 +1383,23 @@ footer.page-footer {
       </div>
       <div class="changelog-entry" data-date="2026-07-02">
         <div class="changelog-entry-date">2 יולי 2026</div>
-        <div class="changelog-entry-text">כפתור מייל בתחתית — פותח Outlook ישירות עם כתובת אמיר מוכנה.</div>
+        <div class="changelog-entry-text">שליחה ישירה למייל — כפתור מייל פותח Outlook ישירות עם ההודעה מוכנה.</div>
       </div>
       <div class="changelog-entry" data-date="2026-07-01">
         <div class="changelog-entry-date">1 יולי 2026</div>
-        <div class="changelog-entry-text">מועדפים — כפתור כוכב בכל הודעה לשמירה מקומית.</div>
+        <div class="changelog-entry-text">מועדפים — כפתור כוכב בכל הודעה, מוצגות בראש הדף עם אפשרות הסרה.</div>
       </div>
       <div class="changelog-entry" data-date="2026-07-01">
         <div class="changelog-entry-date">1 יולי 2026</div>
-        <div class="changelog-entry-text">הוספת כפתורי שליחה לוואטסאפ ומייל לכל ההודעות.</div>
+        <div class="changelog-entry-text">שליחה לוואטסאפ — כפתור ירוק בכל הודעה פותח וואטסאפ עם ההודעה מוכנה.</div>
       </div>
       <div class="changelog-entry" data-date="2026-06-30">
         <div class="changelog-entry-date">30 יוני 2026</div>
-        <div class="changelog-entry-text">הוספת קטגוריית "מטפלים" — חשבוניות, מאגר מטפלים, הצטרפות כספק.</div>
+        <div class="changelog-entry-text">קטגוריית "מטפלים" — מערכת חשבוניות, מאגר מטפלים, הצטרפות כספק.</div>
       </div>
       <div class="changelog-entry" data-date="2026-06-30">
         <div class="changelog-entry-date">30 יוני 2026</div>
-        <div class="changelog-entry-text">הוספת קטגוריות "איבה - משפחות" ו"ילדים איבה" + זכויות לילדים נכים.</div>
+        <div class="changelog-entry-text">קטגוריות "איבה - משפחות" ו"ילדים איבה" + הודעת זכויות לילדים נכים.</div>
       </div>
       <div class="changelog-entry" data-date="2026-06-15">
         <div class="changelog-entry-date">15 יוני 2026</div>
@@ -2242,85 +2279,118 @@ https://govforms.gov.il/mw/forms/t269@btl.gov.il
 
   </section>
 
-  <!-- ===== ניתוב למחלקות ===== -->
+  <!-- ===== הפניה למחלקה אחרת ולסל שיקום ===== -->
   <section class="category" id="routing">
     <div class="cat-header routing">
       <div class="cat-icon">
         <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h4"/><path d="M14 21l7-7-7-7"/><path d="M9 14h12"/></svg>
       </div>
-      <h2>ניתוב למחלקות</h2>
+      <h2>הפניה למחלקה אחרת ולסל שיקום</h2>
     </div>
 
     <div class="card routing-card">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
-        <span class="card-toggle-title">הפניה למחלקת פעולות איבה</span>
+        <span class="card-toggle-title">סל שיקום – הסבר ומידע</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-quick-actions" onclick="event.stopPropagation()">
+        <button class="quick-btn quick-copy" onclick="quickCopy('msg_sal', this)" title="העתק"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        <button class="quick-btn quick-wa" onclick="quickWa('msg_sal')" title="שלח בוואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
+        <button class="quick-btn quick-mail" onclick="quickMail('msg_sal')" title="שלח במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+        <button class="quick-btn quick-fav" id="qfav-msg_sal" onclick="toggleFav('msg_sal', event)" title="מועדפים">☆</button>
+      </div>
+      </div>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg_sal">עושים סדר: מה ההבדל בין "סל שיקום" ל"שיקום מקצועי"? 🤓💬
+
+אנחנו נתקלים לא פעם בבלבול בין שני המושגים האלה, ובצדק – שניהם מדברים על "שיקום". אבל בפועל, מדובר בשני מסלולים שונים לחלוטין שמיועדים למטרות אחרות. הנה ההסבר הפשוט:
+
+💼 1. שיקום מקצועי (של הביטוח הלאומי)
+• השורה התחתונה: מסלול אקטיבי שמתרכז כולו בתעסוקה, לימודים וקריירה בשוק החופשי.
+• למי זה מיועד? לאנשים עם מגבלה רפואית, נפשית או פיזית שזקוקים לעזרה כדי להשתלב מחדש בשוק העבודה.
+• תנאי מפתח – פניות ומסוגלות לעבוד בפועל: המסלול מחייב את המבוטח להיות פנוי ומסוגל לקחת חלק בתהליך. תנאי סף מרכזי הוא שמצבו של המבוטח יציב ומאפשר לו פניות ללימודים או להכשרה, ומעל הכל – שיש לו את היכולת הריאלית והמסוגלות הפיזית או הנפשית להשתלב ולעבוד בפועל בשוק העבודה עם סיום התהליך.
+• מה זה כולל? אבחון תעסוקתי, מימון לימודים (תואר או קורס), סיוע במציאת עבודה ודמי קיום בזמן הלימודים.
+
+🏡 2. סל שיקום (של משרד הבריאות)
+• השורה התחתונה: מערך תמיכה רחב שמתרכז באיכות החיים, הקהילה והתפקוד היומיומי.
+• למי זה מיועד? לאנשים שנקבעו להם 40% נכות רפואית ומעלה על רקע נפשי (על ידי הביטוח הלאומי).
+• מה זה כולל? עזרה בדיור מוגן, שילוב חברתי, השלמת השכלה, חונכות ותעסוקה מוגנת/נתמכת (ללא חובת מסוגלות מיידית לשוק החופשי).
+
+📋 אז איך מגישים בקשה לסל שיקום ומהו "גורם מפנה"?
+משרד הבריאות קובע כי לא ניתן לשלוח את הטפסים לבד, אלא יש לעשות זאת באמצעות "גורם מפנה" (איש מקצוע מלווה כמו עובד/ת סוציאלי/ת או פסיכיאטר/ית) שמסייע בריכוז המסמכים, כותב דוח סוציאלי ומגיש את הבקשה.
+
+איך מגיעים לגורם מפנה?
+1. דרך קופת החולים או המרפאות הציבוריות לבריאות הנפש: פונים לעו"ס או למטפל במרפאה שבה המבוטח מטופל ומבקשים להתחיל תהליך סל שיקום.
+2. במהלך אשפוז או אשפוז יום: עו"ס המחלקה בבית החולים משמש כגורם המפנה ומכין את המעטפת לקראת השחרור.
+
+שלבי ההגשה (יחד עם הגורם המפנה):
+• אוספים מסמכים (חוות דעת פסיכיאטרית, דוח סוציאלי ואישור ה-40% נכות).
+• הגורם המפנה מגיש את הטפסים באופן מקוון.
+• המבוטח מוזמן לוועדה אזורית שקובעת את האישורים והשירותים המתאימים מתוך הסל.
+
+👉 למידע נוסף ופרטים מלאים באתר משרד הבריאות:
+https://www.gov.il/he/departments/topics/rehabilitation-basket
+
+⏳ טיפ חשוב לגבי לוחות זמנים: תהליך האישור לוקח זמן ומצריך סבלנות. מכיוון שהזמן עובר וחבל להפסיד חודשים יקרים של תמיכה, מומלץ מאוד לפעול בנושא כבר עכשיו ולהתחיל להניע את הגלגלים מול הגורמים המטפלים!</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg_sal', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msg_sal')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>וואטסאפ</span>
+          </button>
+          <button class="email-btn" onclick="sendEmail('msg_sal')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg_sal" onclick="toggleFav('msg_sal', event)" title="הוסף למועדפים">☆ מועדפים</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card routing-card">
+      <div class="card-header-row">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">הפניה למחלקה אחרת</span>
         <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="card-quick-actions" onclick="event.stopPropagation()">
         <button class="quick-btn quick-copy" onclick="quickCopy('msg10', this)" title="העתק"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg10')" title="שלח בוואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg10')" title="שלח במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-      
-        <button class="quick-btn quick-fav" id="qfav-msg10" onclick="toggleFav('msg10', event)" title="מועדפים"☆</button>
+        <button class="quick-btn quick-fav" id="qfav-msg10" onclick="toggleFav('msg10', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
+        <p class="consent-intro-note">בחרו את המחלקה הרלוונטית לפני ההעתקה:</p>
+        <div class="dept-toggle-group">
+          <button type="button" class="dept-toggle active" data-dept="נפגעי פעולות איבה" onclick="selectDept(this)">נפגעי איבה</button>
+          <button type="button" class="dept-toggle" data-dept="נכות כללית" onclick="selectDept(this)">נכות כללית</button>
+          <button type="button" class="dept-toggle" data-dept="נפגעי עבודה" onclick="selectDept(this)">נפגעי עבודה</button>
+          <button type="button" class="dept-toggle" data-dept="ניידות" onclick="selectDept(this)">ניידות</button>
+        </div>
         <div class="card-body" id="msg10">היי, בטוח לאומי מחולק למחלקות שונות, ולכל אחת יש את הידע המקצועי שלה.
 כדי לקבל מענה בנושא, יש להכנס למידע האישי:https://ps.btl.gov.il/#/login
-ללחוץ על צור קשר ובנושא הפנייה לרשום נפגעי פעולות איבה
+ללחוץ על צור קשר ובנושא הפנייה לרשום <span id="deptPreview">נפגעי פעולות איבה</span>
 במידת הצורך, אפשר גם לפנות ל*6050 והם ישאירו הודעה בשמכם.</div>
         <div class="card-footer">
-          <button class="copy-btn" onclick="copyMsg('msg10', this)">
+          <button class="copy-btn" onclick="copyDeptMsg(this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             <span class="btn-label">העתק</span>
           </button>
-          <button class="whatsapp-btn" onclick="sendWhatsapp('msg10')">
+          <button class="whatsapp-btn" onclick="sendDeptMsgWa()">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
             <span>וואטסאפ</span>
           </button>
-          <button class="email-btn" onclick="sendEmail('msg10')">
+          <button class="email-btn" onclick="sendDeptMsgEmail()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg10" onclick="toggleFav('msg10', event)" title="הוסף למועדפים">☆ מועדפים</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card routing-card">
-      <div class="card-header-row">
-      <button class="card-toggle" onclick="toggleCard(this)">
-        <span class="card-toggle-title">הפניה למחלקת נכות כללית</span>
-        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="card-quick-actions" onclick="event.stopPropagation()">
-        <button class="quick-btn quick-copy" onclick="quickCopy('msg11', this)" title="העתק"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
-        <button class="quick-btn quick-wa" onclick="quickWa('msg11')" title="שלח בוואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
-        <button class="quick-btn quick-mail" onclick="quickMail('msg11')" title="שלח במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-      
-        <button class="quick-btn quick-fav" id="qfav-msg11" onclick="toggleFav('msg11', event)" title="מועדפים"☆</button>
-      </div>
-      </div>
-      <div class="card-collapsible">
-        <div class="card-body" id="msg11">היי, בטוח לאומי מחולק למחלקות שונות, ולכל אחת יש את הידע המקצועי שלה.
-כדי לקבל מענה בנושא, יש להכנס למידע האישי:https://ps.btl.gov.il/#/login
-ללחוץ על צור קשר ובנושא הפנייה לרשום נכות כללית
-במידת הצורך, אפשר גם לפנות ל*6050 והם ישאירו הודעה בשמכם.</div>
-        <div class="card-footer">
-          <button class="copy-btn" onclick="copyMsg('msg11', this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק</span>
-          </button>
-          <button class="whatsapp-btn" onclick="sendWhatsapp('msg11')">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>וואטסאפ</span>
-          </button>
-          <button class="email-btn" onclick="sendEmail('msg11')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-            <span>מייל</span>
-          </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg11" onclick="toggleFav('msg11', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -2609,6 +2679,40 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     document.body.removeChild(a);
   }
 
+  // ===== Department selection (msg10) =====
+  function selectDept(btn) {
+    document.querySelectorAll('.dept-toggle').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const dept = btn.dataset.dept;
+    const preview = document.getElementById('deptPreview');
+    if (preview) preview.textContent = dept;
+  }
+
+  function getDeptText() {
+    const dept = document.querySelector('.dept-toggle.active')?.dataset.dept || 'נפגעי פעולות איבה';
+    return `היי, בטוח לאומי מחולק למחלקות שונות, ולכל אחת יש את הידע המקצועי שלה.\nכדי לקבל מענה בנושא, יש להכנס למידע האישי:https://ps.btl.gov.il/#/login\nללחוץ על צור קשר ובנושא הפנייה לרשום ${dept}\nבמידת הצורך, אפשר גם לפנות ל*6050 והם ישאירו הודעה בשמכם.`;
+  }
+
+  async function copyDeptMsg(btn) {
+    const text = getDeptText();
+    try { await navigator.clipboard.writeText(text); } catch(e) {
+      const ta = document.createElement('textarea'); ta.value = text;
+      ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta);
+      ta.focus(); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    }
+    showToast(); closeCard(btn);
+  }
+
+  function sendDeptMsgWa() {
+    window.open('https://wa.me/?text=' + encodeURIComponent(getDeptText()), '_blank');
+  }
+
+  function sendDeptMsgEmail() {
+    const a = document.createElement('a');
+    a.href = 'mailto:?body=' + encodeURIComponent(getDeptText());
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }
+
   function searchNoResultsWa() {
     const query = document.getElementById('searchInput')?.value || '';
     const text = encodeURIComponent(`שלום אמיר, חיפשתי "${query}" בכלי ולא מצאתי. אפשר להוסיף הודעה כזו?`);
@@ -2623,7 +2727,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   // ===== Shabbat popup =====
   function closeShabbat() {
     document.getElementById('shabbatOverlay').classList.remove('open');
-    try { localStorage.setItem('shikum_popup_seen', '1'); } catch(e) {}
+    try { localStorage.setItem('shikum_popup_seen_v2', '1'); } catch(e) {}
   }
 
   function shabbatEmail() {
@@ -2667,7 +2771,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     document.querySelectorAll('.card').forEach(c => c.classList.remove('open'));
 
     // Show updates popup only once per user
-    if (!localStorage.getItem('shikum_popup_seen')) {
+    if (!localStorage.getItem('shikum_popup_seen_v2')) {
       setTimeout(() => {
         document.getElementById('changelogOverlay').classList.remove('open');
         document.getElementById('shabbatOverlay').classList.add('open');
