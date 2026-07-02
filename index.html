@@ -82,7 +82,7 @@ body {
 header {
   background: var(--navy);
   color: #f3efe4;
-  padding: 22px 20px 18px;
+  padding: 10px 20px 10px;
   box-shadow: 0 3px 12px rgba(31,43,61,0.25);
   border-bottom: 3px solid var(--stamp-red);
 }
@@ -131,6 +131,15 @@ header {
 .dark-toggle:active { transform: scale(0.93); }
 .dark-toggle-icon { width: 16px; height: 16px; flex-shrink: 0; }
 
+.search-bar .dark-toggle {
+  background: var(--navy);
+  box-shadow: none;
+  font-size: 0.72rem;
+  height: 30px;
+  padding: 0 10px;
+}
+.search-bar .dark-toggle:hover { background: var(--navy-soft); }
+
 header h1 {
   font-family: 'Frank Ruhl Libre', serif;
   font-size: 1.18rem;
@@ -177,16 +186,23 @@ header p {
   border-bottom: 1px solid var(--rule);
   padding: 8px 14px;
 }
-.search-inner {
+.search-bar-inner-row {
   max-width: 640px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.search-inner {
+  flex: 1;
+  max-width: 320px;
   display: flex;
   align-items: center;
   gap: 8px;
   background: var(--paper);
   border: 1.5px solid var(--rule-strong);
   border-radius: 24px;
-  padding: 7px 16px;
+  padding: 6px 14px;
   transition: border-color 0.15s;
 }
 .search-inner:focus-within { border-color: var(--navy); }
@@ -208,8 +224,27 @@ header p {
 .search-clear:hover { color: var(--ink); }
 .card.search-hidden { display: none; }
 .category.search-empty { display: none; }
-.search-no-results { text-align: center; color: var(--ink-soft); font-size: 0.88rem; padding: 24px 0; display: none; }
+.search-no-results { text-align: center; padding: 30px 16px; display: none; line-height: 1.8; }
 .search-no-results.visible { display: block; }
+.search-no-results-emoji { font-size: 2.2rem; display: block; margin-bottom: 8px; }
+.search-no-results-title { font-size: 1rem; font-weight: 700; color: var(--ink); display: block; margin-bottom: 6px; }
+.search-no-results-text { font-size: 0.85rem; color: var(--ink-soft); display: block; margin-bottom: 14px; }
+.search-no-results-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #25954a;
+  color: #fdf8ee;
+  border: none;
+  border-radius: var(--radius);
+  padding: 9px 16px;
+  font-size: 0.83rem;
+  font-weight: 700;
+  font-family: 'Heebo', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.search-no-results-btn:hover { background: #1f7a3c; }
 
 /* ===== Copy toast notification ===== */
 .copy-toast {
@@ -314,23 +349,24 @@ header p {
 .changelog-btn {
   flex-shrink: 0;
   position: relative;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 20px;
   border: none;
   background: linear-gradient(145deg, #e6b94d, #c9950a);
   box-shadow: 0 3px 8px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.25);
   cursor: pointer;
   color: #3d2a06;
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 1.05rem;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.88rem;
   font-weight: 900;
-  font-style: italic;
+  letter-spacing: 0.04em;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: box-shadow 0.15s, transform 0.12s;
   -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
 }
 .changelog-btn:hover {
   box-shadow: 0 5px 14px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.25);
@@ -423,7 +459,7 @@ header p {
   border-radius: 16px 16px 0 0;
   width: 100%;
   max-width: 640px;
-  max-height: 75vh;
+  max-height: 88vh;
   overflow-y: auto;
   padding: 20px 18px 30px;
   direction: rtl;
@@ -451,6 +487,42 @@ header p {
   color: var(--ink-soft);
   padding: 0;
   line-height: 1;
+}
+
+/* ===== Info panel tabs ===== */
+.info-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.info-tab {
+  flex: 1;
+  background: var(--paper);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius);
+  padding: 10px 6px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  text-align: center;
+}
+.info-tab:hover { color: var(--ink); border-color: var(--navy); }
+.info-tab.active {
+  background: var(--navy);
+  color: #f3efe4;
+  border-color: var(--navy);
+  box-shadow: 0 2px 6px rgba(31,43,61,0.2);
+}
+
+.info-tab-content { display: none; }
+.info-tab-content.active {
+  display: block;
+  height: 380px;
+  overflow-y: auto;
 }
 
 .changelog-entry {
@@ -1124,13 +1196,8 @@ footer.page-footer {
       <p>שיקום מקצועי</p>
     </div>
     <button type="button" class="changelog-btn" onclick="openChangelog()">
-      i
+      מה הולך פה?
       <span class="changelog-badge" id="changelogBadge"></span>
-    </button>
-    <button type="button" class="dark-toggle" onclick="toggleDarkMode(this)" aria-label="החלפת מצב תצוגה כהה">
-      <svg class="dark-toggle-icon dark-toggle-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-      <svg class="dark-toggle-icon dark-toggle-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      <span class="dark-toggle-label">מצב כהה</span>
     </button>
   </div>
 </header>
@@ -1150,24 +1217,22 @@ footer.page-footer {
 </nav>
 
 <div class="search-bar">
-  <div class="search-inner">
-    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-    <input type="search" id="searchInput" class="search-input" placeholder="חפש לפי שם הודעה..." oninput="doSearch(this.value)" autocomplete="off">
-    <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none">✕</button>
-  </div>
-</div>
-</div>
-
-
-
-<div class="intro-box">
-  <div class="intro-box-inner">
-    <div class="intro-box-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+  <div class="search-bar-inner-row">
+    <div class="search-inner">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="search" id="searchInput" class="search-input" placeholder="חיפוש..." oninput="doSearch(this.value)" autocomplete="off">
+      <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none">✕</button>
     </div>
-    <p class="intro-box-text">כלי עזר קטן שחוסך זמן — תבניות הודעות מוכנות לשאלות שחוזרות על עצמן. בוחרים קטגוריה, פותחים את ההודעה הרצויה, ולוחצים על כפתור <strong>"העתק"</strong> — וזהו, ההודעה כבר מועתקת ללוח, מוכנה להדבקה. אפשר גם ללחוץ על <strong>"וואטסאפ"</strong> לפתיחת וואטסאפ עם ההודעה מוכנה, או על <strong>"מייל"</strong> לפתיחת Outlook ישירות.</p>
+    <button type="button" class="dark-toggle" id="darkToggleBar" onclick="toggleDarkMode(this)" aria-label="מצב כהה">
+      <svg class="dark-toggle-icon dark-toggle-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg class="dark-toggle-icon dark-toggle-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <span class="dark-toggle-label">מצב כהה</span>
+    </button>
   </div>
 </div>
+</div>
+
+
 
 <!-- ===== Changelog Panel ===== -->
 <!-- ===== Updates Popup ===== -->
@@ -1207,91 +1272,117 @@ footer.page-footer {
       <button class="changelog-close" onclick="closeChangelog()">✕</button>
     </h3>
 
-    <div class="shortcut-guide">
-      <div class="shortcut-guide-title">📌 איך ליצור קיצור דרך לאתר</div>
-
-      <div class="shortcut-guide-section">💻 במחשב (Chrome)</div>
-      <ol class="shortcut-guide-steps">
-        <li>לחצו על שלוש הנקודות <strong>⋮</strong> בפינה השמאלית העליונה</li>
-        <li>לחצו על <strong>"הפעלת Cast, שמירה ושיתוף"</strong></li>
-        <li>בחרו <strong>"יצירת קיצור דרך..."</strong></li>
-        <li>בחרו שם ולחצו <strong>"יצירה"</strong></li>
-      </ol>
-
-      <div class="shortcut-guide-section">📱 באנדרואיד (Chrome)</div>
-      <ol class="shortcut-guide-steps">
-        <li>פתחו את האתר ב-Chrome</li>
-        <li>לחצו על <strong>⋮</strong> בפינה הימנית העליונה</li>
-        <li>בחרו <strong>"הוסף ל..."</strong></li>
-        <li>בחרו <strong>"מסך הבית"</strong> ואשרו</li>
-      </ol>
-
-      <div class="shortcut-guide-section">🍎 באייפון (Safari)</div>
-      <ol class="shortcut-guide-steps">
-        <li>פתחו את האתר ב-Safari</li>
-        <li>לחצו על כפתור <strong>שתף</strong> (ריבוע עם חץ)</li>
-        <li>בחרו <strong>"הוסף למסך הבית"</strong> ואשרו</li>
-      </ol>
-
-      <button class="install-btn" id="installBtn" onclick="triggerInstall()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V3"/><path d="M7 8l5-5 5 5"/><path d="M4 17v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
-        התקן כקיצור דרך (Chrome בלבד)
-      </button>
+    <!-- Tab buttons -->
+    <div class="info-tabs">
+      <button class="info-tab active" onclick="switchInfoTab('about', this)">הסבר על המערכת</button>
+      <button class="info-tab" onclick="switchInfoTab('shortcut', this)">קיצור דרך</button>
+      <button class="info-tab" onclick="switchInfoTab('updates', this)">עדכונים</button>
     </div>
 
-    <hr class="shabbat-divider" style="margin: 4px 0 16px;">
-    <div style="font-family:'Frank Ruhl Libre',serif;font-size:0.9rem;font-weight:700;color:var(--ink);margin-bottom:12px;">יומן עדכונים</div>
-
-    <div class="changelog-entry" data-date="2026-07-02">
-      <div class="changelog-entry-date">2 יולי 2026</div>
-      <div class="changelog-entry-text">כפתורי פעולה מהירה על כל הודעה — העתק, וואטסאפ, מייל וכוכב ישירות על הכרטיסייה הסגורה, ללא צורך לפתוח.</div>
+    <!-- Tab: הסבר על המערכת -->
+    <div class="info-tab-content active" id="tab-about">
+      <div class="shortcut-guide" style="background:none;border:none;padding:0;">
+        <p style="font-size:0.86rem;color:var(--ink);line-height:1.7;margin-bottom:12px;">
+          כלי עזר פנימי לפקידי שיקום — כל תבניות ההודעות במקום אחד.
+        </p>
+        <ul class="shortcut-guide-steps" style="list-style:disc;padding-right:18px;">
+          <li>בחרו קטגוריה מסרגל הסינון או חפשו לפי מילת מפתח</li>
+          <li>לחצו על כותרת ההודעה כדי לפתוח אותה</li>
+          <li>לחצו <strong>העתק</strong> — ההודעה מועתקת ללוח מיד</li>
+          <li>לחצו <strong>וואטסאפ</strong> — נפתח וואטסאפ עם ההודעה מוכנה</li>
+          <li>לחצו <strong>מייל</strong> — נפתח Outlook עם ההודעה מוכנה</li>
+          <li>לחצו <strong>☆ מועדפים</strong> — שומר את ההודעה בראש הדף לגישה מהירה</li>
+          <li>הכפתורים הצבעוניים הקטנים על הכרטיסייה הסגורה פועלים ישירות ללא פתיחה</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="changelog-entry" data-date="2026-07-02">
-      <div class="changelog-entry-date">2 יולי 2026</div>
-      <div class="changelog-entry-text">פופאפ עדכונים — מוצג בכניסה לאתר עם סיכום השינויים האחרונים ואפשרות יצירת קשר.</div>
+    <!-- Tab: קיצור דרך -->
+    <div class="info-tab-content" id="tab-shortcut">
+      <div class="shortcut-guide" style="background:none;border:none;padding:0;">
+        <div class="shortcut-guide-section">💻 במחשב (Chrome)</div>
+        <ol class="shortcut-guide-steps">
+          <li>לחצו על שלוש הנקודות <strong>⋮</strong> בפינה השמאלית העליונה</li>
+          <li>לחצו על <strong>"הפעלת Cast, שמירה ושיתוף"</strong></li>
+          <li>בחרו <strong>"יצירת קיצור דרך..."</strong></li>
+          <li>בחרו שם ולחצו <strong>"יצירה"</strong></li>
+        </ol>
+
+        <div class="shortcut-guide-section">📱 באנדרואיד (Chrome)</div>
+        <ol class="shortcut-guide-steps">
+          <li>פתחו את האתר ב-Chrome</li>
+          <li>לחצו על <strong>⋮</strong> בפינה הימנית העליונה</li>
+          <li>בחרו <strong>"הוסף ל..."</strong></li>
+          <li>בחרו <strong>"מסך הבית"</strong> ואשרו</li>
+        </ol>
+
+        <div class="shortcut-guide-section">🍎 באייפון (Safari)</div>
+        <ol class="shortcut-guide-steps">
+          <li>פתחו את האתר ב-Safari</li>
+          <li>לחצו על כפתור <strong>שתף</strong> (ריבוע עם חץ)</li>
+          <li>בחרו <strong>"הוסף למסך הבית"</strong> ואשרו</li>
+        </ol>
+
+        <button class="install-btn" id="installBtn" onclick="triggerInstall()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V3"/><path d="M7 8l5-5 5 5"/><path d="M4 17v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+          התקן כקיצור דרך (Chrome בלבד)
+        </button>
+      </div>
     </div>
 
-    <div class="changelog-entry" data-date="2026-07-02">
-      <div class="changelog-entry-date">2 יולי 2026</div>
-      <div class="changelog-entry-text">ויתור סודיות — הורחב ל-6 קטגוריות: השמה, איבחון, בריאות/קופ״ח, לימודים, רווחה, אחר.</div>
-    </div>
-
-    <div class="changelog-entry" data-date="2026-07-02">
-      <div class="changelog-entry-date">2 יולי 2026</div>
-      <div class="changelog-entry-text">כפתור מייל בתחתית — פותח Outlook ישירות עם כתובת אמיר מוכנה.</div>
-    </div>
-
-    <div class="changelog-entry" data-date="2026-07-01">
-      <div class="changelog-entry-date">1 יולי 2026</div>
-      <div class="changelog-entry-text">מועדפים — כפתור כוכב בכל הודעה לשמירה מקומית. הודעות מועדפות מוצגות בראש העמוד עם אפשרות הסרה.</div>
-    </div>
-
-    <div class="changelog-entry" data-date="2026-07-01">
-      <div class="changelog-entry-date">1 יולי 2026</div>
-      <div class="changelog-entry-text">הוספת כפתורי שליחה לוואטסאפ ומייל לכל ההודעות. גלילה אוטומטית לכפתורים בפתיחת הודעה.</div>
-    </div>
-
-    <div class="changelog-entry" data-date="2026-06-30">
-      <div class="changelog-entry-date">30 יוני 2026</div>
-      <div class="changelog-entry-text">הוספת קטגוריית "מטפלים" — מערכת חשבוניות, מאגר מטפלים, הזמנה להצטרף כספק.</div>
-    </div>
-
-    <div class="changelog-entry" data-date="2026-06-30">
-      <div class="changelog-entry-date">30 יוני 2026</div>
-      <div class="changelog-entry-text">הוספת קטגוריות "איבה - משפחות" ו"ילדים איבה" + הודעת זכויות לילדים נכים.</div>
-    </div>
-
-    <div class="changelog-entry" data-date="2026-06-15">
-      <div class="changelog-entry-date">15 יוני 2026</div>
-      <div class="changelog-entry-text">השקת האתר — קטגוריות ראשונות: לימודים, נפגעי איבה, ניתוב, ויתור סודיות, הגעה לסניף.</div>
+    <!-- Tab: עדכונים -->
+    <div class="info-tab-content" id="tab-updates">
+      <div class="changelog-entry" data-date="2026-07-02">
+        <div class="changelog-entry-date">2 יולי 2026</div>
+        <div class="changelog-entry-text">כפתורי פעולה מהירה על כל הודעה — העתק, וואטסאפ, מייל וכוכב ישירות על הכרטיסייה הסגורה.</div>
+      </div>
+      <div class="changelog-entry" data-date="2026-07-02">
+        <div class="changelog-entry-date">2 יולי 2026</div>
+        <div class="changelog-entry-text">פופאפ עדכונים — מוצג פעם אחת בכניסה לאתר עם סיכום השינויים האחרונים.</div>
+      </div>
+      <div class="changelog-entry" data-date="2026-07-02">
+        <div class="changelog-entry-date">2 יולי 2026</div>
+        <div class="changelog-entry-text">ויתור סודיות — הורחב ל-6 קטגוריות: השמה, איבחון, בריאות/קופ״ח, לימודים, רווחה, אחר.</div>
+      </div>
+      <div class="changelog-entry" data-date="2026-07-02">
+        <div class="changelog-entry-date">2 יולי 2026</div>
+        <div class="changelog-entry-text">כפתור מייל בתחתית — פותח Outlook ישירות עם כתובת אמיר מוכנה.</div>
+      </div>
+      <div class="changelog-entry" data-date="2026-07-01">
+        <div class="changelog-entry-date">1 יולי 2026</div>
+        <div class="changelog-entry-text">מועדפים — כפתור כוכב בכל הודעה לשמירה מקומית.</div>
+      </div>
+      <div class="changelog-entry" data-date="2026-07-01">
+        <div class="changelog-entry-date">1 יולי 2026</div>
+        <div class="changelog-entry-text">הוספת כפתורי שליחה לוואטסאפ ומייל לכל ההודעות.</div>
+      </div>
+      <div class="changelog-entry" data-date="2026-06-30">
+        <div class="changelog-entry-date">30 יוני 2026</div>
+        <div class="changelog-entry-text">הוספת קטגוריית "מטפלים" — חשבוניות, מאגר מטפלים, הצטרפות כספק.</div>
+      </div>
+      <div class="changelog-entry" data-date="2026-06-30">
+        <div class="changelog-entry-date">30 יוני 2026</div>
+        <div class="changelog-entry-text">הוספת קטגוריות "איבה - משפחות" ו"ילדים איבה" + זכויות לילדים נכים.</div>
+      </div>
+      <div class="changelog-entry" data-date="2026-06-15">
+        <div class="changelog-entry-date">15 יוני 2026</div>
+        <div class="changelog-entry-text">השקת האתר — קטגוריות ראשונות: לימודים, נפגעי איבה, ניתוב, ויתור סודיות, הגעה לסניף.</div>
+      </div>
     </div>
 
   </div>
 </div>
 
 <main>
-  <p class="search-no-results" id="searchNoResults">לא נמצאו הודעות התואמות לחיפוש</p>
+  <div class="search-no-results" id="searchNoResults">
+    <span class="search-no-results-emoji">🔍</span>
+    <span class="search-no-results-title">אוי, לא מצאנו כלום!</span>
+    <span class="search-no-results-text">נראה שההודעה הזו עדיין מסתתרת איפשהו...<br>או שפשוט עוד לא הכנסנו אותה לכלי 😅</span>
+    <button class="search-no-results-btn" onclick="searchNoResultsWa()">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18z"/></svg>
+      שלח לאמיר להוסיף את זה
+    </button>
+  </div>
 
   <!-- ===== מועדפים ===== -->
   <section class="favs-section" id="favsSection">
@@ -2372,7 +2463,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     </div>
     <div class="footer-contact-body">
       <p class="footer-contact-text">יש לך רעיון להודעה או תבנית שחסרה כאן? כתבו לי, אמיר תישבי — במייל או בוואטסאפ:</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
         <button class="footer-contact-link" onclick="openOutlook()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
           <span class="footer-contact-label">שלח מייל לאמיר</span>
@@ -2518,6 +2609,12 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     document.body.removeChild(a);
   }
 
+  function searchNoResultsWa() {
+    const query = document.getElementById('searchInput')?.value || '';
+    const text = encodeURIComponent(`שלום אמיר, חיפשתי "${query}" בכלי ולא מצאתי. אפשר להוסיף הודעה כזו?`);
+    window.open('https://wa.me/972506287462?text=' + text, '_blank');
+  }
+
   function footerWhatsapp() {
     const text = encodeURIComponent('שלום אמיר, יש לי רעיון לכלי ההודעות:\n\n');
     window.open('https://wa.me/972506287462?text=' + text, '_blank');
@@ -2549,6 +2646,13 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   function openChangelog() {
     document.getElementById('shabbatOverlay').classList.remove('open');
     document.getElementById('changelogOverlay').classList.add('open');
+  }
+
+  function switchInfoTab(id, btn) {
+    document.querySelectorAll('.info-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.info-tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
   }
 
   function closeChangelog(event) {
@@ -2590,40 +2694,63 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   function toggleDarkMode(btn) {
     document.body.classList.toggle('dark-mode');
-    const sun = btn.querySelector('.dark-toggle-sun');
-    const moon = btn.querySelector('.dark-toggle-moon');
-    const label = btn.querySelector('.dark-toggle-label');
     const isDark = document.body.classList.contains('dark-mode');
-    sun.style.display = isDark ? 'none' : 'block';
-    moon.style.display = isDark ? 'block' : 'none';
-    label.textContent = isDark ? 'מצב בהיר' : 'מצב כהה';
+    document.querySelectorAll('.dark-toggle').forEach(b => {
+      const sun = b.querySelector('.dark-toggle-sun');
+      const moon = b.querySelector('.dark-toggle-moon');
+      const label = b.querySelector('.dark-toggle-label');
+      if (sun) sun.style.display = isDark ? 'none' : 'block';
+      if (moon) moon.style.display = isDark ? 'block' : 'none';
+      if (label) label.textContent = isDark ? 'מצב בהיר' : 'מצב כהה';
+    });
   }
 
   // ===== Category filter bar (multi-select) =====
-  // ===== Search (by title only) =====
+  // ===== Search (fuzzy + ranked) =====
   function doSearch(query) {
     const q = query.trim().toLowerCase();
     const clearBtn = document.getElementById('searchClear');
     const noResults = document.getElementById('searchNoResults');
     clearBtn.style.display = q ? 'block' : 'none';
 
-    const cards = document.querySelectorAll('.card:not(.fav-clone)');
+    const cards = Array.from(document.querySelectorAll('.card:not(.fav-clone)'));
 
     if (!q) {
-      cards.forEach(c => c.classList.remove('search-hidden'));
+      cards.forEach(c => { c.classList.remove('search-hidden'); c.style.order = ''; });
       document.querySelectorAll('.category').forEach(c => c.classList.remove('search-empty'));
       if (noResults) noResults.classList.remove('visible');
       return;
     }
 
-    // Close all open cards
-    cards.forEach(c => c.classList.remove('open'));
+    document.querySelectorAll('.card.open').forEach(c => c.classList.remove('open'));
+
+    const words = q.split(/\s+/).filter(Boolean);
 
     let anyVisible = false;
     cards.forEach(card => {
-      const match = card.textContent.toLowerCase().includes(q);
-      card.classList.toggle('search-hidden', !match);
-      if (match) anyVisible = true;
+      const text = card.textContent.toLowerCase();
+      const title = (card.querySelector('.card-toggle-title') || {}).textContent?.toLowerCase() || '';
+
+      let score = 0;
+      if (title.includes(q)) score = 10;
+      else if (text.includes(q)) score = 8;
+      else {
+        const allInTitle = words.every(w => title.includes(w));
+        const allInText = words.every(w => text.includes(w));
+        const someInText = words.some(w => text.includes(w));
+        if (allInTitle) score = 7;
+        else if (allInText) score = 5;
+        else if (someInText) score = 2;
+      }
+
+      if (score > 0) {
+        card.classList.remove('search-hidden');
+        card.style.order = String(10 - score);
+        anyVisible = true;
+      } else {
+        card.classList.add('search-hidden');
+        card.style.order = '';
+      }
     });
 
     document.querySelectorAll('.category').forEach(cat => {
