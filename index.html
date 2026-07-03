@@ -106,7 +106,7 @@ header {
 }
 .header-emblem svg { width: 20px; height: 20px; stroke: #f3efe4; }
 
-.header-titles { flex: 1; }
+.header-titles { flex: 1; min-width: 0; }
 
 .dark-toggle {
   flex-shrink: 0;
@@ -145,12 +145,24 @@ header h1 {
   font-size: 1.18rem;
   font-weight: 700;
   letter-spacing: 0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 header p {
   font-size: 0.74rem;
   color: #b8c0cc;
   margin-top: 2px;
   letter-spacing: 0.02em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 400px) {
+  header h1 { font-size: 1rem; }
+  .changelog-btn { padding: 0 12px; font-size: 0.78rem; height: 36px; }
+  .header-emblem { width: 60px; height: 60px; }
 }
 
 /* ===== Filter bar ===== */
@@ -168,7 +180,7 @@ header p {
   padding: 10px 14px;
   overflow-x: auto;
   scrollbar-width: none;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .filter-bar-inner::-webkit-scrollbar { display: none; }
 
@@ -278,18 +290,17 @@ header p {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  background: var(--paper);
+  gap: 5px;
+  background: none;
   color: var(--ink-soft);
-  border: 1.5px solid var(--rule-strong);
+  border: 1px dashed var(--rule-strong);
   border-radius: var(--radius);
-  padding: 10px 20px;
-  font-size: 0.86rem;
-  font-weight: 700;
+  padding: 9px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
   font-family: 'Heebo', sans-serif;
-  letter-spacing: 0.01em;
   cursor: pointer;
-  width: calc(50% - 5px);
+  flex: 1;
   flex-shrink: 0;
   transition: background 0.15s, transform 0.12s, border-color 0.15s;
   -webkit-tap-highlight-color: transparent;
@@ -300,9 +311,7 @@ header p {
   background: #fdf3c0;
   color: #7a5500;
   border-color: #e6b94d;
-  box-shadow: 0 0 0 1px #e6b94d;
-}
-  -webkit-tap-highlight-color: transparent;
+  border-style: solid;
 }
 
 .fav-remove-btn {
@@ -408,6 +417,8 @@ header p {
   border-radius: 16px;
   width: 100%;
   max-width: 400px;
+  max-height: 85vh;
+  overflow-y: auto;
   padding: 28px 22px 24px;
   direction: rtl;
   text-align: center;
@@ -442,6 +453,25 @@ header p {
 .shabbat-wa-btn { background: #25954a; }
 .shabbat-wa-btn:hover { background: #1f7a3c; }
 .shabbat-email-btn svg, .shabbat-wa-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+.shabbat-dontshow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.shabbat-dontshow input {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  accent-color: var(--navy);
+  cursor: pointer;
+}
 
 .changelog-overlay {
   display: none;
@@ -497,25 +527,37 @@ header p {
 }
 .info-tab {
   flex: 1;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--paper);
   border: 1.5px solid var(--rule-strong);
   border-radius: var(--radius);
-  padding: 10px 6px;
+  padding: 8px 4px;
   font-family: 'Heebo', sans-serif;
   font-size: 0.82rem;
+  line-height: 1.25;
   font-weight: 700;
   color: var(--ink-soft);
   cursor: pointer;
   transition: all 0.15s;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   text-align: center;
 }
 .info-tab:hover { color: var(--ink); border-color: var(--navy); }
+.info-tab:active { transform: scale(0.96); }
 .info-tab.active {
   background: var(--navy);
   color: #f3efe4;
   border-color: var(--navy);
   box-shadow: 0 2px 6px rgba(31,43,61,0.2);
+}
+
+@media (max-width: 400px) {
+  .info-tabs { gap: 4px; }
+  .info-tab { font-size: 0.7rem; padding: 6px 3px; min-height: 44px; }
 }
 
 .info-tab-content { display: none; }
@@ -1024,9 +1066,18 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
   padding: 10px 14px 14px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   justify-content: flex-start;
   align-items: center;
+}
+
+/* Secondary row: email + feedback + fav all equal width */
+.card-footer .email-btn,
+.card-footer .fav-btn,
+.card-footer .feedback-btn {
+  width: calc(33.33% - 6px);
+  min-width: 0;
+  flex: none;
 }
 
 /* Prevent any button in footer from stretching to fill the row */
@@ -1098,7 +1149,7 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
   text-decoration: none;
   border: none;
   border-radius: var(--radius);
-  padding: 10px 20px;
+  padding: 9px 14px;
   font-size: 0.86rem;
   font-weight: 700;
   font-family: 'Heebo', sans-serif;
@@ -1106,12 +1157,34 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
   cursor: pointer;
   transition: background 0.15s, transform 0.12s;
   -webkit-tap-highlight-color: transparent;
-  width: calc(50% - 5px);
+  flex-shrink: 0;
   flex-shrink: 0;
   justify-content: center;
 }
 .email-btn:active { transform: scale(0.95); }
 .email-btn:hover { background: #1f4a85; }
+
+.feedback-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  color: var(--ink-soft);
+  border: 1px dashed var(--rule-strong);
+  border-radius: var(--radius);
+  padding: 9px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: 'Heebo', sans-serif;
+  cursor: pointer;
+  flex: 1;
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.feedback-btn:hover { background: #fff3cd; border-color: #e6b94d; color: #7a5500; border-style: solid; }
+.feedback-btn:active { transform: scale(0.95); }
 .email-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 
 @media (max-width: 400px) {
@@ -1266,27 +1339,31 @@ footer.page-footer {
     <div class="shabbat-candles">🆕</div>
     <div class="shabbat-title">עדכונים חדשים!</div>
     <p class="shabbat-subtitle">נוספו תכונות חדשות לכלי — כדאי להכיר:</p>
+    <p class="shabbat-cta" style="font-size:0.86rem;color:var(--ink);font-weight:700;">💛 תודה לעובדות השיקום על הפידבקים והמילים הטובות!</p>
+    <hr class="shabbat-divider">
     <div style="background:linear-gradient(135deg,#fdf6e3,#f9ecd0);border:1.5px solid #e6cf94;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:0.84rem;color:#5a3e0a;text-align:right;">
-      💡 <strong>טיפ:</strong> מומלץ ליצור קיצור דרך לאתר לגישה מהירה — לחצו על <strong style="background:#c9950a;color:#fff;padding:1px 7px;border-radius:50%;font-style:italic;font-size:0.9rem;">i</strong> בכותרת להסבר מלא
+      💡 <strong>טיפ:</strong> מומלץ ליצור קיצור דרך לאתר לגישה מהירה — לחצו על <strong style="background:#c9950a;color:#3d2a06;padding:1px 8px;border-radius:12px;font-size:0.8rem;white-space:nowrap;">מה הולך פה?</strong> בכותרת להסבר מלא
     </div>
     <hr class="shabbat-divider">
     <ul class="shabbat-updates-list">
-      <li>🔍 <strong>חיפוש</strong> — חיפוש מהיר בכל ההודעות עם דירוג רלוונטיות</li>
-      <li>⚡ <strong>כפתורי מהירה</strong> — העתק/וואטסאפ/מייל/כוכב ישירות על כל כרטיסייה סגורה</li>
-      <li>⭐ <strong>מועדפים</strong> — סמנו הודעות נפוצות לגישה מהירה מראש הדף</li>
-      <li>🏢 <strong>הפניה למחלקה</strong> — בחירת מחלקה (איבה/נכות/עבודה/ניידות) לפני שליחה</li>
-      <li>📋 <strong>סל שיקום</strong> — הסבר מקיף על סל שיקום לעומת שיקום מקצועי</li>
-      <li>🧾 <strong>מטפלים</strong> — קטגוריה חדשה: חשבוניות, מאגר, הצטרפות כספק</li>
+      <li>🔍 <strong>חיפוש</strong> — חיפוש מהיר בכל ההודעות</li>
+      <li>⚡ <strong>כפתורי מהירה</strong> — פעולות ישירות על כל כרטיסייה סגורה</li>
+      <li>✏️ <strong>הצעת תיקון</strong> — כפתור לשלוח פידבק על כל הודעה</li>
+      <li>🏢 <strong>הפניה למחלקה</strong> — בחירת מחלקה דינמית לפני שליחה</li>
     </ul>
     <hr class="shabbat-divider">
-    <p class="shabbat-cta">לכל השינויים המלאים — לחצו על הכפתור <strong onclick="closeShabbat();openChangelog();" style="cursor:pointer;background:#c9950a;color:#3d2a06;padding:2px 10px;border-radius:12px;font-size:0.78rem;">מה הולך פה?</strong></p>
+    <p class="shabbat-cta">לכל השינויים המלאים — לחצו על הכפתור <strong onclick="closeShabbat();openChangelog();" style="cursor:pointer;background:#c9950a;color:#3d2a06;padding:2px 10px;border-radius:12px;font-size:0.78rem;white-space:nowrap;display:inline-block;">מה הולך פה?</strong></p>
     <div class="shabbat-buttons">
       <button class="shabbat-wa-btn" onclick="shabbatWhatsapp()">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-        שלח בקשה לאמיר
+        פניה לאמיר
       </button>
       <button class="shabbat-wa-btn" onclick="closeShabbat()" style="background:var(--navy);">סגור</button>
     </div>
+    <label class="shabbat-dontshow">
+      <input type="checkbox" id="shabbatDontShowChk">
+      פשששש... איזה עדכונים. אני המומה. הבנתי וקראתי. אל תציג שוב עד שיהיו דברים חדשים.
+    </label>
   </div>
 </div>
 
@@ -1357,6 +1434,10 @@ footer.page-footer {
 
     <!-- Tab: עדכונים -->
     <div class="info-tab-content" id="tab-updates">
+      <div class="changelog-entry" data-date="2026-07-02">
+        <div class="changelog-entry-date">2 יולי 2026</div>
+        <div class="changelog-entry-text">כפתור "✏️ תיקון" — פידבק על כל הודעה, שולח ישירות לאמיר בוואטסאפ עם שם ההודעה.</div>
+      </div>
       <div class="changelog-entry" data-date="2026-07-02">
         <div class="changelog-entry-date">2 יולי 2026</div>
         <div class="changelog-entry-text">חיפוש — שדה חיפוש מהיר בכל ההודעות עם דירוג לפי רלוונטיות.</div>
@@ -1480,6 +1561,9 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg1')">
+            ✏️ תיקון
+          </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg1" onclick="toggleFav('msg1', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
@@ -1519,6 +1603,9 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg2')">
+            ✏️ תיקון
+          </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg2" onclick="toggleFav('msg2', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
@@ -1555,6 +1642,9 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg3')">
+            ✏️ תיקון
+          </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg3" onclick="toggleFav('msg3', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
@@ -1590,6 +1680,9 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
           <button class="email-btn" onclick="sendEmail('msg4')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg4')">
+            ✏️ תיקון
           </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg4" onclick="toggleFav('msg4', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
@@ -1645,6 +1738,9 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg5')">
+            ✏️ תיקון
+          </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg5" onclick="toggleFav('msg5', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
@@ -1698,6 +1794,9 @@ https://govforms.gov.il/mw/forms/tHithaivout_eiva@btl.gov.il#%21instructions</di
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg7')">
+            ✏️ תיקון
+          </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg7" onclick="toggleFav('msg7', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
@@ -1734,6 +1833,9 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
           <button class="email-btn" onclick="sendEmail('msg8')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg8')">
+            ✏️ תיקון
           </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg8" onclick="toggleFav('msg8', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
@@ -1783,6 +1885,9 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg14')">
+            ✏️ תיקון
+          </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg14" onclick="toggleFav('msg14', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
@@ -1824,6 +1929,9 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg16')">
+            ✏️ תיקון
+          </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg16" onclick="toggleFav('msg16', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
@@ -1860,6 +1968,9 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
           <button class="email-btn" onclick="sendEmail('msg6')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg6')">
+            ✏️ תיקון
           </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg6" onclick="toggleFav('msg6', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
@@ -1910,6 +2021,9 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
           <button class="email-btn" onclick="sendEmail('msg18')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg18')">
+            ✏️ תיקון
           </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg18" onclick="toggleFav('msg18', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
@@ -1989,6 +2103,9 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg13')">
+            ✏️ תיקון
+          </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg13" onclick="toggleFav('msg13', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
@@ -2038,6 +2155,9 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
           <button class="email-btn" onclick="sendEmail('msg17')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg17')">
+            ✏️ תיקון
           </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg17" onclick="toggleFav('msg17', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
@@ -2117,6 +2237,9 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg19')">
+            ✏️ תיקון
+          </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg19" onclick="toggleFav('msg19', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
@@ -2192,6 +2315,9 @@ https://drive.google.com/file/d/1ao1gY3YYWg4hXoWQZbeyYKHP951SsnSR/view?usp=drive
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg20')">
+            ✏️ תיקון
+          </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg20" onclick="toggleFav('msg20', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
@@ -2229,6 +2355,9 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
           <button class="email-btn" onclick="sendEmail('msg9')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg9')">
+            ✏️ תיקון
           </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg9" onclick="toggleFav('msg9', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
@@ -2271,6 +2400,9 @@ https://govforms.gov.il/mw/forms/t269@btl.gov.il
           <button class="email-btn" onclick="sendEmail('msg22')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg22')">
+            ✏️ תיקון
           </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg22" onclick="toggleFav('msg22', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
@@ -2346,6 +2478,9 @@ https://www.gov.il/he/departments/topics/rehabilitation-basket
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg_sal')">
+            ✏️ תיקון
+          </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg_sal" onclick="toggleFav('msg_sal', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
@@ -2390,6 +2525,7 @@ https://www.gov.il/he/departments/topics/rehabilitation-basket
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg10')">✏️ תיקון</button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg10" onclick="toggleFav('msg10', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
@@ -2469,6 +2605,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
           </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg15')">✏️ תיקון</button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg15" onclick="toggleFav('msg15', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
@@ -2516,6 +2653,9 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           <button class="email-btn" onclick="sendEmail('msg12')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg12')">
+            ✏️ תיקון
           </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg12" onclick="toggleFav('msg12', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
@@ -2713,6 +2853,13 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
   }
 
+  function sendFeedback(id) {
+    const card = document.getElementById(id)?.closest('.card');
+    const title = card?.querySelector('.card-toggle-title')?.textContent || id;
+    const text = encodeURIComponent(`שלום אמיר, יש הצעה לתיקון בהודעה: "${title}"\n\nהבעיה:\n\nהצעה לתיקון:\n`);
+    window.open('https://wa.me/972506287462?text=' + text, '_blank');
+  }
+
   function searchNoResultsWa() {
     const query = document.getElementById('searchInput')?.value || '';
     const text = encodeURIComponent(`שלום אמיר, חיפשתי "${query}" בכלי ולא מצאתי. אפשר להוסיף הודעה כזו?`);
@@ -2727,7 +2874,10 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   // ===== Shabbat popup =====
   function closeShabbat() {
     document.getElementById('shabbatOverlay').classList.remove('open');
-    try { localStorage.setItem('shikum_popup_seen_v3', '1'); } catch(e) {}
+    const dontShow = document.getElementById('shabbatDontShowChk');
+    if (dontShow && dontShow.checked) {
+      try { localStorage.setItem('shikum_popup_seen_v8', '1'); } catch(e) {}
+    }
   }
 
   function shabbatEmail() {
@@ -2771,7 +2921,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     document.querySelectorAll('.card').forEach(c => c.classList.remove('open'));
 
     // Show updates popup only once per user
-    if (!localStorage.getItem('shikum_popup_seen_v3')) {
+    if (!localStorage.getItem('shikum_popup_seen_v8')) {
       setTimeout(() => {
         document.getElementById('changelogOverlay').classList.remove('open');
         document.getElementById('shabbatOverlay').classList.add('open');
