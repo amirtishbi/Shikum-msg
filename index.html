@@ -599,7 +599,7 @@ header p {
   font-weight: 700;
   margin-bottom: 4px;
   direction: ltr;
-  text-align: left;
+  text-align: right;
 }
 
 .changelog-entry-text {
@@ -879,6 +879,9 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
 .quick-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
 
 .quick-copy { background: var(--stamp-red); color: #fff; }
+.quick-copy.copied { background: #2f6b4f; opacity: 1; }
+.quick-copy.copied svg { display: none; }
+.quick-copy.copied::after { content: '✓'; font-size: 0.9rem; font-weight: 900; }
 .quick-wa   { background: #25954a; color: #fff; }
 .quick-mail { background: #2a5fa8; color: #fff; }
 .quick-fav  { background: rgba(0,0,0,0.12); color: var(--ink-soft); font-size: 0.75rem; line-height: 1; }
@@ -2943,7 +2946,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     setTimeout(() => {
       document.getElementById('copyToast').classList.remove('show');
       window.open('https://wa.me/972506287462?text=' + text, '_blank');
-    }, 2700);
+    }, 4320);
   }
 
   // ===== Shabbat popup =====
@@ -3206,6 +3209,10 @@ function toggleFilter(chip) {
       document.body.removeChild(ta);
     }
     showToast();
+    if (btn) {
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 2000);
+    }
   }
 
   function quickWa(id, btn) {
