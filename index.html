@@ -284,6 +284,22 @@ header p {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+.copy-toast.warning {
+  background: #b5471d;
+  border-bottom-color: #7a2f10;
+  white-space: normal;
+  max-width: 300px;
+  text-align: center;
+  line-height: 1.4;
+}
+.copy-toast.info {
+  background: var(--navy-soft);
+  border-bottom-color: #c9950a;
+  white-space: normal;
+  max-width: 300px;
+  text-align: center;
+  line-height: 1.4;
+}
 
 /* ===== Favorites button ===== */
 .fav-btn {
@@ -417,20 +433,20 @@ header p {
   border-radius: 16px;
   width: 100%;
   max-width: 400px;
-  max-height: 85vh;
+  max-height: 90vh;
   overflow-y: auto;
-  padding: 28px 22px 24px;
+  padding: 20px 18px 18px;
   direction: rtl;
   text-align: center;
   box-shadow: 0 8px 32px rgba(0,0,0,0.25);
   position: relative;
 }
-.shabbat-close { position: absolute; top: 12px; left: 14px; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--ink-soft); padding: 4px; line-height: 1; }
-.shabbat-candles { font-size: 2.8rem; margin-bottom: 10px; }
-.shabbat-title { font-family: 'Frank Ruhl Libre', serif; font-size: 1.5rem; font-weight: 900; color: var(--ink); margin-bottom: 6px; }
-.shabbat-subtitle { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.65; }
-.shabbat-divider { border: none; border-top: 1px dashed var(--rule-strong); margin: 16px 0; }
-.shabbat-cta { font-size: 0.86rem; color: var(--ink); line-height: 1.65; margin-bottom: 16px; }
+.shabbat-close { position: absolute; top: 10px; left: 12px; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--ink-soft); padding: 4px; line-height: 1; }
+.shabbat-candles { font-size: 2rem; margin-bottom: 4px; }
+.shabbat-title { font-family: 'Frank Ruhl Libre', serif; font-size: 1.3rem; font-weight: 900; color: var(--ink); margin-bottom: 4px; }
+.shabbat-subtitle { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.5; }
+.shabbat-divider { border: none; border-top: 1px dashed var(--rule-strong); margin: 10px 0; }
+.shabbat-cta { font-size: 0.84rem; color: var(--ink); line-height: 1.5; margin-bottom: 10px; }
 
 .shabbat-updates-list {
   list-style: none;
@@ -439,12 +455,15 @@ header p {
   text-align: right;
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 6px;
 }
 .shabbat-updates-list li {
-  font-size: 0.85rem;
+  font-size: 0.83rem;
   color: var(--ink);
-  line-height: 1.5;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .shabbat-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .shabbat-email-btn, .shabbat-wa-btn { display: flex; align-items: center; gap: 7px; border: none; border-radius: var(--radius); padding: 10px 18px; font-size: 0.84rem; font-weight: 700; font-family: 'Heebo', sans-serif; cursor: pointer; color: #fdf8ee; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
@@ -459,8 +478,8 @@ header p {
   align-items: center;
   gap: 8px;
   justify-content: center;
-  margin-top: 16px;
-  font-size: 0.78rem;
+  margin-top: 10px;
+  font-size: 0.76rem;
   color: var(--ink-soft);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -1278,6 +1297,39 @@ footer.page-footer {
 .footer-contact-wa:hover { background: #1f7a3c; }
 .footer-contact-wa:active { transform: scale(0.96); }
 .footer-contact-wa svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+/* ===== Floating idea suggestion button ===== */
+.idea-fab {
+  position: fixed;
+  bottom: 20px;
+  left: 16px;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--navy);
+  color: #f3efe4;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 18px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.28);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s, background 0.15s;
+}
+.idea-fab:hover { background: var(--navy-soft); }
+.idea-fab:active { transform: scale(0.95); }
+.idea-fab svg { width: 18px; height: 18px; flex-shrink: 0; }
+@media (max-width: 400px) {
+  .idea-fab { bottom: 14px; left: 12px; padding: 10px 14px; font-size: 0.78rem; }
+  .idea-fab span.idea-fab-full { display: none; }
+}
+@media (min-width: 401px) {
+  .idea-fab span.idea-fab-short { display: none; }
+}
 </style>
 </head>
 <body>
@@ -1336,20 +1388,18 @@ footer.page-footer {
 <div class="shabbat-overlay" id="shabbatOverlay">
   <div class="shabbat-panel">
     <button class="shabbat-close" onclick="closeShabbat()">✕</button>
-    <div class="shabbat-candles">🆕</div>
-    <div class="shabbat-title">עדכונים חדשים!</div>
-    <p class="shabbat-subtitle">נוספו תכונות חדשות לכלי — כדאי להכיר:</p>
-    <p class="shabbat-cta" style="font-size:0.86rem;color:var(--ink);font-weight:700;">💛 תודה לעובדות השיקום על הפידבקים והמילים הטובות!</p>
+    <div class="shabbat-title">🆕 עדכונים חדשים!</div>
+    <p class="shabbat-cta" style="font-size:0.84rem;color:var(--ink);font-weight:700;margin-bottom:8px;">💛 תודה לעובדות השיקום על הפידבקים והמילים הטובות!</p>
     <hr class="shabbat-divider">
-    <div style="background:linear-gradient(135deg,#fdf6e3,#f9ecd0);border:1.5px solid #e6cf94;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:0.84rem;color:#5a3e0a;text-align:right;">
-      💡 <strong>טיפ:</strong> מומלץ ליצור קיצור דרך לאתר לגישה מהירה — לחצו על <strong style="background:#c9950a;color:#3d2a06;padding:1px 8px;border-radius:12px;font-size:0.8rem;white-space:nowrap;">מה הולך פה?</strong> בכותרת להסבר מלא
+    <div style="background:linear-gradient(135deg,#fdf6e3,#f9ecd0);border:1.5px solid #e6cf94;border-radius:8px;padding:7px 12px;margin-bottom:8px;font-size:0.82rem;color:#5a3e0a;text-align:right;">
+      💡 <strong>טיפ:</strong> מומלץ ליצור קיצור דרך לאתר לגישה מהירה — לחצו על <strong style="background:#c9950a;color:#3d2a06;padding:1px 8px;border-radius:12px;font-size:0.78rem;white-space:nowrap;">מה הולך פה?</strong> בכותרת להסבר מלא
     </div>
     <hr class="shabbat-divider">
     <ul class="shabbat-updates-list">
-      <li>🔍 <strong>חיפוש</strong> — חיפוש מהיר בכל ההודעות</li>
-      <li>⚡ <strong>כפתורי מהירה</strong> — פעולות ישירות על כל כרטיסייה סגורה</li>
-      <li>✏️ <strong>הצעת תיקון</strong> — כפתור לשלוח פידבק על כל הודעה</li>
-      <li>🏢 <strong>הפניה למחלקה</strong> — בחירת מחלקה דינמית לפני שליחה</li>
+      <li>💡 <strong>הצעת רעיון</strong> — כפתור צף חדש בתחתית המסך</li>
+      <li>📝 <strong>בקרת מילוי</strong> — התראה לפני העתקה לא מלאה</li>
+      <li>🛠️ <strong>תיקוני פריסה</strong> — כפתורים תמיד נגישים</li>
+      <li>🎉 <strong>פופאפ מצומצם</strong> — פחות גלילה, יותר ברור</li>
     </ul>
     <hr class="shabbat-divider">
     <p class="shabbat-cta">לכל השינויים המלאים — לחצו על הכפתור <strong onclick="closeShabbat();openChangelog();" style="cursor:pointer;background:#c9950a;color:#3d2a06;padding:2px 10px;border-radius:12px;font-size:0.78rem;white-space:nowrap;display:inline-block;">מה הולך פה?</strong></p>
@@ -1362,7 +1412,7 @@ footer.page-footer {
     </div>
     <label class="shabbat-dontshow">
       <input type="checkbox" id="shabbatDontShowChk">
-      פשששש... איזה עדכונים. אני המומה. הבנתי וקראתי. אל תציג שוב עד שיהיו דברים חדשים.
+      <strong>פשששש... איזה עדכונים. אני המומה. הבנתי וקראתי. אל תציג שוב עד שיהיו דברים חדשים.</strong>
     </label>
   </div>
 </div>
@@ -1434,6 +1484,22 @@ footer.page-footer {
 
     <!-- Tab: עדכונים -->
     <div class="info-tab-content" id="tab-updates">
+      <div class="changelog-entry recent" data-date="2026-07-03">
+        <div class="changelog-entry-date">3 יולי 2026</div>
+        <div class="changelog-entry-text">💡 כפתור צף חדש "הצעת רעיון חדש" — לשלוח לאמיר כל רעיון לכלי שיעזור בעבודה השוטפת.</div>
+      </div>
+      <div class="changelog-entry recent" data-date="2026-07-03">
+        <div class="changelog-entry-date">3 יולי 2026</div>
+        <div class="changelog-entry-text">📝 בקרת מילוי — ב"הפניה למחלקה" וב"ויתור סודיות", העתקה/שליחה לפני מילוי הפרטים מציגה התראה ופותחת את הכרטיסייה.</div>
+      </div>
+      <div class="changelog-entry recent" data-date="2026-07-03">
+        <div class="changelog-entry-date">3 יולי 2026</div>
+        <div class="changelog-entry-text">🛠️ תיקוני פריסה — כפתור "מה הולך פה?" תמיד לחיץ, וסרגל הסינון נגלל עד הסוף.</div>
+      </div>
+      <div class="changelog-entry recent" data-date="2026-07-03">
+        <div class="changelog-entry-date">3 יולי 2026</div>
+        <div class="changelog-entry-text">🎉 פופאפ עדכונים מצומצם — פחות גלילה, אפשרות "אל תציג שוב עד עדכון חדש".</div>
+      </div>
       <div class="changelog-entry" data-date="2026-07-02">
         <div class="changelog-entry-date">2 יולי 2026</div>
         <div class="changelog-entry-text">כפתור "✏️ תיקון" — פידבק על כל הודעה, שולח ישירות לאמיר בוואטסאפ עם שם ההודעה.</div>
@@ -2495,8 +2561,8 @@ https://www.gov.il/he/departments/topics/rehabilitation-basket
       </button>
       <div class="card-quick-actions" onclick="event.stopPropagation()">
         <button class="quick-btn quick-copy" onclick="quickCopy('msg10', this)" title="העתק"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
-        <button class="quick-btn quick-wa" onclick="quickWa('msg10')" title="שלח בוואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
-        <button class="quick-btn quick-mail" onclick="quickMail('msg10')" title="שלח במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+        <button class="quick-btn quick-wa" onclick="quickWa('msg10', this)" title="שלח בוואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
+        <button class="quick-btn quick-mail" onclick="quickMail('msg10', this)" title="שלח במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
         <button class="quick-btn quick-fav" id="qfav-msg10" onclick="toggleFav('msg10', event)" title="מועדפים">☆</button>
       </div>
       </div>
@@ -2550,8 +2616,8 @@ https://www.gov.il/he/departments/topics/rehabilitation-basket
       </button>
       <div class="card-quick-actions" onclick="event.stopPropagation()">
         <button class="quick-btn quick-copy" onclick="quickCopy('msg15', this)" title="העתק"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
-        <button class="quick-btn quick-wa" onclick="quickWa('msg15')" title="שלח בוואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
-        <button class="quick-btn quick-mail" onclick="quickMail('msg15')" title="שלח במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+        <button class="quick-btn quick-wa" onclick="quickWa('msg15', this)" title="שלח בוואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
+        <button class="quick-btn quick-mail" onclick="quickMail('msg15', this)" title="שלח במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
       
         <button class="quick-btn quick-fav" id="qfav-msg15" onclick="toggleFav('msg15', event)" title="מועדפים"☆</button>
       </div>
@@ -2871,12 +2937,21 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     window.open('https://wa.me/972506287462?text=' + text, '_blank');
   }
 
+  function suggestIdea() {
+    showToast('תרגישו חופשי להביא כל רעיון, מקסימום זה אפשרי. המטרה להקל עלינו שנתפנה לדברים החשובים', 'info');
+    const text = encodeURIComponent('שלום אמיר, יש לי רעיון לכלי חדש שיעזור בעבודה השוטפת:\n\n');
+    setTimeout(() => {
+      document.getElementById('copyToast').classList.remove('show');
+      window.open('https://wa.me/972506287462?text=' + text, '_blank');
+    }, 2700);
+  }
+
   // ===== Shabbat popup =====
   function closeShabbat() {
     document.getElementById('shabbatOverlay').classList.remove('open');
     const dontShow = document.getElementById('shabbatDontShowChk');
     if (dontShow && dontShow.checked) {
-      try { localStorage.setItem('shikum_popup_seen_v8', '1'); } catch(e) {}
+      try { localStorage.setItem('shikum_popup_seen_v12', '1'); } catch(e) {}
     }
   }
 
@@ -2921,7 +2996,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     document.querySelectorAll('.card').forEach(c => c.classList.remove('open'));
 
     // Show updates popup only once per user
-    if (!localStorage.getItem('shikum_popup_seen_v8')) {
+    if (!localStorage.getItem('shikum_popup_seen_v12')) {
       setTimeout(() => {
         document.getElementById('changelogOverlay').classList.remove('open');
         document.getElementById('shabbatOverlay').classList.add('open');
@@ -3070,33 +3145,53 @@ function toggleFilter(chip) {
     });
   }
 
+  function openCard(card) {
+    card.classList.add('open');
+    // Then close others after a short delay to avoid layout jump
+    setTimeout(() => {
+      document.querySelectorAll('.card.open').forEach(c => {
+        if (c !== card) c.classList.remove('open');
+      });
+    }, 80);
+    // Scroll to footer after transition (unless the card needs fields filled first)
+    setTimeout(() => {
+      const body = card.querySelector('.card-body');
+      const needsInput = body && REQUIRES_INPUT.has(body.id);
+      if (needsInput) {
+        const stickyEl = document.querySelector('.sticky-top');
+        const offset = (stickyEl ? stickyEl.offsetHeight : 0) + 10;
+        const rect = card.getBoundingClientRect();
+        window.scrollBy({ top: rect.top - offset, behavior: 'smooth' });
+      } else {
+        const footer = card.querySelector('.card-footer');
+        if (footer) {
+          footer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+      }
+    }, 560);
+  }
+
   function toggleCard(btn) {
     const card = btn.closest('.card');
     const wasOpen = card.classList.contains('open');
 
     if (!wasOpen) {
-      // Open this card first
-      card.classList.add('open');
-      // Then close others after a short delay to avoid layout jump
-      setTimeout(() => {
-        document.querySelectorAll('.card.open').forEach(c => {
-          if (c !== card) c.classList.remove('open');
-        });
-      }, 80);
-      // Scroll to footer after transition
-      setTimeout(() => {
-        const footer = card.querySelector('.card-footer');
-        if (footer) {
-          footer.scrollIntoView({ behavior: 'smooth', block: 'end' });
-        }
-      }, 560);
+      openCard(card);
     } else {
       card.classList.remove('open');
     }
   }
 
   // ===== Quick action buttons (on closed card) =====
+  const REQUIRES_INPUT = new Set(['msg10', 'msg15']);
+  const REQUIRES_INPUT_MSG = 'יש למלא פרטים בכרטיסייה לפני ההעתקה/שליחה 📝 פתחו את הכרטיסייה כדי למלא';
+
   async function quickCopy(id, btn) {
+    if (REQUIRES_INPUT.has(id)) {
+      showToast(REQUIRES_INPUT_MSG, true);
+      if (btn) { const card = btn.closest('.card'); if (card && !card.classList.contains('open')) openCard(card); }
+      return;
+    }
     const el = document.getElementById(id);
     const text = el ? el.textContent : '';
     try {
@@ -3113,13 +3208,23 @@ function toggleFilter(chip) {
     showToast();
   }
 
-  function quickWa(id) {
+  function quickWa(id, btn) {
+    if (REQUIRES_INPUT.has(id)) {
+      showToast(REQUIRES_INPUT_MSG, true);
+      if (btn) { const card = btn.closest('.card'); if (card && !card.classList.contains('open')) openCard(card); }
+      return;
+    }
     const el = document.getElementById(id);
     const text = el ? el.textContent : '';
     window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
   }
 
-  function quickMail(id) {
+  function quickMail(id, btn) {
+    if (REQUIRES_INPUT.has(id)) {
+      showToast(REQUIRES_INPUT_MSG, true);
+      if (btn) { const card = btn.closest('.card'); if (card && !card.classList.contains('open')) openCard(card); }
+      return;
+    }
     const el = document.getElementById(id);
     const text = el ? el.textContent : '';
     const a = document.createElement('a');
@@ -3129,10 +3234,13 @@ function toggleFilter(chip) {
     document.body.removeChild(a);
   }
 
-  function showToast() {
+  function showToast(message, type) {
     const toast = document.getElementById('copyToast');
+    toast.textContent = message || '✓ ההודעה הועתקה';
+    toast.classList.toggle('warning', type === true || type === 'warning');
+    toast.classList.toggle('info', type === 'info');
     toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 1600);
+    setTimeout(() => toast.classList.remove('show'), type ? 9600 : 1600);
   }
 
   function closeCard(el) {
@@ -3292,6 +3400,11 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 </script>
 
 
+
+<button class="idea-fab" onclick="suggestIdea()" title="הצעת רעיון לכלי חדש שיעזור בעבודה השוטפת">
+  <span class="idea-fab-full">💡 הצעת רעיון חדש</span>
+  <span class="idea-fab-short">💡 רעיון</span>
+</button>
 
 </body>
 
