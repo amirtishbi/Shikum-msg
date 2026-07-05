@@ -1280,11 +1280,19 @@ footer.page-footer {
   text-align: right;
 }
 
+.footer-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .footer-contact-text {
+  flex: 1;
+  min-width: 120px;
   font-size: 0.85rem;
   color: #5a3e0a;
-  margin-bottom: 10px;
-  line-height: 1.65;
+  margin: 0;
+  line-height: 1.5;
 }
 .footer-contact-text strong {
   color: #3d2a06;
@@ -1617,7 +1625,8 @@ body.selection-mode .selection-bar { display: flex; }
     <div class="info-tab-content active" id="tab-about">
       <div class="shortcut-guide" style="background:none;border:none;padding:0;">
         <p style="font-size:0.86rem;color:var(--ink);line-height:1.7;margin-bottom:12px;">
-          כלי עזר פנימי לפקידי שיקום — כל תבניות ההודעות במקום אחד.
+          כלי עזר פנימי לפקידי שיקום — כל תבניות ההודעות במקום אחד.<br>
+          <strong>המטרה:</strong> כל הודעה שחוזרת על עצמה יותר מפעם אחת — יש לה כאן בית. כדי שתוכלו להשקיע את הזמן שלכם איפה שהוא באמת נחוץ.
         </p>
         <ul class="shortcut-guide-steps" style="list-style:disc;padding-right:18px;">
           <li>בחרו קטגוריה מסרגל הסינון או חפשו לפי מילת מפתח</li>
@@ -3092,8 +3101,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
     </div>
     <div class="footer-contact-body">
-      <p class="footer-contact-text">יש לך רעיון להודעה או תבנית שחסרה כאן? כתבו לי, אמיר תישבי — במייל או בוואטסאפ:</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+      <div class="footer-contact-row">
+        <p class="footer-contact-text">יש לך רעיון להודעה או תבנית שחסרה כאן? כתבו לי, אמיר תישבי:</p>
         <button class="footer-contact-link" onclick="openOutlook()" title="שלח מייל לאמיר">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
         </button>
