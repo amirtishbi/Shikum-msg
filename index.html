@@ -1053,8 +1053,20 @@ body.eiva-search-active .eiva-tabs { opacity: 0.5; pointer-events: none; }
   85%, 100% { transform: translateX(0); background: transparent; }
 }
 .tour-swipe-demo-row {
+  position: relative;
   animation: tourSwipeDemoAnim 1.6s ease-in-out infinite;
   border-radius: var(--radius);
+}
+.tour-swipe-finger {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.7rem;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 5;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
 }
 
 .card-header-row .card-toggle {
@@ -4451,7 +4463,15 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         const c = tourDemoCard();
         if (c) {
           const row = c.querySelector('.card-header-row');
-          if (row) row.classList.add('tour-swipe-demo-row');
+          if (row) {
+            row.classList.add('tour-swipe-demo-row');
+            if (!row.querySelector('.tour-swipe-finger')) {
+              const finger = document.createElement('span');
+              finger.className = 'tour-swipe-finger';
+              finger.textContent = '👉';
+              row.appendChild(finger);
+            }
+          }
         }
       }
     },
@@ -4500,7 +4520,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     const step = TOUR_STEPS[i];
     if (!step) { endTour(); return; }
     if (tourHighlightedEl) { tourHighlightedEl.classList.remove('tour-target-highlight'); tourHighlightedEl = null; }
-    document.querySelectorAll('.tour-swipe-demo-row').forEach(function (el) { el.classList.remove('tour-swipe-demo-row'); });
+    document.querySelectorAll('.tour-swipe-demo-row').forEach(function (el) { el.classList.remove('tour-swipe-demo-row'); var f = el.querySelector('.tour-swipe-finger'); if (f) f.remove(); });
     if (typeof step.before === 'function') step.before();
     const el = document.querySelector(step.selector);
     const rectCheck = el ? el.getBoundingClientRect() : null;
@@ -4548,8 +4568,12 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     if (tourHighlightedEl && tourHighlightedEl !== el) {
       tourHighlightedEl.classList.remove('tour-target-highlight');
     }
-    el.classList.add('tour-target-highlight');
-    tourHighlightedEl = el;
+    if (!el.classList.contains('tour-swipe-demo-row')) {
+      el.classList.add('tour-target-highlight');
+      tourHighlightedEl = el;
+    } else {
+      tourHighlightedEl = null;
+    }
 
     const rect = el.getBoundingClientRect();
     const pad = 10;
@@ -4597,7 +4621,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   function endTour() {
     document.getElementById('tourOverlay').classList.remove('open');
     if (tourHighlightedEl) { tourHighlightedEl.classList.remove('tour-target-highlight'); tourHighlightedEl = null; }
-    document.querySelectorAll('.tour-swipe-demo-row').forEach(function (el) { el.classList.remove('tour-swipe-demo-row'); });
+    document.querySelectorAll('.tour-swipe-demo-row').forEach(function (el) { el.classList.remove('tour-swipe-demo-row'); var f = el.querySelector('.tour-swipe-finger'); if (f) f.remove(); });
     tourCloseAllCards();
   }
   function tourOverlayClick(e) {
