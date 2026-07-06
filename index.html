@@ -399,6 +399,28 @@ header p {
 }
 .changelog-btn svg { display: none; }
 
+.tour-shortcut-btn {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.14);
+  color: #f3efe4;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, transform 0.12s;
+}
+.tour-shortcut-btn:hover { background: rgba(255,255,255,0.24); }
+.tour-shortcut-btn:active { transform: scale(0.92); }
+@media (max-width: 400px) {
+  .tour-shortcut-btn { width: 34px; height: 34px; font-size: 1rem; }
+}
+
 .changelog-badge {
   position: absolute;
   top: -4px;
@@ -461,6 +483,31 @@ header p {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.tour-promo-btn {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, var(--stamp-red), var(--stamp-red-deep));
+  color: #fdf8ee;
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 14px rgba(122,27,27,0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  animation: tourPromoPulse 1.8s ease-in-out infinite;
+}
+.tour-promo-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(122,27,27,0.45); }
+.tour-promo-btn:active { transform: scale(0.97); }
+@keyframes tourPromoPulse {
+  0%, 100% { box-shadow: 0 4px 14px rgba(122,27,27,0.35); }
+  50% { box-shadow: 0 4px 20px rgba(122,27,27,0.6); }
+}
+
 .shabbat-bottom-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .shabbat-email-btn, .shabbat-wa-btn { display: flex; align-items: center; gap: 7px; border: none; border-radius: var(--radius); padding: 10px 18px; font-size: 0.84rem; font-weight: 700; font-family: 'Heebo', sans-serif; cursor: pointer; color: #fdf8ee; transition: background 0.15s; -webkit-tap-highlight-color: transparent; flex-shrink: 0; }
 .shabbat-email-btn { background: #2a5fa8; }
@@ -1479,6 +1526,137 @@ body.selection-mode .selection-bar { display: flex; }
 .selection-bar-actions button svg { width: 17px; height: 17px; }
 .selection-bar-actions button:disabled { opacity: 0.4; cursor: not-allowed; }
 
+/* ===== Guided tour (spotlight) ===== */
+.tour-start-btn {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  background: var(--stamp-red);
+  color: #fdf8ee;
+  border: none;
+  border-radius: var(--radius);
+  padding: 11px 16px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.tour-start-btn:hover { background: var(--stamp-red-deep); }
+
+.tour-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+}
+.tour-overlay.open { display: block; }
+.tour-spotlight {
+  position: fixed;
+  border-radius: 12px;
+  box-shadow: 0 0 0 9999px rgba(20,16,10,0.65), 0 0 0 3px var(--stamp-red);
+  transition: top 0.3s ease, left 0.3s ease, width 0.3s ease, height 0.3s ease;
+  pointer-events: none;
+  z-index: 901;
+  animation: tourPulse 1.6s ease-in-out infinite;
+}
+@keyframes tourPulse {
+  0%, 100% { box-shadow: 0 0 0 9999px rgba(20,16,10,0.65), 0 0 0 3px var(--stamp-red); }
+  50% { box-shadow: 0 0 0 9999px rgba(20,16,10,0.65), 0 0 0 6px var(--stamp-red); }
+}
+.tour-target-highlight {
+  position: relative !important;
+  z-index: 903 !important;
+  outline: 3px solid var(--stamp-red) !important;
+  outline-offset: 3px;
+  border-radius: 8px;
+  animation: tourTargetPulse 1.2s ease-in-out infinite;
+}
+@keyframes tourTargetPulse {
+  0%, 100% { outline-color: var(--stamp-red); outline-offset: 3px; }
+  50% { outline-color: #ffb020; outline-offset: 5px; }
+}
+.tour-progress-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--rule);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.tour-progress-fill {
+  height: 100%;
+  background: var(--stamp-red);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.tour-tooltip {
+  position: fixed;
+  z-index: 902;
+  max-width: 320px;
+  width: 88vw;
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+  background: var(--paper-card);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  transition: top 0.3s ease, left 0.3s ease;
+}
+.tour-tooltip-step {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+.tour-tooltip-title {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.tour-tooltip-text {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.tour-tooltip-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.tour-skip {
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  -webkit-tap-highlight-color: transparent;
+}
+.tour-nav { display: flex; gap: 8px; }
+.tour-nav button {
+  border: none;
+  border-radius: var(--radius);
+  padding: 8px 14px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s;
+}
+#tourPrevBtn { background: var(--rule); color: var(--ink); }
+#tourPrevBtn:hover { background: var(--rule-strong); }
+#tourNextBtn { background: var(--navy); color: #f3efe4; }
+#tourNextBtn:hover { background: var(--navy-soft); }
+#tourPrevBtn:disabled { opacity: 0.35; cursor: not-allowed; }
+
 /* ===== Branch request CTA card ===== */
 .branch-cta-card {
   max-width: 560px;
@@ -1540,6 +1718,7 @@ body.selection-mode .selection-bar { display: flex; }
       מה הולך פה?
       <span class="changelog-badge" id="changelogBadge"></span>
     </button>
+    <button type="button" class="tour-shortcut-btn" onclick="startTour()" title="סיור הדרכה קצר באתר">🧭</button>
   </div>
 </header>
 
@@ -1582,21 +1761,13 @@ body.selection-mode .selection-bar { display: flex; }
 <div class="shabbat-overlay" id="shabbatOverlay">
   <div class="shabbat-panel">
     <button class="shabbat-close" onclick="closeShabbat()">✕</button>
-    <div class="shabbat-title">🆕 עדכונים חדשים!</div>
-    <p class="shabbat-cta" style="font-size:0.84rem;color:var(--ink);font-weight:700;margin-bottom:8px;">💛 תודה לעובדות השיקום על הפידבקים והמילים הטובות!</p>
+    <div class="shabbat-title">💛 תודה!</div>
+    <p class="shabbat-cta" style="font-size:0.84rem;color:var(--ink);font-weight:700;margin-bottom:8px;">תודה לעובדות השיקום על הפידבקים והמילים הטובות!</p>
     <hr class="shabbat-divider">
-    <div style="background:linear-gradient(135deg,#fdf6e3,#f9ecd0);border:1.5px solid #e6cf94;border-radius:8px;padding:7px 12px;margin-bottom:8px;font-size:0.82rem;color:#5a3e0a;text-align:right;">
-      💡 <strong>טיפ:</strong> מומלץ ליצור קיצור דרך לאתר לגישה מהירה — לחצו על <strong style="background:#c9950a;color:#3d2a06;padding:1px 8px;border-radius:12px;font-size:0.78rem;white-space:nowrap;">מה הולך פה?</strong> בכותרת להסבר מלא
-    </div>
-    <hr class="shabbat-divider">
-    <ul class="shabbat-updates-list">
-      <li>📎 <strong>טופס 277</strong> — קישור נוסף בכרטיסיית הגשת חשבוניות</li>
-      <li>💡 <strong>כפתור רעיון</strong> — עבר לצד כפתור מצב כהה</li>
-      <li>☑️ <strong>בחירה מרובה</strong> — מסמנים כמה הודעות ומעתיקים יחד</li>
-      <li>⭐ <strong>מועדפים</strong> — סמנו כוכב על ההודעות שאתן משתמשות בהן הכי הרבה</li>
-    </ul>
-    <hr class="shabbat-divider">
-    <p class="shabbat-cta">לכל השינויים המלאים — לחצו על הכפתור <strong onclick="closeShabbat();openChangelog();" style="cursor:pointer;background:#c9950a;color:#3d2a06;padding:2px 10px;border-radius:12px;font-size:0.78rem;white-space:nowrap;display:inline-block;">מה הולך פה?</strong></p>
+    <p class="shabbat-cta" style="font-size:0.84rem;color:var(--ink);font-weight:700;text-align:center;margin-bottom:10px;">🌟 מומלץ בחום להיכנס לסיור הקצר שהושקע בו — כמה דקות שיחסכו לכן הרבה זמן</p>
+    <button type="button" class="tour-promo-btn" onclick="closeShabbat();startTour();">
+      🎯 להתחיל את הסיור
+    </button>
     <div class="shabbat-bottom-row">
       <label class="shabbat-dontshow">
         <input type="checkbox" id="shabbatDontShowChk">
@@ -1637,6 +1808,9 @@ body.selection-mode .selection-bar { display: flex; }
           <li>לחצו <strong>☆ מועדפים</strong> — שומר את ההודעה בראש הדף לגישה מהירה</li>
           <li>הכפתורים הצבעוניים הקטנים על הכרטיסייה הסגורה פועלים ישירות ללא פתיחה</li>
         </ul>
+        <button type="button" class="tour-start-btn" onclick="closeChangelog();startTour();">
+          🎯 סיור הדרכה קצר באתר
+        </button>
       </div>
     </div>
 
@@ -1677,6 +1851,10 @@ body.selection-mode .selection-bar { display: flex; }
     <div class="info-tab-content" id="tab-updates">
       <div class="changelog-entry recent" data-date="2026-07-04">
         <div class="changelog-entry-date">4 יולי 2026</div>
+        <div class="changelog-entry-text">🧭 סיור הדרכה — נוסף כפתור קיצור בכותרת (🧭) שמפעיל את הסיור ישירות, נוספו פס התקדמות וניווט במקלדת, והוסר שלב החיפוש.</div>
+      </div>
+      <div class="changelog-entry recent" data-date="2026-07-04">
+        <div class="changelog-entry-date">4 יולי 2026</div>
         <div class="changelog-entry-text">📎 קישור לטופס 277 (דיווח חודשי לטיפול פסיכולוגי) נוסף לכרטיסיית "הגשת חשבוניות במערכת".</div>
       </div>
       <div class="changelog-entry recent" data-date="2026-07-04">
@@ -1687,7 +1865,7 @@ body.selection-mode .selection-bar { display: flex; }
         <div class="changelog-entry-date">4 יולי 2026</div>
         <div class="changelog-entry-text">☑️ בחירה מרובה — כפתור צף חדש שמאפשר לסמן כמה הודעות מכל הקטגוריות ולהעתיק/לשלוח אותן יחד כטקסט אחד.</div>
       </div>
-      <div class="changelog-entry recent" data-date="2026-07-04">
+      <div class="changelog-entry" data-date="2026-07-04">
         <div class="changelog-entry-date">4 יולי 2026</div>
         <div class="changelog-entry-text">🆕 תבנית חדשה תחת "פעולות איבה": בני משפחה של נכי איבה.</div>
       </div>
@@ -3370,7 +3548,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     document.getElementById('shabbatOverlay').classList.remove('open');
     const dontShow = document.getElementById('shabbatDontShowChk');
     if (dontShow && dontShow.checked) {
-      try { localStorage.setItem('shikum_popup_seen_v22', '1'); } catch(e) {}
+      try { localStorage.setItem('shikum_popup_seen_v27', '1'); } catch(e) {}
     }
   }
 
@@ -3446,7 +3624,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     injectSelectionCheckboxes();
 
     // Show updates popup only once per user
-    if (!localStorage.getItem('shikum_popup_seen_v22')) {
+    if (!localStorage.getItem('shikum_popup_seen_v27')) {
       setTimeout(() => {
         document.getElementById('changelogOverlay').classList.remove('open');
         document.getElementById('shabbatOverlay').classList.add('open');
@@ -3964,6 +4142,192 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   document.addEventListener('DOMContentLoaded', function () {
     initEivaTab();
   });
+
+  /* ===== Guided tour (spotlight) ===== */
+  function tourDemoCard() {
+    return document.querySelector('.card');
+  }
+  function tourDeptCard() {
+    const body = document.getElementById('msg10');
+    return body ? body.closest('.card') : null;
+  }
+  function tourCloseAllCards() {
+    document.querySelectorAll('.card.open').forEach(function (c) { c.classList.remove('open'); });
+  }
+
+  const TOUR_STEPS = [
+    {
+      selector: '.changelog-btn',
+      title: '💡 מה הולך פה?',
+      text: 'כאן ההסבר המלא על המערכת, קיצורי דרך, ורשימת כל העדכונים — אפשר לחזור לכאן בכל שלב.',
+      before: tourCloseAllCards
+    },
+    {
+      selector: '#filterBarChips',
+      title: '🏷️ לשוניות קטגוריה',
+      text: 'לחצו על קטגוריה כדי לראות רק את ההודעות הרלוונטיות לה. אפשר לבחור כמה בבת אחת.'
+    },
+    {
+      selector: '.card.open .card-footer',
+      title: '📩 כפתורי פעולה בתוך ההודעה',
+      text: 'כשפותחים הודעה, בתחתית יש העתקה, וואטסאפ, מייל, תיקון ומועדפים — פעולה מלאה על ההודעה הפתוחה.',
+      before: function () { tourCloseAllCards(); const c = tourDemoCard(); if (c) c.classList.add('open'); }
+    },
+    {
+      selector: '.card-quick-actions',
+      title: '⚡ כפתורים קטנים לאחר שמכירים',
+      text: 'ברגע שאתן מכירות הודעה, אין צורך לפתוח אותה — הכפתורים הקטנים על הכרטיסייה הסגורה מבצעים את הפעולה ישירות.',
+      before: tourCloseAllCards
+    },
+    {
+      selector: '.dept-toggle-group',
+      title: '📝 הודעות שדורשות בחירה לפני העתקה',
+      text: 'בכרטיסיות כמו "הפניה למחלקה אחרת" יש לבחור אפשרות (או למלא פרטים) לפני שמעתיקים — כדי שהטקסט הסופי יהיה מדויק.',
+      before: function () { tourCloseAllCards(); const c = tourDeptCard(); if (c) c.classList.add('open'); }
+    },
+    {
+      selector: '.card.open .feedback-btn',
+      title: '✏️ כפתור תיקון',
+      text: 'משהו לא מדויק בהודעה? כפתור "תיקון" שולח לי הערה ישירה על אותה הודעה בדיוק.',
+      before: function () { tourCloseAllCards(); const c = tourDeptCard(); if (c) c.classList.add('open'); }
+    },
+    {
+      selector: '.idea-btn',
+      title: '🔦 הצעות לתבנית חדשה',
+      text: 'יש הודעה שחוזרת על עצמה ואין לה תבנית? הכפתור הזה שולח לי את הרעיון — כדי שנוסיף אותה לכלי.',
+      before: tourCloseAllCards
+    }
+  ];
+  let tourIndex = 0;
+  let tourRenderToken = 0;
+  let tourHighlightedEl = null;
+
+  function startTour() {
+    tourIndex = 0;
+    document.getElementById('tourOverlay').classList.add('open');
+    showTourStep(0);
+  }
+
+  function showTourStep(i) {
+    const step = TOUR_STEPS[i];
+    if (!step) { endTour(); return; }
+    if (tourHighlightedEl) { tourHighlightedEl.classList.remove('tour-target-highlight'); tourHighlightedEl = null; }
+    if (typeof step.before === 'function') step.before();
+    const el = document.querySelector(step.selector);
+    const rectCheck = el ? el.getBoundingClientRect() : null;
+    const invisible = !el || (rectCheck.width === 0 && rectCheck.height === 0);
+    if (invisible) { // target not on screen right now - skip to next/prev gracefully
+      if (i > tourIndex) { tourIndex = i + 1; showTourStep(tourIndex); }
+      else { tourIndex = i - 1; showTourStep(tourIndex); }
+      return;
+    }
+    tourIndex = i;
+
+    // Update text/labels immediately, so they are never out of sync with the highlighted element
+    document.getElementById('tourStepLabel').textContent = (i + 1) + '/' + TOUR_STEPS.length;
+    const progressFill = document.getElementById('tourProgressFill');
+    if (progressFill) progressFill.style.width = (((i + 1) / TOUR_STEPS.length) * 100) + '%';
+    document.getElementById('tourTitle').textContent = step.title;
+    document.getElementById('tourText').textContent = step.text;
+    document.getElementById('tourPrevBtn').disabled = (i === 0);
+    document.getElementById('tourNextBtn').textContent = (i === TOUR_STEPS.length - 1) ? 'סיום' : 'הבא →';
+
+    const myToken = ++tourRenderToken;
+    const stickyEl = document.querySelector('.sticky-top');
+    const stickyHeight = stickyEl ? stickyEl.getBoundingClientRect().height : 0;
+    const rectBefore = el.getBoundingClientRect();
+    const desiredTop = stickyHeight + 20;
+    const scrollDelta = rectBefore.top - desiredTop;
+    if (Math.abs(scrollDelta) > 2) {
+      window.scrollBy({ top: scrollDelta, behavior: 'auto' });
+    }
+
+    function waitForStablePosition(prevRect, attemptsLeft) {
+      if (myToken !== tourRenderToken) return;
+      const rect = el.getBoundingClientRect();
+      const stable = prevRect && Math.abs(rect.top - prevRect.top) < 1 && Math.abs(rect.left - prevRect.left) < 1;
+      if (stable || attemptsLeft <= 0) {
+        positionTour(el);
+      } else {
+        requestAnimationFrame(function () { waitForStablePosition(rect, attemptsLeft - 1); });
+      }
+    }
+    requestAnimationFrame(function () { waitForStablePosition(null, 12); });
+  }
+
+  function positionTour(el) {
+    if (tourHighlightedEl && tourHighlightedEl !== el) {
+      tourHighlightedEl.classList.remove('tour-target-highlight');
+    }
+    el.classList.add('tour-target-highlight');
+    tourHighlightedEl = el;
+
+    const rect = el.getBoundingClientRect();
+    const pad = 10;
+    const spot = document.getElementById('tourSpotlight');
+    spot.style.top = (rect.top - pad) + 'px';
+    spot.style.left = (rect.left - pad) + 'px';
+    spot.style.width = (rect.width + pad * 2) + 'px';
+    spot.style.height = (rect.height + pad * 2) + 'px';
+
+    const tooltip = document.getElementById('tourTooltip');
+    const vh = window.innerHeight, vw = window.innerWidth;
+    const ttWidth = Math.min(320, vw * 0.88);
+    tooltip.style.width = ttWidth + 'px';
+    const ttHeight = Math.min(tooltip.offsetHeight || 170, vh - 24);
+    const spaceBelow = vh - rect.bottom;
+    const spaceAbove = rect.top;
+    let top;
+    if (spaceBelow >= ttHeight + 20) {
+      top = rect.bottom + 16;
+    } else if (spaceAbove >= ttHeight + 20) {
+      top = rect.top - ttHeight - 16;
+    } else if (spaceBelow >= spaceAbove) {
+      top = rect.bottom + 16;
+    } else {
+      top = Math.max(12, rect.top - ttHeight - 16);
+    }
+    top = Math.min(top, vh - 12 - ttHeight);
+    top = Math.max(top, 12);
+
+    let left = rect.left + rect.width / 2 - Math.min(320, vw * 0.88) / 2;
+    left = Math.max(12, Math.min(left, vw - Math.min(320, vw * 0.88) - 12));
+
+    tooltip.style.top = top + 'px';
+    tooltip.style.left = left + 'px';
+  }
+
+  function tourNext() {
+    if (tourIndex >= TOUR_STEPS.length - 1) { endTour(); return; }
+    showTourStep(tourIndex + 1);
+  }
+  function tourPrev() {
+    if (tourIndex <= 0) return;
+    showTourStep(tourIndex - 1);
+  }
+  function endTour() {
+    document.getElementById('tourOverlay').classList.remove('open');
+    if (tourHighlightedEl) { tourHighlightedEl.classList.remove('tour-target-highlight'); tourHighlightedEl = null; }
+    tourCloseAllCards();
+  }
+  function tourOverlayClick(e) {
+    if (e.target && e.target.id === 'tourOverlay') tourNext();
+  }
+  window.addEventListener('resize', function () {
+    const overlay = document.getElementById('tourOverlay');
+    if (overlay && overlay.classList.contains('open')) {
+      const step = TOUR_STEPS[tourIndex];
+      const el = step && document.querySelector(step.selector);
+      if (el) positionTour(el);
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    const overlay = document.getElementById('tourOverlay');
+    if (!overlay || !overlay.classList.contains('open')) return;
+    if (e.key === 'Escape') { endTour(); }
+    else if (e.key === 'ArrowRight' || e.key === 'Enter') { tourNext(); }
+    else if (e.key === 'ArrowLeft') { tourPrev(); }
+  });
 </script>
 
 
@@ -3989,6 +4353,23 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     <button type="button" onclick="sendSelectedEmail()" title="שלח הכל במייל">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
     </button>
+  </div>
+</div>
+
+<div class="tour-overlay" id="tourOverlay" onclick="tourOverlayClick(event)">
+  <div class="tour-spotlight" id="tourSpotlight"></div>
+  <div class="tour-tooltip" id="tourTooltip">
+    <div class="tour-progress-track"><div class="tour-progress-fill" id="tourProgressFill"></div></div>
+    <div class="tour-tooltip-step" id="tourStepLabel">1/5</div>
+    <h3 class="tour-tooltip-title" id="tourTitle"></h3>
+    <p class="tour-tooltip-text" id="tourText"></p>
+    <div class="tour-tooltip-actions">
+      <button type="button" class="tour-skip" onclick="endTour()">דלג</button>
+      <div class="tour-nav">
+        <button type="button" id="tourPrevBtn" onclick="tourPrev()">← קודם</button>
+        <button type="button" id="tourNextBtn" onclick="tourNext()">הבא →</button>
+      </div>
+    </div>
   </div>
 </div>
 
