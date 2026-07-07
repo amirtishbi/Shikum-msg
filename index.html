@@ -323,12 +323,13 @@ header p {
   color: #fdf8ee;
   border: none;
   border-radius: var(--radius);
-  padding: 10px 20px;
-  font-size: 0.86rem;
+  padding: 10px 8px;
+  font-size: 0.82rem;
   font-weight: 700;
   font-family: 'Heebo', sans-serif;
   cursor: pointer;
-  width: calc(50% - 5px);
+  width: calc(33.33% - 6px);
+  min-width: 0;
   flex-shrink: 0;
   transition: background 0.15s, transform 0.12s;
   -webkit-tap-highlight-color: transparent;
@@ -1699,15 +1700,10 @@ body.selection-mode .selection-bar { display: flex; }
 .tour-spotlight {
   position: fixed;
   border-radius: 12px;
-  box-shadow: 0 0 0 9999px rgba(20,16,10,0.65), 0 0 0 3px var(--stamp-red);
+  box-shadow: 0 0 0 9999px rgba(20,16,10,0.65);
   transition: top 0.3s ease, left 0.3s ease, width 0.3s ease, height 0.3s ease;
   pointer-events: none;
   z-index: 901;
-  animation: tourPulse 1.6s ease-in-out infinite;
-}
-@keyframes tourPulse {
-  0%, 100% { box-shadow: 0 0 0 9999px rgba(20,16,10,0.65), 0 0 0 3px var(--stamp-red); }
-  50% { box-shadow: 0 0 0 9999px rgba(20,16,10,0.65), 0 0 0 6px var(--stamp-red); }
 }
 .tour-target-highlight {
   position: relative !important;
@@ -2776,31 +2772,38 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
 שלום רב, אנו מבקשים לעדכן אתכם על הרחבת הזכאות לקבלת מענה רגשי וטיפולי (לפי סעיף 47 לחוק התגמולים). ניתן לממש זכאות זו במקביל לטיפול פסיכולוגי במידה ואתם זכאים לו.
 
 👥 מי זכאי?
-הורים, אלמנים ואלמנות, אחים ואחיות, יתומים, וארוסות.
+הורים, אלמנים ואלמנות, אחים ואחיות, יתומים, ילדיו של נספה וארוסות.
 
 📑 מה כוללת הזכאות?
-מכסת טיפולים: 162 מפגשים לאורך החיים.
-היקף: מפגש פרטני של שעה אחת בשבוע.
-גובה ההחזר: עד 342 ₪ למפגש (כולל מע"מ).
-מועד תחילת הזכאות: ניתן לקבל החזר על טיפולים שהתקיימו החל מ-1.2.2026.
+• מכסת טיפולים: 162 מפגשים לאורך החיים.
+• היקף: מפגש פרטני של שעה אחת בשבוע.
+• גובה ההחזר המירבי למפגש:
+   - עד 290 ₪ עבור מטפל שהוא עוסק פטור.
+   - עד 342 ₪ עבור מטפל שהוא עוסק מורשה (כולל מע"מ).
+• מועד תחילת הזכאות: ניתן לקבל החזר על טיפולים שהתקיימו החל מ-1.2.2026.
 
-🎨 מגוון אפשרויות הטיפול המאושרות: לרשותכם רשימה רחבה של תחומים בהם ניתן לקבל החזר:
+🎨 מגוון אפשרויות הטיפול המאושרות לקבלת החזר:
 
-🧘‍♂️ גוף-נפש: מדיטציה, יוגה תרפיה, מיינדפולנס, טיפול בתנועה/מחול, דמיון מודרך, טאי צ'י, מאסטר טאפינג, רייקי, דיקור, ריצה, אימון כושר, אגרוף, קיר טיפוס, גלישה, פילאטיס, צ'י קונג, רפלקסולוגיה, קינסיולוגיה, שיטת פאולה, כירופרקטיקה, אוסטאופתיה, ביו פידבק, היפנוזה, הומוטקסולוגיה, יוגה רגישת טראומה, שיאצו, טווינא, Somatic Experience, הילינג, EMDR, שטיפה אנרגטית ועיסוי רפואי.
+🧘‍♂️ גוף ונפש:
+EMDR, Somatic Experience, אגרוף, אימון כושר, ארומתרפיה, ביו פידבק והיפנוזה, גלישה, דיקור, דמיון מודרך, הומאופתיה, הומוטקסולוגיה, הילינג, הרזיה הוליסטית, טאי צ'י, טווינא, טיפול בתנועה ו/או מחול, יוגה-תרפיה, יוגה רגישת טראומה, כירופרקטיקה ואוסטאופתיה, מאסטר טאפינג, מדיטציה, נטורופתיה, עיסוי רפואי, פילאטיס, צ'י קונג, קינסיולוגיה, קיר טיפוס, קשיבות (מיינדפולנס), רייקי, ריצה, רפלקסולוגיה, שטיפה אנרגטית, שיאצו ושיטת פאולה.
 
-💬 שיח בגישות שונות: פסיכולוגיה חיובית, אימון אישי (Coaching), NLP, שיטת אלבאום, CBT, הדרכה אדלריאנית, Focusing (התמקדות), סכמה תרפיה ושיטת סאטיה.
+💬 שיח בגישות שונות:
+CBT, DBT, NLP, אימון אישי, הדרכה אדלריאנית, התמקדות (Focusing), טיפול שונישין, סכמה תרפיה, פסיכולוגיה חיובית, שיטת אלבאום ושיטת סאטיה.
 
-🎨 כלים הבעתיים והשלכתיים: אמנות חזותית (ציור, פיסול, צילום, קולאז'), ביבליותרפיה, דרמה ופסיכודרמה, מוזיקה, טיפול בשולחן חול ובישול טיפולי.
+🎨 אמצעים הבעתיים וכלים השלכתיים:
+אמנות חזותית (ציור, פיסול, צילום, קולאז'), ביבליותרפיה (שימוש בספרות, קריאה וכתיבה), בישול טיפולי, דרמה ופסיכודרמה וטיפול בשולחן חול.
 
-🐎 מבוססות טבע ובעלי חיים: טיפול בסיוע סוסים, רכיבה טיפולית, אימון כלבים, טבע תרפיה, טיפול באמצעות בעלי חיים, גינון טיפולי, הידרותרפיה, וואטסו, גלישת גלים, רפואת יער, גלישת סאפ ושחייה.
+🐎 מבוססת טבע, אדמה, מים ובע"ח:
+אימון כלבים, גינון טיפולי, גלישת גלים, גלישת סאפ, הידרותרפיה, וואטסו, טבע תרפיה, טיפול באמצעות בעלי חיים, טיפול בסיוע סוסים, רכיבה טיפולית, רפואת יער ושחייה.
 
-✨ ליווי רוחני: ליווי, תמיכה וייעוץ רוחני.
+✨ ליווי רוחני:
+ליווי, תמיכה וייעוץ רוחני.
 
 💰 איך מקבלים החזר?
-בחירת מטפל: באחריותכם האישית. על הטיפול להיות פרטני (אחד על אחד).
-שליחת קבלה: יש להגיש קבלה או חשבונית מס על שם המבוטח.
-דגש חשוב: על הקבלה חייבת להופיע התמחות המטפל והיא חייבת להתאים לסוג הטיפול שבוצע.
-(ביטוח לאומי רשאי לבקש את תעודות המטפל במידת הצורך).
+1. בחירת מטפל: באחריותכם האישית. על הטיפול להיות פרטני (אחד על אחד).
+2. שליחת קבלה: יש להגיש קבלה או חשבונית מס על שם המבוטח.
+3. דגש חשוב: על הקבלה חייבת להופיע התמחות המטפל והיא חייבת להתאים לסוג הטיפול שבוצע.
+(המוסד רשאי לבקש את תעודות המטפל במידת הצורך).
 
 אנו כאן ללוות אתכם בכל שלב.
 בברכה,
@@ -2967,9 +2970,9 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
 גובה ההחזר:
 בשנתיים הראשונות: עד 5,000 ₪ לכל שנה קלנדרית (כנגד קבלות, ניתן לשלב כמה חוגים).
 
-🧠 5. טיפול נפשי והתערבות רגשית
+🧠 5. טיפול נפשי
 
-מה מקבלים: זכאות למימון טיפול נפשי ותהליך התערבות רגשית, בהתאם לצורך הילד.
+מה מקבלים: זכאות למימון טיפול נפשי, בהתאם לצורך הילד.
 
 💡 חשוב לדעת:
 שומרים על הילד: כדאי לשים לב שלא להעמיס על הילד יותר מדי טיפולים וחוגים במקביל.
@@ -4117,9 +4120,20 @@ function toggleFilter(chip) {
     saveSettings();
   }
 
+  function swipeSafeWa(card, id) {
+    if (REQUIRES_INPUT.has(id)) {
+      showToast(REQUIRES_INPUT_MSG, true);
+      if (!card.classList.contains('open')) openCard(card);
+      return;
+    }
+    const el = document.getElementById(id);
+    const text = el ? el.textContent : '';
+    window.location.href = 'https://wa.me/?text=' + encodeURIComponent(text);
+  }
+
   const SWIPE_ACTION_META = {
     copy: { flashClass: 'swipe-flash-copy', run: function (card, id) { quickCopy(id, card.querySelector('.quick-copy')); } },
-    wa:   { flashClass: 'swipe-flash-wa',   run: function (card, id) { quickWa(id, card.querySelector('.quick-wa')); } },
+    wa:   { flashClass: 'swipe-flash-wa',   run: swipeSafeWa },
     mail: { flashClass: 'swipe-flash-wa',   run: function (card, id) { quickMail(id, card.querySelector('.quick-mail')); } },
     fav:  { flashClass: 'swipe-flash-copy', run: function (card, id) { toggleFav(id, { stopPropagation: function () {} }); } }
   };
@@ -4456,7 +4470,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       text: function () {
         const r = SWIPE_ACTION_LABELS[userSettings.swipeRight] || '';
         const l = SWIPE_ACTION_LABELS[userSettings.swipeLeft] || '';
-        return 'מחליקים כרטיסייה סגורה ימינה או שמאלה לפעולה מיידית: ימינה = ' + r + ', שמאלה = ' + l + '. הנה דוגמה של החלקה ימינה. ניתן לשנות את השיוך בהגדרות האישיות.';
+        return '📱 זמין בטלפון בלבד: מחליקים כרטיסייה סגורה ימינה או שמאלה לפעולה מיידית: ימינה = ' + r + ', שמאלה = ' + l + '. הנה דוגמה של החלקה ימינה. ניתן לשנות את השיוך בהגדרות האישיות.';
       },
       before: function () {
         tourCloseAllCards();
@@ -4519,7 +4533,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   function showTourStep(i) {
     const step = TOUR_STEPS[i];
     if (!step) { endTour(); return; }
-    if (tourHighlightedEl) { tourHighlightedEl.classList.remove('tour-target-highlight'); tourHighlightedEl = null; }
+    if (tourHighlightedEl) { tourHighlightedEl.classList.remove('tour-target-highlight'); tourHighlightedEl.style.borderRadius = ''; tourHighlightedEl = null; }
     document.querySelectorAll('.tour-swipe-demo-row').forEach(function (el) { el.classList.remove('tour-swipe-demo-row'); var f = el.querySelector('.tour-swipe-finger'); if (f) f.remove(); });
     if (typeof step.before === 'function') step.before();
     const el = document.querySelector(step.selector);
@@ -4567,6 +4581,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   function positionTour(el) {
     if (tourHighlightedEl && tourHighlightedEl !== el) {
       tourHighlightedEl.classList.remove('tour-target-highlight');
+      tourHighlightedEl.style.borderRadius = '';
     }
     if (!el.classList.contains('tour-swipe-demo-row')) {
       el.classList.add('tour-target-highlight');
@@ -4576,12 +4591,17 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     }
 
     const rect = el.getBoundingClientRect();
-    const pad = 10;
+    const pad = 5;
+    const computedRadius = parseFloat(getComputedStyle(el).borderRadius) || 0;
+    const isCircular = Math.abs(rect.width - rect.height) < 4 && computedRadius >= rect.width / 2 - 2;
+    const spotRadius = isCircular ? '50%' : '12px';
     const spot = document.getElementById('tourSpotlight');
     spot.style.top = (rect.top - pad) + 'px';
     spot.style.left = (rect.left - pad) + 'px';
     spot.style.width = (rect.width + pad * 2) + 'px';
     spot.style.height = (rect.height + pad * 2) + 'px';
+    spot.style.borderRadius = spotRadius;
+    if (tourHighlightedEl) tourHighlightedEl.style.borderRadius = isCircular ? '50%' : '';
 
     const tooltip = document.getElementById('tourTooltip');
     const vh = window.innerHeight, vw = window.innerWidth;
@@ -4620,7 +4640,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
   function endTour() {
     document.getElementById('tourOverlay').classList.remove('open');
-    if (tourHighlightedEl) { tourHighlightedEl.classList.remove('tour-target-highlight'); tourHighlightedEl = null; }
+    if (tourHighlightedEl) { tourHighlightedEl.classList.remove('tour-target-highlight'); tourHighlightedEl.style.borderRadius = ''; tourHighlightedEl = null; }
     document.querySelectorAll('.tour-swipe-demo-row').forEach(function (el) { el.classList.remove('tour-swipe-demo-row'); var f = el.querySelector('.tour-swipe-finger'); if (f) f.remove(); });
     tourCloseAllCards();
   }
