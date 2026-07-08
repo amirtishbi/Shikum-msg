@@ -3690,7 +3690,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function sendDeptMsgWa() {
-    window.open('https://wa.me/?text=' + encodeURIComponent(getDeptText()), '_blank');
+    openWhatsAppSafely(getDeptText(), false);
   }
 
   function sendDeptMsgEmail() {
@@ -3743,7 +3743,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function sendRightsMsgWa() {
-    window.open('https://wa.me/?text=' + encodeURIComponent(getRightsText()), '_blank');
+    openWhatsAppSafely(getRightsText(), false);
   }
 
   function sendRightsMsgEmail() {
@@ -3755,32 +3755,32 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   function sendFeedback(id) {
     const card = document.getElementById(id)?.closest('.card');
     const title = card?.querySelector('.card-toggle-title')?.textContent || id;
-    const text = encodeURIComponent(`שלום אמיר, יש הצעה לתיקון בהודעה: "${title}"\n\nהבעיה:\n\nהצעה לתיקון:\n`);
-    window.open('https://wa.me/972506287462?text=' + text, '_blank');
+    const text = `שלום אמיר, יש הצעה לתיקון בהודעה: "${title}"\n\nהבעיה:\n\nהצעה לתיקון:\n`;
+    openWhatsAppSafely(text, false, '972506287462');
   }
 
   function searchNoResultsWa() {
     const query = document.getElementById('searchInput')?.value || '';
-    const text = encodeURIComponent(`שלום אמיר, חיפשתי "${query}" בכלי ולא מצאתי. אפשר להוסיף הודעה כזו?`);
-    window.open('https://wa.me/972506287462?text=' + text, '_blank');
+    const text = `שלום אמיר, חיפשתי "${query}" בכלי ולא מצאתי. אפשר להוסיף הודעה כזו?`;
+    openWhatsAppSafely(text, false, '972506287462');
   }
 
   function footerWhatsapp() {
-    const text = encodeURIComponent('שלום אמיר, יש לי רעיון לכלי ההודעות:\n\n');
-    window.open('https://wa.me/972506287462?text=' + text, '_blank');
+    const text = 'שלום אמיר, יש לי רעיון לכלי ההודעות:\n\n';
+    openWhatsAppSafely(text, false, '972506287462');
   }
 
   function requestBranchWhatsapp() {
-    const text = encodeURIComponent('שלום אמיר, אני רוצה להוסיף את הסניף שלי לכלי ("הגעה לסניף"):\n\nשם הסניף: \n\nהסבר מפורט על ההגעה (כתובת, קומה, איך למצוא את החדר): \n\n');
-    window.open('https://wa.me/972506287462?text=' + text, '_blank');
+    const text = 'שלום אמיר, אני רוצה להוסיף את הסניף שלי לכלי ("הגעה לסניף"):\n\nשם הסניף: \n\nהסבר מפורט על ההגעה (כתובת, קומה, איך למצוא את החדר): \n\n';
+    openWhatsAppSafely(text, false, '972506287462');
   }
 
   function suggestIdea() {
     showToast('תרגישו חופשי להביא כל רעיון, מקסימום זה אפשרי. המטרה להקל עלינו שנתפנה לדברים החשובים', 'info');
-    const text = encodeURIComponent('שלום אמיר, יש לי רעיון לכלי חדש שיעזור בעבודה השוטפת:\n\n');
+    const text = 'שלום אמיר, יש לי רעיון לכלי חדש שיעזור בעבודה השוטפת:\n\n';
     setTimeout(() => {
       document.getElementById('copyToast').classList.remove('show');
-      window.open('https://wa.me/972506287462?text=' + text, '_blank');
+      openWhatsAppSafely(text, false, '972506287462');
     }, 4320);
   }
 
@@ -3804,8 +3804,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function shabbatWhatsapp() {
-    const text = encodeURIComponent('שלום אמיר, יש לי רעיון לכלי ההודעות:\n\n');
-    window.open('https://wa.me/972506287462?text=' + text, '_blank');
+    const text = 'שלום אמיר, יש לי רעיון לכלי ההודעות:\n\n';
+    openWhatsAppSafely(text, false, '972506287462');
     closeShabbat();
   }
 
@@ -4076,6 +4076,34 @@ function toggleFilter(chip) {
     }
   }
 
+  function openWhatsAppSafely(text, useLocation, phone) {
+    const waBlankUrl = phone ? ('https://wa.me/' + phone) : 'https://wa.me/';
+    const doOpen = function () {
+      showToast('✓ הטקסט הועתק. וואטסאפ נפתח — הדביקו בתיבת ההודעה', 'wa');
+      setTimeout(function () {
+        if (useLocation) window.location.href = waBlankUrl;
+        else window.open(waBlankUrl, '_blank');
+      }, useLocation ? 1500 : 400);
+    };
+    const fallbackCopy = function () {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+        document.body.appendChild(ta);
+        ta.focus(); ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      } catch (e) {}
+      doOpen();
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(doOpen, fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  }
+
   function quickWa(id, btn) {
     if (REQUIRES_INPUT.has(id)) {
       showToast(REQUIRES_INPUT_MSG, true);
@@ -4084,7 +4112,7 @@ function toggleFilter(chip) {
     }
     const el = document.getElementById(id);
     const text = el ? el.textContent : '';
-    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+    openWhatsAppSafely(text, false);
   }
 
   function quickMail(id, btn) {
@@ -4206,28 +4234,7 @@ function toggleFilter(chip) {
     }
     const el = document.getElementById(id);
     const text = el ? el.textContent : '';
-    const waUrl = 'https://wa.me/?text=' + encodeURIComponent(text);
-    const goToWa = function () {
-      showToast('✓ הטקסט הועתק. וואטסאפ נפתח לשליחה', 'wa');
-      setTimeout(function () { window.location.href = waUrl; }, 1500);
-    };
-    const fallbackCopy = function () {
-      try {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
-        document.body.appendChild(ta);
-        ta.focus(); ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-      } catch (e) {}
-      goToWa();
-    };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(goToWa, fallbackCopy);
-    } else {
-      fallbackCopy();
-    }
+    openWhatsAppSafely(text, true);
   }
 
   const SWIPE_ACTION_META = {
@@ -4366,7 +4373,7 @@ function toggleFilter(chip) {
   function sendSelectedWa() {
     const text = getSelectedMergedText();
     if (!text) return;
-    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+    openWhatsAppSafely(text, false);
   }
 
   function sendSelectedEmail() {
@@ -4382,8 +4389,7 @@ function toggleFilter(chip) {
   function sendWhatsapp(id) {
     const el = document.getElementById(id);
     const text = el.innerText;
-    const url = 'https://wa.me/?text=' + encodeURIComponent(text);
-    window.open(url, '_blank');
+    openWhatsAppSafely(text, false);
     closeCard(el);
   }
 
@@ -4493,8 +4499,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     const card = btn.closest('.card');
     const text = buildConsentText(card);
     if (!text) return;
-    const url = 'https://wa.me/?text=' + encodeURIComponent(text);
-    window.open(url, '_blank');
+    openWhatsAppSafely(text, false);
     closeCard(btn);
   }
 
