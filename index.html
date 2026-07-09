@@ -26,6 +26,7 @@
 
   --cat-studies: #2f6b4f;
   --cat-terror: #7b3b6b;
+  --cat-terror-tint: #f3e8f0;
   --cat-routing: #a16a1f;
   --cat-consent: #1f6e6e;
   --cat-admin: #8a2c23;
@@ -51,6 +52,7 @@ body.dark-mode {
 
   --cat-studies: #4a9a72;
   --cat-terror: #a8669a;
+  --cat-terror-tint: #322732;
   --cat-routing: #c98a3a;
   --cat-consent: #3a9a9a;
   --cat-admin: #c4453a;
@@ -1476,7 +1478,20 @@ header p {
 
 main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
 
-.category { margin-bottom: 36px; scroll-margin-top: 130px; }
+.category {
+  margin-bottom: 34px;
+  scroll-margin-top: 130px;
+  border: 4.5px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  padding: 16px 14px 20px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+}
+#studies     { border-color: var(--cat-studies); }
+#eiva        { border-color: var(--cat-terror); }
+#therapists  { border-color: var(--cat-therapists); }
+#routing     { border-color: var(--cat-routing); }
+#consent     { border-color: var(--cat-consent); }
+#admin       { border-color: var(--cat-admin); }
 
 /* ===== Category header: bold colored banner ===== */
 .cat-header {
@@ -1487,6 +1502,11 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
   padding: 10px 14px;
   border-radius: var(--radius-lg);
   position: relative;
+}
+
+.eiva-header-attached {
+  margin-bottom: 0 !important;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
 }
 
 .cat-icon {
@@ -1512,8 +1532,13 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
 .eiva-tabs {
   display: flex;
   gap: 6px;
-  padding: 10px 14px 4px;
+  padding: 10px 10px;
+  margin-bottom: 16px;
   flex-wrap: wrap;
+  background: var(--cat-terror-tint);
+  border: 1.5px solid var(--cat-terror);
+  border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 .eiva-tab {
   flex: 1;
@@ -1523,20 +1548,18 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
   justify-content: center;
   gap: 5px;
   background: var(--paper-card);
-  border: 1.5px solid var(--rule-strong);
+  border: 1.5px solid var(--cat-terror);
   border-radius: var(--radius);
   padding: 9px 10px;
   font-family: 'Heebo', sans-serif;
   font-size: 0.82rem;
   font-weight: 700;
-  color: var(--ink);
+  color: var(--cat-terror);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
-.eiva-tab[data-eiva-tab="terror"].active  { background: var(--cat-terror);  border-color: var(--cat-terror);  color: #fff; }
-.eiva-tab[data-eiva-tab="family"].active  { background: var(--cat-family);  border-color: var(--cat-family);  color: #fff; }
-.eiva-tab[data-eiva-tab="kids"].active    { background: var(--cat-kids);    border-color: var(--cat-kids);    color: #fff; }
+.eiva-tab.active { background: var(--cat-terror); border-color: var(--cat-terror); color: #fff; }
 .eiva-panel { display: none; }
 .eiva-panel.active { display: block; }
 body.eiva-search-active .eiva-panel { display: block; }
@@ -2989,7 +3012,7 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
 
   <!-- ===== נפגעי פעולות איבה ===== -->
   <section class="category" id="eiva">
-    <div class="cat-header terror">
+    <div class="cat-header terror eiva-header-attached">
       <div class="cat-icon">
         <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
       </div>
