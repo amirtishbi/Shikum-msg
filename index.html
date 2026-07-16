@@ -1880,6 +1880,350 @@ body.dark-mode .changelog-entry.tip .changelog-entry-date {
 
 main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
 
+/* ===== Bottom Sheet: פתיחת תבנית במובייל (desktop keeps the inline accordion) ===== */
+.mobile-sheet-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 940;
+  background: rgba(0,0,0,0.48);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+.mobile-sheet-overlay.open {
+  display: flex;
+  align-items: flex-end;
+  opacity: 1;
+}
+.mobile-sheet {
+  width: 100%;
+  max-height: 86vh;
+  background: var(--paper-card);
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -8px 30px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.mobile-sheet-overlay.open .mobile-sheet {
+  transform: translateY(0);
+}
+.mobile-sheet-handle {
+  width: 40px;
+  height: 4px;
+  border-radius: 3px;
+  background: var(--rule-strong);
+  margin: 10px auto 4px;
+  flex-shrink: 0;
+}
+.mobile-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 16px 12px;
+  border-bottom: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+.mobile-sheet-title {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+  line-height: 1.35;
+}
+.mobile-sheet-close {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--rule);
+  color: var(--ink);
+  font-size: 0.95rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.mobile-sheet-body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 14px 16px 26px;
+}
+/* Inside the sheet, the card-collapsible no longer needs the "closed card" dashed
+   top border it has inline in the page — it's already the sheet's only content. */
+.mobile-sheet-body .card {
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.mobile-sheet-body .card::before { display: none; }
+.mobile-sheet-body .card-header-row { display: none; }
+.mobile-sheet-body .card-collapsible { border-top: none !important; padding-top: 0 !important; }
+
+body.sheet-open { overflow: hidden; }
+
+/* ===== מסך בית: גריד קטגוריות (מובייל בלבד) ===== */
+.mobile-dashboard-grid { display: none; }
+@media (hover: none) and (pointer: coarse) {
+  .mobile-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    max-width: 640px;
+    margin: 4px auto 20px;
+    padding: 0 14px;
+  }
+}
+.dashboard-tile {
+  --tile-color: var(--navy);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 100px;
+  padding: 16px 10px;
+  background: var(--paper-card);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(43,38,32,0.07);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.12s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.dashboard-tile:active {
+  transform: scale(0.96);
+  box-shadow: 0 1px 3px rgba(43,38,32,0.1), inset 0 0 0 2px var(--tile-color);
+}
+.dashboard-tile-icon {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--tile-color) 14%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, #e6b94d 55%, transparent);
+}
+.dashboard-tile-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ===== תגית מספר הודעות על אריח בגריד ===== */
+.dashboard-tile { position: relative; }
+.dashboard-tile-count {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--stamp-red);
+  color: #fdf8ee;
+  font-size: 0.72rem;
+  font-weight: 800;
+  border-radius: 11px;
+  box-shadow: 0 1px 3px rgba(43,38,32,0.25);
+  pointer-events: none;
+}
+
+
+
+/* ===== סרגל ניווט תחתון קבוע (מובייל בלבד) ===== */
+.bottom-nav { display: none; }
+@media (hover: none) and (pointer: coarse) {
+  body { padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 900;
+    height: calc(62px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: linear-gradient(180deg, var(--navy) 0%, #161e2b 100%);
+    border-top: 3px solid var(--stamp-red);
+    box-shadow: 0 -4px 18px rgba(17,23,34,0.35);
+  }
+  body.sheet-open .bottom-nav { display: none; }
+}
+.bottom-nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 7px 0 5px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgba(238, 231, 215, 0.6);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.15s;
+}
+.bottom-nav-emoji {
+  font-size: 1.35rem;
+  line-height: 1;
+  padding: 3px 13px;
+  border-radius: 999px;
+  transition: background 0.15s, transform 0.15s;
+  filter: grayscale(0.35) brightness(1.05);
+}
+.bottom-nav-btn.active {
+  color: #e6b94d;
+  font-weight: 900;
+}
+.bottom-nav-btn.active .bottom-nav-emoji {
+  background: rgba(230, 185, 77, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(230, 185, 77, 0.3);
+  filter: none;
+  transform: scale(1.08);
+}
+.bottom-nav-btn:active { transform: scale(0.94); }
+@media (hover: none) and (pointer: coarse) {
+  .tour-start-btn { display: none !important; }
+}
+/* הסבר על המערכת — תוכן שונה לפי מכשיר */
+.explain-mobile { display: none; }
+@media (hover: none) and (pointer: coarse) {
+  .explain-desktop { display: none; }
+  .explain-mobile { display: flex; }
+}
+/* אפקט לחיצה רגוע — גל זהב עדין שמתפשט ודועך */
+.bottom-nav-btn { position: relative; overflow: hidden; transition: color 0.15s, transform 0.2s ease; }
+.bottom-nav-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(230,185,77,0.4) 0%, rgba(230,185,77,0.12) 60%, transparent 100%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+.bottom-nav-btn.nav-tapped::after {
+  animation: navRipple 0.6s ease-out;
+}
+@keyframes navRipple {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(10); opacity: 0; }
+}
+
+/* ===== אפקטים רגועים למובייל ===== */
+@media (hover: none) and (pointer: coarse) {
+  /* הטוסט מעל הסרגל התחתון, בכניסה רכה */
+  .copy-toast {
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+    transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 0.9, 0.35, 1);
+  }
+  /* לחיצה רכה על אריח — אדווה עדינה בצבע הקטגוריה */
+  .dashboard-tile { overflow: hidden; }
+  .dashboard-tile::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--tile-color) 0%, transparent 70%);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+  }
+  .dashboard-tile.tile-tapped::after {
+    animation: tileRipple 0.55s ease-out;
+  }
+}
+@keyframes tileRipple {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.22; }
+  100% { transform: translate(-50%, -50%) scale(14); opacity: 0; }
+}
+/* כניסת כרטיסיות לקטגוריה — fade + החלקה עדינה מדורגת */
+@media (hover: none) and (pointer: coarse) and (prefers-reduced-motion: no-preference) {
+  .category.cat-enter .card,
+  .category.cat-enter .studies-refund-tabs,
+  .category.cat-enter .eiva-tabs {
+    animation: cardEnter 0.4s cubic-bezier(0.22, 0.9, 0.35, 1) both;
+  }
+}
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ===== מובייל: בלי סרגל צ'יפים — הסינון דרך אריחי מסך הבית, קטגוריה אחת בכל פעם ===== */
+@media (hover: none) and (pointer: coarse) {
+  .filter-bar { display: none; }
+}
+@media (hover: none) and (pointer: coarse) {
+  /* מסך הבית נעול: ההודעות מופיעות רק אחרי בחירת קטגוריה או פתיחת חיפוש */
+  body:not(.mobile-cat-filtered):not(.mobile-search-open) main { display: none; }
+  body.mobile-cat-filtered .mobile-dashboard-grid,
+  body.mobile-search-open .mobile-dashboard-grid { display: none; }
+  /* סרגל הכלים העליון מוסתר במובייל — נפתח רק דרך "חיפוש" בסרגל התחתון */
+  .search-bar { display: none; }
+  body.mobile-search-open .search-bar { display: block; }
+  /* הדגשת מסך הבית: כותרת + אריחים גדולים ובולטים יותר */
+  .mobile-home-title {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 1.22rem;
+    font-weight: 700;
+    color: var(--navy);
+    padding: 4px 0 2px;
+  }
+  .mobile-home-title::after {
+    content: '';
+    display: block;
+    width: 56px;
+    height: 3px;
+    background: var(--stamp-red);
+    border-radius: 2px;
+    margin: 7px auto 0;
+  }
+  .dashboard-tile { min-height: 112px; }
+  .dashboard-tile-icon { width: 54px; height: 54px; font-size: 1.7rem; }
+  .dashboard-tile-label { font-size: 0.88rem; }
+}
+
+/* ===== אנימציית ✓ על כפתור ההעתקה הראשי ===== */
+.copy-btn.copied svg,
+.copy-btn.copied .btn-label { display: none; }
+.copy-btn.copied::after {
+  content: '✓ הועתק';
+  font-size: 0.88rem;
+  font-weight: 900;
+  animation: copyCheckPop 0.25s ease-out;
+}
+@keyframes copyCheckPop {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
 .category {
   margin-bottom: 34px;
   scroll-margin-top: 130px;
@@ -2948,6 +3292,7 @@ body.selection-mode .selection-bar { display: flex; }
   pointer-events: none;
   z-index: 901;
 }
+.bottom-nav.tour-target-highlight { position: fixed !important; }
 .tour-target-highlight {
   position: relative !important;
   z-index: 903 !important;
@@ -3267,6 +3612,17 @@ body.selection-mode .selection-bar { display: flex; }
   </div>
 </div>
 
+<div class="mobile-sheet-overlay" id="mobileSheetOverlay" onclick="closeMobileSheetOutside(event)">
+  <div class="mobile-sheet" id="mobileSheet">
+    <div class="mobile-sheet-handle"></div>
+    <div class="mobile-sheet-header">
+      <span class="mobile-sheet-title" id="mobileSheetTitle"></span>
+      <button type="button" class="mobile-sheet-close" onclick="closeMobileSheet()">✕</button>
+    </div>
+    <div class="mobile-sheet-body" id="mobileSheetBody"></div>
+  </div>
+</div>
+
 <div class="contact-popup-overlay" id="contactPopupOverlay" onclick="closeContactPopupOutside(event)">
   <div class="contact-popup">
     <button type="button" class="contact-popup-close" onclick="closeContactPopup()">✕</button>
@@ -3313,14 +3669,24 @@ body.selection-mode .selection-bar { display: flex; }
           כלי עזר פנימי לפקידי שיקום — כל תבניות ההודעות במקום אחד.<br>
           <strong>המטרה:</strong> כל הודעה שחוזרת על עצמה יותר מפעם אחת — יש לה כאן בית. כדי שתוכלו להשקיע את הזמן שלכם איפה שהוא באמת נחוץ.
         </p>
-        <ul class="shortcut-guide-steps" style="list-style:disc;padding-right:18px;">
-          <li>בחרו קטגוריה מסרגל הסינון או חפשו לפי מילת מפתח</li>
+        <!-- הסבר למחשב -->
+        <ul class="shortcut-guide-steps explain-desktop" style="list-style:disc;padding-right:18px;">
+          <li>בחרו קטגוריה מסרגל הסינון למעלה (אפשר כמה יחד) או חפשו לפי מילת מפתח</li>
           <li>לחצו על כותרת ההודעה כדי לפתוח אותה</li>
           <li>לחצו <strong>העתק</strong> — ההודעה מועתקת ללוח מיד</li>
-          <li>לחצו <strong>וואטסאפ</strong> — נפתח וואטסאפ עם ההודעה מוכנה</li>
           <li>לחצו <strong>מייל</strong> — נפתח Outlook עם ההודעה מוכנה</li>
-          <li>לחצו <strong>☆ מועדפים</strong> — שומר את ההודעה בראש הדף לגישה מהירה</li>
+          <li>לחצו <strong>☆ מועדפים</strong> — שומר את ההודעה לגישה מהירה</li>
           <li>הכפתורים הצבעוניים הקטנים על הכרטיסייה הסגורה פועלים ישירות ללא פתיחה</li>
+          <li>בסרגל למעלה תמצאו גם את <strong>הכלים למגשרות</strong> — מחשבון נסיעות ומחשבון מע"מ</li>
+        </ul>
+        <!-- הסבר לטלפון -->
+        <ul class="shortcut-guide-steps explain-mobile" style="list-style:disc;padding-right:18px;">
+          <li><strong>מסך הבית</strong> מציג את אריחי הקטגוריות — המספר האדום בפינה מראה כמה הודעות יש בכל קטגוריה</li>
+          <li>לחצו על אריח כדי להיכנס לקטגוריה — <strong>קטגוריה אחת בכל פעם</strong></li>
+          <li>לחיצה על שורת הודעה פותחת אותה במסך מלא — משם מעתיקים או שולחים בוואטסאפ</li>
+          <li>הכפתורים על השורה הסגורה — <strong>העתקה</strong> ו<strong>וואטסאפ</strong> — פועלים מיד בלי לפתוח. אפשר גם להחליק את השורה ימינה או שמאלה לאותה פעולה (מתאימים בהגדרות)</li>
+          <li>לחצו <strong>☆</strong> על הודעה כדי לשמור אותה במועדפים</li>
+          <li>בסרגל התחתון: <strong>🏠 בית</strong> חוזר תמיד למסך הראשי, <strong>⭐ מועדפים</strong> מרכז את מה שסימנתם, <strong>💡 רעיון</strong> שולח לי וואטסאפ עם הצעה או הערה, ו<strong>⚙️ הגדרות</strong> להתאמה אישית</li>
         </ul>
       </div>
     </div>
@@ -3364,6 +3730,10 @@ body.selection-mode .selection-bar { display: flex; }
         <div class="changelog-entry-date">טיפ שימושי</div>
         <div class="changelog-entry-text">👍 "מדריך להעלאת קבלות" (בקטגוריית פעולות איבה) מקבל פידבקים מצוינים מנפגעי איבה ועובד מצוין בשטח — שווה לשלוח אותו כשיש קושי בהגשת קבלות.</div>
       </div>
+      <div class="changelog-entry recent featured" data-date="2026-07-16">
+        <div class="changelog-entry-date">16 יולי 2026</div>
+        <div class="changelog-entry-text">🆕 חוויית אפליקציה חדשה בסלולר: מסך בית עם אריחי קטגוריות — קטגוריה אחת בכל פעם, עם מונה הודעות על כל אריח; סרגל ניווט תחתון קבוע (בית / מועדפים / רעיון / הגדרות); ואישור ✓ עם רטט בכל העתקה. כפתור 💡 רעיון שולח לאמיר וואטסאפ עם הצעה או הערה ישירות מהסרגל.</div>
+      </div>
       <div class="changelog-entry recent" data-date="2026-07-14">
         <div class="changelog-entry-date">14 יולי 2026</div>
         <div class="changelog-entry-text">🆕 נוספה הודעה חדשה בקטגוריית "מטפלים/ספקים": בקשה לדו"ח הערכה (טופס בל/2361) לקראת תום תקופת הזכאות למימון הטיפול, כולל קישור להורדת הטופס.</div>
@@ -3372,13 +3742,42 @@ body.selection-mode .selection-bar { display: flex; }
         <div class="changelog-entry-date">14 יולי 2026</div>
         <div class="changelog-entry-text">🆕 נוסף טופס 270 (תביעה לשיקום מקצועי) בקטגוריית "שיקום מקצועי - נ"כ ונ"ע" — כולל קישור ישיר להגשה מקוונת.</div>
       </div>
-      <div class="changelog-entry recent featured" data-date="2026-07-13">
+      <div class="changelog-entry recent" data-date="2026-07-13">
         <div class="changelog-entry-date">13 יולי 2026</div>
         <div class="changelog-entry-text">🆕 חדש בלשונית "שיקום מקצועי - נ"כ ונ"ע": שני פירוטי החזרים אינטראקטיביים ומותאמים אישית — "החזרים לסטודנטים" ו"הכשרה מקצועית". מסמנים את הסעיפים הרלוונטיים למשתקם, ומקבלים טקסט מוכן להעתקה או לשליחה בוואטסאפ, כולל תצוגה מקדימה חיה.</div>
       </div>
     </div>
 
   </div>
+</div>
+
+<!-- ===== מסך בית: גריד קטגוריות (מובייל בלבד) ===== -->
+<div class="mobile-dashboard-grid" id="mobileDashboardGrid">
+  <div class="mobile-home-title">באיזו קטגוריה ההודעה?</div>
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-studies);" onclick="dashboardTileClick('studies', this)">
+    <span class="dashboard-tile-icon">🎓</span>
+    <span class="dashboard-tile-label">שיקום מקצועי<br>נ"כ ונ"ע</span>
+  </button>
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-terror);" onclick="dashboardTileClick('eiva', this)">
+    <span class="dashboard-tile-icon">🕊️</span>
+    <span class="dashboard-tile-label">פעולות איבה</span>
+  </button>
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-therapists);" onclick="dashboardTileClick('therapists', this)">
+    <span class="dashboard-tile-icon">👨‍⚕️</span>
+    <span class="dashboard-tile-label">מטפלים/ספקים</span>
+  </button>
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-routing);" onclick="dashboardTileClick('routing', this)">
+    <span class="dashboard-tile-icon">🔀</span>
+    <span class="dashboard-tile-label">הפניה למחלקה</span>
+  </button>
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-consent);" onclick="dashboardTileClick('consent', this)">
+    <span class="dashboard-tile-icon">🔏</span>
+    <span class="dashboard-tile-label">ויתור סודיות</span>
+  </button>
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-admin);" onclick="dashboardTileClick('admin', this)">
+    <span class="dashboard-tile-icon">📍</span>
+    <span class="dashboard-tile-label">הגעה לסניף</span>
+  </button>
 </div>
 
 <main>
@@ -4951,6 +5350,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       document.querySelectorAll('.card').forEach(c => c.classList.remove('fav-filter-hidden'));
     }
     if (typeof scheduleFitCardTitles === 'function') scheduleFitCardTitles();
+    if (typeof updateMobileFilterState === 'function') updateMobileFilterState();
   }
 
   document.addEventListener('DOMContentLoaded', updateFavButtons);
@@ -5157,7 +5557,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   function sendIdeaWhatsapp() {
     closeContactPopup();
-    const text = 'שלום אמיר, יש לי רעיון לכלי חדש שיעזור בעבודה השוטפת:\n\n';
+    const text = 'שלום אמיר, יש לי רעיון או הערה על כלי התבניות:\n\n';
     openWhatsAppSafely(text, false, '972506287462');
   }
 
@@ -5166,7 +5566,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     document.getElementById('shabbatOverlay').classList.remove('open');
     const dontShow = document.getElementById('shabbatDontShowChk');
     if (dontShow && dontShow.checked) {
-      try { localStorage.setItem('shikum_popup_seen_v34', '1'); } catch(e) {}
+      try { localStorage.setItem('shikum_popup_seen_v36', '1'); } catch(e) {}
     }
   }
 
@@ -5278,7 +5678,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     // Show updates popup only once per user
     // הפופאפ הושבת זמנית לפי בקשת אמיר (9.7.26) — כדי להחזיר, פשוט להסיר את ה-comment שמסביב לבלוק הבא
     /*
-    if (!localStorage.getItem('shikum_popup_seen_v34')) {
+    if (!localStorage.getItem('shikum_popup_seen_v36')) {
       setTimeout(() => {
         document.getElementById('changelogOverlay').classList.remove('open');
         document.getElementById('shabbatOverlay').classList.add('open');
@@ -5443,7 +5843,57 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     input.focus();
   }
 
-function toggleFilter(chip) {
+/* כניסה מדורגת של כרטיסיות בקטגוריה (מובייל) */
+function animateCategoryEnter(catId) {
+    const sec = document.getElementById(catId);
+    if (!sec) return;
+    sec.classList.remove('cat-enter');
+    const animated = sec.querySelectorAll('.card, .studies-refund-tabs, .eiva-tabs');
+    let i = 0;
+    animated.forEach(function (el) {
+      if (el.offsetParent === null) { el.style.animationDelay = ''; return; }
+      el.style.animationDelay = Math.min(i * 45, 380) + 'ms';
+      i++;
+    });
+    void sec.offsetWidth;
+    sec.classList.add('cat-enter');
+    setTimeout(function () {
+      sec.classList.remove('cat-enter');
+      animated.forEach(function (el) { el.style.animationDelay = ''; });
+    }, 1000);
+}
+
+function dashboardTileClick(filterId, tileEl) {
+    const chip = document.querySelector('.filter-chip[data-filter="' + filterId + '"]');
+    if (isMobileSheetActive()) {
+      // מובייל: סינון בלעדי — קטגוריה אחת בכל פעם
+      if (typeof hapticTap === 'function') hapticTap();
+      if (tileEl) {
+        tileEl.classList.remove('tile-tapped');
+        void tileEl.offsetWidth;
+        tileEl.classList.add('tile-tapped');
+        setTimeout(function () { tileEl.classList.remove('tile-tapped'); }, 600);
+      }
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      if (chip) chip.classList.add('active');
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('fav-filter-hidden'));
+      applyFilters();
+      animateCategoryEnter(filterId);
+    } else if (chip) {
+      toggleFilter(chip);
+    }
+    const section = document.getElementById(filterId);
+    if (section) {
+      setTimeout(function () {
+        const stickyEl = document.querySelector('.sticky-top');
+        const offset = (stickyEl ? stickyEl.offsetHeight : 0) + 10;
+        const rect = section.getBoundingClientRect();
+        window.scrollBy({ top: rect.top - offset, behavior: 'smooth' });
+      }, 60);
+    }
+  }
+
+  function toggleFilter(chip) {
     const allChip = document.querySelector('.filter-chip-all');
     const favChip = document.querySelector('.filter-chip-fav');
     if (favChip) favChip.classList.remove('active');
@@ -5482,6 +5932,7 @@ function toggleFilter(chip) {
     if (activeChips.length === 0) {
       categories.forEach(c => c.classList.remove('filtered-out'));
       if (typeof scheduleFitCardTitles === 'function') scheduleFitCardTitles();
+      if (typeof updateMobileFilterState === 'function') updateMobileFilterState();
       return;
     }
 
@@ -5494,6 +5945,7 @@ function toggleFilter(chip) {
       }
     });
     if (typeof scheduleFitCardTitles === 'function') scheduleFitCardTitles();
+    if (typeof updateMobileFilterState === 'function') updateMobileFilterState();
   }
 
   function openCard(card) {
@@ -5506,9 +5958,71 @@ function toggleFilter(chip) {
     }, 80);
   }
 
+  // ===== Mobile Bottom Sheet =====
+  // On mobile, opening a card MOVES its existing .card-collapsible element
+  // (the real DOM node, with all its ids/handlers/interactive fields intact)
+  // into the sheet instead of expanding it inline. Desktop is untouched — the
+  // functions below simply aren't called there, and toggleCard() falls
+  // through to the original accordion behavior unchanged.
+  let mobileSheetParent = null;
+  let mobileSheetNextSibling = null;
+  let mobileSheetCard = null;
+
+  function isMobileSheetActive() {
+    return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  }
+
+  function openMobileSheetForCard(card) {
+    const titleEl = card.querySelector('.card-toggle-title');
+
+    mobileSheetParent = card.parentElement;
+    mobileSheetNextSibling = card.nextElementSibling;
+    mobileSheetCard = card;
+
+    document.getElementById('mobileSheetTitle').textContent = titleEl ? titleEl.textContent : '';
+    const body = document.getElementById('mobileSheetBody');
+    card.classList.add('open'); // reuses the existing .card.open .card-collapsible {display:block} rule
+    body.appendChild(card);
+    body.scrollTop = 0;
+
+    document.getElementById('mobileSheetOverlay').classList.add('open');
+    document.body.classList.add('sheet-open');
+    if (typeof hapticTap === 'function') hapticTap();
+    return true;
+  }
+
+  function closeMobileSheet() {
+    if (mobileSheetCard && mobileSheetParent) {
+      mobileSheetCard.classList.remove('open');
+      if (mobileSheetNextSibling) {
+        mobileSheetParent.insertBefore(mobileSheetCard, mobileSheetNextSibling);
+      } else {
+        mobileSheetParent.appendChild(mobileSheetCard);
+      }
+    }
+    document.getElementById('mobileSheetOverlay').classList.remove('open');
+    document.body.classList.remove('sheet-open');
+    mobileSheetParent = null;
+    mobileSheetNextSibling = null;
+    mobileSheetCard = null;
+  }
+
+  function closeMobileSheetOutside(event) {
+    if (event.target.id === 'mobileSheetOverlay') closeMobileSheet();
+  }
+
   function toggleCard(btn) {
     const card = btn.closest('.card');
     const wasOpen = card.classList.contains('open');
+
+    if (isMobileSheetActive()) {
+      if (!wasOpen) {
+        openMobileSheetForCard(card);
+      } else {
+        closeMobileSheet();
+      }
+      return;
+    }
 
     if (!wasOpen) {
       openCard(card);
@@ -5541,6 +6055,7 @@ function toggleFilter(chip) {
       document.body.removeChild(ta);
     }
     showToast();
+    if (typeof hapticTap === 'function') hapticTap();
     if (btn) {
       btn.classList.add('copied');
       setTimeout(() => btn.classList.remove('copied'), 2000);
@@ -5617,7 +6132,12 @@ function toggleFilter(chip) {
 
   function closeCard(el) {
     const card = el.closest('.card');
-    if (card) setTimeout(() => card.classList.remove('open'), 1800);
+    if (card) {
+      setTimeout(() => {
+        card.classList.remove('open');
+        if (mobileSheetCard === card) closeMobileSheet();
+      }, 1800);
+    }
   }
 
   async function copyMsg(id, btn) {
@@ -5636,6 +6156,11 @@ function toggleFilter(chip) {
       document.body.removeChild(ta);
     }
     showToast();
+    if (typeof hapticTap === 'function') hapticTap();
+    if (btn) {
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 1600);
+    }
     closeCard(btn);
   }
 
@@ -6036,6 +6561,113 @@ function toggleFilter(chip) {
     userSettings.vibrate = checked;
     saveSettings();
   }
+
+  /* רטט קצר בפעולות מרכזיות (מכבד את הגדרת הרטט של המשתמש) */
+  function hapticTap() {
+    try {
+      if (userSettings.vibrate && navigator.vibrate) navigator.vibrate(35);
+    } catch (e) {}
+  }
+
+  /* ===== תגיות מספר הודעות על אריחי הגריד ===== */
+  function injectTileCounts() {
+    document.querySelectorAll('.dashboard-tile').forEach(function (tile) {
+      if (tile.querySelector('.dashboard-tile-count')) return;
+      const onclick = tile.getAttribute('onclick') || '';
+      const m = onclick.match(/dashboardTileClick\('([^']+)'/);
+      if (!m) return;
+      const section = document.getElementById(m[1]);
+      if (!section) return;
+      const count = section.querySelectorAll('.card').length;
+      if (!count) return;
+      const badge = document.createElement('span');
+      badge.className = 'dashboard-tile-count';
+      badge.textContent = count;
+      tile.appendChild(badge);
+    });
+  }
+
+  /* ===== מצב סינון במובייל: מסך הבית מול תצוגת קטגוריה ===== */
+  function anyCategoryFilterActive() {
+    return document.querySelectorAll('.filter-chip:not(.filter-chip-all):not(.filter-chip-fav).active').length > 0;
+  }
+
+  function updateMobileFilterState() {
+    const favChip = document.querySelector('.filter-chip-fav');
+    const favActive = favChip && favChip.classList.contains('active');
+    const filtered = anyCategoryFilterActive() || !!favActive;
+    document.body.classList.toggle('mobile-cat-filtered', filtered);
+    syncBottomNav();
+  }
+
+  /* ===== סרגל ניווט תחתון (מובייל) ===== */
+  function syncBottomNav() {
+    const favChip = document.querySelector('.filter-chip-fav');
+    const favActive = favChip && favChip.classList.contains('active');
+    const homeBtn = document.getElementById('bottomNavHome');
+    const favBtn = document.getElementById('bottomNavFav');
+    if (favBtn) favBtn.classList.toggle('active', !!favActive);
+    if (homeBtn) homeBtn.classList.toggle('active', !favActive && !anyCategoryFilterActive() && !document.body.classList.contains('mobile-search-open'));
+  }
+
+  function bottomNavHome() {
+    if (typeof hapticTap === 'function') hapticTap();
+    if (typeof closeMobileSearch === 'function') closeMobileSearch();
+    const allChip = document.querySelector('.filter-chip-all');
+    if (allChip) toggleFilter(allChip);
+    const input = document.getElementById('searchInput');
+    if (input && input.value) { input.value = ''; doSearch(''); }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    syncBottomNav();
+  }
+
+  function bottomNavFav() {
+    if (typeof hapticTap === 'function') hapticTap();
+    const favChip = document.querySelector('.filter-chip-fav');
+    if (favChip) toggleFavFilter(favChip);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    syncBottomNav();
+  }
+
+  function bottomNavIdea() {
+    if (typeof hapticTap === 'function') hapticTap();
+    if (typeof suggestIdea === 'function') suggestIdea();
+  }
+
+  function closeMobileSearch() {
+    if (!document.body.classList.contains('mobile-search-open')) return;
+    document.body.classList.remove('mobile-search-open');
+    const searchNav = document.getElementById('bottomNavSearch');
+    if (searchNav) searchNav.classList.remove('active');
+    const input = document.getElementById('searchInput');
+    if (input && input.value) { input.value = ''; doSearch(''); }
+  }
+
+  function bottomNavSettings() {
+    if (typeof hapticTap === 'function') hapticTap();
+    openSettings();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // דחייה קלה: הכרטיסיות האינטראקטיביות (פירוטי החזרים) נבנות דינמית אחרי ה-DOMContentLoaded,
+    // ולכן סופרים את הכרטיסיות רק אחרי שכולן קיימות
+    setTimeout(function () {
+      injectTileCounts();
+    }, 150);
+    const filterBar = document.getElementById('filterBarChips');
+    if (filterBar) filterBar.addEventListener('click', function () { setTimeout(updateMobileFilterState, 30); });
+    updateMobileFilterState();
+    // אפקט לחיצה רגוע על כפתורי הסרגל התחתון
+    const navEl = document.getElementById('bottomNav');
+    if (navEl) navEl.addEventListener('pointerdown', function (e) {
+      const btn = e.target.closest('.bottom-nav-btn');
+      if (!btn) return;
+      btn.classList.remove('nav-tapped');
+      void btn.offsetWidth;
+      btn.classList.add('nav-tapped');
+      setTimeout(function () { btn.classList.remove('nav-tapped'); }, 650);
+    });
+  });
 
   function swipeSafeWa(card, id) {
     if (REQUIRES_INPUT.has(id)) {
@@ -6524,6 +7156,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     const selectAllBtn = document.createElement('button');
     selectAllBtn.type = 'button';
     selectAllBtn.className = 'refund-select-all';
+    selectAllBtn.dataset.refundTab = tabId;
     selectAllBtn.textContent = '✅ בחר הכל';
     selectAllBtn.onclick = function () { toggleSelectAllRefund(tabId); };
     header.appendChild(introNote);
@@ -6597,7 +7230,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function getRefundCheckboxes(tabId) {
-    return Array.from(document.querySelectorAll('#refund-panel-' + tabId + ' input[data-refund-tab="' + tabId + '"]'));
+    return Array.from(document.querySelectorAll('input[data-refund-tab="' + tabId + '"]'));
   }
 
   function buildRefundText(tabId) {
@@ -6606,7 +7239,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     const parts = [data.intro];
     data.blocks.forEach(function (block) {
       block.items.forEach(function (item) {
-        const cb = document.querySelector('#refund-panel-' + tabId + ' input[data-refund-key="' + item.key + '"]');
+        const cb = document.querySelector('input[data-refund-tab="' + tabId + '"][data-refund-key="' + item.key + '"]');
         if (cb && cb.checked) parts.push(item.text);
       });
     });
@@ -6619,7 +7252,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     el.textContent = buildRefundText(tabId);
     const checkboxes = getRefundCheckboxes(tabId);
     const allChecked = checkboxes.length > 0 && checkboxes.every(function (c) { return c.checked; });
-    const btn = document.querySelector('#refund-panel-' + tabId + ' .refund-select-all');
+    const btn = document.querySelector('.refund-select-all[data-refund-tab="' + tabId + '"]');
     if (btn) btn.classList.toggle('all-selected', allChecked);
   }
 
@@ -6730,7 +7363,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
   const SWIPE_ACTION_LABELS = { copy: 'העתקה', wa: 'וואטסאפ', mail: 'מייל' };
 
-  const TOUR_STEPS = [
+  const TOUR_STEPS_DESKTOP = [
     {
       selector: '.changelog-btn',
       title: '💡 מה הולך פה?',
@@ -6738,9 +7371,13 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       before: tourCloseAllCards
     },
     {
-      selector: '#filterBarChips',
-      title: '🏷️ לשוניות קטגוריה',
-      text: 'לחצו על קטגוריה כדי לראות רק את ההודעות הרלוונטיות לה. אפשר לבחור כמה בבת אחת.'
+      selector: '#filterBarChips, #mobileDashboardGrid',
+      title: '🏷️ קטגוריות',
+      text: function () {
+        return tourIsDesktop()
+          ? 'לחצו על קטגוריה כדי לראות רק את ההודעות הרלוונטיות לה. אפשר לבחור כמה בבת אחת.'
+          : 'לחצו על אריח כדי להיכנס לקטגוריה — קטגוריה אחת בכל פעם. כפתור החזרה למעלה מחזיר למסך הבית.';
+      }
     },
     {
       selector: '.card-quick-actions',
@@ -6778,14 +7415,60 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       selector: '.idea-btn',
       title: '🔦 הצעות לתבנית חדשה',
       text: 'יש הודעה שחוזרת על עצמה ואין לה תבנית? הכפתור הזה שולח לי את הרעיון. כדאי להרחיב כמה שאפשר בבקשה עצמה — באיזה מצב, ומה בדיוק צריך שההודעה תכלול — כדי שאבנה בדיוק את מה שנחוץ.',
-      before: tourCloseAllCards
+      before: function () {
+        tourCloseAllCards();
+        if (!tourIsDesktop()) document.body.classList.add('mobile-search-open');
+      }
     }
   ];
+
+  /* סיור מובייל ממוקד — עד 5 שלבים */
+  function tourMobileGoHome() {
+    tourCloseAllCards();
+    if (typeof closeMobileSheet === 'function') closeMobileSheet();
+    const allChip = document.querySelector('.filter-chip-all');
+    if (allChip && !allChip.classList.contains('active')) toggleFilter(allChip);
+    window.scrollTo({ top: 0 });
+  }
+
+  const TOUR_STEPS_MOBILE = [
+    {
+      selector: '#mobileDashboardGrid',
+      title: '🏠 מסך הבית',
+      text: 'בוחרים קטגוריה בלחיצה על אריח — קטגוריה אחת בכל פעם. המספר האדום מראה כמה הודעות יש בפנים.',
+      before: tourMobileGoHome
+    },
+    {
+      selector: '.card-quick-actions',
+      title: '⚡ פעולות מהירות',
+      text: 'העתקה או וואטסאפ ישירות מהשורה, והכוכב שומר במועדפים. לחיצה על השורה פותחת את ההודעה המלאה.',
+      before: function () {
+        tourMobileGoHome();
+        if (typeof dashboardTileClick === 'function') dashboardTileClick('studies');
+      }
+    },
+    {
+      selector: '#bottomNav',
+      title: '🧭 ניווט תחתון',
+      text: '"בית" חוזר תמיד למסך הראשי, ו"מועדפים" מרכז את כל מה שסימנתם בכוכב.',
+      before: tourMobileGoHome
+    },
+    {
+      selector: '#bottomNavIdea',
+      title: '💡 רעיון או הערה',
+      text: 'נתקלתם במשהו שכדאי לשפר, או שחסרה תבנית? מכאן שולחים לי וואטסאפ ישירות.'
+    }
+  ];
+
+  let TOUR_STEPS = TOUR_STEPS_DESKTOP;
   let tourIndex = 0;
   let tourRenderToken = 0;
   let tourHighlightedEl = null;
 
   function startTour() {
+    // הסיור מבוטל בטלפון — פעיל במחשב בלבד
+    if (typeof tourIsDesktop === 'function' && !tourIsDesktop()) return;
+    TOUR_STEPS = TOUR_STEPS_DESKTOP;
     tourIndex = 0;
     document.getElementById('tourOverlay').classList.add('open');
     showTourStep(0);
@@ -6922,6 +7605,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     if (tourHighlightedEl) { tourHighlightedEl.classList.remove('tour-target-highlight'); tourHighlightedEl.style.borderRadius = ''; tourHighlightedEl = null; }
     document.querySelectorAll('.tour-swipe-demo-row').forEach(function (el) { el.classList.remove('tour-swipe-demo-row'); var f = el.querySelector('.tour-swipe-finger'); if (f) f.remove(); });
     tourCloseAllCards();
+    if (typeof closeMobileSearch === 'function') closeMobileSearch();
+    if (typeof tourIsDesktop === 'function' && !tourIsDesktop() && typeof tourMobileGoHome === 'function') tourMobileGoHome();
   }
   function tourOverlayClick(e) {
     if (e.target && e.target.id === 'tourOverlay') tourNext();
@@ -7194,6 +7879,26 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     </div>
   </div>
 </div>
+
+<!-- ===== סרגל ניווט תחתון (מובייל בלבד) ===== -->
+<nav class="bottom-nav" id="bottomNav" aria-label="ניווט מהיר">
+  <button type="button" class="bottom-nav-btn active" id="bottomNavHome" onclick="bottomNavHome()">
+    <span class="bottom-nav-emoji">🏠</span>
+    <span>בית</span>
+  </button>
+  <button type="button" class="bottom-nav-btn" id="bottomNavFav" onclick="bottomNavFav()">
+    <span class="bottom-nav-emoji">⭐</span>
+    <span>מועדפים</span>
+  </button>
+  <button type="button" class="bottom-nav-btn" id="bottomNavIdea" onclick="bottomNavIdea()">
+    <span class="bottom-nav-emoji">💡</span>
+    <span>רעיון</span>
+  </button>
+  <button type="button" class="bottom-nav-btn" id="bottomNavSettings" onclick="bottomNavSettings()">
+    <span class="bottom-nav-emoji">⚙️</span>
+    <span>הגדרות</span>
+  </button>
+</nav>
 
 </body>
 
