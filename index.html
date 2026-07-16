@@ -5284,6 +5284,63 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 </script>
 
 <script>
+  // ===== רענון אוטומטי: בדיקת גרסה מול השרת =====
+  // חשוב: יש לעדכן את APP_VERSION בכל שינוי בקובץ (כמו גרסת הפופאפ)
+  const APP_VERSION = '2026-07-16-1';
+
+  (function () {
+    // אם הגענו לכאן עם פרמטר רענון — ננקה את הכתובת
+    if (location.search.indexOf('v=') !== -1) {
+      try { history.replaceState(null, '', location.pathname); } catch (e) {}
+    }
+
+    let lastVersionCheck = 0;
+
+    function userHasTypedContent() {
+      // לא מרעננים אם המשתמש באמצע הזנת נתונים בכרטיסייה
+      const fields = document.querySelectorAll('input[type="text"], input[type="number"], input:not([type]), textarea');
+      for (const f of fields) {
+        // רק אם הערך שונה מברירת המחדל — כלומר המשתמש באמת הקליד משהו
+        if (f.value && f.value.trim() !== '' && f.value !== f.defaultValue) return true;
+      }
+      return false;
+    }
+
+    async function checkForNewVersion() {
+      try {
+        const res = await fetch(location.pathname + '?vcheck=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) return;
+        const html = await res.text();
+        const m = html.match(/APP_VERSION\s*=\s*'([^']+)'/);
+        if (!m || m[1] === APP_VERSION) return;
+
+        // מניעת לולאת רענון אם השרת עדיין לא התעדכן במלואו
+        if (sessionStorage.getItem('shikum_reloaded_for') === m[1]) return;
+
+        if (userHasTypedContent()) return;
+
+        try { sessionStorage.setItem('shikum_reloaded_for', m[1]); } catch (e) {}
+        location.replace(location.pathname + '?v=' + encodeURIComponent(m[1]));
+      } catch (e) { /* אין רשת / שגיאה — מתעלמים בשקט */ }
+    }
+
+    function maybeCheckVersion() {
+      const now = Date.now();
+      if (now - lastVersionCheck < 60000) return; // לכל היותר פעם בדקה
+      lastVersionCheck = now;
+      checkForNewVersion();
+    }
+
+    // בדיקה קצת אחרי הטעינה
+    window.addEventListener('load', function () { setTimeout(maybeCheckVersion, 3000); });
+    // בדיקה בכל חזרה לאפליקציה/לשונית (תרחיש נפוץ בטלפון)
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') maybeCheckVersion();
+    });
+  })();
+</script>
+
+<script>
   // ===== Dark mode toggle (resets on every page load) =====
 
   // ===== Favorites (mobile only — see CSS for the desktop hide) =====
