@@ -6078,12 +6078,37 @@ function dashboardTileClick(filterId, tileEl) {
   const REQUIRES_INPUT = new Set(['msg10', 'msg15']);
   const REQUIRES_INPUT_MSG = 'יש למלא פרטים בכרטיסייה לפני ההעתקה/שליחה 📝';
 
+  /* ===== מעקב שימוש בתבניות (Umami) — שם תבנית בעברית, ללא תוכן ההודעה ===== */
+  function trackUse(action, id) {
+    try {
+      let name = '';
+      const el = typeof id === 'string' ? document.getElementById(id) : null;
+      if (el) {
+        const card = el.closest('.card');
+        const t = card ? card.querySelector('.card-toggle-title') : null;
+        if (t) name = t.textContent.trim();
+      }
+      if (!name) name = String(id);
+      const label = (action + ': ' + name).slice(0, 50);
+      if (window.umami && typeof window.umami.track === 'function') window.umami.track(label);
+    } catch (e) {}
+  }
+
+  function trackRefundUse(action, tabId) {
+    try {
+      const d = REFUND_DATA[tabId];
+      const label = (action + ': ' + (d ? d.shortTitle : tabId)).slice(0, 50);
+      if (window.umami && typeof window.umami.track === 'function') window.umami.track(label);
+    } catch (e) {}
+  }
+
   async function quickCopy(id, btn) {
     if (REQUIRES_INPUT.has(id)) {
       showToast(REQUIRES_INPUT_MSG, true);
       if (btn) { const card = btn.closest('.card'); if (card && !card.classList.contains('open')) openCard(card); }
       return;
     }
+    trackUse('העתקה', id);
     const el = document.getElementById(id);
     const text = el ? el.textContent : '';
     try {
@@ -6184,6 +6209,7 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
   async function copyMsg(id, btn) {
+    trackUse('העתקה', id);
     const el = document.getElementById(id);
     const text = el.innerText;
     try {
@@ -6828,6 +6854,7 @@ function dashboardTileClick(filterId, tileEl) {
   document.addEventListener('DOMContentLoaded', loadSettings);
 
   function sendWhatsapp(id) {
+    trackUse('וואטסאפ', id);
     const el = document.getElementById(id);
     const text = el.innerText;
     openWhatsAppSafely(text, false);
@@ -6835,6 +6862,7 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
   function sendEmail(id) {
+    trackUse('מייל', id);
     const el = document.getElementById(id);
     const text = el.innerText;
     const a = document.createElement('a');
@@ -7317,6 +7345,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
   }
 
   async function copyRefundText(tabId, btn) {
+    trackRefundUse('העתקה', tabId);
     const text = buildRefundText(tabId);
     try {
       await navigator.clipboard.writeText(text);
@@ -7337,6 +7366,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
   }
 
   function sendRefundWhatsapp(tabId) {
+    trackRefundUse('וואטסאפ', tabId);
     const text = buildRefundText(tabId);
     openWhatsAppSafely(text, false);
   }
