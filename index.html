@@ -5,6 +5,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="456ba13d-2e1d-4855-a635-9500ed668346"></script>
 <script>
 /* רענון אוטומטי: בודק מול השרת אם קיימת גרסה חדשה של הדף וטוען אותה מחדש בלי צורך בפעולה מצד המשתמש */
 (function(){
@@ -652,21 +653,7 @@ header p {
 .desktop-sidebar {
   display: none;
 }
-@media (hover: hover) and (pointer: fine) and (min-width: 1560px) {
-  .desktop-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    position: fixed;
-    top: 223px;
-    right: 16px;
-    width: 420px;
-    max-height: calc(100vh - 243px);
-    overflow-y: auto;
-    z-index: 40;
-    scroll-behavior: smooth;
-  }
-}
+/* הסיידבר בוטל — כל העדכונים זמינים דרך כפתור "מה הולך פה?" */
 .desktop-updates-panel {
   background: var(--paper-card);
   border-radius: var(--radius-lg);
@@ -1993,6 +1980,78 @@ body.sheet-open { overflow: hidden; }
 
 /* ===== מסך בית: גריד קטגוריות (מובייל בלבד) ===== */
 .mobile-dashboard-grid { display: none; }
+.desk-back-home { display: none; border: none; }
+.desk-back-row { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  /* ===== מסך בית בדסקטופ: אריחי קטגוריות במקום הצפת כל ההודעות ===== */
+  body:not(.mobile-cat-filtered):not(.eiva-search-active):not(.tour-show-all) main { display: none; }
+  .mobile-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 880px;
+    margin: 30px auto 34px;
+    padding: 0 22px;
+  }
+  body.mobile-cat-filtered .mobile-dashboard-grid,
+  body.eiva-search-active .mobile-dashboard-grid { display: none; }
+  body.tour-show-all:not(.mobile-cat-filtered):not(.eiva-search-active) #mobileDashboardGrid { display: grid; }
+  /* סרגל הצ'יפים מוסתר בדסקטופ — הסינון נעשה דרך אריחי מסך הבית */
+  .filter-bar { display: none; }
+  /* שורת החזרה: מתחת לסרגל הכלים, רק כשנמצאים בתוך קטגוריה */
+  body.mobile-cat-filtered:not(.eiva-search-active) .desk-back-row {
+    display: flex;
+    justify-content: center;
+    padding: 10px 22px 8px;
+  }
+  /* כפתור חזרה בולט לבחירת קטגוריה — מופיע בשורת הסינון כשנמצאים בתוך קטגוריה */
+  .desk-back-home {
+    align-items: center;
+    gap: 9px;
+    background: var(--navy);
+    color: #fff;
+    border: 2px solid #e6b94d;
+    border-radius: 999px;
+    padding: 9px 20px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    box-shadow: 0 3px 10px rgba(31, 43, 61, 0.22);
+  }
+  .desk-back-home:hover { background: #161e2b; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(31, 43, 61, 0.3); }
+  .desk-back-home .desk-back-home-arrow { color: #e6b94d; font-size: 1.1rem; }
+  .desk-back-row .desk-back-home { display: inline-flex; }
+  .mobile-home-title {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 1.72rem;
+    font-weight: 700;
+    color: var(--navy);
+    padding: 6px 0 2px;
+  }
+  .mobile-home-title::after {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 3px;
+    background: var(--stamp-red);
+    border-radius: 2px;
+    margin: 9px auto 0;
+  }
+  .mobile-dashboard-grid .dashboard-tile { min-height: 158px; cursor: pointer; border-width: 3px; transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease; }
+  .mobile-dashboard-grid .dashboard-tile:hover {
+    transform: translateY(-4px) scale(1.02);
+    border-color: var(--tile-color);
+    box-shadow: 0 10px 26px rgba(31, 43, 61, 0.22), inset 0 0 0 2px var(--tile-color);
+    background: #fffdf7;
+  }
+  .mobile-dashboard-grid .dashboard-tile-icon { width: 68px; height: 68px; font-size: 2.15rem; }
+  .mobile-dashboard-grid .dashboard-tile-label { font-size: 1.14rem; }
+  .mobile-dashboard-grid .dashboard-tile-count { font-size: 0.92rem; min-width: 26px; height: 26px; line-height: 22px; }
+}
 @media (hover: none) and (pointer: coarse) {
   .mobile-dashboard-grid {
     display: grid;
@@ -2233,6 +2292,38 @@ body.sheet-open { overflow: hidden; }
   .dashboard-tile { min-height: 112px; }
   .dashboard-tile-icon { width: 54px; height: 54px; font-size: 1.7rem; }
   .dashboard-tile-label { font-size: 0.88rem; }
+}
+
+/* ===== מסכי בחירת-משנה (סטודנטים/הכשרה, נפגעים/משפחה/ילדים) ===== */
+.mobile-sub-grid { display: none; }
+.mobile-sub-grid.open { display: grid; }
+body.subgrid-open #mobileDashboardGrid { display: none !important; }
+body.mobile-cat-filtered .mobile-sub-grid.open,
+body.eiva-search-active .mobile-sub-grid.open,
+body.mobile-search-open .mobile-sub-grid.open { display: none; }
+.sub-grid-back {
+  grid-column: 1 / -1;
+  justify-self: center;
+  background: none;
+  border: 2px solid var(--navy);
+  color: var(--navy);
+  border-radius: 999px;
+  padding: 9px 24px;
+  font-family: 'Heebo', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.sub-grid-back:hover { background: var(--navy); color: #fff; }
+@media (hover: hover) and (pointer: fine) {
+  #subGrid-studies.open { grid-template-columns: repeat(2, 1fr); max-width: 620px; }
+  #subGrid-eiva.open { grid-template-columns: repeat(3, 1fr); max-width: 880px; }
+}
+@media (hover: none) and (pointer: coarse) {
+  #subGrid-eiva.open { grid-template-columns: 1fr; max-width: 420px; }
+  .mobile-sub-grid .dashboard-tile { min-height: 96px; }
 }
 
 /* ===== אנימציית ✓ על כפתור ההעתקה הראשי ===== */
@@ -3180,103 +3271,6 @@ footer.page-footer {
 .idea-btn:active { transform: scale(0.93); }
 .idea-btn-icon { width: 16px; height: 16px; flex-shrink: 0; }
 
-/* ===== Multi-select mode ===== */
-.selection-btn {
-  flex-shrink: 0;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: none;
-  background: #2a8f82;
-  color: #fdf8ee;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: background 0.15s, transform 0.12s;
-}
-.selection-btn:hover { background: #226f65; }
-.selection-btn:active { transform: scale(0.92); }
-.selection-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
-body.selection-mode .selection-btn {
-  background: var(--stamp-red);
-}
-
-.select-checkbox {
-  display: none;
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  margin-inline-end: 10px;
-  accent-color: var(--navy);
-  cursor: pointer;
-}
-body.selection-mode .select-checkbox { display: inline-block; }
-body.selection-mode .card-quick-actions { display: none; }
-
-.selection-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 600;
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  background: var(--navy);
-  color: #f3efe4;
-  padding: 12px 16px;
-  padding-bottom: calc(12px + env(safe-area-inset-bottom));
-  box-shadow: 0 -4px 16px rgba(0,0,0,0.3);
-}
-body.selection-mode .selection-bar { display: flex; }
-.selection-bar-cancel {
-  flex-shrink: 0;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.12);
-  color: #f3efe4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-.selection-bar-cancel svg { width: 16px; height: 16px; }
-.selection-bar-count {
-  flex: 1;
-  text-align: center;
-  font-family: 'Heebo', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-.selection-bar-actions {
-  display: flex;
-  gap: 8px;
-  flex-shrink: 0;
-}
-.selection-bar-actions button {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.14);
-  color: #f3efe4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: background 0.15s, opacity 0.15s;
-}
-.selection-bar-actions button:hover { background: rgba(255,255,255,0.24); }
-.selection-bar-actions button svg { width: 17px; height: 17px; }
-.selection-bar-actions button:disabled { opacity: 0.4; cursor: not-allowed; }
-
 /* ===== Guided tour (spotlight) ===== */
 .tour-start-btn {
   display: block;
@@ -3563,7 +3557,7 @@ body.selection-mode .selection-bar { display: flex; }
 <!-- ===== עדכונים לעובדים: sidebar קבוע למחשב רחב ===== -->
 <aside class="desktop-sidebar" id="desktopSidebar">
   <div class="desktop-updates-panel">
-    <div class="desktop-updates-title">📋 עדכונים לעובדים</div>
+    <div class="desktop-updates-title">📌 הודעות חשובות</div>
     <div class="desktop-updates-list" id="desktopUpdatesList"></div>
   </div>
 </aside>
@@ -3593,9 +3587,6 @@ body.selection-mode .selection-bar { display: flex; }
       <svg class="idea-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 00-4 12.7c.6.5 1 1.2 1 2.05V17h6v-.25c0-.85.4-1.55 1-2.05A7 7 0 0012 2z"/></svg>
       <span>רעיון</span>
     </button>
-    <button type="button" class="selection-btn" id="selectionFab" onclick="toggleSelectionMode()" title="בחירה מרובה של הודעות להעתקה יחד">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12l3 3 5-6"/></svg>
-    </button>
     <button type="button" class="settings-shortcut-btn" onclick="openSettings()" title="הגדרות אישיות">⚙️</button>
     <button type="button" class="tools-hub-btn" onclick="openToolsHub()" title="כלים למגשרות">
       <img src="data:image/png;base64,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" alt="גשר לכלים נוספים">
@@ -3610,6 +3601,9 @@ body.selection-mode .selection-bar { display: flex; }
       <span>נסיעות/פרמטרים</span>
     </button>
   </div>
+</div>
+<div class="desk-back-row" id="deskBackRow">
+  <button type="button" class="desk-back-home" id="deskBackHome" onclick="deskGoHome()"><span class="desk-back-home-arrow">➜</span> חזרה לבחירת קטגוריה 🏠</button>
 </div>
 </div>
 
@@ -3780,11 +3774,11 @@ body.selection-mode .selection-bar { display: flex; }
 <!-- ===== מסך בית: גריד קטגוריות (מובייל בלבד) ===== -->
 <div class="mobile-dashboard-grid" id="mobileDashboardGrid">
   <div class="mobile-home-title">באיזו קטגוריה ההודעה?</div>
-  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-studies);" onclick="dashboardTileClick('studies', this)">
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-studies);" onclick="openSubGrid('studies', this)">
     <span class="dashboard-tile-icon">🎓</span>
     <span class="dashboard-tile-label">שיקום מקצועי<br>נ"כ ונ"ע</span>
   </button>
-  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-terror);" onclick="dashboardTileClick('eiva', this)">
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-terror);" onclick="openSubGrid('eiva', this)">
     <span class="dashboard-tile-icon">🕊️</span>
     <span class="dashboard-tile-label">פעולות איבה</span>
   </button>
@@ -3804,6 +3798,36 @@ body.selection-mode .selection-bar { display: flex; }
     <span class="dashboard-tile-icon">📍</span>
     <span class="dashboard-tile-label">הגעה לסניף</span>
   </button>
+</div>
+
+<!-- ===== מסכי בחירת-משנה: שיקום מקצועי ופעולות איבה ===== -->
+<div class="mobile-dashboard-grid mobile-sub-grid" id="subGrid-studies">
+  <div class="mobile-home-title">למי ההודעה?</div>
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-studies);" onclick="subTileClick('studies', 'students', this)">
+    <span class="dashboard-tile-icon">🎓</span>
+    <span class="dashboard-tile-label">סטודנטים</span>
+  </button>
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-studies);" onclick="subTileClick('studies', 'shorttrain', this)">
+    <span class="dashboard-tile-icon">📘</span>
+    <span class="dashboard-tile-label">הכשרה מקצועית</span>
+  </button>
+  <button type="button" class="sub-grid-back" onclick="closeSubGrid()">➜ חזרה לכל הקטגוריות</button>
+</div>
+<div class="mobile-dashboard-grid mobile-sub-grid" id="subGrid-eiva">
+  <div class="mobile-home-title">למי ההודעה?</div>
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-terror);" onclick="subTileClick('eiva', 'terror', this)">
+    <span class="dashboard-tile-icon">🕊️</span>
+    <span class="dashboard-tile-label">נפגעים</span>
+  </button>
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-terror);" onclick="subTileClick('eiva', 'family', this)">
+    <span class="dashboard-tile-icon">👪</span>
+    <span class="dashboard-tile-label">בני משפחה</span>
+  </button>
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-terror);" onclick="subTileClick('eiva', 'kids', this)">
+    <span class="dashboard-tile-icon">🧒</span>
+    <span class="dashboard-tile-label">ילדים</span>
+  </button>
+  <button type="button" class="sub-grid-back" onclick="closeSubGrid()">➜ חזרה לכל הקטגוריות</button>
 </div>
 
 <main>
@@ -4130,6 +4154,8 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
     </div>
 
     <div class="eiva-panel active" id="eiva-panel-terror" data-eiva-panel="terror">
+
+    <div id="refund-panel-eivarights"></div>
 
     <div class="card terror-card">
       <div class="card-header-row">
@@ -5699,7 +5725,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
     scheduleFitCardTitles();
     if (typeof updateRightsPreview === 'function') updateRightsPreview();
-    injectSelectionCheckboxes();
 
     // Show updates popup only once per user
     // הפופאפ הושבת זמנית לפי בקשת אמיר (9.7.26) — כדי להחזיר, פשוט להסיר את ה-comment שמסביב לבלוק הבא
@@ -5722,11 +5747,12 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       const badge = document.getElementById('desktopMascotBadge');
       if (badge) {
         const tips = [
-          '👋 היי! לחצו עליי לסיור קצר באתר',
-          '🌉 גשר לכל הכלים השימושיים — במקום אחד',
-          '🧾 מטפלים: מעלים חשבונית תוך שניות',
-          '👨‍👩‍👧 גם המשפחה זכאית לליווי, לא רק הנפגע/ת',
-          '📄 מדריך קליל להעלאת קבלות, צעד-צעד'
+          '🏋️ נמאס לך להעביר קבצים של חדר כושר במייל הפנימי-חיצוני או בתבל? שלח למבוטח את המדריך להעלאת קבלות',
+          '🕊️ חדש! פירוט זכויות לנפגעי איבה — מסמנים וי, מעתיקים, שולחים',
+          '🎓 מתי ייכנס דמי שיקום? כמה החזר שכ"ל? יש תשובה מוכנה — מזינים נתונים ומעתיקים הודעה מותאמת אישית',
+          '☕ ההודעה מנסחת את עצמה, אתה רק בוחר צ\'קבוקסים. איזה עולם',
+          '📋 וס"ר? הפניה? סניף? הכל פה, תפסיק לחפש בפתקים',
+          '🚌 מחשבון נסיעות ומע"מ — כי אקסל זה כבר לא 2026'
         ];
         let tipIndex = 0;
         setInterval(function () {
@@ -5737,14 +5763,9 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
             badge.classList.remove('fade-out');
             if (typeof updateStickySidebarOffset === 'function') updateStickySidebarOffset();
           }, 250);
-        }, 4000);
+        }, 7000);
       }
-      const updatesList = document.getElementById('desktopUpdatesList');
-      if (updatesList) {
-        document.querySelectorAll('#tab-updates .changelog-entry').forEach(function (entry) {
-          updatesList.appendChild(entry.cloneNode(true));
-        });
-      }
+      /* הסיידבר בוטל — אין צורך לשכפל אליו עדכונים */
     })();
 
     /* ===== Sticky sidebar positioning (desktop only) =====
@@ -5891,23 +5912,19 @@ function animateCategoryEnter(catId) {
 
 function dashboardTileClick(filterId, tileEl) {
     const chip = document.querySelector('.filter-chip[data-filter="' + filterId + '"]');
-    if (isMobileSheetActive()) {
-      // מובייל: סינון בלעדי — קטגוריה אחת בכל פעם
-      if (typeof hapticTap === 'function') hapticTap();
-      if (tileEl) {
-        tileEl.classList.remove('tile-tapped');
-        void tileEl.offsetWidth;
-        tileEl.classList.add('tile-tapped');
-        setTimeout(function () { tileEl.classList.remove('tile-tapped'); }, 600);
-      }
-      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      if (chip) chip.classList.add('active');
-      document.querySelectorAll('.card').forEach(c => c.classList.remove('fav-filter-hidden'));
-      applyFilters();
-      animateCategoryEnter(filterId);
-    } else if (chip) {
-      toggleFilter(chip);
+    // בחירה בלעדית — קטגוריה אחת בכל פעם, גם במובייל וגם בדסקטופ
+    if (typeof hapticTap === 'function') hapticTap();
+    if (tileEl) {
+      tileEl.classList.remove('tile-tapped');
+      void tileEl.offsetWidth;
+      tileEl.classList.add('tile-tapped');
+      setTimeout(function () { tileEl.classList.remove('tile-tapped'); }, 600);
     }
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    if (chip) chip.classList.add('active');
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('fav-filter-hidden'));
+    applyFilters();
+    animateCategoryEnter(filterId);
     const section = document.getElementById(filterId);
     if (section) {
       setTimeout(function () {
@@ -6188,26 +6205,6 @@ function dashboardTileClick(filterId, tileEl) {
       setTimeout(() => btn.classList.remove('copied'), 1600);
     }
     closeCard(btn);
-  }
-
-  /* ===== Multi-select mode: pick several messages and copy/send them together ===== */
-  function injectSelectionCheckboxes() {
-    document.querySelectorAll('.card').forEach(function (card) {
-      if (card.querySelector('.select-checkbox')) return;
-      const bodyEl = card.querySelector('.card-body');
-      const headerRow = card.querySelector('.card-header-row');
-      if (!bodyEl || !headerRow || !bodyEl.id) return;
-      const cb = document.createElement('input');
-      cb.type = 'checkbox';
-      cb.className = 'select-checkbox';
-      cb.dataset.cardBodyId = bodyEl.id;
-      cb.title = 'בחירה להעתקה מרוכזת';
-      cb.addEventListener('click', function (e) {
-        e.stopPropagation();
-        updateSelectionBar();
-      });
-      headerRow.insertBefore(cb, headerRow.firstChild);
-    });
   }
 
   /* ===== Swipe gestures on closed cards: right = copy, left = whatsapp ===== */
@@ -6600,7 +6597,7 @@ function dashboardTileClick(filterId, tileEl) {
     document.querySelectorAll('.dashboard-tile').forEach(function (tile) {
       if (tile.querySelector('.dashboard-tile-count')) return;
       const onclick = tile.getAttribute('onclick') || '';
-      const m = onclick.match(/dashboardTileClick\('([^']+)'/);
+      const m = onclick.match(/(?:dashboardTileClick|openSubGrid)\('([^']+)'/);
       if (!m) return;
       const section = document.getElementById(m[1]);
       if (!section) return;
@@ -6636,8 +6633,48 @@ function dashboardTileClick(filterId, tileEl) {
     if (homeBtn) homeBtn.classList.toggle('active', !favActive && !anyCategoryFilterActive() && !document.body.classList.contains('mobile-search-open'));
   }
 
+  /* ===== מסכי בחירת-משנה ===== */
+  function openSubGrid(parent, tileEl) {
+    if (typeof hapticTap === 'function') hapticTap();
+    if (tileEl) {
+      tileEl.classList.remove('tile-tapped');
+      void tileEl.offsetWidth;
+      tileEl.classList.add('tile-tapped');
+      setTimeout(function () { tileEl.classList.remove('tile-tapped'); }, 600);
+    }
+    const grid = document.getElementById('subGrid-' + parent);
+    if (!grid) return;
+    document.querySelectorAll('.mobile-sub-grid.open').forEach(function (g) { g.classList.remove('open'); });
+    grid.classList.add('open');
+    document.body.classList.add('subgrid-open');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function closeSubGrid() {
+    document.querySelectorAll('.mobile-sub-grid.open').forEach(function (g) { g.classList.remove('open'); });
+    document.body.classList.remove('subgrid-open');
+  }
+
+  function subTileClick(parent, tabId, tileEl) {
+    closeSubGrid();
+    dashboardTileClick(parent, tileEl);
+    if (parent === 'studies' && typeof switchRefundTab === 'function') switchRefundTab(tabId);
+    if (parent === 'eiva' && typeof switchEivaTab === 'function') switchEivaTab(tabId);
+  }
+
+  /* חזרה למסך הבית בדסקטופ */
+  function deskGoHome() {
+    closeSubGrid();
+    const allChip = document.querySelector('.filter-chip-all');
+    if (allChip) toggleFilter(allChip);
+    const input = document.getElementById('searchInput');
+    if (input && input.value) { input.value = ''; doSearch(''); }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   function bottomNavHome() {
     if (typeof hapticTap === 'function') hapticTap();
+    if (typeof closeSubGrid === 'function') closeSubGrid();
     if (typeof closeMobileSearch === 'function') closeMobileSearch();
     const allChip = document.querySelector('.filter-chip-all');
     if (allChip) toggleFilter(allChip);
@@ -6723,7 +6760,6 @@ function dashboardTileClick(filterId, tileEl) {
     }
 
     document.addEventListener('touchstart', function (e) {
-      if (document.body.classList.contains('selection-mode')) return;
       const headerRow = e.target.closest('.card-header-row');
       if (!headerRow) return;
       const card = headerRow.closest('.card');
@@ -6790,69 +6826,6 @@ function dashboardTileClick(filterId, tileEl) {
   })();
 
   document.addEventListener('DOMContentLoaded', loadSettings);
-
-  function toggleSelectionMode() {
-    const active = document.body.classList.toggle('selection-mode');
-    if (!active) {
-      document.querySelectorAll('.select-checkbox').forEach(function (cb) { cb.checked = false; });
-    }
-    updateSelectionBar();
-  }
-
-  function getSelectedCheckboxes() {
-    return Array.from(document.querySelectorAll('.select-checkbox:checked'));
-  }
-
-  function updateSelectionBar() {
-    const count = getSelectedCheckboxes().length;
-    const countEl = document.getElementById('selectionBarCount');
-    if (countEl) countEl.textContent = count + ' נבחרו';
-    document.querySelectorAll('.selection-bar-actions button').forEach(function (b) {
-      b.disabled = count === 0;
-    });
-  }
-
-  function getSelectedMergedText() {
-    const parts = getSelectedCheckboxes().map(function (cb) {
-      const el = document.getElementById(cb.dataset.cardBodyId);
-      return el ? el.innerText.trim() : '';
-    }).filter(Boolean);
-    return parts.join('\n\n➖➖➖➖➖➖➖➖\n\n');
-  }
-
-  async function copySelected(btn) {
-    const text = getSelectedMergedText();
-    if (!text) return;
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch (e) {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
-      document.body.appendChild(ta);
-      ta.focus();
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-    }
-    showToast();
-  }
-
-  function sendSelectedWa() {
-    const text = getSelectedMergedText();
-    if (!text) return;
-    openWhatsAppSafely(text, false);
-  }
-
-  function sendSelectedEmail() {
-    const text = getSelectedMergedText();
-    if (!text) return;
-    const a = document.createElement('a');
-    a.href = 'mailto:?body=' + encodeURIComponent(text);
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  }
 
   function sendWhatsapp(id) {
     const el = document.getElementById(id);
@@ -7011,6 +6984,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     students: {
       title: 'פירוט החזרים ותשלומי סיוע בתוכנית ההכשרה המקצועית (סטודנטים)',
       shortTitle: 'פירוט החזרים ותשלומי סיוע (סטודנטים)',
+      scopeNote: 'ℹ️ לתשומת לב העובד/ת: הפירוט כרגע מתייחס לנפגעי נכות כללית בלבד. נפגעי עבודה ייכנסו בהמשך.',
       intro: `שלום, להלן פירוט סעיפי הסיוע וההחזרים הכספיים שאושרו עבורך במסגרת תוכנית ההכשרה המקצועית. אנא שים לב לתנאים ולמסמכים הנדרשים לכל סעיף:`,
       blocks: [
         {
@@ -7076,6 +7050,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     shorttrain: {
       title: 'פירוט החזרים ותשלומי סיוע - הכשרה קצרה (עד שנה)',
       shortTitle: 'פירוט החזרים ותשלומי סיוע (הכשרה קצרה)',
+      scopeNote: 'ℹ️ לתשומת לב העובד/ת: הפירוט כרגע מתייחס לנפגעי נכות כללית בלבד. נפגעי עבודה ייכנסו בהמשך.',
       intro: `שלום, להלן פירוט סעיפי הסיוע וההחזרים הכספיים שאושרו עבורך במסגרת תוכנית ההכשרה המקצועית (עד שנה אחת). אנא שים לב לתנאים ולמסמכים הנדרשים לכל סעיף:`,
       blocks: [
         {
@@ -7125,6 +7100,48 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           ]
         }
       ]
+    },
+    eivarights: {
+      title: 'פירוט זכויות לנפגעי פעולות איבה',
+      shortTitle: 'פירוט זכויות מותאם',
+      cardClass: 'terror-card',
+      opening: `בהמשך לפנייתך, רציתי לרכז עבורך את המידע על הזכויות המגיעות לך כנפגע/ת פעולות איבה, כדי שיהיה לך סדר בתהליכים השונים.`,
+      closing: `לכל שאלה, הכוונה או סיוע בתהליכים השונים – אני כאן בשבילך!`,
+      blocks: [
+        {
+          id: 'shikumrights', icon: '🏥', title: 'זכויות בטיפול מחלקת שיקום (ישירות מולי)',
+          msgHeader: `זכויות בטיפול מחלקת שיקום (ישירות מולי)
+לנושאים הבאים יש לפנות ישירות אליי לקבלת אישור והנחיות.
+הערה חשובה: העלאת הקבלות עבור הזכויות הבאות מתבצעת באופן עצמאי דרך האתר (באזור האישי). במידה ואינך בטוח כיצד לעשות זאת, פשוט כתוב לי ואשמח לשלוח לך הדרכה מפורטת שתסייע לך שלב אחר שלב.`,
+          items: [
+            { key: 'eiva_studies', label: 'שיקום מקצועי והשכלה גבוהה', checked: false, text: `🔹 שיקום מקצועי והשכלה גבוהה: סיוע במימון לימודי תעודה, תואר ראשון או תואר שני. הזכאות כוללת השתתפות בשכר לימוד והטבות נלוות בהתאם לתנאים (כגון מחשב, מענק ציוד לימודי, שיעורי עזר, נסיעות ודמי מחייה).` },
+            { key: 'eiva_prep', label: 'סל לימודים משלים והכנה', checked: false, text: `🔹 סל לימודים משלים והכנה: סיוע והחזרים עבור פסיכומטרי, אבחון תעסוקתי, בחינות מיון, תיק עבודות, או השלמת בגרויות ומכינה קדם-אקדמית.` },
+            { key: 'eiva_mentor', label: 'חונכות לילדי נכים', checked: false, text: `🔹 חונכות לילדי נכים (לבעלי 20% פגיעת ראש או נפש): חונכות לילדים החל מגיל 5, בהיקף של עד 4 שעות שבועיות (המתפרסות על פעמיים בשבוע) באמצעות חברת השמה ובתיווך ישיר שלי.` },
+            { key: 'eiva_psych', label: 'טיפול פסיכולוגי', checked: false, text: `🔹 טיפול פסיכולוגי: זכאות לשעתיים שבועיות של טיפול פרטני במימון ישיר שלנו למטפל מתוך המאגר.
+🔗 לאיתור מטפל במאגר: https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
+🔗 לבקשת הכרה במטפל חדש שאינו במאגר: https://govforms.gov.il/mw/forms/t269@btl.gov.il` },
+            { key: 'eiva_sport', label: 'פעילות ספורט', checked: false, text: `🔹 פעילות ספורט: החזר עבור פעילות ספורט (באחוזים זמניים נדרש ניבוי).` },
+            { key: 'eiva_preshikum', label: 'תוכנית טרום שיקום נפש אחת', checked: false, text: `🔹 תוכנית טרום שיקום נפש אחת: מסגרת ביניים תומכת (חוגי אמנות, מוזיקה וכו') לשימור מיומנויות אישיות ותעסוקתיות – מיועד למתמודדים עם פוסט טראומה שאינם עובדים ואינם לומדים.` },
+            { key: 'eiva_medadvice', label: 'ייעוץ רפואי', checked: false, text: `🔹 ייעוץ רפואי: החזר על עד 3 התייעצויות בשנה.` }
+          ]
+        },
+        {
+          id: 'otherrights', icon: '📍', title: 'זכויות בשאר המקומות (שלא מתבצעות דרכי)',
+          msgHeader: `זכויות בשאר המקומות (שלא מתבצעות דרכי)`,
+          items: [
+            { key: 'eiva_alt', label: 'טיפול אלטרנטיבי (נפש אחת)', checked: false, text: `📍 פנייה למוקד "נפש אחת" (רפורמת הטיפול האלטרנטיבי) - טלפון 03-5127118:
+🔹 טיפול אלטרנטיבי (רפואה משלימה): זכאות לקבלת החזר שנתי עבור טיפולים אלטרנטיביים. הזכאות כוללת את המבוטח, ילדיו, הוריו ובני זוגו.
+🔗 להרחבה, פירוט הטיפולים המלא ותנאי הזכאות: https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAlternativi.aspx` },
+            { key: 'eiva_meds', label: 'תרופות / קנאביס', checked: false, text: `📍 פנייה למחלקת נפגעי פעולות איבה (באופן עצמאי באזור האישי באתר):
+🔹 תרופות/ קנאביס: החזר כספי עבור תרופות הקשורות באופן ישיר לפגימות המוכרות שלך בביטוח הלאומי.
+למידע נוסף על זכויות ניתן להכנס לאתר, לשאלות נוספות לפנות למחלקת נפגעי איבה דרך צור קשר באתר:
+https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages/%d7%96%d7%9b%d7%90%d7%95%d7%aa%20%d7%9c%d7%98%d7%99%d7%a4%d7%95%d7%9c%20%d7%a8%d7%a4%d7%95%d7%90%d7%99.aspx` },
+            { key: 'eiva_external', label: 'גורמים וארגונים חיצוניים', checked: false, text: `📍 פנייה לגורמים וארגונים חיצוניים:
+🔹 הסוכנות היהודית: החזרים וסיוע כספי משפחתי בפנייה ישירה מול הסוכנות והקרן לנפגעי פעולות טרור.
+🔹 פרויקט יובלים (לשורדי המסיבות) ורווחה: תוכניות, מענים ומיזמי תמיכה ייעודיים הניתנים דרך אגף הרווחה ברשויות המקומיות.` }
+          ]
+        }
+      ]
     }
   };
 
@@ -7138,7 +7155,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
        message card on the page, so it starts CLOSED and hides the checkboxes
        until the caseworker taps the title. */
     const card = document.createElement('div');
-    card.className = 'card studies-card refund-toggle-card';
+    card.className = 'card ' + (data.cardClass || 'studies-card') + ' refund-toggle-card';
 
     const headerRow = document.createElement('div');
     headerRow.className = 'card-header-row';
@@ -7169,10 +7186,12 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     fullTitle.textContent = data.title;
     body.appendChild(fullTitle);
 
-    const scopeNote = document.createElement('p');
-    scopeNote.className = 'refund-scope-note';
-    scopeNote.textContent = 'ℹ️ לתשומת לב העובד/ת: הפירוט כרגע מתייחס לנפגעי נכות כללית בלבד. נפגעי עבודה ייכנסו בהמשך.';
-    body.appendChild(scopeNote);
+    if (data.scopeNote) {
+      const scopeNote = document.createElement('p');
+      scopeNote.className = 'refund-scope-note';
+      scopeNote.textContent = data.scopeNote;
+      body.appendChild(scopeNote);
+    }
 
     const header = document.createElement('div');
     header.className = 'refund-card-header';
@@ -7253,6 +7272,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     collapsible.appendChild(body);
     card.appendChild(collapsible);
     container.appendChild(card);
+    updateRefundPreview(tabId);
   }
 
   function getRefundCheckboxes(tabId) {
@@ -7262,13 +7282,20 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   function buildRefundText(tabId) {
     const data = REFUND_DATA[tabId];
     if (!data) return '';
-    const parts = [data.intro];
+    const parts = [];
+    if (data.opening) parts.push(data.opening);
+    if (data.intro) parts.push(data.intro);
     data.blocks.forEach(function (block) {
+      const blockParts = [];
       block.items.forEach(function (item) {
         const cb = document.querySelector('input[data-refund-tab="' + tabId + '"][data-refund-key="' + item.key + '"]');
-        if (cb && cb.checked) parts.push(item.text);
+        if (cb && cb.checked) blockParts.push(item.text);
       });
+      if (blockParts.length === 0) return; /* קטגוריה ריקה מושמטת כולל הכותרת שלה */
+      if (block.msgHeader) parts.push(block.msgHeader);
+      blockParts.forEach(function (t) { parts.push(t); });
     });
+    if (data.closing) parts.push(data.closing);
     return parts.join('\n\n');
   }
 
@@ -7352,6 +7379,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   function initRefundTabs() {
     renderRefundPanel('students');
     renderRefundPanel('shorttrain');
+    renderRefundPanel('eivarights');
     organizeStudiesStaticCards();
     updateRefundPreview('students');
     updateRefundPreview('shorttrain');
@@ -7391,60 +7419,34 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   const TOUR_STEPS_DESKTOP = [
     {
-      selector: '.changelog-btn',
-      title: '💡 מה הולך פה?',
-      text: 'כאן ההסבר המלא על המערכת, קיצורי דרך, ורשימת כל העדכונים — אפשר לחזור לכאן בכל שלב.',
+      selector: '#mobileDashboardGrid',
+      title: '🏠 מסך הבית',
+      text: 'בוחרים קטגוריה ורואים רק את ההודעות שלה. בשיקום מקצועי ובפעולות איבה תיפתח קודם בחירה נוספת — למי ההודעה.',
       before: tourCloseAllCards
     },
     {
-      selector: '#filterBarChips, #mobileDashboardGrid',
-      title: '🏷️ קטגוריות',
-      text: function () {
-        return tourIsDesktop()
-          ? 'לחצו על קטגוריה כדי לראות רק את ההודעות הרלוונטיות לה. אפשר לבחור כמה בבת אחת.'
-          : 'לחצו על אריח כדי להיכנס לקטגוריה — קטגוריה אחת בכל פעם. כפתור החזרה למעלה מחזיר למסך הבית.';
-      }
-    },
-    {
-      selector: '.card-quick-actions',
-      title: '⚡ כפתורים על כרטיסייה סגורה',
-      text: function () {
-        return tourIsDesktop()
-          ? 'בלי לפתוח את ההודעה: העתקה או שליחה במייל ישירות מהכרטיסייה הסגורה.'
-          : 'בלי לפתוח את ההודעה: העתקה או וואטסאפ ישירות מהכרטיסייה הסגורה. אפשר גם להחליק אותה ימינה/שמאלה לאותה פעולה — מתאימים בהגדרות.';
-      },
-      before: tourCloseAllCards
+      selector: '.card.open',
+      title: '📩 בתוך ההודעה',
+      text: 'פותחים כרטיסייה, מעתיקים או שולחים במייל, ו"תיקון" אם משהו לא מדויק. כפתור החזרה למעלה מחזיר לבחירת קטגוריה.',
+      before: function () { tourCloseAllCards(); const c = tourDemoCard(); if (c) c.classList.add('open'); }
     },
     {
       selector: '.studies-refund-tabs',
-      title: '🆕 פירוט החזרים מותאם',
-      text: 'תחת "לימודים והחזרים" יש שני פירוטי החזרים אינטראקטיביים ומותאמים אישית. בוחרים לשונית (סטודנטים או הכשרה מקצועית), מסמנים את הסעיפים הרלוונטיים למשתקם, ומקבלים טקסט מוכן עם תצוגה מקדימה חיה.',
+      title: '🆕 הודעות חכמות',
+      text: 'פירוט החזרים לסטודנטים ולהכשרה מקצועית, ופירוט זכויות לנפגעי איבה — מסמנים סעיפים, ההודעה נבנית לבד עם תצוגה מקדימה, ומעתיקים.',
       before: tourCloseAllCards
     },
     {
-      selector: '.card.open .card-footer',
-      title: '📩 בתוך ההודעה הפתוחה',
-      text: function () {
-        return tourIsDesktop()
-          ? 'העתקה, שליחה במייל, ותיקון.'
-          : 'העתקה, וואטסאפ, ותיקון.';
-      },
-      before: function () { tourCloseAllCards(); const c = tourDemoCard(); if (c) c.classList.add('open'); }
+      selector: '.search-bar',
+      title: '🔍 חיפוש',
+      text: 'לא זוכרים איפה ההודעה? מקלידים מילה — גם ממסך הבית — ורואים תוצאות מכל הקטגוריות.',
+      before: tourCloseAllCards
     },
     {
-      selector: '.card.open .feedback-btn',
-      title: '✏️ כפתור תיקון',
-      text: 'משהו לא מדויק בהודעה? כפתור "תיקון" שולח לי הערה ישירה על אותה הודעה. כדאי לפרט כמה שיותר — מה בדיוק לא מדויק ומה הייתם רוצות שישונה — כדי שאוכל לטפל בזה מהר ובמדויק.',
-      before: function () { tourCloseAllCards(); const c = tourDemoCard(); if (c) c.classList.add('open'); }
-    },
-    {
-      selector: '.idea-btn',
-      title: '🔦 הצעות לתבנית חדשה',
-      text: 'יש הודעה שחוזרת על עצמה ואין לה תבנית? הכפתור הזה שולח לי את הרעיון. כדאי להרחיב כמה שאפשר בבקשה עצמה — באיזה מצב, ומה בדיוק צריך שההודעה תכלול — כדי שאבנה בדיוק את מה שנחוץ.',
-      before: function () {
-        tourCloseAllCards();
-        if (!tourIsDesktop()) document.body.classList.add('mobile-search-open');
-      }
+      selector: '.desktop-mascot-fab',
+      title: '🦥 העצלן וחברים',
+      text: 'לחיצה על העצלן מפעילה את הסיור הזה שוב, "מה הולך פה?" מרכז את ההסברים והעדכונים, וכלים למגשרות זמינים בסרגל למעלה.',
+      before: tourCloseAllCards
     }
   ];
 
@@ -7495,6 +7497,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     // הסיור מבוטל בטלפון — פעיל במחשב בלבד
     if (typeof tourIsDesktop === 'function' && !tourIsDesktop()) return;
     TOUR_STEPS = TOUR_STEPS_DESKTOP;
+    document.body.classList.add('tour-show-all'); /* חושף את ההודעות לצורך הסיור גם ממסך הבית */
     tourIndex = 0;
     document.getElementById('tourOverlay').classList.add('open');
     showTourStep(0);
@@ -7633,6 +7636,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     tourCloseAllCards();
     if (typeof closeMobileSearch === 'function') closeMobileSearch();
     if (typeof tourIsDesktop === 'function' && !tourIsDesktop() && typeof tourMobileGoHome === 'function') tourMobileGoHome();
+    document.body.classList.remove('tour-show-all');
   }
   function tourOverlayClick(e) {
     if (e.target && e.target.id === 'tourOverlay') tourNext();
@@ -7657,24 +7661,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
 
 
-
-<div class="selection-bar" id="selectionBar">
-  <button type="button" class="selection-bar-cancel" onclick="toggleSelectionMode()" title="ביטול">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-  </button>
-  <span class="selection-bar-count" id="selectionBarCount">0 נבחרו</span>
-  <div class="selection-bar-actions">
-    <button type="button" onclick="copySelected(this)" title="העתק את כל הנבחרים">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-    </button>
-    <button type="button" onclick="sendSelectedWa()" title="שלח הכל בוואטסאפ">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-    </button>
-    <button type="button" onclick="sendSelectedEmail()" title="שלח הכל במייל">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-    </button>
-  </div>
-</div>
 
 <div class="tour-overlay" id="tourOverlay" onclick="tourOverlayClick(event)">
   <div class="tour-spotlight" id="tourSpotlight"></div>
