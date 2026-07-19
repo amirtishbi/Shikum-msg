@@ -6765,10 +6765,11 @@ function dashboardTileClick(filterId, tileEl) {
     if (parent === 'eiva' && typeof switchEivaTab === 'function') switchEivaTab(tabId);
   }
 
-  /* ===== הצטרפות לקבוצת העדכונים במייל ===== */
+  /* ===== הצטרפות לקבוצת העדכונים במייל =====
+     הנושא והגוף באנגלית — Outlook משבש עברית בקישורי mailto (קידוד ANSI ישן). */
   function buildJoinMailto() {
-    const subject = encodeURIComponent('הצטרפות לקבוצת העדכונים – כלי התבניות');
-    const body = encodeURIComponent('היי אמיר,\nאשמח להצטרף לקבוצת העדכונים של כלי התבניות.\nשם: ');
+    const subject = encodeURIComponent('Joining the updates group - Templates Tool');
+    const body = encodeURIComponent('Hi Amir,\nI would like to join the updates group of the Templates Tool.\nName: ');
     return 'mailto:AMIRTI@NIOI.GOV.IL?subject=' + subject + '&body=' + body;
   }
   function joinUpdatesEmail() {
