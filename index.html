@@ -584,6 +584,59 @@ header p {
 .desktop-mascot-fab {
   display: none;
 }
+
+/* ===== באנר הצטרפות לקבוצת העדכונים — דסקטופ, צד שמאל ===== */
+.join-banner { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .join-banner {
+    display: block;
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    width: 274px;
+    background: var(--paper-card);
+    border: 2px solid var(--navy);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(31, 43, 61, 0.18);
+    z-index: 60;
+    overflow: hidden;
+    direction: rtl;
+    text-align: right;
+    font-family: 'Heebo', sans-serif;
+  }
+  .join-banner::before {
+    content: '';
+    display: block;
+    height: 5px;
+    background: linear-gradient(90deg, #e6b94d, var(--stamp-red));
+  }
+  .join-banner-inner { padding: 12px 14px 14px; }
+  .join-banner-title { font-weight: 800; color: var(--navy); font-size: 1.02rem; margin: 0 0 4px; }
+  .join-banner-text { font-size: 0.88rem; color: var(--ink); margin: 0 0 10px; line-height: 1.45; }
+  .join-banner-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--navy);
+    color: #fff;
+    border: 2px solid #e6b94d;
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-family: 'Heebo', sans-serif;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .join-banner-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(31, 43, 61, 0.3); }
+  /* הבהוב מושך תשומת לב ב-5 השניות הראשונות */
+  @keyframes joinBlink {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(230, 185, 77, 0); transform: none; }
+    50% { box-shadow: 0 0 0 9px rgba(230, 185, 77, 0.5); transform: scale(1.06); }
+  }
+  .join-banner-btn { animation: joinBlink 1s ease-in-out 5; }
+  @media (prefers-reduced-motion: reduce) { .join-banner-btn { animation: none; } }
+}
 @media (hover: hover) and (pointer: fine) {
   .desktop-mascot-fab {
     display: block;
@@ -3566,6 +3619,14 @@ footer.page-footer {
 </div>
 
 <!-- ===== מדריך אמיר: כפתור צף, נגיש תמיד במחשב (לא תלוי ברוחב המסך) ===== -->
+<div class="join-banner" id="joinBanner">
+  <div class="join-banner-inner">
+    <div class="join-banner-title">📬 רוצים להישאר בעניינים?</div>
+    <p class="join-banner-text">הצטרפו לקבוצת העדכונים — הודעות חשובות והדרכות שימוש במערכת.</p>
+    <button type="button" class="join-banner-btn" onclick="joinUpdatesEmail()">הצטרפות במייל ✉️</button>
+  </div>
+</div>
+
 <div class="desktop-mascot-fab" id="desktopMascotFab" onclick="startTour()" onkeydown="if(event.key==='Enter'||event.key===' '){startTour();}" role="button" tabindex="0" title="לחצו להתחלת הסיור">
   <span class="desktop-mascot-badge" id="desktopMascotBadge">👆 סיור באתר</span>
 </div>
@@ -3837,7 +3898,7 @@ footer.page-footer {
   </button>
   <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-terror);" onclick="subTileClick('eiva', 'family', this)">
     <span class="dashboard-tile-icon">👪</span>
-    <span class="dashboard-tile-label">בני משפחה</span>
+    <span class="dashboard-tile-label">משפחות</span>
   </button>
   <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-terror);" onclick="subTileClick('eiva', 'kids', this)">
     <span class="dashboard-tile-icon">🧒</span>
@@ -6702,6 +6763,17 @@ function dashboardTileClick(filterId, tileEl) {
     dashboardTileClick(parent, tileEl);
     if (parent === 'studies' && typeof switchRefundTab === 'function') switchRefundTab(tabId);
     if (parent === 'eiva' && typeof switchEivaTab === 'function') switchEivaTab(tabId);
+  }
+
+  /* ===== הצטרפות לקבוצת העדכונים במייל ===== */
+  function buildJoinMailto() {
+    const subject = encodeURIComponent('הצטרפות לקבוצת העדכונים – כלי התבניות');
+    const body = encodeURIComponent('היי אמיר,\nאשמח להצטרף לקבוצת העדכונים של כלי התבניות.\nשם: ');
+    return 'mailto:AMIRTI@NIOI.GOV.IL?subject=' + subject + '&body=' + body;
+  }
+  function joinUpdatesEmail() {
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('הצטרפות: קבוצת עדכונים'); } catch (e) {}
+    window.location.href = buildJoinMailto();
   }
 
   /* חזרה למסך הבית בדסקטופ */
