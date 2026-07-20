@@ -6123,6 +6123,10 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
   function openCard(card) {
+    if (typeof isMobileSheetActive === 'function' && isMobileSheetActive()) {
+      openMobileSheetForCard(card);
+      return;
+    }
     card.classList.add('open');
     // Then close others after a short delay to avoid layout jump
     setTimeout(() => {
@@ -6208,6 +6212,12 @@ function dashboardTileClick(filterId, tileEl) {
   // ===== Quick action buttons (on closed card) =====
   const REQUIRES_INPUT = new Set(['msg10', 'msg15']);
   const REQUIRES_INPUT_MSG = 'יש למלא פרטים בכרטיסייה לפני ההעתקה/שליחה 📝';
+  const REQUIRES_SELECTION_MSGS = {
+    msg12: 'יש לוודא את בחירת הסניף בכרטיסייה לפני ההעתקה/שליחה 📝',
+    msg17: 'יש לוודא את בחירת המכשיר (נייד/מחשב) בכרטיסייה לפני ההעתקה/שליחה 📝',
+    msg18: 'יש לוודא את בחירת המכשיר (נייד/מחשב) בכרטיסייה לפני ההעתקה/שליחה 📝'
+  };
+  const REQUIRES_SELECTION = new Set(Object.keys(REQUIRES_SELECTION_MSGS));
 
   /* ===== מעקב שימוש בתבניות (Umami) — שם תבנית בעברית, ללא תוכן ההודעה ===== */
   function trackUse(action, id) {
@@ -6218,6 +6228,9 @@ function dashboardTileClick(filterId, tileEl) {
         const card = el.closest('.card');
         const t = card ? card.querySelector('.card-toggle-title') : null;
         if (t) name = t.textContent.trim();
+        // אם יש בורר בחירה בכרטיס (סניף/מכשיר) — מצרפים את הבחירה הפעילה, כדי שהדוחות ידעו איזו גרסה נשלחה
+        const activePill = card ? card.querySelector('.branch-pill.active') : null;
+        if (activePill) name += ' – ' + activePill.textContent.trim();
       }
       if (!name) name = String(id);
       const label = (action + ': ' + name).slice(0, 50);
@@ -6236,6 +6249,11 @@ function dashboardTileClick(filterId, tileEl) {
   async function quickCopy(id, btn) {
     if (REQUIRES_INPUT.has(id)) {
       showToast(REQUIRES_INPUT_MSG, true);
+      if (btn) { const card = btn.closest('.card'); if (card && !card.classList.contains('open')) openCard(card); }
+      return;
+    }
+    if (REQUIRES_SELECTION.has(id)) {
+      showToast(REQUIRES_SELECTION_MSGS[id] || REQUIRES_SELECTION_MSGS.msg12, true);
       if (btn) { const card = btn.closest('.card'); if (card && !card.classList.contains('open')) openCard(card); }
       return;
     }
@@ -6290,6 +6308,11 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
   function quickWa(id, btn) {
+    if (REQUIRES_SELECTION.has(id)) {
+      showToast(REQUIRES_SELECTION_MSGS[id] || REQUIRES_SELECTION_MSGS.msg12, true);
+      if (btn) { const card = btn.closest('.card'); if (card && !card.classList.contains('open')) openCard(card); }
+      return;
+    }
     if (REQUIRES_INPUT.has(id)) {
       showToast(REQUIRES_INPUT_MSG, true);
       if (btn) { const card = btn.closest('.card'); if (card && !card.classList.contains('open')) openCard(card); }
@@ -6301,6 +6324,11 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
   function quickMail(id, btn) {
+    if (REQUIRES_SELECTION.has(id)) {
+      showToast(REQUIRES_SELECTION_MSGS[id] || REQUIRES_SELECTION_MSGS.msg12, true);
+      if (btn) { const card = btn.closest('.card'); if (card && !card.classList.contains('open')) openCard(card); }
+      return;
+    }
     if (REQUIRES_INPUT.has(id)) {
       showToast(REQUIRES_INPUT_MSG, true);
       if (btn) { const card = btn.closest('.card'); if (card && !card.classList.contains('open')) openCard(card); }
@@ -7018,6 +7046,11 @@ function dashboardTileClick(filterId, tileEl) {
   });
 
   function swipeSafeWa(card, id) {
+    if (REQUIRES_SELECTION.has(id)) {
+      showToast(REQUIRES_SELECTION_MSGS[id] || REQUIRES_SELECTION_MSGS.msg12, true);
+      if (!card.classList.contains('open')) openCard(card);
+      return;
+    }
     if (REQUIRES_INPUT.has(id)) {
       showToast(REQUIRES_INPUT_MSG, true);
       if (!card.classList.contains('open')) openCard(card);
