@@ -585,6 +585,38 @@ header p {
   display: none;
 }
 
+/* ===== בורר סניפים בכרטיס ההגעה ===== */
+.branch-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px 0;
+  flex-wrap: wrap;
+}
+.branch-picker-label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--navy);
+}
+.branch-pill {
+  background: none;
+  border: 2px solid var(--navy);
+  color: var(--navy);
+  border-radius: 999px;
+  padding: 6px 18px;
+  font-family: 'Heebo', sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease;
+}
+.branch-pill:hover { transform: translateY(-1px); }
+.branch-pill.active {
+  background: var(--navy);
+  color: #fff;
+  border-color: #e6b94d;
+}
+
 /* ===== באנר הצטרפות לקבוצת העדכונים — דסקטופ, צד שמאל ===== */
 .join-banner { display: none; }
 @media (hover: hover) and (pointer: fine) {
@@ -5328,6 +5360,11 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       </div>
       </div>
       <div class="card-collapsible">
+        <div class="branch-picker" onclick="event.stopPropagation()">
+          <span class="branch-picker-label">בחרו סניף:</span>
+          <button type="button" class="branch-pill active" data-branch="rg" onclick="selectBranch('rg', this)">רמת גן</button>
+          <button type="button" class="branch-pill" data-branch="ramla" onclick="selectBranch('ramla', this)">רמלה</button>
+        </div>
         <div class="card-body" id="msg12">📍הפגישה מתקיימת בבטוח לאומי סניף רמת גן:
 רחוב החשמונאים 15, יש להגיד לשומר שהוזמנתם לפקיד שיקום.
 לעלות לקומה 2, להמשיך ישר עד הסוף מהמעלית ואז שמאלה עד האינטרקום.</div>
@@ -5363,6 +5400,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         </div>
       </div>
     </div>
+
 
   </section>
 
@@ -6763,6 +6801,23 @@ function dashboardTileClick(filterId, tileEl) {
     dashboardTileClick(parent, tileEl);
     if (parent === 'studies' && typeof switchRefundTab === 'function') switchRefundTab(tabId);
     if (parent === 'eiva' && typeof switchEivaTab === 'function') switchEivaTab(tabId);
+  }
+
+  /* ===== בורר סניפים בכרטיס ההגעה ===== */
+  const BRANCH_DIRECTIONS = {
+    rg: `📍הפגישה מתקיימת בבטוח לאומי סניף רמת גן:
+רחוב החשמונאים 15, יש להגיד לשומר שהוזמנתם לפקיד שיקום.
+לעלות לקומה 2, להמשיך ישר עד הסוף מהמעלית ואז שמאלה עד האינטרקום.`,
+    ramla: `📍הפגישה מתקיימת בביטוח לאומי סניף רמלה:
+רחוב תל חי 1, רמלה. יש להגיד לשומר שאתם מוזמנים לשיקום.
+לעלות במעלית מס' 4 לשיקום, קומה רביעית. ביציאה מהמעלית יש לפנות שמאלה לפי השילוט "שיקום".`
+  };
+  function selectBranch(key, btn) {
+    const body = document.getElementById('msg12');
+    if (!body || !BRANCH_DIRECTIONS[key]) return;
+    body.textContent = BRANCH_DIRECTIONS[key];
+    const picker = btn.closest('.branch-picker');
+    if (picker) picker.querySelectorAll('.branch-pill').forEach(function (b) { b.classList.toggle('active', b === btn); });
   }
 
   /* ===== הצטרפות לקבוצת העדכונים במייל =====
