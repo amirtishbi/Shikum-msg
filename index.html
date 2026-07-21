@@ -2835,16 +2835,17 @@ body.dark-mode .refund-block { background: rgba(255,255,255,0.02); }
 .quick-btn:active { transform: scale(0.88); }
 .quick-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
 
-/* מחשב בלבד: מרווח נשימה קל בין הכפתורים, הגדלה קלה כי יש מקום, ומוצגים רק העתק + מייל */
+/* מחשב בלבד: מרווח נשימה קל בין הכפתורים, הגדלה קלה כי יש מקום, ומוצג רק העתק (מייל יוצא בג'יבריש ב-Outlook) */
 @media (hover: hover) and (pointer: fine) {
   .card-quick-actions { gap: 9px; }
   .quick-wa { display: none; }
+  .quick-mail { display: none; }
   .quick-btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 7px;
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
   }
-  .quick-btn svg { width: 16px; height: 16px; }
+  .quick-btn svg { width: 21px; height: 21px; }
 }
 
 /* סלולר בלבד: הגדלת שטח הלחיצה, ומוצגים העתק + וואטסאפ + מועדפים */
@@ -3098,10 +3099,11 @@ body.dark-mode .refund-block { background: rgba(255,255,255,0.02); }
 /* Favorites: hidden everywhere by default, revealed only on mobile below */
 .fav-btn, .quick-fav { display: none; }
 
-/* מחשב בלבד: בפוטר הכרטיס הפתוח משאירים רק העתק + מייל (בהתאם לכפתורים הקטנים) */
+/* מחשב בלבד: בפוטר הכרטיס הפתוח משאירים רק העתק (מייל יוצא בג'יבריש ב-Outlook) */
 @media (hover: hover) and (pointer: fine) {
   .card-footer .whatsapp-btn { display: none; }
-  .card-footer .copy-btn { width: 100%; }
+  .card-footer .email-btn { display: none; }
+  .card-footer .copy-btn { width: calc(50% - 4px); }
 }
 
 /* סלולר בלבד: בפוטר הכרטיס הפתוח משאירים העתק + וואטסאפ + מועדפים (בהתאם לכפתורים הקטנים) */
@@ -4284,26 +4286,7 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
           <button type="button" class="branch-pill active" data-device="mobile" onclick="selectUploadDevice('terror', 'mobile', this)">📱 נייד</button>
           <button type="button" class="branch-pill" data-device="desktop" onclick="selectUploadDevice('terror', 'desktop', this)">🖥️ מחשב</button>
         </div>
-        <div class="card-body" id="msg18">📱 מדריך: העלאת קבלות מהנייד – שיקום לנפגעי איבה 📱
-שלב אחר שלב להגשת קבלות בקלות:
-
-1️⃣ נכנסים לאתר:
-🔗 https://ps.btl.gov.il/#/login
-מתחברים ל"שירות אישי" בביטוח הלאומי (בעזרת קוד חד-פעמי או סיסמה).
-2️⃣ פותחים תפריט: לוחצים על 3 הפסים בפינה העליונה ובוחרים העלאת מסמכים.
-3️⃣ ממלאים פרטים במדויק:
-🔸 נושא: שיקום
-🔸 קטגוריה: שיקום לנפגעי איבה החל מה7.10.23
-🔸 מסמך: חשבוניות/קבלות על הוצאות
-👈 בסיום, לוחצים על הכפתור התכלת צרף קובץ.
-4️⃣ מעלים את הקבלה: מצלמים אותה ישירות מהמצלמה או בוחרים תמונה מוכנה מהגלריה.
-5️⃣ שולחים: ממתינים לחיווי הירוק ("הועלה בהצלחה"), גוללים קצת למטה ולוחצים על הכפתור הכחול שלח מסמך.
-
-📢 חשוב מאוד לדעת:
-• ודאו שהמסמך שאתם מעלים הוא קבלה ולא חשבונית מס.
-• חובה שהשם המלא של המבוטח יופיע על גבי הקבלה באופן ברור.
-• ודאו שצילום הקבלה שלם, מואר וקריא לחלוטין לפני הלחיצה על שליחה.
-• לאחר השליחה, לרוב לוקח כשבועיים עד שהכסף נכנס לחשבון.</div>
+        <div class="card-body" id="msg18"></div>
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg18', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -4660,26 +4643,7 @@ https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
           <button type="button" class="branch-pill active" data-device="mobile" onclick="selectUploadDevice('family', 'mobile', this)">📱 נייד</button>
           <button type="button" class="branch-pill" data-device="desktop" onclick="selectUploadDevice('family', 'desktop', this)">🖥️ מחשב</button>
         </div>
-        <div class="card-body" id="msg17">📱 מדריך: העלאת קבלות מהנייד – משפחות שכולות 📱
-שלב אחר שלב להגשת קבלות בקלות:
-
-1️⃣ נכנסים לאתר:
-🔗 https://ps.btl.gov.il/#/login
-מתחברים ל"שירות אישי" בביטוח הלאומי (בעזרת קוד חד-פעמי או סיסמה).
-2️⃣ פותחים תפריט: לוחצים על 3 הפסים בפינה העליונה ובוחרים העלאת מסמכים.
-3️⃣ ממלאים פרטים במדויק:
-🔸 נושא: שיקום
-🔸 קטגוריה: החזר כספי למשפחות שכולות
-🔸 מסמך: חשבוניות/קבלות
-👈 בסיום, לוחצים על הכפתור התכלת צרף קובץ.
-4️⃣ מעלים את הקבלה: מצלמים אותה ישירות מהמצלמה או בוחרים תמונה מוכנה מהגלריה.
-5️⃣ שולחים: ממתינים לחיווי הירוק ("הועלה בהצלחה"), גוללים קצת למטה ולוחצים על הכפתור הכחול שלח מסמך.
-
-📢 חשוב מאוד לדעת:
-• ודאו שהמסמך שאתם מעלים הוא קבלה (לא חשבונית מס).
-• חובה שהשם המלא של המבוטח יופיע על גבי הקבלה באופן ברור.
-• ודאו שצילום הקבלה שלם, מואר וקריא לחלוטין לפני הלחיצה על שליחה.
-• לאחר השליחה, לרוב לוקח כשבועיים עד שהכסף נכנס לחשבון.</div>
+        <div class="card-body" id="msg17"></div>
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg17', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -5380,10 +5344,9 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           <span class="branch-picker-label">בחרו סניף:</span>
           <button type="button" class="branch-pill active" data-branch="rg" onclick="selectBranch('rg', this)">רמת גן</button>
           <button type="button" class="branch-pill" data-branch="ramla" onclick="selectBranch('ramla', this)">רמלה</button>
+          <button type="button" class="branch-pill" data-branch="rehovot" onclick="selectBranch('rehovot', this)">רחובות</button>
         </div>
-        <div class="card-body" id="msg12">📍הפגישה מתקיימת בבטוח לאומי סניף רמת גן:
-רחוב החשמונאים 15, יש להגיד לשומר שהוזמנתם לפקיד שיקום.
-לעלות לקומה 2, להמשיך ישר עד הסוף מהמעלית ואז שמאלה עד האינטרקום.</div>
+        <div class="card-body" id="msg12"></div>
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg12', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -6219,6 +6182,18 @@ function dashboardTileClick(filterId, tileEl) {
   };
   const REQUIRES_SELECTION = new Set(Object.keys(REQUIRES_SELECTION_MSGS));
 
+  /* ===== העתקה ידידותית למייל (מחשב בלבד): המרת אימוג'ים שנשברים ב-Outlook =====
+     מומרים: ספרות-אימוג'י (1️⃣ -> "1.") ונקודות (🔸/🔹 -> "-"). כל השאר נשאר. */
+  function emailFriendlyText(text) {
+    return text
+      .replace(/([0-9])\uFE0F?\u20E3/g, '$1.\u200F')
+      .replace(/🔸/g, '-')
+      .replace(/🔹/g, '-');
+  }
+  function isDesktopDevice() {
+    return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  }
+
   /* ===== מעקב שימוש בתבניות (Umami) — שם תבנית בעברית, ללא תוכן ההודעה ===== */
   function trackUse(action, id) {
     try {
@@ -6259,7 +6234,8 @@ function dashboardTileClick(filterId, tileEl) {
     }
     trackUse('העתקה', id);
     const el = document.getElementById(id);
-    const text = el ? el.textContent : '';
+    let text = el ? el.textContent : '';
+    if (isDesktopDevice()) text = emailFriendlyText(text);
     try {
       await navigator.clipboard.writeText(text);
     } catch (e) {
@@ -6370,7 +6346,8 @@ function dashboardTileClick(filterId, tileEl) {
   async function copyMsg(id, btn) {
     trackUse('העתקה', id);
     const el = document.getElementById(id);
-    const text = el.innerText;
+    let text = el.innerText;
+    if (isDesktopDevice()) text = emailFriendlyText(text);
     try {
       await navigator.clipboard.writeText(text);
     } catch (e) {
@@ -6953,7 +6930,10 @@ function dashboardTileClick(filterId, tileEl) {
 לעלות לקומה 2, להמשיך ישר עד הסוף מהמעלית ואז שמאלה עד האינטרקום.`,
     ramla: `📍הפגישה מתקיימת בביטוח לאומי סניף רמלה:
 רחוב תל חי 1, רמלה. יש להגיד לשומר שאתם מוזמנים לשיקום.
-לעלות במעלית מס' 4 לשיקום, קומה רביעית. ביציאה מהמעלית יש לפנות שמאלה לפי השילוט "שיקום".`
+לעלות במעלית מס' 4 לשיקום, קומה רביעית. ביציאה מהמעלית יש לפנות שמאלה לפי השילוט "שיקום".`,
+    rehovot: `📍הפגישה מתקיימת בביטוח לאומי סניף רחובות:
+רחוב רמז 64, רחובות.
+קומה 5, מחלקת שיקום.`
   };
   function selectBranch(key, btn) {
     const body = document.getElementById('msg12');
@@ -6962,6 +6942,16 @@ function dashboardTileClick(filterId, tileEl) {
     const picker = btn.closest('.branch-picker');
     if (picker) picker.querySelectorAll('.branch-pill').forEach(function (b) { b.classList.toggle('active', b === btn); });
   }
+
+  /* מקור אמת יחיד: גופי כרטיסי הבחירה נטענים מהנתונים כאן, לא מה-HTML */
+  (function initSelectionCardBodies() {
+    const b12 = document.getElementById('msg12');
+    if (b12) b12.textContent = BRANCH_DIRECTIONS.rg;
+    const b18 = document.getElementById('msg18');
+    if (b18) b18.textContent = UPLOAD_GUIDES.terror.mobile;
+    const b17 = document.getElementById('msg17');
+    if (b17) b17.textContent = UPLOAD_GUIDES.family.mobile;
+  })();
 
   /* ===== הצטרפות לקבוצת העדכונים במייל =====
      הנושא והגוף באנגלית — Outlook משבש עברית בקישורי mailto (קידוד ANSI ישן). */
@@ -7638,7 +7628,8 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
 
   async function copyRefundText(tabId, btn) {
     trackRefundUse('העתקה', tabId);
-    const text = buildRefundText(tabId);
+    let text = buildRefundText(tabId);
+    if (isDesktopDevice()) text = emailFriendlyText(text);
     try {
       await navigator.clipboard.writeText(text);
     } catch (e) {
