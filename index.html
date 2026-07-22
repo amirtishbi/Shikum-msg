@@ -51,15 +51,15 @@
   --stamp-red: #a6362c;
   --stamp-red-deep: #8a2c23;
 
-  --cat-studies: #2f6b4f;
-  --cat-terror: #7b3b6b;
-  --cat-terror-tint: #f3e8f0;
-  --cat-routing: #a16a1f;
-  --cat-consent: #1f6e6e;
-  --cat-admin: #8a2c23;
-  --cat-family: #6b4a8a;
-  --cat-kids: #c2664f;
-  --cat-therapists: #2a7a5e;
+  --cat-studies: #1f7a43;
+  --cat-terror: #8a2f8a;
+  --cat-terror-tint: #f5e6f5;
+  --cat-routing: #c26f0a;
+  --cat-consent: #0b8686;
+  --cat-admin: #c0322b;
+  --cat-family: #b03060;
+  --cat-kids: #d15a2a;
+  --cat-therapists: #2456b8;
 
   --radius: 4px;
   --radius-lg: 6px;
@@ -77,15 +77,15 @@ body.dark-mode {
   --stamp-red: #c4453a;
   --stamp-red-deep: #a6362c;
 
-  --cat-studies: #4a9a72;
-  --cat-terror: #a8669a;
+  --cat-studies: #40a86a;
+  --cat-terror: #c261c2;
   --cat-terror-tint: #322732;
-  --cat-routing: #c98a3a;
-  --cat-consent: #3a9a9a;
-  --cat-admin: #c4453a;
-  --cat-family: #9a7ac0;
-  --cat-kids: #e08a6f;
-  --cat-therapists: #48a882;
+  --cat-routing: #e8a63f;
+  --cat-consent: #2fc0c0;
+  --cat-admin: #d95a50;
+  --cat-family: #d16090;
+  --cat-kids: #e88450;
+  --cat-therapists: #5a86e0;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -2218,6 +2218,32 @@ body.sheet-open { overflow: hidden; }
     margin: 4px auto 20px;
     padding: 0 14px;
   }
+  /* ===== מבטאי צבע קטגוריה על האריחים (מובייל): חיבור ויזואלי לכרטיסים ===== */
+  .mobile-dashboard-grid .dashboard-tile,
+  .mobile-sub-grid .dashboard-tile {
+    position: relative;
+    overflow: hidden;
+    border-color: color-mix(in srgb, var(--tile-color) 35%, var(--rule-strong));
+  }
+  /* פס צבעוני דק בתחתית האריח */
+  .mobile-dashboard-grid .dashboard-tile::before,
+  .mobile-sub-grid .dashboard-tile::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--tile-color);
+    opacity: 0.9;
+  }
+  /* האייקון בצבע הקטגוריה, בתוך עיגול בגוון בהיר של אותו צבע */
+  .mobile-dashboard-grid .dashboard-tile-icon,
+  .mobile-sub-grid .dashboard-tile-icon {
+    background: color-mix(in srgb, var(--tile-color) 16%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--tile-color) 40%, transparent);
+    color: var(--tile-color);
+  }
 }
 .dashboard-tile {
   --tile-color: var(--navy);
@@ -2272,8 +2298,9 @@ body.sheet-open { overflow: hidden; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--stamp-red);
-  color: #fdf8ee;
+  background: var(--tile-color);
+  color: #fff;
+  border: 1.5px solid color-mix(in srgb, var(--tile-color) 60%, #000);
   font-size: 0.72rem;
   font-weight: 800;
   border-radius: 11px;
@@ -2410,8 +2437,29 @@ body.sheet-open { overflow: hidden; }
     animation: cardEnter 0.4s cubic-bezier(0.22, 0.9, 0.35, 1) both;
   }
 }
+/* דסקטופ: אותה כניסה מדורגת, איטית ורכה יותר; ומסכי בחירת-המשנה נכנסים אריח-אריח */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .category.cat-enter .card,
+  .category.cat-enter .studies-refund-tabs,
+  .category.cat-enter .eiva-tabs {
+    animation: cardEnterSoft 0.72s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: opacity, transform;
+  }
+  .mobile-dashboard-grid.mobile-sub-grid.open { animation: none; }
+  .mobile-sub-grid.open .mobile-home-title,
+  .mobile-sub-grid.open .dashboard-tile,
+  .mobile-sub-grid.open .sub-grid-back {
+    animation: cardEnterSoft 0.72s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: opacity, transform;
+  }
+}
 @keyframes cardEnter {
   from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+/* דסקטופ: כניסה רכה יותר — הרמה עדינה + התקרבות קלה */
+@keyframes cardEnterSoft {
+  from { opacity: 0; transform: translateY(20px) scale(0.985); }
   to { opacity: 1; transform: none; }
 }
 
@@ -2457,6 +2505,15 @@ body.sheet-open { overflow: hidden; }
   to { opacity: 1; transform: none; }
 }
 body.mobile-cat-filtered main { animation: viewFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+@media (hover: hover) and (pointer: fine) {
+  /* בדסקטופ אין אנימציה על הקונטיינר — דהייה כפולה (קונטיינר + כרטיס) יוצרת תחושה עכורה.
+     הכניסה כולה שייכת לכרטיסים המדורגים. */
+  body.mobile-cat-filtered main { animation: none; }
+}
+@keyframes viewSoftFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 #mobileDashboardGrid { animation: viewFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 .mobile-sub-grid.open { animation: viewFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 @media (prefers-reduced-motion: reduce) {
@@ -2611,7 +2668,7 @@ body.eiva-search-active .eiva-tabs { opacity: 0.5; pointer-events: none; }
   padding: 10px 10px;
   margin-bottom: 14px;
   flex-wrap: wrap;
-  background: rgba(47,107,79,0.07);
+  background: color-mix(in srgb, var(--cat-studies) 8%, transparent);
   border: 1.5px solid var(--cat-studies);
   border-radius: var(--radius-lg);
 }
@@ -2763,7 +2820,7 @@ body.dark-mode .refund-block { background: rgba(255,255,255,0.02); }
 .refund-preview-box {
   margin-top: 8px;
   padding: 12px 14px;
-  background: rgba(47,107,79,0.05);
+  background: color-mix(in srgb, var(--cat-studies) 6%, transparent);
   border: 1px dashed var(--cat-studies);
   border-radius: var(--radius);
 }
@@ -3016,19 +3073,19 @@ body.dark-mode .refund-block { background: rgba(255,255,255,0.02); }
 .card.open .card-body {
   background: rgba(0,0,0,0.035);
 }
-.studies-card.open .card-body { background: rgba(47,107,79,0.05); }
-.terror-card.open  .card-body { background: rgba(123,59,107,0.05); }
-.routing-card.open .card-body { background: rgba(161,106,31,0.05); }
-.consent-card.open .card-body { background: rgba(31,110,110,0.05); }
-.admin-card.open   .card-body { background: rgba(138,44,35,0.05); }
-.family-card.open  .card-body { background: rgba(107,74,138,0.05); }
-.kids-card.open    .card-body { background: rgba(194,102,79,0.05); }
-.therapists-card.open .card-body { background: rgba(42,122,94,0.05); }
+.studies-card.open .card-body { background: color-mix(in srgb, var(--cat-studies) 6%, transparent); }
+.terror-card.open  .card-body { background: color-mix(in srgb, var(--cat-terror) 6%, transparent); }
+.routing-card.open .card-body { background: color-mix(in srgb, var(--cat-routing) 6%, transparent); }
+.consent-card.open .card-body { background: color-mix(in srgb, var(--cat-consent) 6%, transparent); }
+.admin-card.open   .card-body { background: color-mix(in srgb, var(--cat-admin) 6%, transparent); }
+.family-card.open  .card-body { background: color-mix(in srgb, var(--cat-family) 6%, transparent); }
+.kids-card.open    .card-body { background: color-mix(in srgb, var(--cat-kids) 6%, transparent); }
+.therapists-card.open .card-body { background: color-mix(in srgb, var(--cat-therapists) 6%, transparent); }
 
 #consentTypePreview, #consentPlacePreview {
   font-weight: 700;
   color: var(--cat-consent);
-  background: rgba(31,110,110,0.08);
+  background: color-mix(in srgb, var(--cat-consent) 10%, transparent);
   padding: 1px 4px;
   border-radius: 3px;
 }
@@ -4027,11 +4084,11 @@ footer.page-footer {
     <span class="dashboard-tile-icon">🕊️</span>
     <span class="dashboard-tile-label">נפגעים</span>
   </button>
-  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-terror);" onclick="subTileClick('eiva', 'family', this)">
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-family);" onclick="subTileClick('eiva', 'family', this)">
     <span class="dashboard-tile-icon">👪</span>
     <span class="dashboard-tile-label">משפחות</span>
   </button>
-  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-terror);" onclick="subTileClick('eiva', 'kids', this)">
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-kids);" onclick="subTileClick('eiva', 'kids', this)">
     <span class="dashboard-tile-icon">🧒</span>
     <span class="dashboard-tile-label">ילדים</span>
   </button>
@@ -6087,10 +6144,13 @@ function animateCategoryEnter(catId) {
     if (!sec) return;
     sec.classList.remove('cat-enter');
     const animated = sec.querySelectorAll('.card, .studies-refund-tabs, .eiva-tabs');
+    const desktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const step = desktop ? 95 : 45;
+    const cap = desktop ? 720 : 380;
     let i = 0;
     animated.forEach(function (el) {
       if (el.offsetParent === null) { el.style.animationDelay = ''; return; }
-      el.style.animationDelay = Math.min(i * 45, 380) + 'ms';
+      el.style.animationDelay = Math.min(i * step, cap) + 'ms';
       i++;
     });
     void sec.offsetWidth;
@@ -6098,7 +6158,7 @@ function animateCategoryEnter(catId) {
     setTimeout(function () {
       sec.classList.remove('cat-enter');
       animated.forEach(function (el) { el.style.animationDelay = ''; });
-    }, 1000);
+    }, 1600);
 }
 
 function dashboardTileClick(filterId, tileEl) {
@@ -6115,16 +6175,16 @@ function dashboardTileClick(filterId, tileEl) {
     if (chip) chip.classList.add('active');
     document.querySelectorAll('.card').forEach(c => c.classList.remove('fav-filter-hidden'));
     applyFilters();
-    animateCategoryEnter(filterId);
+    /* קודם ממקמים את העמוד (מיידית, בלי גלילה מונפשת) ורק אז מריצים את אנימציית הכניסה —
+       אחרת הגלילה והכרטיסים זזים יחד באותו ציר וזה נראה קופצני */
     const section = document.getElementById(filterId);
     if (section) {
-      setTimeout(function () {
-        const stickyEl = document.querySelector('.sticky-top');
-        const offset = (stickyEl ? stickyEl.offsetHeight : 0) + 10;
-        const rect = section.getBoundingClientRect();
-        window.scrollBy({ top: rect.top - offset, behavior: 'smooth' });
-      }, 60);
+      const stickyEl = document.querySelector('.sticky-top');
+      const offset = (stickyEl ? stickyEl.offsetHeight : 0) + 10;
+      const delta = section.getBoundingClientRect().top - offset;
+      if (Math.abs(delta) > 4) window.scrollBy({ top: delta, behavior: 'auto' });
     }
+    animateCategoryEnter(filterId);
   }
 
   function toggleFilter(chip) {
@@ -6948,15 +7008,30 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
   /* ===== תגיות מספר הודעות על אריחי הגריד ===== */
+  /* מיפוי אריחי המשנה למכל התוכן שלהם, לצורך ספירת הודעות */
+  const SUBTILE_CONTAINERS = {
+    students: 'refund-panel-students',
+    shorttrain: 'refund-panel-shorttrain',
+    terror: 'eiva-panel-terror',
+    family: 'eiva-panel-family',
+    kids: 'eiva-panel-kids'
+  };
   function injectTileCounts() {
     document.querySelectorAll('.dashboard-tile').forEach(function (tile) {
       if (tile.querySelector('.dashboard-tile-count')) return;
       const onclick = tile.getAttribute('onclick') || '';
-      const m = onclick.match(/(?:dashboardTileClick|openSubGrid)\('([^']+)'/);
-      if (!m) return;
-      const section = document.getElementById(m[1]);
+      let containerId = null;
+      const sub = onclick.match(/subTileClick\('[^']+',\s*'([^']+)'/);
+      if (sub) {
+        containerId = SUBTILE_CONTAINERS[sub[1]];
+      } else {
+        const m = onclick.match(/(?:dashboardTileClick|openSubGrid)\('([^']+)'/);
+        if (m) containerId = m[1];
+      }
+      if (!containerId) return;
+      const section = document.getElementById(containerId);
       if (!section) return;
-      const count = section.querySelectorAll('.card').length;
+      const count = section.querySelectorAll('.card:not([data-hidden-wip]):not([style*="display:none"])').length;
       if (!count) return;
       const badge = document.createElement('span');
       badge.className = 'dashboard-tile-count';
@@ -7000,13 +7075,19 @@ function dashboardTileClick(filterId, tileEl) {
     const grid = document.getElementById('subGrid-' + parent);
     if (!grid) return;
     document.querySelectorAll('.mobile-sub-grid.open').forEach(function (g) { g.classList.remove('open'); });
+    /* כניסה מדורגת ורגועה של הכותרת, האריחים וכפתור החזרה */
+    const items = grid.querySelectorAll('.mobile-home-title, .dashboard-tile, .sub-grid-back');
+    items.forEach(function (el, idx) { el.style.animationDelay = (idx * 110) + 'ms'; });
+    if (window.scrollY > 4) window.scrollTo({ top: 0, behavior: 'auto' });
     grid.classList.add('open');
     document.body.classList.add('subgrid-open');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function closeSubGrid() {
-    document.querySelectorAll('.mobile-sub-grid.open').forEach(function (g) { g.classList.remove('open'); });
+    document.querySelectorAll('.mobile-sub-grid.open').forEach(function (g) {
+      g.classList.remove('open');
+      g.querySelectorAll('.mobile-home-title, .dashboard-tile, .sub-grid-back').forEach(function (el) { el.style.animationDelay = ''; });
+    });
     document.body.classList.remove('subgrid-open');
   }
 
@@ -7172,7 +7253,7 @@ function dashboardTileClick(filterId, tileEl) {
     if (allChip) toggleFilter(allChip);
     const input = document.getElementById('searchInput');
     if (input && input.value) { input.value = ''; doSearch(''); }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.scrollY > 4) window.scrollTo({ top: 0, behavior: 'auto' });
   }
 
   function bottomNavHome() {
@@ -7183,7 +7264,7 @@ function dashboardTileClick(filterId, tileEl) {
     if (allChip) toggleFilter(allChip);
     const input = document.getElementById('searchInput');
     if (input && input.value) { input.value = ''; doSearch(''); }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.scrollY > 4) window.scrollTo({ top: 0, behavior: 'auto' });
     syncBottomNav();
   }
 
@@ -7191,7 +7272,7 @@ function dashboardTileClick(filterId, tileEl) {
     if (typeof hapticTap === 'function') hapticTap();
     const favChip = document.querySelector('.filter-chip-fav');
     if (favChip) toggleFavFilter(favChip);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.scrollY > 4) window.scrollTo({ top: 0, behavior: 'auto' });
     syncBottomNav();
   }
 
