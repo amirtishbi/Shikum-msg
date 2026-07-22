@@ -57,8 +57,8 @@
   --cat-routing: #c26f0a;
   --cat-consent: #0b8686;
   --cat-admin: #c0322b;
-  --cat-family: #b03060;
-  --cat-kids: #d15a2a;
+  --cat-family: #8a2f8a;
+  --cat-kids: #8a2f8a;
   --cat-therapists: #2456b8;
 
   --radius: 4px;
@@ -83,8 +83,8 @@ body.dark-mode {
   --cat-routing: #e8a63f;
   --cat-consent: #2fc0c0;
   --cat-admin: #d95a50;
-  --cat-family: #d16090;
-  --cat-kids: #e88450;
+  --cat-family: #c261c2;
+  --cat-kids: #c261c2;
   --cat-therapists: #5a86e0;
 }
 
@@ -6675,6 +6675,11 @@ function dashboardTileClick(filterId, tileEl) {
     if (e.target && e.target.id === 'toolsHubOverlay') closeToolsHub();
   }
   function openToolCalc(tool) {
+    try {
+      const TOOL_NAMES = { basic: 'מחשבון', vat: 'מחשבון מע"מ', travel: 'מחשבון נסיעות/פרמטרים' };
+      const label = ('כלי: ' + (TOOL_NAMES[tool] || tool)).slice(0, 50);
+      if (window.umami && typeof window.umami.track === 'function') window.umami.track(label);
+    } catch (e) {}
     document.getElementById('toolsHubListView').style.display = 'none';
     document.getElementById('toolsHubCalcView').style.display = 'block';
     const backBtn = document.getElementById('toolsHubBackBtn');
