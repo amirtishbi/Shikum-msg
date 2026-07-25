@@ -484,7 +484,6 @@ header p {
   box-shadow: 0 3px 10px rgba(37,149,74,0.4);
   -webkit-tap-highlight-color: transparent;
   transition: transform 0.15s, box-shadow 0.15s;
-  animation: installBtnPulse 2s ease-in-out infinite;
 }
 @media (hover: hover) and (pointer: fine) {
   .install-app-btn.installable { display: flex; }
@@ -519,7 +518,6 @@ header p {
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     transition: transform 0.12s;
-    animation: installBtnPulse 2s ease-in-out infinite;
     white-space: nowrap;
   }
 }
@@ -583,6 +581,100 @@ header p {
 /* ===== מדריך אמיר: כפתור צף קבוע, נגיש תמיד במחשב ===== */
 .desktop-mascot-fab {
   display: none;
+}
+
+/* ===== פאנל "חדש במערכת" — דסקטופ, מעל העצלן ===== */
+.new-msgs-panel { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .new-msgs-panel.has-items {
+    display: block;
+    position: fixed;
+    right: 24px;
+    bottom: 220px;
+    width: 256px;
+    background: var(--paper-card);
+    border: 2px solid var(--navy);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(31, 43, 61, 0.18);
+    overflow: hidden;
+    direction: rtl;
+    text-align: right;
+    font-family: 'Heebo', sans-serif;
+    z-index: 59;
+  }
+  .new-msgs-panel::before {
+    content: '';
+    display: block;
+    height: 5px;
+    background: linear-gradient(90deg, #e6b94d, var(--stamp-red));
+  }
+  .new-msgs-title {
+    font-weight: 800;
+    color: var(--navy);
+    font-size: 1rem;
+    padding: 10px 13px 6px;
+  }
+  .new-msgs-list { list-style: none; margin: 0; padding: 0 8px 9px; }
+  .new-msgs-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    background: none;
+    border: none;
+    border-radius: 9px;
+    padding: 7px 8px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-align: right;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .new-msgs-item:hover { background: color-mix(in srgb, var(--tile-color) 12%, transparent); }
+  .new-msgs-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--tile-color);
+    flex-shrink: 0;
+  }
+  .new-msgs-item-text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .new-msgs-item-text { white-space: nowrap; }
+  .new-msgs-item-where {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* ===== כניסה חגיגית למסך הבית (דסקטופ): כל אריח נדלק בצבעו בתורו, פעם אחת ===== */
+@keyframes tileFestiveGlow {
+  0%   { box-shadow: 0 2px 6px rgba(43,38,32,0.07); }
+  40%  {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--tile-color) 26%, transparent),
+                0 10px 26px color-mix(in srgb, var(--tile-color) 30%, transparent);
+    border-color: var(--tile-color);
+  }
+  100% { box-shadow: 0 2px 6px rgba(43,38,32,0.07); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .mobile-dashboard-grid.home-glow .dashboard-tile {
+    animation: tileFestiveGlow 1.1s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mobile-dashboard-grid.home-glow .dashboard-tile { animation: none; }
 }
 
 /* ===== מחשבון פשוט ===== */
@@ -678,6 +770,7 @@ header p {
     z-index: 60;
   }
   .branch-map-panel {
+    padding: 10px 14px 12px;
     background: var(--paper-card);
     border: 2px solid var(--navy);
     border-radius: 14px;
@@ -686,17 +779,16 @@ header p {
     direction: rtl;
     text-align: right;
     font-family: 'Heebo', sans-serif;
-    padding: 12px 14px 14px;
   }
-  .branch-map-title { font-weight: 800; color: var(--navy); font-size: 1.02rem; margin: 0 0 6px; }
-  .branch-map-row { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 6px; }
-  .branch-map-svg { display: block; width: 66px; height: 190px; flex-shrink: 0; }
-  .branch-map-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .branch-map-title { font-weight: 800; color: var(--navy); font-size: 1.02rem; margin: 0 0 4px; }
+  .branch-map-row { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 4px; }
+  .branch-map-svg { display: block; width: 34px; height: 104px; flex-shrink: 0; }
+  .branch-map-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
   .branch-map-legend li { display: flex; align-items: center; gap: 7px; font-weight: 700; font-size: 0.95rem; color: var(--navy); }
   .bm-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--stamp-red); border: 1.5px solid #fff; box-shadow: 0 0 0 1px var(--stamp-red); flex-shrink: 0; }
   .bm-outline { fill: #efe6d2; stroke: var(--navy); stroke-width: 2; stroke-linejoin: round; }
   .bm-pin circle { fill: var(--stamp-red); stroke: #fff; stroke-width: 1.5; }
-  .branch-map-invite { font-size: 0.88rem; color: var(--ink); margin: 0 0 10px; line-height: 1.45; }
+  .branch-map-invite { font-size: 0.85rem; color: var(--ink); margin: 0 0 8px; line-height: 1.4; }
   .join-banner {
     display: block;
     background: var(--paper-card);
@@ -736,10 +828,10 @@ header p {
   /* הבהוב מושך תשומת לב ב-5 השניות הראשונות */
   @keyframes joinBlink {
     0%, 100% { box-shadow: 0 0 0 0 rgba(230, 185, 77, 0); transform: none; }
-    50% { box-shadow: 0 0 0 9px rgba(230, 185, 77, 0.5); transform: scale(1.06); }
+    50% { box-shadow: 0 0 0 8px rgba(230, 185, 77, 0.4); transform: scale(1.04); }
   }
-  .join-banner-btn { animation: joinBlink 1s ease-in-out 5; }
-  @media (prefers-reduced-motion: reduce) { .join-banner-btn { animation: none; } }
+  body.join-blink-once #joinBanner .join-banner-btn { animation: joinBlink 1.15s ease-in-out 3; }
+  @media (prefers-reduced-motion: reduce) { body.join-blink-once #joinBanner .join-banner-btn { animation: none; } }
 }
 @media (hover: hover) and (pointer: fine) {
   .desktop-mascot-fab {
@@ -755,7 +847,6 @@ header p {
     border-radius: 50%;
     background: var(--paper-card);
     box-shadow: 0 4px 18px rgba(0,0,0,0.22);
-    animation: shabbatMascotGlow 1.8s ease-in-out infinite;
     overflow: visible;
     z-index: 60;
     background-size: cover;
@@ -765,6 +856,7 @@ header p {
 .desktop-mascot-fab:hover { transform: scale(1.06); }
 .desktop-mascot-fab:active { transform: scale(0.97); }
 .desktop-mascot-badge {
+  display: none; /* הבועה הוסרה לבקשת אמיר — להחזרה: למחוק שורה זו */
   position: absolute;
   bottom: 100%;
   right: 8px;
@@ -2148,7 +2240,19 @@ body.sheet-open { overflow: hidden; }
     gap: 18px;
     max-width: 880px;
     margin: 30px auto 34px;
-    padding: 0 22px;
+    padding: 22px 24px 26px;
+    background: color-mix(in srgb, var(--paper-card) 55%, transparent);
+    border: 3px solid var(--navy);
+    border-radius: 18px;
+    box-shadow: 0 6px 22px rgba(31, 43, 61, 0.14);
+  }
+  /* מסכי בחירת-המשנה יורשים את אותה תיחום */
+  .mobile-sub-grid.open {
+    padding: 22px 24px 26px;
+    background: color-mix(in srgb, var(--paper-card) 55%, transparent);
+    border: 3px solid var(--navy);
+    border-radius: 18px;
+    box-shadow: 0 6px 22px rgba(31, 43, 61, 0.14);
   }
   body.mobile-cat-filtered .mobile-dashboard-grid,
   body.eiva-search-active .mobile-dashboard-grid { display: none; }
@@ -2472,6 +2576,30 @@ body.sheet-open { overflow: hidden; }
   body:not(.mobile-cat-filtered):not(.mobile-search-open) main { display: none; }
   body.mobile-cat-filtered .mobile-dashboard-grid,
   body.mobile-search-open .mobile-dashboard-grid { display: none; }
+  /* כפתור חזרה לקטגוריות בתוך הקטגוריה — כמו בדסקטופ, מופיע רק כשנמצאים בתוך קטגוריה */
+  body.mobile-cat-filtered:not(.mobile-search-open) .desk-back-row {
+    display: flex;
+    justify-content: center;
+    padding: 12px 16px 4px;
+  }
+  .desk-back-row .desk-back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--navy);
+    color: #fff;
+    border: 2px solid #e6b94d;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 3px 10px rgba(31, 43, 61, 0.22);
+  }
+  .desk-back-row .desk-back-home:active { transform: scale(0.97); }
+  .desk-back-row .desk-back-home-arrow { color: #e6b94d; font-size: 1.1rem; }
   /* סרגל הכלים העליון מוסתר במובייל — נפתח רק דרך "חיפוש" בסרגל התחתון */
   .search-bar { display: none; }
   body.mobile-search-open .search-bar { display: block; }
@@ -2522,7 +2650,7 @@ body.mobile-cat-filtered main { animation: viewFadeIn 0.6s cubic-bezier(0.16, 1,
   .mobile-sub-grid.open { animation: none; }
 }
 
-/* ===== מסכי בחירת-משנה (סטודנטים/הכשרה, נפגעים/משפחה/ילדים) ===== */
+/* ===== מסכי בחירת-משנה (סטודנטים/הכשרה, נכים/משפחה/ילדים) ===== */
 .mobile-sub-grid { display: none; }
 .mobile-sub-grid.open { display: grid; }
 body.subgrid-open #mobileDashboardGrid { display: none !important; }
@@ -2545,6 +2673,7 @@ body.mobile-search-open .mobile-sub-grid.open { display: none; }
   transition: background 0.15s ease, color 0.15s ease;
 }
 .sub-grid-back:hover { background: var(--navy); color: #fff; }
+.sub-grid-back-top { margin-top: 0; margin-bottom: 2px; }
 @media (hover: hover) and (pointer: fine) {
   #subGrid-studies.open { grid-template-columns: repeat(2, 1fr); max-width: 620px; }
   #subGrid-eiva.open { grid-template-columns: repeat(3, 1fr); max-width: 880px; }
@@ -3550,7 +3679,7 @@ footer.page-footer {
   outline: 3px solid var(--stamp-red) !important;
   outline-offset: 3px;
   border-radius: 8px;
-  animation: tourTargetPulse 1.2s ease-in-out infinite;
+  animation: tourTargetPulse 1.2s ease-in-out infinite !important;
 }
 @keyframes tourTargetPulse {
   0%, 100% { outline-color: var(--stamp-red); outline-offset: 3px; }
@@ -3638,6 +3767,10 @@ footer.page-footer {
 #tourPrevBtn:disabled { opacity: 0.35; cursor: not-allowed; }
 
 /* ===== Branch request CTA card ===== */
+@media (hover: hover) and (pointer: fine) {
+  /* כפילות: פאנל "האם אתן על המפה" בצד שמאל כבר מזמין להוסיף סניף */
+  .branch-cta-card { display: none; }
+}
 .branch-cta-card {
   max-width: 560px;
   margin: 14px 0 4px;
@@ -3773,7 +3906,7 @@ footer.page-footer {
     <h3>💻 הוספה לשולחן העבודה</h3>
     <p>ב-Chrome או Edge זה קל מאוד:</p>
     <ol>
-      <li>לחצו על שלוש הנקודות <b>⋮</b> בפינה הימנית העליונה של הדפדפן</li>
+      <li>לחצו על שלוש הנקודות <b>⋮</b> בפינה השמאלית העליונה של הדפדפן</li>
       <li>בחרו <b>"עוד כלים"</b> ← <b>"יצירת קיצור דרך..."</b> (או <b>"התקנת האתר"</b> אם מופיע)</li>
       <li>סמנו <b>"פתח כחלון"</b> ולחצו <b>"יצירה"</b></li>
     </ol>
@@ -3809,6 +3942,11 @@ footer.page-footer {
     <button type="button" class="join-banner-btn" onclick="joinUpdatesEmail()">הצטרפות במייל ✉️</button>
   </div>
 </div>
+</div>
+
+<div class="new-msgs-panel" id="newMsgsPanel">
+  <div class="new-msgs-title">✨ חדש במערכת</div>
+  <ul class="new-msgs-list" id="newMsgsList"></ul>
 </div>
 
 <div class="desktop-mascot-fab" id="desktopMascotFab" onclick="startTour()" onkeydown="if(event.key==='Enter'||event.key===' '){startTour();}" role="button" tabindex="0" title="לחצו להתחלת הסיור">
@@ -3868,7 +4006,7 @@ footer.page-footer {
   </div>
 </div>
 <div class="desk-back-row" id="deskBackRow">
-  <button type="button" class="desk-back-home" id="deskBackHome" onclick="deskGoHome()"><span class="desk-back-home-arrow">➜</span> חזרה לבחירת קטגוריה 🏠</button>
+  <button type="button" class="desk-back-home" id="deskBackHome" onclick="backToCategories()"><span class="desk-back-home-arrow">➜</span> חזרה לבחירת קטגוריה 🏠</button>
 </div>
 </div>
 
@@ -4067,6 +4205,7 @@ footer.page-footer {
 
 <!-- ===== מסכי בחירת-משנה: שיקום מקצועי ופעולות איבה ===== -->
 <div class="mobile-dashboard-grid mobile-sub-grid" id="subGrid-studies">
+  <button type="button" class="sub-grid-back sub-grid-back-top" onclick="closeSubGrid()">➜ חזרה לכל הקטגוריות</button>
   <div class="mobile-home-title">למי ההודעה?</div>
   <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-studies);" onclick="subTileClick('studies', 'students', this)">
     <span class="dashboard-tile-icon">🎓</span>
@@ -4079,10 +4218,11 @@ footer.page-footer {
   <button type="button" class="sub-grid-back" onclick="closeSubGrid()">➜ חזרה לכל הקטגוריות</button>
 </div>
 <div class="mobile-dashboard-grid mobile-sub-grid" id="subGrid-eiva">
+  <button type="button" class="sub-grid-back sub-grid-back-top" onclick="closeSubGrid()">➜ חזרה לכל הקטגוריות</button>
   <div class="mobile-home-title">למי ההודעה?</div>
   <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-terror);" onclick="subTileClick('eiva', 'terror', this)">
     <span class="dashboard-tile-icon">🕊️</span>
-    <span class="dashboard-tile-label">נפגעים</span>
+    <span class="dashboard-tile-label">נכים</span>
   </button>
   <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-family);" onclick="subTileClick('eiva', 'family', this)">
     <span class="dashboard-tile-icon">👪</span>
@@ -4413,14 +4553,14 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
     </div>
 
     <div class="eiva-tabs" role="tablist">
-      <button type="button" class="eiva-tab active" data-eiva-tab="terror" onclick="switchEivaTab('terror')">🕊️ נפגעים</button>
+      <button type="button" class="eiva-tab active" data-eiva-tab="terror" onclick="switchEivaTab('terror')">🕊️ נכים</button>
       <button type="button" class="eiva-tab" data-eiva-tab="family" onclick="switchEivaTab('family')">👪 משפחות</button>
       <button type="button" class="eiva-tab" data-eiva-tab="kids" onclick="switchEivaTab('kids')">🧒 ילדים</button>
     </div>
 
     <div class="eiva-panel active" id="eiva-panel-terror" data-eiva-panel="terror">
 
-    <div class="card terror-card">
+    <div class="card terror-card" data-added="2026-07-22">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">מדריך להעלאת מסמכים</span>
@@ -5010,7 +5150,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/BneyMis
       </div>
     </div>
 
-    <div class="card kids-card" data-added="2026-07-07">
+    <div class="card kids-card">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">נפש אחת – טיפולים אלטרנטיביים</span>
@@ -5071,7 +5211,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
     </div>
 
     
-    <div class="card therapists-card">
+    <div class="card therapists-card" data-added="2026-07-21">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">הגשת חשבוניות במערכת</span>
@@ -5138,6 +5278,52 @@ https://www.btl.gov.il/טפסים%20ואישורים/forms/Rehabilitation_forms_
             ✏️ תיקון
           </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg20" onclick="toggleFav('msg20', event)" title="הוסף למועדפים">☆ מועדפים</button>
+        </div>
+      </div>
+    </div>
+    <div class="card therapists-card" data-added="2026-07-23">
+      <div class="card-header-row">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">מערכת B2B לספקים</span>
+        <span class="card-new-badge">חדש</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-quick-actions" onclick="event.stopPropagation()">
+        <button class="quick-btn quick-copy" onclick="quickCopy('msg28', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        <button class="quick-btn quick-wa" onclick="quickWa('msg28')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
+        <button class="quick-btn quick-mail" onclick="quickMail('msg28')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+        <button class="quick-btn quick-fav" id="qfav-msg28" onclick="toggleFav('msg28', event)" title="מועדפים">☆</button>
+      
+      </div>
+      </div>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg28">🔐 מערכת B2B – התחייבויות ואישורי תשלום
+
+ספקים שיתחברו למערכת יוכלו לקבל התחייבויות ואישורי תשלום לתיבה הייעודית שלהם במערכת.
+
+🔗 לכניסה למערכת:
+https://b2b.btl.gov.il/BTL.ILG.B2B.WebSite/login
+
+📞 בעיות טכניות או חיבור למערכת – מוקד התמיכה הטכנית:
+טלפון: 02-6463252
+שעות פעילות: 08:00–16:00</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg28', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msg28')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>וואטסאפ</span>
+          </button>
+          <button class="email-btn" onclick="sendEmail('msg28')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg28')">
+            ✏️ תיקון
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg28" onclick="toggleFav('msg28', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5681,11 +5867,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   });
 
   // אם הדפדפן תומך בהתקנה אוטומטית - נשתמש בה. אחרת, נציג הוראות ידניות פשוטות
+  /* לבקשת אמיר: הכפתור מציג תמיד את ההסבר בלבד, ולא מנסה התקנה אוטומטית */
   function showInstallHelp() {
-    if (deferredInstallPrompt) {
-      triggerInstall();
-      return;
-    }
     const overlay = document.getElementById('installHelpOverlay');
     if (overlay) overlay.classList.add('open');
   }
@@ -5994,7 +6177,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       }
       const badge = document.getElementById('desktopMascotBadge');
       if (badge) {
-        const tips = [
+        const tips = window.MASCOT_TIPS = [
           '🏋️ נמאס לך להעביר קבצים של חדר כושר במייל הפנימי-חיצוני או בתבל? שלח למבוטח את המדריך להעלאת קבלות',
           '🕊️ חדש! פירוט זכויות לנפגעי איבה — מסמנים וי, מעתיקים, שולחים',
           '🎓 מתי ייכנס דמי שיקום? כמה החזר שכ"ל? יש תשובה מוכנה — מזינים נתונים ומעתיקים הודעה מותאמת אישית',
@@ -6002,16 +6185,9 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           '📋 וס"ר? הפניה? סניף? הכל פה, תפסיק לחפש בפתקים',
           '🚌 מחשבון נסיעות ומע"מ — כי אקסל זה כבר לא 2026'
         ];
-        let tipIndex = 0;
-        setInterval(function () {
-          badge.classList.add('fade-out');
-          setTimeout(function () {
-            tipIndex = (tipIndex + 1) % tips.length;
-            badge.textContent = tips[tipIndex];
-            badge.classList.remove('fade-out');
-            if (typeof updateStickySidebarOffset === 'function') updateStickySidebarOffset();
-          }, 250);
-        }, 7000);
+        /* הדיבורים של העצלן הופסקו לבקשת אמיר — הבועה נשארת עם הרמז הקבוע לסיור.
+           רשימת המשפטים נשמרת למעלה, כדי שאפשר יהיה להפעיל מחדש בקלות. */
+        void tips;
       }
       /* הסיידבר בוטל — אין צורך לשכפל אליו עדכונים */
     })();
@@ -6175,6 +6351,7 @@ function dashboardTileClick(filterId, tileEl) {
     if (chip) chip.classList.add('active');
     document.querySelectorAll('.card').forEach(c => c.classList.remove('fav-filter-hidden'));
     applyFilters();
+    if (typeof updateBackBtnLabel === 'function') updateBackBtnLabel();
     /* קודם ממקמים את העמוד (מיידית, בלי גלילה מונפשת) ורק אז מריצים את אנימציית הכניסה —
        אחרת הגלילה והכרטיסים זזים יחד באותו ציר וזה נראה קופצני */
     const section = document.getElementById(filterId);
@@ -6596,6 +6773,146 @@ function dashboardTileClick(filterId, tileEl) {
         badge.remove();
       }
     });
+  }
+
+  /* ===== פאנל "חדש במערכת": נבנה מתוך data-added שעל הכרטיסים =====
+     כדי להוסיף הודעה לרשימה — מספיק לתת ל-.card שלה data-added="YYYY-MM-DD".
+     מוצגות עד 5 ההודעות החדשות ביותר מ-30 הימים האחרונים. */
+  const NEW_MSGS_MAX = 5;
+  const NEW_MSGS_DAYS = 30;
+  function buildNewMsgsPanel() {
+    const panel = document.getElementById('newMsgsPanel');
+    const list = document.getElementById('newMsgsList');
+    if (!panel || !list) return;
+    const now = new Date();
+    const items = [];
+    document.querySelectorAll('.card[data-added]').forEach(function (card) {
+      const added = new Date(card.dataset.added);
+      const daysAgo = (now - added) / (1000 * 60 * 60 * 24);
+      if (!(daysAgo >= 0 && daysAgo <= NEW_MSGS_DAYS)) return;
+      const titleEl = card.querySelector('.card-toggle-title');
+      if (!titleEl) return;
+      items.push({ title: titleEl.textContent.trim(), added: added, card: card, where: newMsgContext(card) });
+    });
+    items.sort(function (a, b) { return b.added - a.added; });
+    const top = items.slice(0, NEW_MSGS_MAX);
+    list.innerHTML = '';
+    if (!top.length) { panel.classList.remove('has-items'); return; }
+    top.forEach(function (it) {
+      const section = it.card.closest('.category');
+      const color = section ? getComputedStyle(section).getPropertyValue('--cat-color') : '';
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'new-msgs-item';
+      const catVar = section ? ('var(--cat-' + (section.id === 'eiva' ? 'terror' : section.id) + ')') : 'var(--navy)';
+      btn.style.setProperty('--tile-color', catVar);
+      const dot = document.createElement('span');
+      dot.className = 'new-msgs-dot';
+      const txt = document.createElement('span');
+      txt.className = 'new-msgs-item-text';
+      txt.textContent = it.title;
+      if (it.where) {
+        const where = document.createElement('span');
+        where.className = 'new-msgs-item-where';
+        where.textContent = it.where;
+        txt.appendChild(where);
+      }
+      btn.appendChild(dot);
+      btn.appendChild(txt);
+      btn.onclick = function () { goToNewMsg(it.card); };
+      li.appendChild(btn);
+      list.appendChild(li);
+    });
+    panel.classList.add('has-items');
+    matchSidePanelHeights();
+    positionNewMsgsPanel();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { matchSidePanelHeights(); positionNewMsgsPanel(); });
+    }
+  }
+
+  /* שיוך ההודעה: תת-קטגוריה אם קיימת, אחרת שם הקטגוריה */
+  const EIVA_PANEL_LABELS = { terror: 'נכים', family: 'משפחות', kids: 'ילדים' };
+  function newMsgContext(card) {
+    const panel = card.closest('.eiva-panel');
+    if (panel && EIVA_PANEL_LABELS[panel.dataset.eivaPanel]) return EIVA_PANEL_LABELS[panel.dataset.eivaPanel];
+    const section = card.closest('.category');
+    const h2 = section ? section.querySelector('.cat-header h2') : null;
+    return h2 ? h2.textContent.trim() : '';
+  }
+
+  /* מיקום קבוע לפאנל: נמדד פעם אחת לפי המשפט הארוך ביותר בבועת העצלן,
+     כך שהפאנל לא זז כשהטקסט מתחלף. מחושב מחדש רק בשינוי גודל חלון. */
+  function measureTallestBadge(badge) {
+    const tips = window.MASCOT_TIPS;
+    if (!tips || !tips.length) return badge.getBoundingClientRect().height;
+    const ghost = badge.cloneNode(false);
+    ghost.id = '';
+    ghost.style.position = 'absolute';
+    ghost.style.visibility = 'hidden';
+    ghost.style.bottom = 'auto';
+    ghost.style.top = '0';
+    ghost.style.pointerEvents = 'none';
+    badge.parentElement.appendChild(ghost);
+    let max = 0;
+    tips.forEach(function (t) {
+      ghost.textContent = t;
+      max = Math.max(max, ghost.getBoundingClientRect().height);
+    });
+    ghost.remove();
+    return max;
+  }
+
+  /* השוואת גובה בין "חדש במערכת" (ימין) ל"האם אתן על המפה" (שמאל) */
+  function matchSidePanelHeights() {
+    const right = document.getElementById('newMsgsPanel');
+    const left = document.getElementById('branchMapPanel');
+    if (!right || !left) return;
+    if (!right.classList.contains('has-items')) return;
+    if (getComputedStyle(left).display === 'none' || getComputedStyle(right).display === 'none') return;
+    right.style.minHeight = '';
+    left.style.minHeight = '';
+    const target = Math.max(right.offsetHeight, left.offsetHeight);
+    if (!target) return;
+    right.style.minHeight = target + 'px';
+    left.style.minHeight = target + 'px';
+  }
+
+  function positionNewMsgsPanel() {
+    const panel = document.getElementById('newMsgsPanel');
+    const fab = document.getElementById('desktopMascotFab');
+    if (!panel || !fab || !panel.classList.contains('has-items')) return;
+    if (getComputedStyle(fab).display === 'none') return;
+    const fabRect = fab.getBoundingClientRect();
+    if (!fabRect.height) return;
+    let clearance = fabRect.height + 24; /* גובה העצלן + המרווח שלו מלמטה */
+    const badge = document.getElementById('desktopMascotBadge');
+    if (badge && getComputedStyle(badge).display !== 'none') {
+      const gap = parseFloat(getComputedStyle(badge).marginBottom) || 16;
+      clearance += gap + badge.getBoundingClientRect().height;
+    }
+    let bottomOffset = clearance + 16;
+    const maxOffset = window.innerHeight - panel.offsetHeight - 16;
+    if (maxOffset > 0) bottomOffset = Math.min(bottomOffset, maxOffset);
+    panel.style.bottom = Math.max(bottomOffset, 16) + 'px';
+  }
+
+  function goToNewMsg(card) {
+    if (!card) return;
+    const section = card.closest('.category');
+    if (section && typeof dashboardTileClick === 'function') dashboardTileClick(section.id, null);
+    const panel = card ? card.closest('.eiva-panel') : null;
+    if (panel && typeof switchEivaTab === 'function') switchEivaTab(panel.dataset.eivaPanel);
+    setTimeout(function () {
+      if (typeof openCard === 'function') openCard(card);
+      /* מיקום בתחילת ההודעה, עם מספיק מקום מעליה כדי שייראה שם הלשונית */
+      var sticky = document.querySelector('.sticky-top');
+      var stickyH = sticky ? sticky.getBoundingClientRect().height : 130;
+      var headroom = 84; /* חושף את שורת הלשוניות מעל ההודעה */
+      var y = card.getBoundingClientRect().top + window.pageYOffset - stickyH - headroom;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'auto' });
+    }, 120);
   }
 
   /* ===== Add to Home Screen banner ===== */
@@ -7252,6 +7569,72 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
   /* חזרה למסך הבית בדסקטופ */
+  /* כניסה חגיגית: האריחים נדלקים בזה אחר זה, פעם אחת בטעינת הדף (דסקטופ) */
+  function playHomeGlow() {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    const grid = document.getElementById('mobileDashboardGrid');
+    if (!grid) return;
+    const tiles = grid.querySelectorAll('.dashboard-tile');
+    if (!tiles.length) return;
+    const step = 190;
+    tiles.forEach(function (t, i) { t.style.animationDelay = (i * step) + 'ms'; });
+    grid.classList.add('home-glow');
+    setTimeout(function () {
+      grid.classList.remove('home-glow');
+      tiles.forEach(function (t) { t.style.animationDelay = ''; });
+    }, step * tiles.length + 1400);
+  }
+
+  window.addEventListener('resize', function () {
+    if (typeof matchSidePanelHeights === 'function') matchSidePanelHeights();
+    if (typeof positionNewMsgsPanel === 'function') positionNewMsgsPanel();
+  });
+
+  /* הבהוב ההזמנה להצטרפות — פעם אחת בלבד לכל עובדת, מופעל אחרי דקה באתר (לא בכניסה) */
+  (function initJoinBlinkOnce() {
+    var KEY = 'shikum_join_blink_seen';
+    var seen = null;
+    try { seen = localStorage.getItem(KEY); } catch (e) {}
+    if (seen) return;
+    setTimeout(function () {
+      document.body.classList.add('join-blink-once');
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      setTimeout(function () { document.body.classList.remove('join-blink-once'); }, 6000);
+    }, 60000);
+  })();
+
+  /* איזו קטגוריה פעילה כרגע (אם בכלל) */
+  function activeCategoryId() {
+    const chip = document.querySelector('.filter-chip.active:not(.filter-chip-all):not(.filter-chip-fav)');
+    return chip ? chip.dataset.filter : null;
+  }
+
+  /* חזרה צעד אחד אחורה:
+     מתוך קטגוריה שיש לה מסך בחירת-משנה -> חוזרים למסך הבחירה.
+     מכל מקום אחר -> חוזרים למסך הקטגוריות. */
+  function backToCategories() {
+    const cat = activeCategoryId();
+    const parentGrid = cat ? document.getElementById('subGrid-' + cat) : null;
+    if (typeof isMobileSheetActive === 'function' && isMobileSheetActive()) {
+      if (typeof bottomNavHome === 'function') bottomNavHome();
+    } else {
+      deskGoHome();
+    }
+    if (parentGrid && typeof openSubGrid === 'function') openSubGrid(cat, null);
+    updateBackBtnLabel();
+  }
+
+  /* תווית הכפתור משתנה לפי היעד, כדי שלא תבטיח משהו לא נכון */
+  function updateBackBtnLabel() {
+    const btn = document.getElementById('deskBackHome');
+    if (!btn) return;
+    const cat = activeCategoryId();
+    const hasParent = cat && document.getElementById('subGrid-' + cat);
+    btn.innerHTML = hasParent
+      ? '<span class="desk-back-home-arrow">➜</span> חזרה לבחירה'
+      : '<span class="desk-back-home-arrow">➜</span> חזרה לבחירת קטגוריה 🏠';
+  }
+
   function deskGoHome() {
     closeSubGrid();
     const allChip = document.querySelector('.filter-chip-all');
@@ -7305,6 +7688,7 @@ function dashboardTileClick(filterId, tileEl) {
     // ולכן סופרים את הכרטיסיות רק אחרי שכולן קיימות
     setTimeout(function () {
       injectTileCounts();
+      buildNewMsgsPanel();
     }, 150);
     const filterBar = document.getElementById('filterBarChips');
     if (filterBar) filterBar.addEventListener('click', function () { setTimeout(updateMobileFilterState, 30); });
@@ -7701,6 +8085,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       title: 'פירוט זכויות לנפגעי פעולות איבה',
       shortTitle: 'פירוט זכויות מותאם',
       cardClass: 'terror-card',
+      addedDate: '2026-07-20',
       opening: `בהמשך לפנייתך, רציתי לרכז עבורך את המידע על הזכויות המגיעות לך כנפגע/ת פעולות איבה, כדי שיהיה לך סדר בתהליכים השונים.`,
       closing: `לכל שאלה, הכוונה או סיוע בתהליכים השונים – אני כאן בשבילך!`,
       blocks: [
@@ -7752,6 +8137,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
        until the caseworker taps the title. */
     const card = document.createElement('div');
     card.className = 'card ' + (data.cardClass || 'studies-card') + ' refund-toggle-card';
+    if (data.addedDate) card.dataset.added = data.addedDate;
 
     const headerRow = document.createElement('div');
     headerRow.className = 'card-header-row';
@@ -7979,6 +8365,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     renderRefundPanel('students');
     renderRefundPanel('shorttrain');
     renderRefundPanel('eivarights');
+    if (typeof buildNewMsgsPanel === 'function') buildNewMsgsPanel();
     organizeStudiesStaticCards();
     updateRefundPreview('students');
     updateRefundPreview('shorttrain');
