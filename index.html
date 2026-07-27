@@ -3627,6 +3627,15 @@ footer.page-footer {
 .footer-contact-wa:hover { background: #1f7a3c; }
 .footer-contact-wa:active { transform: scale(0.96); }
 .footer-contact-wa svg { width: 17px; height: 17px; flex-shrink: 0; }
+.footer-contact-wa .icon-desktop { display: none; }
+
+/* מחשב בלבד: אין וואטסאפ בדסקטופ, אז הכפתור פותח מייל — צבע כחול ואייקון מעטפה במקום ירוק/וואטסאפ */
+@media (hover: hover) and (pointer: fine) {
+  .footer-contact-wa { background: #2a5fa8; }
+  .footer-contact-wa:hover { background: #1f4a86; }
+  .footer-contact-wa .icon-mobile { display: none; }
+  .footer-contact-wa .icon-desktop { display: inline-flex; }
+}
 
 /* ===== Idea suggestion button (next to dark mode toggle) ===== */
 .idea-btn {
@@ -5887,8 +5896,9 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         <button class="footer-contact-link" onclick="openOutlook()" title="שלח מייל לאמיר">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
         </button>
-        <button class="footer-contact-wa" onclick="footerWhatsapp()" title="וואטסאפ">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+        <button class="footer-contact-wa" onclick="footerWhatsapp()" title="וואטסאפ / מייל">
+          <svg class="icon-mobile" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+          <svg class="icon-desktop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
         </button>
       </div>
     </div>
@@ -6172,6 +6182,16 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function footerWhatsapp() {
+    /* במחשב: אין וואטסאפ בדסקטופ (ולפי הדיווח, גם לא תמיד יעבוד) — פותחים מייל במקום.
+       תוכן באנגלית, כי טקסט בעברית ב-mailto יוצא ג'יבריש ב-Outlook */
+    if (isDesktopDevice()) {
+      const a = document.createElement('a');
+      a.href = 'mailto:amirti@nioi.gov.il?subject=' + encodeURIComponent('Idea for the messages tool') + '&body=' + encodeURIComponent('Hi Amir, I have an idea for the messages tool:\n\n');
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      return;
+    }
     const text = 'שלום אמיר, יש לי רעיון לכלי ההודעות:\n\n';
     openWhatsAppSafely(text, false, '972506287462');
   }
@@ -6785,24 +6805,25 @@ function dashboardTileClick(filterId, tileEl) {
     } catch (e) {}
   }
 
+  function buildWaDeepLink(text, phone) {
+    /* סכימת ה-URL הרשמית של וואטסאפ לפתיחת האפליקציה ישירות עם טקסט מוכן מראש —
+       בניגוד לקישורי wa.me (שתלויים בהפניית אתר/אימות דומיין ונכשלים בהקשרים מסוימים),
+       הסכימה הזו פותחת את האפליקציה ישירות ומשמרת את הטקסט גם כשבוחרים איש קשר מהרשימה */
+    var q = 'text=' + encodeURIComponent(text);
+    if (phone) q = 'phone=' + phone + '&' + q;
+    return 'whatsapp://send?' + q;
+  }
+
   function openWhatsAppSafely(text, useLocation, phone) {
     const waBlankUrl = phone ? ('https://wa.me/' + phone) : 'https://wa.me/';
 
-    /* אייפון (iOS/iPadOS): ספארי חוסם window.open שלא קורה מיד בלחיצה, ולכן
-       מעתיקים סינכרונית מיד ומנווטים בו-במקום דרך location.href — בלי setTimeout ובלי חלון קופץ */
-    if (IS_IOS) {
+    /* בטלפון (אייפון/אנדרואיד): פותחים ישירות את אפליקציית הוואטסאפ עם הטקסט כבר בפנים,
+       דרך הסכימה הרשמית whatsapp://send — לא תלוי בקישורי wa.me שהתחילו להיכשל.
+       מעתיקים גם ללוח כגיבוי, ליתר ביטחון */
+    if (IS_IOS || IS_ANDROID) {
       syncCopyToClipboard(text);
-      showToast('✓ הטקסט הועתק. וואטסאפ נפתח — הדביקו בתיבת ההודעה', 'wa');
-      window.location.href = waBlankUrl;
-      return;
-    }
-
-    /* אנדרואיד: window.open('_blank') בתוך ה-setTimeout נחסם ע"י חוסם החלונות
-       (ה-user gesture כבר פג). מעתיקים סינכרונית ומנווטים בו-במקום, כמו באייפון */
-    if (IS_ANDROID) {
-      syncCopyToClipboard(text);
-      showToast('✓ הטקסט הועתק. וואטסאפ נפתח — הדביקו בתיבת ההודעה', 'wa');
-      window.location.href = waBlankUrl;
+      showToast('✓ וואטסאפ נפתח עם ההודעה מוכנה — בחרו איש קשר ושלחו', 'wa');
+      window.location.href = buildWaDeepLink(text, phone);
       return;
     }
 
