@@ -6098,6 +6098,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   async function copyDeptMsg(btn) {
     const text = getDeptText();
+    trackUse('העתקה', 'deptPreview');
     try { await navigator.clipboard.writeText(text); } catch(e) {
       const ta = document.createElement('textarea'); ta.value = text;
       ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta);
@@ -6107,10 +6108,12 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function sendDeptMsgWa() {
+    trackUse('וואטסאפ', 'deptPreview');
     openWhatsAppSafely(getDeptText(), false);
   }
 
   function sendDeptMsgEmail() {
+    trackUse('מייל', 'deptPreview');
     const a = document.createElement('a');
     a.href = 'mailto:?body=' + encodeURIComponent(getDeptText());
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
@@ -6151,6 +6154,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   async function copyRightsMsg(btn) {
     const text = getRightsText();
+    trackUse('העתקה', 'msg_rights');
     try { await navigator.clipboard.writeText(text); } catch(e) {
       const ta = document.createElement('textarea'); ta.value = text;
       ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta);
@@ -6180,6 +6184,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
   async function copyContactEmail(btn) {
     const email = 'amirti@nioi.gov.il';
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('העתקה: מייל ליצירת קשר'); } catch (e) {}
     try {
       await navigator.clipboard.writeText(email);
     } catch (e) {
@@ -6924,6 +6929,7 @@ function dashboardTileClick(filterId, tileEl) {
       if (btn) { const card = btn.closest('.card'); if (card && !card.classList.contains('open')) openCard(card); }
       return;
     }
+    trackUse('וואטסאפ', id);
     const el = document.getElementById(id);
     const text = el ? el.textContent : '';
     openWhatsAppSafely(text, false);
@@ -6940,6 +6946,7 @@ function dashboardTileClick(filterId, tileEl) {
       if (btn) { const card = btn.closest('.card'); if (card && !card.classList.contains('open')) openCard(card); }
       return;
     }
+    trackUse('מייל', id);
     const el = document.getElementById(id);
     const text = el ? el.textContent : '';
     const a = document.createElement('a');
@@ -7593,6 +7600,7 @@ function dashboardTileClick(filterId, tileEl) {
       'סכום לפני מע"מ: ' + document.getElementById('vatValNet').textContent + '\n' +
       'מע"מ (' + rate + '%): ' + document.getElementById('vatValVat').textContent + '\n' +
       'סה"כ כולל מע"מ: ' + document.getElementById('vatValGross').textContent;
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('העתקה: מחשבון מע"מ'); } catch (e) {}
     try {
       await navigator.clipboard.writeText(text);
     } catch (e) {
@@ -8203,6 +8211,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     const card = btn.closest('.card');
     const text = buildConsentText(card);
     if (!text) return;
+    trackUse('העתקה', 'ויתור סודיות מותאם אישית');
 
     try {
       await navigator.clipboard.writeText(text);
@@ -8224,6 +8233,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     const card = btn.closest('.card');
     const text = buildConsentText(card);
     if (!text) return;
+    trackUse('וואטסאפ', 'ויתור סודיות מותאם אישית');
     openWhatsAppSafely(text, false);
     closeCard(btn);
   }
@@ -8232,6 +8242,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     const card = btn.closest('.card');
     const text = buildConsentText(card);
     if (!text) return;
+    trackUse('מייל', 'ויתור סודיות מותאם אישית');
     const a = document.createElement('a');
     a.href = 'mailto:?body=' + encodeURIComponent(text);
     document.body.appendChild(a);
