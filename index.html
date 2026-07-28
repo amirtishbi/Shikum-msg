@@ -6825,6 +6825,31 @@ function dashboardTileClick(filterId, tileEl) {
     catch (e) { return false; }
   })();
 
+  /* ===== זיהוי מבקר ייחודי ל-Umami =====
+     Umami בונה מזהה מבקר לפי IP+דפדפן+מערכת הפעלה, בלי עוגיות. כשכמה עובדות נכנסות מאותה כתובת IP
+     ארגונית (רשת המשרד) עם אותה תמונת מחשב סטנדרטית — הן נראות לו כאותו מבקר בדיוק.
+     כדי להבדיל ביניהן, יוצרים מזהה אנונימי אקראי שנשמר מקומית בכל מכשיר/דפדפן (לא שם, לא מזהה אישי —
+     רק מחרוזת רנדומלית), ומעבירים אותו ל-Umami דרך identify() כך שכל מכשיר נספר בנפרד */
+  (function setupUmamiIdentity() {
+    try {
+      var KEY = 'shikum_umami_uid';
+      var uid = localStorage.getItem(KEY);
+      if (!uid) {
+        uid = 'u_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+        localStorage.setItem(KEY, uid);
+      }
+      var attempts = 0;
+      (function tryIdentify() {
+        attempts++;
+        if (window.umami && typeof window.umami.identify === 'function') {
+          window.umami.identify({ id: uid });
+        } else if (attempts < 20) {
+          setTimeout(tryIdentify, 300);
+        }
+      })();
+    } catch (e) {}
+  })();
+
   function syncCopyToClipboard(text) {
     /* העתקה סינכרונית (execCommand) שמסתיימת מיד — חשוב באייפון לפני ניווט */
     try {
