@@ -6879,12 +6879,15 @@ function dashboardTileClick(filterId, tileEl) {
 
   function buildWaAndroidIntent(text, phone) {
     /* אנדרואיד: לפי ההנחיה הרשמית של גוגל, כרום לא תמיד מפעיל אפליקציה חיצונית בניווט ישיר
-       לסכימה מותאמת אישית (whatsapp://) — התחביר האמין הוא intent:// עם חבילה מוגדרת (com.whatsapp)
-       ונפילה חזרה (fallback) אם האפליקציה לא מותקנת */
+       לסכימה מותאמת אישית (whatsapp://) — התחביר האמין הוא intent:// עם נפילה חזרה (fallback)
+       אם האפליקציה לא מותקנת. בכוונה בלי package= קבוע: וואטסאפ הרגיל (com.whatsapp) ו-WhatsApp
+       Business (com.whatsapp.w4b) הן שתי אפליקציות נפרדות עם שם חבילה שונה — קיבוע לאחת מהן
+       גורם לנפילה לדף האינטרנט אצל מי שמותקן אצלו האחר. בלי package, אנדרואיד מתאים לפי הסכימה
+       (whatsapp://) לכל מה שמותקן בפועל, איזו גרסה שלא תהיה */
     var path = phone ? ('send?phone=' + phone + '&text=' + encodeURIComponent(text))
                       : ('send?text=' + encodeURIComponent(text));
     var fallback = encodeURIComponent(phone ? ('https://wa.me/' + phone) : 'https://wa.me/');
-    return 'intent://' + path + '#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url=' + fallback + ';end';
+    return 'intent://' + path + '#Intent;scheme=whatsapp;S.browser_fallback_url=' + fallback + ';end';
   }
 
   function navigateViaAnchor(url) {
