@@ -6871,24 +6871,43 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
   function buildWaDeepLink(text, phone) {
-    /* סכימת ה-URL הרשמית של וואטסאפ לפתיחת האפליקציה ישירות עם טקסט מוכן מראש —
-       בניגוד לקישורי wa.me (שתלויים בהפניית אתר/אימות דומיין ונכשלים בהקשרים מסוימים),
-       הסכימה הזו פותחת את האפליקציה ישירות ומשמרת את הטקסט גם כשבוחרים איש קשר מהרשימה */
+    /* אייפון: הסכימה הרשמית של וואטסאפ לפתיחת האפליקציה ישירות עם טקסט מוכן מראש */
     var q = 'text=' + encodeURIComponent(text);
     if (phone) q = 'phone=' + phone + '&' + q;
     return 'whatsapp://send?' + q;
   }
 
+  function buildWaAndroidIntent(text, phone) {
+    /* אנדרואיד: לפי ההנחיה הרשמית של גוגל, כרום לא תמיד מפעיל אפליקציה חיצונית בניווט ישיר
+       לסכימה מותאמת אישית (whatsapp://) — התחביר האמין הוא intent:// עם חבילה מוגדרת (com.whatsapp)
+       ונפילה חזרה (fallback) אם האפליקציה לא מותקנת */
+    var path = phone ? ('send?phone=' + phone + '&text=' + encodeURIComponent(text))
+                      : ('send?text=' + encodeURIComponent(text));
+    var fallback = encodeURIComponent(phone ? ('https://wa.me/' + phone) : 'https://wa.me/');
+    return 'intent://' + path + '#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url=' + fallback + ';end';
+  }
+
+  function navigateViaAnchor(url) {
+    /* קליק אמיתי על קישור <a> — לפי ההנחיה הרשמית של גוגל, זו הדרך האמינה להפעיל אפליקציה
+       חיצונית מ-JavaScript (בניגוד לניווט ישיר דרך location.href שלא תמיד מופעל) */
+    var a = document.createElement('a');
+    a.href = url;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () { if (a.parentNode) a.parentNode.removeChild(a); }, 100);
+  }
+
   function openWhatsAppSafely(text, useLocation, phone) {
     const waBlankUrl = phone ? ('https://wa.me/' + phone) : 'https://wa.me/';
 
-    /* בטלפון (אייפון/אנדרואיד): פותחים ישירות את אפליקציית הוואטסאפ עם הטקסט כבר בפנים,
-       דרך הסכימה הרשמית whatsapp://send — לא תלוי בקישורי wa.me שהתחילו להיכשל.
-       מעתיקים גם ללוח כגיבוי, ליתר ביטחון */
+    /* בטלפון (אייפון/אנדרואיד): פותחים ישירות את אפליקציית הוואטסאפ עם הטקסט כבר בפנים.
+       לא תלוי בקישורי wa.me שהתחילו להיכשל. מעתיקים גם ללוח כגיבוי, ליתר ביטחון */
     if (IS_IOS || IS_ANDROID) {
       syncCopyToClipboard(text);
       showToast('✓ וואטסאפ נפתח עם ההודעה מוכנה — בחרו איש קשר ושלחו', 'wa');
-      window.location.href = buildWaDeepLink(text, phone);
+      var deepUrl = IS_ANDROID ? buildWaAndroidIntent(text, phone) : buildWaDeepLink(text, phone);
+      navigateViaAnchor(deepUrl);
       return;
     }
 
