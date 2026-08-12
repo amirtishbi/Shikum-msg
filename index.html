@@ -3985,12 +3985,14 @@ footer.page-footer {
   <div class="branch-map-title">🗺️ האם אתן על המפה?</div>
   <div class="branch-map-row">
     <ul class="branch-map-legend">
+      <li><span class="bm-dot"></span>כפר סבא</li>
       <li><span class="bm-dot"></span>רמת גן</li>
       <li><span class="bm-dot"></span>רמלה</li>
       <li><span class="bm-dot"></span>רחובות</li>
     </ul>
     <svg class="branch-map-svg" viewBox="20 0 60 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="מפת ישראל עם הסניפים">
       <path class="bm-outline" d="M38,12 L52,5 L66,8 L70,17 L67,26 L71,36 L69,50 L64,60 L62,74 L64,88 L69,100 L72,112 L69,126 L63,140 L56,158 L51,176 L48,196 L44,178 L38,152 L33,124 L31,98 L33,74 L36,52 L33,32 Z"/>
+      <g class="bm-pin" transform="translate(44,64)"><circle r="4"/></g>
       <g class="bm-pin" transform="translate(46,74)"><circle r="4"/></g>
       <g class="bm-pin" transform="translate(50,84)"><circle r="4"/></g>
       <g class="bm-pin" transform="translate(45,93)"><circle r="4"/></g>
@@ -4534,7 +4536,7 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
       </div>
       </div>
       <div class="card-collapsible">
-        <div class="card-body" id="msg4">https://www.btl.gov.il/%D7%98%D7%A4%D7%A1%D7%99%D7%9D%20%D7%95%D7%90%D7%99%D7%A0%D7%A9%D7%95%D7%A8%D7%99%D7%9D/Documents/t278.pdf
+        <div class="card-body" id="msg4">https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
 
 מצורף קישור לדוח נוכחות, יש למלא דוח זה בכל סוף חודש ולשלוח אלי למייל. שימו לב שאין צורך בחתימת מקום ההכשרה, מספיקה חתימה שלכם בלבד.</div>
         <div class="card-footer">
@@ -4558,7 +4560,7 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
       </div>
     </div>
 
-    <div class="card studies-card">
+    <div class="card studies-card" data-added="2026-08-06">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">תיחור</span>
@@ -4590,10 +4592,22 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
 
 📌 מה חשוב לבקש ממוסדות הלימוד?
 בעת פנייה למוסדות ההכשרה, יש לבקש הצעת מחיר מפורטת שתכלול את הפרטים הבאים:
+
 1️⃣ תאריך התחלה וסיום הקורס
 2️⃣ מערכת שעות – ימי הלימוד ושעות הפעילות
 3️⃣ מספר שעות הלימוד הכולל (שעות אקדמיות)
-4️⃣ פירוט תוכנית הלימודים</div>
+4️⃣ פירוט תוכנית הלימודים – נושאים ותחומי הלימוד
+5️⃣ סוג התעודה הניתנת – מי הגוף המנפיק והאם היא מוכרת על ידי משרד העבודה, החינוך או גורם רשמי אחר
+6️⃣ עלות שכר הלימוד הכוללת – כולל דמי רישום, חומרי לימוד והוצאות נוספות
+7️⃣ ציוד נדרש – האם יש צורך בציוד מיוחד במסגרת הלימודים.
+
+📊 כמה הצעות מחיר יש להגיש?
+🔸 עד 5,000 ₪ – הצעה אחת בלבד
+🔸 עד 20,000 ₪ – נדרשות 2 הצעות מחיר
+🔸 מעל 20,000 ₪ – נדרשות 3 הצעות מחיר
+
+⚠️ שימו לב:
+חשוב לוודא שכל ההצעות כוללות את כל הפרטים שצוינו, על מנת לאפשר השוואה מדויקת בין המוסדות.</div>
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg5', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -5879,6 +5893,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           <button type="button" class="branch-pill active" data-branch="rg" onclick="selectBranch('rg', this)">רמת גן</button>
           <button type="button" class="branch-pill" data-branch="ramla" onclick="selectBranch('ramla', this)">רמלה</button>
           <button type="button" class="branch-pill" data-branch="rehovot" onclick="selectBranch('rehovot', this)">רחובות</button>
+          <button type="button" class="branch-pill" data-branch="ks" onclick="selectBranch('ks', this)">כפר סבא</button>
         </div>
         <div class="card-body" id="msg12"></div>
         <div class="card-footer">
@@ -7863,7 +7878,10 @@ function dashboardTileClick(filterId, tileEl) {
 לעלות במעלית מס' 4 לשיקום, קומה רביעית. ביציאה מהמעלית יש לפנות שמאלה לפי השילוט "שיקום".`,
     rehovot: `📍הפגישה מתקיימת בביטוח לאומי סניף רחובות:
 רחוב רמז 64, רחובות.
-קומה 5, מחלקת שיקום.`
+קומה 5, מחלקת שיקום.`,
+    ks: `📍הפגישה מתקיימת בביטוח לאומי סניף כפר סבא:
+רחוב ויצמן 39, כפר סבא.
+קומה 1, יש להציג למאבטחים ת.ז ולציין שהגעתם לעו"ס שיקום.`
   };
   function selectBranch(key, btn) {
     const body = document.getElementById('msg12');
