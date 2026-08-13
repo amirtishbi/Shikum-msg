@@ -254,10 +254,14 @@ header p {
 /* מחשב בלבד: אריזת כל אלמנטי שורת החיפוש בתוך בר אחיד אחד, כדי למנוע תחושת ציפה */
 @media (hover: hover) and (pointer: fine) {
   .search-bar-inner-row {
+    max-width: 1000px;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 8px;
     background: var(--paper-card);
     border: 1px solid var(--rule-strong);
-    border-radius: 999px;
-    padding: 6px 12px;
+    border-radius: 26px;
+    padding: 8px 14px;
     box-shadow: 0 1px 3px rgba(43,38,32,0.05);
   }
 }
@@ -3934,6 +3938,211 @@ footer.page-footer {
     transform: scale(0.97);
   }
 }
+
+/* ===== תוכניות טרום שיקום: תצוגה משולבת (מחשב בלבד) ===== */
+body.trum-lock { overflow: hidden; }
+
+/* כפתור פתיחה בשורת הסינון — מוסתר במובייל, מוצג רק במחשב */
+.trum-open-chip { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .trum-open-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    font-family: 'Heebo', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 18px;
+    border: 1.5px solid var(--navy);
+    background: var(--navy);
+    color: #f3efe4;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.12s, box-shadow 0.15s;
+    white-space: nowrap;
+    box-shadow: 0 2px 7px rgba(31,43,61,0.2);
+  }
+  .trum-open-chip:hover { background: var(--navy-soft); transform: translateY(-1px); }
+  .trum-open-chip .trum-open-emoji { font-size: 0.85rem; line-height: 1; }
+}
+
+/* שכבת התצוגה המלאה */
+.trum-overlay {
+  position: fixed; inset: 0; z-index: 1200;
+  background: var(--paper);
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(31,43,61,0.03) 0%, transparent 45%),
+    radial-gradient(circle at 90% 30%, rgba(166,54,44,0.025) 0%, transparent 40%);
+  color: var(--ink);
+  font-family: 'Heebo', Arial, sans-serif;
+  overflow-y: auto;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.22s ease;
+}
+.trum-overlay.open { opacity: 1; visibility: visible; }
+.trum-overlay ::selection { background: var(--cat-terror-tint); }
+.trum-overlay mark { background: #f6e0b4; color: inherit; border-radius: 3px; padding: 0 2px; }
+
+/* כותרת */
+.trum-top {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(246,241,231,0.92);
+  backdrop-filter: saturate(1.3) blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+.trum-top-inner { max-width: 1320px; margin: 0 auto; padding: 18px 28px 16px; position: relative; }
+.trum-close {
+  position: absolute; top: 16px; inset-inline-end: 28px;
+  font-family: 'Heebo', sans-serif; font-size: 0.82rem; font-weight: 700;
+  color: var(--ink-soft); background: var(--paper-card);
+  border: 1.5px solid var(--rule-strong); border-radius: 20px;
+  padding: 7px 15px; cursor: pointer; transition: border-color 0.15s, color 0.15s, background 0.15s;
+  z-index: 2;
+}
+.trum-close:hover { border-color: var(--navy); color: var(--navy); background: var(--paper); }
+.trum-eyebrow {
+  font-size: 12.5px; font-weight: 700; letter-spacing: .08em; color: var(--navy-soft);
+  display: flex; align-items: center; gap: 9px;
+}
+.trum-eyebrow::before { content: ""; width: 22px; height: 2px; background: var(--stamp-red); border-radius: 2px; }
+.trum-h1 {
+  font-family: 'Frank Ruhl Libre', serif; font-weight: 900;
+  font-size: clamp(28px, 3vw, 40px); margin: 7px 0 5px; letter-spacing: -.01em; line-height: 1.05;
+  color: var(--ink);
+}
+.trum-sub { color: var(--ink-soft); font-size: 15px; max-width: 72ch; margin: 0; line-height: 1.55; }
+.trum-sub-lead { display: block; color: var(--ink); font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 16.5px; margin-bottom: 3px; }
+.trum-tools { display: flex; gap: 14px; align-items: center; margin-top: 16px; flex-wrap: wrap; }
+.t-search { position: relative; flex: 1; min-width: 240px; max-width: 460px; }
+.t-search svg {
+  position: absolute; inset-inline-end: 15px; top: 50%; transform: translateY(-50%);
+  width: 20px; height: 20px; color: var(--ink-soft); pointer-events: none;
+}
+.t-search input {
+  width: 100%; font-family: 'Heebo', sans-serif; font-size: 16px; color: var(--ink);
+  padding: 12px 46px 12px 16px; border: 1.5px solid var(--rule-strong); border-radius: 12px;
+  background: var(--paper-card); outline: none; transition: border-color .15s, box-shadow .15s;
+}
+.t-search input::placeholder { color: var(--ink-soft); }
+.t-search input:focus { border-color: var(--stamp-red); box-shadow: 0 0 0 4px rgba(166,54,44,0.14); }
+.trum-stat { display: flex; gap: 20px; align-items: baseline; margin-inline-start: auto; }
+.trum-stat b { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 23px; color: var(--navy); }
+.trum-stat span { font-size: 13px; color: var(--ink-soft); margin-inline-start: 5px; }
+
+/* פריסה */
+.trum-wrap {
+  max-width: 1320px; margin: 0 auto; padding: 22px 28px 80px;
+  display: grid; grid-template-columns: 214px 1fr; gap: 30px; align-items: start;
+}
+.trum-rail {
+  position: sticky; top: 172px; display: flex; flex-direction: column; gap: 2px;
+  max-height: calc(100vh - 190px); overflow: auto; padding-bottom: 8px;
+}
+.trum-rail::-webkit-scrollbar { width: 6px; }
+.trum-rail::-webkit-scrollbar-thumb { background: var(--rule-strong); border-radius: 3px; }
+.rail-h { font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--ink-soft); padding: 0 10px 8px; }
+.rail-h.mt { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.trum-overlay .chip {
+  display: flex; align-items: center; gap: 9px; padding: 8px 11px; border-radius: 10px;
+  border: none; background: none; cursor: pointer; font-family: 'Heebo', sans-serif; font-size: 14.5px;
+  color: var(--ink); text-align: start; width: 100%; transition: background .13s;
+}
+.trum-overlay .chip:hover { background: rgba(31,43,61,0.07); }
+.trum-overlay .chip.on { background: var(--navy); color: #f3efe4; }
+.trum-overlay .chip.on .dot { box-shadow: 0 0 0 2px rgba(255,255,255,.5); }
+.trum-overlay .chip .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.trum-overlay .chip .cn { margin-inline-start: auto; font-size: 12px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.trum-overlay .chip.on .cn { color: rgba(255,255,255,.72); }
+.trum-overlay .chip.all { font-weight: 600; }
+.trum-overlay .chip.all .dot { background: var(--stamp-red); }
+.trum-overlay .chip.reg .dot { width: 7px; height: 7px; background: var(--navy-soft); }
+.trum-overlay .chip.reg.on .dot { background: #fff; }
+
+/* סקשנים וכרטיסים */
+.sec { margin-bottom: 32px; scroll-margin-top: 180px; }
+.sec-h { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; padding-bottom: 11px; border-bottom: 1.5px solid var(--rule); }
+.sec-ic { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; flex: none; }
+.sec-ic svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.sec-t { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 21px; letter-spacing: -.01em; color: var(--ink); }
+.sec-c { font-size: 13px; color: var(--ink-soft); margin-inline-start: auto; font-variant-numeric: tabular-nums; }
+
+.grid { columns: 315px; column-gap: 16px; }
+.t-card {
+  background: var(--paper-card); border: 1px solid var(--rule); border-radius: var(--radius-lg);
+  padding: 18px 19px 16px; cursor: pointer; text-align: start; font-family: inherit; color: inherit;
+  position: relative; overflow: hidden; display: block; width: 100%;
+  break-inside: avoid; -webkit-column-break-inside: avoid; margin: 0 0 16px;
+  transition: transform .16s cubic-bezier(.2,.7,.3,1), box-shadow .16s, border-color .16s;
+  box-shadow: 0 1px 2px rgba(43,38,32,.04);
+}
+.t-card::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 4px; background: var(--ct); }
+.t-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(43,38,32,.1); border-color: transparent; }
+.t-card:focus-visible { outline: 2.5px solid var(--stamp-red); outline-offset: 2px; }
+.t-card h3 { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 19px; line-height: 1.3; margin: 0 0 10px; color: var(--ink); letter-spacing: -.005em; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+.tag { font-size: 12px; font-weight: 600; color: var(--navy); background: rgba(31,43,61,0.07); border-radius: 7px; padding: 3px 9px; }
+.t-card .pop { font-size: 14px; color: var(--ink-soft); margin: 0 0 14px; line-height: 1.55; }
+.meta { display: flex; flex-direction: column; gap: 7px; padding-top: 12px; border-top: 1px solid var(--rule); }
+.meta-row { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--navy-soft); line-height: 1.45; }
+.meta-row svg { width: 16px; height: 16px; stroke: var(--navy-soft); fill: none; stroke-width: 1.8; flex: none; margin-top: 2px; stroke-linecap: round; stroke-linejoin: round; }
+.more { font-size: 13px; color: var(--stamp-red); margin-top: 13px; display: flex; align-items: center; gap: 5px; font-weight: 700; }
+.more svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2.2; }
+
+/* ריק */
+.empty { text-align: center; padding: 56px 20px; color: var(--ink-soft); }
+.empty h3 { font-family: 'Frank Ruhl Libre', serif; font-size: 21px; color: var(--ink); margin: 0 0 6px; }
+.empty button { margin-top: 14px; font-family: 'Heebo', sans-serif; font-size: 15px; font-weight: 600; color: var(--navy); background: none; border: 1.5px solid var(--rule-strong); border-radius: 10px; padding: 10px 20px; cursor: pointer; }
+.empty button:hover { border-color: var(--navy); }
+
+/* מגירת פרטים */
+.trum-scrim { position: fixed; inset: 0; background: rgba(20,18,14,.44); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .28s; z-index: 60; backdrop-filter: blur(2px); }
+.trum-scrim.open { opacity: 1; visibility: visible; pointer-events: auto; }
+.trum-drawer { position: fixed; top: 0; bottom: 0; right: 0; width: min(500px,94vw); background: var(--paper-card); z-index: 61; transform: translateX(102%); pointer-events: none; transition: transform .32s cubic-bezier(.22,.75,.28,1); box-shadow: -12px 0 48px rgba(43,38,32,.18); display: flex; flex-direction: column; overflow: hidden; }
+.trum-drawer.open { transform: translateX(0); pointer-events: auto; }
+.dr-top { padding: 24px 28px 20px; border-bottom: 1px solid var(--rule); position: relative; }
+.dr-cat { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #fff; padding: 5px 12px 5px 10px; border-radius: 20px; margin-bottom: 14px; }
+.dr-cat svg { width: 14px; height: 14px; stroke: #fff; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.dr-top h2 { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 23px; line-height: 1.2; margin: 0; letter-spacing: -.01em; padding-inline-end: 40px; color: var(--ink); }
+.dr-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.dr-tags .tag { font-size: 11.5px; padding: 3px 10px; }
+.dr-x { position: absolute; top: 22px; inset-inline-end: 24px; width: 34px; height: 34px; border-radius: 9px; border: 1px solid var(--rule-strong); background: var(--paper-card); cursor: pointer; display: grid; place-items: center; color: var(--ink-soft); transition: .13s; }
+.dr-x:hover { background: var(--paper); color: var(--ink); }
+.dr-x svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 2; }
+.dr-body { padding: 22px 28px 28px; overflow-y: auto; flex: 1; }
+.dr-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px; }
+.fact { background: var(--paper); border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px; }
+.fact.full { grid-column: 1/-1; }
+.fact .fl { display: flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 700; letter-spacing: .03em; color: var(--navy-soft); margin-bottom: 5px; }
+.fact .fl svg { width: 14px; height: 14px; stroke: var(--navy-soft); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.fact .fv { font-size: 14px; color: var(--ink); line-height: 1.5; }
+.dr-link { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; font-family: 'Heebo', sans-serif; font-size: 14.5px; font-weight: 600; color: #fff; background: var(--navy); border-radius: 12px; padding: 13px 16px; text-decoration: none; transition: background .15s, transform .12s; box-shadow: 0 4px 14px rgba(31,43,61,.22); }
+.dr-link:hover { background: var(--navy-soft); transform: translateY(-1px); }
+.dr-link .g { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 1.8; flex: none; stroke-linecap: round; stroke-linejoin: round; }
+.dr-link span { flex: 1; }
+.dr-link .e { width: 15px; height: 15px; stroke: rgba(255,255,255,.8); fill: none; stroke-width: 2; flex: none; stroke-linecap: round; stroke-linejoin: round; }
+.t-copybtn { display: flex; align-items: center; justify-content: center; gap: 9px; width: 100%; margin-bottom: 22px; font-family: 'Heebo', sans-serif; font-size: 14.5px; font-weight: 700; color: #fff; background: var(--stamp-red); border: none; border-radius: 12px; padding: 13px 16px; cursor: pointer; transition: background .15s, transform .12s; box-shadow: 0 4px 14px rgba(166,54,44,.24); }
+.t-copybtn:hover { background: var(--stamp-red-deep); transform: translateY(-1px); }
+.t-copybtn:active { transform: translateY(0); }
+.t-copybtn.ok { background: var(--cat-studies); box-shadow: none; }
+.t-copybtn svg { width: 17px; height: 17px; stroke: #fff; fill: none; stroke-width: 1.8; flex: none; stroke-linecap: round; stroke-linejoin: round; }
+.block { margin-bottom: 20px; }
+.block-l { display: flex; align-items: center; gap: 8px; font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 15.5px; color: var(--ink); margin-bottom: 8px; }
+.block-l::before { content: ""; width: 15px; height: 2px; background: var(--stamp-red); border-radius: 2px; }
+.block p { margin: 0; font-size: 14px; color: var(--ink-soft); line-height: 1.65; }
+.dr-note { margin-top: 6px; padding: 13px 15px; background: rgba(194,111,10,0.1); border-radius: 11px; font-size: 13px; color: var(--cat-routing); display: flex; gap: 9px; align-items: flex-start; line-height: 1.5; }
+.dr-note svg { width: 16px; height: 16px; stroke: var(--cat-routing); fill: none; stroke-width: 1.8; flex: none; margin-top: 1px; }
+.dr-report { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--rule); }
+.dr-report-h { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--ink-soft); margin-bottom: 10px; }
+.dr-report-h svg { width: 15px; height: 15px; stroke: var(--ink-soft); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.dr-report-btns { display: flex; gap: 9px; flex-wrap: wrap; }
+.rep-btn { display: inline-flex; align-items: center; gap: 7px; flex: 1; min-width: 150px; justify-content: center; font-family: 'Heebo', sans-serif; font-size: 13px; font-weight: 600; color: var(--navy); background: var(--paper-card); border: 1.5px solid var(--rule-strong); border-radius: 11px; padding: 10px 14px; text-decoration: none; transition: border-color .14s, background .14s, color .14s; text-align: center; }
+.rep-btn:hover { border-color: var(--navy); background: var(--paper); }
+.rep-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.7; flex: none; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (prefers-reduced-motion: reduce) { .trum-overlay * { transition: none !important; } }
+/* ===== סוף תוכניות טרום שיקום ===== */
+
 </style>
 </head>
 <body>
@@ -4070,6 +4279,7 @@ footer.page-footer {
       <span class="tool-direct-emoji">🚌</span>
       <span>נסיעות/פרמטרים</span>
     </button>
+    <button type="button" class="trum-open-chip" onclick="openTrumPrograms()" title="ריכוז תוכניות טרום שיקום ייחודיות — מסודר לפי אוכלוסיית יעד (מחשב)"><span class="trum-open-emoji">🎓</span><span>תוכניות טרום שיקום</span></button>
   </div>
 </div>
 <div class="desk-back-row" id="deskBackRow">
@@ -7142,18 +7352,27 @@ function dashboardTileClick(filterId, tileEl) {
       if (!titleEl) return;
       items.push({ title: titleEl.textContent.trim(), added: added, card: card, where: newMsgContext(card) });
     });
+    // פריט מיוחד: תוכניות טרום שיקום — פותח את התצוגה במקום לנווט לכרטיס (מחשב בלבד)
+    (function () {
+      const TRUM_ADDED = new Date('2026-08-13');
+      const daysAgo = (now - TRUM_ADDED) / (1000 * 60 * 60 * 24);
+      const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (isDesktop && daysAgo >= 0 && daysAgo <= NEW_MSGS_DAYS) {
+        items.push({ title: 'תוכניות טרום שיקום', added: TRUM_ADDED, card: null, where: 'ריכוז ארצי', isTrum: true });
+      }
+    })();
     items.sort(function (a, b) { return b.added - a.added; });
     const top = items.slice(0, NEW_MSGS_MAX);
     list.innerHTML = '';
     if (!top.length) { panel.classList.remove('has-items'); return; }
     top.forEach(function (it) {
-      const section = it.card.closest('.category');
+      const section = it.card ? it.card.closest('.category') : null;
       const color = section ? getComputedStyle(section).getPropertyValue('--cat-color') : '';
       const li = document.createElement('li');
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'new-msgs-item';
-      const catVar = section ? ('var(--cat-' + (section.id === 'eiva' ? 'terror' : section.id) + ')') : 'var(--navy)';
+      const catVar = it.isTrum ? 'var(--navy)' : (section ? ('var(--cat-' + (section.id === 'eiva' ? 'terror' : section.id) + ')') : 'var(--navy)');
       btn.style.setProperty('--tile-color', catVar);
       const dot = document.createElement('span');
       dot.className = 'new-msgs-dot';
@@ -7168,7 +7387,11 @@ function dashboardTileClick(filterId, tileEl) {
       }
       btn.appendChild(dot);
       btn.appendChild(txt);
-      btn.onclick = function () { goToNewMsg(it.card); };
+      if (it.isTrum) {
+        btn.onclick = function () { if (window.openTrumPrograms) window.openTrumPrograms(); };
+      } else {
+        btn.onclick = function () { goToNewMsg(it.card); };
+      }
       li.appendChild(btn);
       list.appendChild(li);
     });
@@ -9295,6 +9518,260 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
   </button>
 </nav>
 
+
+<!-- ===== תוכניות טרום שיקום: שכבת תצוגה מלאה (מחשב בלבד) ===== -->
+<div class="trum-overlay" id="trumOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="תוכניות טרום שיקום">
+  <div class="trum-top">
+    <div class="trum-top-inner">
+      <button type="button" class="trum-close" onclick="closeTrumPrograms()">✕ חזרה לתבניות</button>
+      <div class="trum-eyebrow">מדריך עובד · מעודכן אוגוסט 2025</div>
+      <div class="trum-h1">תוכניות טרום שיקום</div>
+      <p class="trum-sub"><span class="trum-sub-lead">ריכוז ארצי של תוכניות טרום שיקום.</span>אפשר להעתיק את המידע על תוכנית קיימת ולשלוח אותו למבוטח. בחלק מהתוכניות יש גם קישור לאתר האינטרנט של התוכנית, שבו המבוטח יכול לבדוק מידע נוסף ולבחון את התאמתו לתוכנית.<br>לפרטים נוספים על עלויות וכד' — יש להיכנס לקובץ המקורי באתר הפנימי של השיקום המקצועי.</p>
+      <div class="trum-tools">
+        <div class="t-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="trum-q" type="search" placeholder="חיפוש לפי שם תוכנית, אוכלוסייה, מקום…" autocomplete="off">
+        </div>
+        <div class="trum-stat">
+          <span><b id="trum-pc">0</b><span>תוכניות</span></span>
+          <span><b id="trum-cc">0</b><span>אוכלוסיות</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="trum-wrap">
+    <nav class="trum-rail" id="trum-rail" aria-label="סינון"></nav>
+    <div id="trum-content"></div>
+  </div>
+  <div class="trum-scrim" id="trum-scrim"></div>
+  <aside class="trum-drawer" id="trum-drawer" role="dialog" aria-modal="true" aria-labelledby="trum-drTitle"></aside>
+</div>
+
+<script>
+(function(){
+const DATA = [{"category": "בריאות הנפש", "name": "מכינת אשנב", "population": "לצעירים עם מגבלה נפשית בני 18- 35, בעלי השכלה של 12 שנות לימוד ומלווה על ידי צוות היגוי המורכב מעו\"ש ביטוח לאומי, עו\"ס ממשרד הבריאות, ונציג אשנ\"ב", "goal": "לאפשר למתמודדים צעירים עם מגבלה נפשית להשתלב בעבודה או בלימודים מקצועיים/ אקדמאים בצורה דרגתית. הקניית מיומנויות למידה, מיומנויות בינאישיות, סנגור עצמי והתמודדות במסגרת אקדמית וחברתית תוך ליווי והדרכה אישיים, כדי לעודד מיצוי פוטנציאל והגשמה אישית בתחום הלימודים והתעסוקה.", "duration": "חמישה חודשים 4 ימים בשבוע (מתוכם שלושה בקרים ויום אחד אחה\"צ),כ-25 ש\"ש", "location": "חיפה, ת\"א,ירושלים, ב\"ש,טבריה (מכללת כנרת), בני ברק (המרכז החרדי)", "tuition": "11,900 ש\"ח", "regions": ["תל אביב והמרכז", "ירושלים והסביבה", "חיפה והצפון", "דרום"], "tags": ["גיל 18–35"], "url": "https://www.eshnav-ltd.co.il/"}, {"category": "בריאות הנפש", "name": "ראשית", "population": "צעירות בגילאי (18-30) מהמגזר החרדי עם מגבלה נפשית המוכרות כזכאיות סל שיקום", "goal": "פיתוח מסוגלות תעסוקתית והכנה להשתלבות בשוק העבודה באמצעות קורס מזכירות. בנית זהות אישית, עבודה בסביבה ממוחשבת, חיזוק תחושת המסוגלות האישית והדימוי העצמי לקראת השתלבות בעבודה. בניית מעגל תמיכה חברתי/ לימודי/ קבוצתי", "duration": "ששה חודשים, 5 ימים בשבוע בשעות הבוקר הכוללים יום התנסות", "location": "בני ברק", "tuition": "5,780 ש\"ח", "regions": ["תל אביב והמרכז"], "tags": ["גיל 18–30", "מגזר חרדי", "סל שיקום"], "url": ""}, {"category": "בריאות הנפש", "name": "הגראז'- מכינה חברתית לאומנויות", "population": "אנשים עם מגבלה נפשית (המוכרים עם 40% נכות נפשית). המוכשרים בתחומי האמנות ואשר מתאימים להמשך לימודים בתחום, בעלי מצב נפשי יציב וקשר עם גורם מטפל בקהילה.", "goal": "מכינה ללימודי אמנות, כתיבה או מוזיקה המאפשרת הכנה ללימודים באקדמיה או ללימודי תעודה והשתלבות בעבודה בתחום. התוכנית משלבת לימודים עיוניים ומעשיים, בשילוב חניכה ע\"י עמיתים מהתחום.", "duration": "12חודשים, בימים א-ה' בין השעות 9-15,", "location": "ת\"א", "tuition": "13,079 ש\"ח", "regions": ["תל אביב והמרכז"], "tags": [], "url": "https://www.hagarageart.org/"}, {"category": "בריאות הנפש", "name": "הנדימן", "population": "צעירים עם מגבלה נפשית , בגילאי 18-40 מהמגזר החרדי. המוכרים ב\"סל שיקום\"", "goal": "הכשרה והקניית ידע בתחומי האחזקה השונים בסביבה הביתית.", "duration": "חמישה ימים בשבוע כחמישה חודשים. בין השעות 9:00-14:00", "location": "אשדוד", "tuition": "13,000 ש\"ח", "regions": ["דרום"], "tags": ["גיל 18–40", "מגזר חרדי", "סל שיקום"], "url": ""}, {"category": "על הרצף האוטיסטי", "name": "רואים רחוק\" (לקראת שירות בצבא בתפקיד מקצועי)", "population": "אנשים על הרצף האוטיסטי בתפקוד גבוה בגילאים 18-22. במקרים חריגים מתקבלים צעירים עד גיל 25", "goal": "הכשרה לתפקיד מקצועי נדרש לצבא (ובאזרחות) בו יש לאנשים עם אוטיזם יתרון יחסי כמו למשל כמפענחי תצלומי אויר, בודקי תוכנה ומידענות. תהליך המיון והקבלה לתוכנית כולל מבדקי התאמה לתפקידים המוצעים", "duration": "שלושה חודשים", "location": "הקריה האקדמית אונו", "tuition": "14,442 ₪", "regions": ["תל אביב והמרכז"], "tags": ["גיל 18–22"], "url": "https://www.roim-rachok.org/"}, {"category": "על הרצף האוטיסטי", "name": "תכנית \"טל", "population": "אנשים על הרצף האוטיסטי בתפקוד גבוה בוגרי תיכון", "goal": "הכנה לקראת עולם העבודה, התנסות תעסוקתית הדרגתית והשתלבות בעבודה.", "duration": "חצי שנה - לימודי בוקר, 5 ימים בשבוע, בהיקף של 22 שעות שבועיות. פלוס אפשרת לליווי בעבודה לתקופה נוספת של 6 חודשים בהתאם לצורך. משך התוכנית הכולל תכנית טרום + ליווי בעבודה לא יעלה על 12 חודשים.", "location": "מכללת גל ברעננה, חיפה ואשדוד", "tuition": "37,242 ₪", "regions": ["חיפה והצפון", "תל אביב והמרכז", "דרום"], "tags": [], "url": "https://galcollege.org.il/"}, {"category": "על הרצף האוטיסטי", "name": "מכינת \"דרור", "population": "אנשים על הרצף האוטיסטי בתפקוד גבוה בוגרי שירות לאומי/צבאי עם פוטנציאל להשתלבות בלימודים אקדמיים/לימודי תעודה", "goal": "הכנה לקראת לימודים אקדמיים/לימודי תעודה התנסות בפועל בלמידה ברמה אקדמית של תחום הלימוד המבוקש (השתלבות בקורסים של אוניברסיטת ת\"א) חיזוק והרחבת מיומניות של ניהול עצמי, תקשורת , אסטרטגיות למידה והרגלי עבודה.", "duration": "שני סמסטרים במתכונת של 5 ימים בשבוע: 3 ימי לימודים בקמפוס האוניברסיטה ובדירת ההכשרה ויומיים בשבוע השתלבות בעבודה.", "location": "עמותת גוונים ואוניברסיטת ת\"א", "tuition": "14,088 ₪", "regions": ["תל אביב והמרכז"], "tags": [], "url": "https://www.tau.ac.il/dror"}, {"category": "על הרצף האוטיסטי", "name": "מכינת \"אבני דרך לחיים", "population": "אנשים על הרצף האוטיסטי בתפקוד גבוה בתקופת שהותם במכינה לחיים עצמאיים\"אבני דרך\" (משרד הרווחה)", "goal": "הכנה לקראת לימודים אקדמים / לימודי תעודה, היכרות עם שדות עיסוקים באמצעות השתלבות בקורסים מקצועיים/אקדמיים. חיזוק מיומנויות של התנהלות בממוסד הלימודים .", "duration": "משך התוכנית 2 סמסטרים או עד 12 חודשים. תחילת תכנית 3-6 חודשים לאחר הקליטה במכינה ובכפוף לכך שאושרה זכאות לשיקום מקצועי.", "location": "קריית שמונה (הטיפול בתביעות לשיקום ובאישור התוכנית לכלל המבוטחים בפריסה ארצית באחריות סניף טבריה- עו\"ש שרית מסטר)", "tuition": "4,401 ₪", "regions": ["חיפה והצפון"], "tags": [], "url": "https://avneiderech.org.il/programs/mechina/"}, {"category": "על הרצף האוטיסטי", "name": "מחישוב לשילוב\" הכנה לעבודה בתחום הפיננסים לבוגרים על הרצף האוטיסטי", "population": "אנשים על הרצף האוטיסטי בתפקוד גבוה בגילאים 21-45 עם יכולת התארגנות עצמית, בעלי מוטיבציה ללימודים ועיסוק בתחום הפיננסים, יכולת התחייבות למסלול של 4 ימים בשבוע במשך 5 חודשים ופוטנציאל להשתלבות בעבודה בשוק החופשי. הקבלה לתוכנית הינה על בסיס ראיון אישי, ובדיקת ידע בסיסי.", "goal": "הכנה לקראת השתלבות בעבודה בשוק החופשי בתפקידים ראשוניים בתחום הפיננסים. הדגש על רכישת וחיזוק מיומנויות הנדרשות בעולם העבודה והתנסות תעסוקתית לצד רכישת ידע מקצועי בסיסי.", "duration": "משך התוכנית הינו 20 שבועות במהלך 4 ימים בשבוע (ימים א' ב' ד' ה') מהשעה 9:00 ועד 13:00: החל מהחודש השלישי ללימודים המשתתפים ישובצו יום עבודה בשבוע במשרדי BDO.", "location": "הלימודים יתקיימו באקדמיה לפיננסים BDO בת\"א", "tuition": "31,322 ₪", "regions": ["תל אביב והמרכז"], "tags": ["גיל 21–45"], "url": "https://www.hishuv-shiluv.com/"}, {"category": "על הרצף האוטיסטי", "name": "תוכנית הכשרה לתעסוקה – ניצן אונים כפר סבא- לבוגרים על הרצף האוטיסטי", "population": "בוגרים על הרצף האוטיסטי בתפקוד גבוה", "goal": "לסייע לאדם הבוגר על הרצף האוטיסטי לאדם ללמוד, לממש ולקדם את יכולותיו התעסוקתיות והאישיות ולהשתלב בעבודה משמעותית, להתפרנס ולעבור מתלות כלכלית לעצמאות", "duration": "כשנה", "location": "כפר סבא", "tuition": "60,444 ₪", "regions": ["תל אביב והמרכז"], "tags": [], "url": "https://www.nitzan-onim.org/"}, {"category": "על הרצף האוטיסטי", "name": "תוכנית טרום שיקום \"אורות\" במכללת גורדון", "population": "התוכנית מיועדת לאנשים על הרצף האוטיסטי בתפקוד גבוה מוכרים גם במשרד הרווחה. בוגרי תיכון, מעל גיל 21 ובעלי מוטיבציה ופוטנציאל להשתלבות בעבודה בשוק החופשי.", "goal": "הכנה לקראת השתלבות בעולם העבודה באמצעות למידת מיומנויות וידע נדרשים לביצוע תפקיד של רכז אדמינסטרציה בכלים דיגיטליים, הרחבת והעשרת מיומנויות בינאישיות, מיומנויות תעסוקתיות ,ניהול עצמי, הרגלי עבודה.", "duration": "קורס עיוני (17 שבועות), סיוע וליווי בהשתלות בעבודה. 4 ימים בשבוע", "location": "מכללת גורדון בחיפה", "tuition": "19,533 ₪", "regions": ["חיפה והצפון"], "tags": ["גיל 21+"], "url": "https://www.gordon.ac.il/contentpage/%D7%AA%D7%95%D7%9B%D7%A0%D7%99%D7%AA_%D7%98%D7%A8%D7%95%D7%9D_%D7%A9%D7%99%D7%A7%D7%95%D7%9D_%D7%90%D7%95%D7%A8%D7%95%D7%AA"}, {"category": "לקות למידה קשה", "name": "ניצן אונים", "population": "אנשים עם הפרעות קשב וריכוז ולקויות למידה מורכבות וקשיי הסתגלות ניכרים", "goal": "חיזוק מיומנויות תעסוקתיות, חברתיות ותקשורתיות בקבוצת השווים לקראת השתלבות בעבודה", "duration": "משך התוכנית שנה,5 ימים בשבוע בין השעות 8-18", "location": "כפר סבא", "tuition": "60,444 ₪", "regions": ["תל אביב והמרכז"], "tags": [], "url": "https://www.nitzan-onim.org/"}, {"category": "נפגעי ראש", "name": "אבחון וטיפול שיקומי- תעסוקתי בנפגעי ראש", "population": "אנשים עם מוגבלות שנפגעו כתוצאה מחבלות ראש, אירועים מוחיים ומחלות/ניתוחים ו/או טיפולים תרופתיים שהביאו להשלכות קוגניטיביות ותפקודיות בהסתמך על אבחון נוירופסיכולוגי.", "goal": "חיזוק כישורים קוגניטיביים וניהול עצמי, רכישת אסטרטגיות למידה, חיזוק מיומנויות תעסוקתיות, חברתיות באמצעות טיפול קוגניטיבי ורגשי , סיוע וליווי בהשתלבות בעבודה. התוכנית משתנה בהתאם לצרכיו של הפונה לאורך תקופת השיקום ובהתאם להתקדמותו. אפשרות לטיפול פרטני או קבוצתי.", "duration": "עד שנה", "location": "מכון משאבים (טיפול ע\"פ שעות בלבד)-ב\"ש ואשדוד. יחידה נוירופסיכולוגית - ת\"א, ירושלים. מכון רקאנטי - ת\"א , ירושלים, חיפה ותפן.", "tuition": "", "regions": ["תל אביב והמרכז", "ירושלים והסביבה", "חיפה והצפון", "דרום"], "tags": [], "url": "https://www.shikumil.org.il/"}, {"category": "נפגעי ראש", "name": "תוכנית 'סולם'", "population": "אנשים המחלימים ממחלת הסרטן ומדווחים אודות שינויים קוגניטיביים", "goal": "תוכנית שיקום נוירופסיכולוגי בדגש תעסוקתי. התוכנית כוללת טיפול פרטני וקבוצתי תוך התייחסות להיבטים רגשיים, קוגניטיביים, חברתיים, משפחתיים ותעסוקתיים. התוכנית מסייעת לעלייה במישור תפקודי החיים ובהשתלבות מחדש בהכשרה מקצועית או תעסוקה.", "duration": "ששה חודשים ארבעה ימים בשבוע", "location": "מכון רקאנטי - ת\"א , ירושלים, חיפה ותפן.", "tuition": "76,572 ₪", "regions": ["תל אביב והמרכז", "ירושלים והסביבה", "חיפה והצפון"], "tags": [], "url": "https://www.shikumil.org.il/sulam"}, {"category": "מחלימים מסרטן", "name": "תוכנית 'סולם'", "population": "אנשים המחלימים ממחלת הסרטן ומדווחים אודות שינויים קוגניטיביים", "goal": "תוכנית שיקום נוירופסיכולוגי בדגש תעסוקתי. התוכנית כוללת טיפול פרטני וקבוצתיתוך התייחסות להיבטים רגשיים, קוגניטיביים, חברתיים, משפחתיים ותעסוקתיים. התוכנית מסייעת לעלייה במישור תפקודי החיים ובהשתלבות מחדש בהכשרה מקצועית או תעסוקה.", "duration": "ששה חודשים ארבעה ימים בשבוע", "location": "מרכז שפיצר לשיקום בחיפה ( צפויות להיפתח בעתיד הקרוב גם במרכז רקאנטי בת\"א ובמרכז גליל גשר- תפן)", "tuition": "76,572 ₪", "regions": ["תל אביב והמרכז", "חיפה והצפון"], "tags": [], "url": "https://www.shikumil.org.il/sulam"}, {"category": "מחלימים מסרטן", "name": "פיילוט : תכנית \"חוזרים לעבודה\" לצעירים מחלימים מסרטן", "population": "צעירים בגילאי 18-44, מחלימים מסרטן ללא אבחנה של פגיעה קוגניטיבית, ושנקבעו להם 20% נכות ומעלה, בעלי מוטיבציה להשתלבות בעבודה ומוכנות לעבודה קבוצתית.", "goal": "חיזוק תחושת המסוגלות, העצמאות והפרודוקטיביות.", "duration": "4חודשים ראשונים 3 מפגשים בשבוע למשך 6 שעות, וחודשיים נוספים 5 ימים בשבוע למשך 6 שעות.", "location": "במיתחם we work בתל אביב", "tuition": "39,660 ₪", "regions": ["תל אביב והמרכז"], "tags": ["גיל 18–44"], "url": ""}, {"category": "מחלימים מסרטן", "name": "חוזרים למסלול - תכנית פיילוט במדיקל קר", "population": "מחלימים מסרטן הזקוקים ל\"טעינה מחדש\" כדי לחזור לתפקוד. מדובר בתכנית אינטנסיבית המתאימה למי שיכול להתמודד עם אינטנסיביות של פעילות ושיכול לשבת יום שלם בסדנאות ויכול לעלות קומה ברגל לא מתאים למשתקמים המוכרים על מצב נפשי ומקבלים תרופות פסיכיאטריות או שעשו נסיונות אובדניים", "goal": "התכנית מסייעת בתהליך ה\"טעינה מחדש\" לשם חזרה לתפקוד וגילוי הרצונות האישיים והפנימיים של כל משתתף. המשתתפים עוברים תהליך של מציאת השורש העיקרי של הקושי בחיים, עיבודו מחדש תוך לימוד כלים לאופן בו יכולים לקחת אחריות על החיים, הבריאות והרווחה בכל תחומי החיים. מסייעת להסיר חסמים הקשורים לביטחון עצי, דימוי עצמי, דימויי גוף, חקר עצמי, תפיסות עצמיות וכד'", "duration": "מדובר בתכנית קצרה ואינטנסיבית בת 5 ימים בתנאי פנימייה. הפעילות הינה משעות הבוקר עד שעות הערב. בתום התכנית מתקיים ליווי של המשתתפים למשך מספר חודשים", "location": "מדיקל קר בבת ים", "tuition": "6,820 ₪", "regions": ["תל אביב והמרכז"], "tags": [], "url": ""}, {"category": "עיוורים", "name": "מכינת על\"ה", "population": "מכינה קדם אקדמאית לאנשים עם עיוורון ולקות ראייה בעלי תעודת עיוור", "goal": "לימודים לבגרות שמי שנמצא בעל פוטנציאל ללימודים אקדמאיים.", "duration": "עד שנתיים", "location": "ירושלים", "tuition": "", "regions": ["ירושלים והסביבה"], "tags": ["תעודת עיוור"], "url": "https://www.alehblind.org.il/"}, {"category": "עיוורים", "name": "השלמת השכלה ואוריינות מחשב לאנשים עם תעודת עיוור", "population": "אנשים עם עיוורון ולקות ראייה ובעלי תעודת עיוור", "goal": "אוריינות מחשב , מכינת עברית", "duration": "בהתאם לנתוני מקבל השירות", "location": "מגדלור והאגודה למען העיוור בהרצליה", "tuition": "", "regions": ["תל אביב והמרכז"], "tags": ["תעודת עיוור"], "url": "https://www.migdalor.org.il/"}, {"category": "ליקויי שמיעה", "name": "מכינה ללק\"ש", "population": "אנשים בגיל התעסוקה המתמודדים עם ליקויי שמיעה", "goal": "מכינה לקורסים מקצועיים וללימודים אקדמאים", "duration": "עד חצי שנה", "location": "מכללת גל ברעננה", "tuition": "", "regions": ["תל אביב והמרכז"], "tags": [], "url": "https://galcollege.org.il/"}, {"category": "אקדמיה", "name": "מכינת \"צוותא", "population": "צעירים עם נכות קשה בעלת השלכות תפקודית משמעותית המקשה עליהם להכנס לעולם האקדמי בדלת המקובלת הדורשת ציון במבחן פסיכומטרי. בעלי תעודת בגרות מלאה - ושקיימת התמדה במסגרת כלשהי מחוץ ללימודים בתיכון (התנדבות, עבודה, שירות צבאי, שירות לאומי)", "goal": "תכנית טרום שיקום שמטרתה להנגיש לצעירים עם נכות קשה את שלב הכניסה ללימודים אקדמיים. תהליך ההנגשה מתבסס על השתתפות בקורסים באוניברסיטה ב\"מעמד מיוחד\", ובליווי וחניכה בנושאים לימודיים וחברתיים.", "duration": "שנה אקדמית אחת", "location": "אוניברסיטת ת\"א", "tuition": "15,412 ₪", "regions": ["תל אביב והמרכז"], "tags": [], "url": "https://go.tau.ac.il/he/tzavta"}, {"category": "אקדמיה", "name": "מכינת על\"ה", "population": "בעלי תעודת עיוור שהינם בעלי פוטנציאל להשכלה גבוהה הזקוקים להשלמת/שיפור ציוני בגרות.", "goal": "לימודים לבגרות והכנה לבחינה פסיכומטרית בליווי גורמי טיפול מקצועיים של המרכז", "duration": "עד שנתיים", "location": "ירושלים", "tuition": "", "regions": ["ירושלים והסביבה"], "tags": ["תעודת עיוור"], "url": "https://www.alehblind.org.il/"}, {"category": "אקדמיה", "name": "להיות סטודנט", "population": "צעירים עם נכות קשה בעלת השלכות תפקודית משמעותית המקשה עליהם להכנס לעולם האקדמי בדלת המקובלת בעלי 12 ש\"ל.", "goal": "כניסה הדרגתית וגמישה ללימודים בליווי מקצועי ובתמיכה מקיפה.", "duration": "שנת לימודים אחת (שני סמסטרים)", "location": "קרייה אקדמית אונו ובמכללה האקדמית אחווה", "tuition": "16,700 ₪", "regions": ["תל אביב והמרכז"], "tags": [], "url": "https://www.ono.ac.il/curriculum/to-be-student/"}, {"category": "הכנה לעיסוק ייחודי כטרום שיקום", "name": "It works תוכנית טרום שיקום במסלול בדיקות תוכנה - TAP", "population": "אנשים עם מוגבלות, בני 21 ומעלה בעלי יכולת קוגניטיבת טובה, בוגרי תיכון, אנגלית ברמה טובה , נטיה לחשיבה מתמטית בעלי מוטיבציה ופוטנציאל טוב להשתלבות בעבודה בשוק החופשי .", "goal": "חיזוק מיומנויות תעסוקתיות והכנה לקראת השתלבות בעולם העבודה כך שיוכל להשתלב במשרה ראשונית בתחום הלימוד וההתנסות שעברו.", "duration": "ארבעה חודשים בימים א', ג', ה' 9.00-15.00", "location": "רמת גן", "tuition": "11,000 ₪", "regions": ["תל אביב והמרכז"], "tags": ["גיל 21+"], "url": ""}, {"category": "הכנה לעיסוק ייחודי כטרום שיקום", "name": "בניית אתרים בחברת Tech Jump", "population": "אנשים עם מוגבלות בעלי חיבור לעולם הדיגיטלי, מוטיבציה ופוטנציאל להשתלבות בעבודה בשוק החופשי.", "goal": "תוכנית OGT שמטרתה הכנת המשתתפים לקראת עבודה בבניית אתרים. העשרת הכישורים והמיומנויות הבינאישיות תוך כדי התנסות בעבודה עם לקוחות.", "duration": "ששה חודשים", "location": "משה דיין 52 ת\"א", "tuition": "13,000 ₪", "regions": ["תל אביב והמרכז"], "tags": [], "url": "https://www.techjump.co.il/"}, {"category": "הכנה לעיסוק ייחודי כטרום שיקום", "name": "כל יכול פיילוט - טרום הכשרה קצרת מועד למיומנויות במחשבים ואנגלית כהכנה לעבודה במוקד טלפוני -", "population": "זכאי שיקום בעלי פוטנציאל לעבודה בתחום מוקד טלפוני.", "goal": "מתן כלים והשלמת פערי ידע שיהוו את הבסיס להשתלבות בעבודה בתחום המוקדים הטלפוניים.", "duration": "שלשה שבועות, ארבעה מפגשים בשבוע (5 שעות כל מפגש)", "location": "ראשל\"צ", "tuition": "2,000 ₪", "regions": ["תל אביב והמרכז"], "tags": [], "url": "https://callyachol.co.il/"}, {"category": "הכנה לעבודה", "name": "Age & Work/ Job Hub", "population": "מחפשי עבודה, בעלי מקצועות חופשיים והשכלה אקדמאית ויכולת להנעה אישית והתמדה בחיפוש עבודה לא ניתן להפנות מקבלי שירות הנמצאים בתהליך השמה באמצעות ספקי כ\"א", "goal": "לתת כלים רלוונטיים בהתאמה לדרישות שוק העבודה החדש. התוכנית מבוססת על שלשה צירים מרכזיים: 1) חיזוק נטוורקינג 2) סדנאות הכנה לעבודה ואימון אישי 3) תוכנת JOB HUB המאתרת משרות רלוונטיות.", "duration": "חצי שנה.במידה ומקבל השירות בונה תוכנית של 4 ימים 4 שעות בכל פעם זכאי לדמ\"ש בחודשיים הראשונים בלבד.", "location": "מקוון בכל הארץ ובבני ברק (פרונטלי) במידה ויש קבוצה של 15 משתתפים ניתן לפתוח שירות (פרונטלי) בפריפריה", "tuition": "2,900 ₪", "regions": ["תל אביב והמרכז", "מקוון / מרחוק"], "tags": [], "url": ""}, {"category": "הכנה לעבודה", "name": "WINWORK", "population": "מיועדת לאנשים עם מוגבלות שלא הצליחו להשתלב בעבודה כשכירים והם מעוניינים ומתאימים להקים עסק עצמאי. ניתן ומומלץ להפנות לתוכנית אנשים שסיימו תוכניות שיקום דרכנו.", "goal": "התכנית נחלקת לשניים: שלב א'- אבחון יכולות אישיות לעיסוק ביזמות. הרחבת רשת הקשרים בעולם התעסוקה, הגדרת הזדמנויות עסקיות/תעסוקתיות. לימוד מבואות - יזמות, הקמת עסק, שיווק, מכירות בדיגיטל. שלב ב' \"בונים עסק\": פיתוח קריירה כיזמים, הקמה וניהול עסקת מצליח, הכשרה ייעוץ וליוויק עסקי. שילוב מנטורים צמודים בתהליך הקמת העסק, הפעלתו וניהולו", "duration": "משך שלב א כחודש ימים 4 פעמים בשבוע בין השעון 10:00-16:00. משך שלב ב - 4 חודשי למידה + 11 חודשי ליווי עסקי ומנטורינג. הלימוד 3 פעמים בשבוע בין השעות 10:00-16:00. כלמשתתף בתכנית מקבל 12 שעות ליווי אישי ו 24 שעות ליווי עסקי ומנטורינג .", "location": "לימוד קבוצתי ואישי בדיגיטל (למידה מרחוק) ובאופן פרונטלי (במידה ויתאפשר)", "tuition": "30,650 ₪", "regions": ["תל אביב והמרכז", "מקוון / מרחוק"], "tags": [], "url": "https://winwork.co.il/"}, {"category": "הכנה לעבודה", "name": "תוכנית הכנה וליווי בהשמה - מודל קהילה עובדת", "population": "אנשים עם מוגבלות שנשרו מתוכניות השמה קיימות וזקוקים לליווי ותמיכה אינטנסיביים במהלך ששת החודשים הראשונים לעבודתם.", "goal": "שילוב מקבלי שירות כקבוצת שווים במיזם תעסוקה קהילתי המשלב מס' עסקים באיזור גיאוגרפי תחום המאפשר ליווי אינטנסיבי של מקבל השירות.", "duration": "ששה חודשים", "location": "ירושלים", "tuition": "11,562 ₪", "regions": ["ירושלים והסביבה"], "tags": [], "url": "https://allgood.org.il/"}, {"category": "יוצאות ממעגל הזנות", "name": "תוכנית \"סלעית", "population": "נשים במעגל הזנות או כאלו שיצאו,הזקוקת לתהליך של שיקום תעסוקתי", "goal": "תכנית כוללנית להשתלבות בעולם העבודה. תוכנית בין משרדית בשיתוף משרד הרווחה ועיריית ת\"א. כוללת בתוכה רצף שרותי טיפול ושיקום לנשים היוצאות ממעגל הזנות: החל מדירת חרום לנשים שעדיין נמצאות במעגל הזנות, הוסטל שיקומי ומרכז יום לנשים המביעות רצון להשתקם ולצאת ממעגל הזנות. כמו כן יש מערך של טיפול אמבולטורי וקו סיוע שפועל 24/7 מרכז היום מאופיין באוריינטציה תעסוקתית, כשלכל משתתפת מותאמת בהתאם למערכת השעות השבועיות", "duration": "בין 3 חודשים (באם הנשים מגיעות מההוסטל) לבין 6 חודשים (באם הנשים מגיעות מהבית). מדובר בתכנית רכבת, והמשתתפות יכולות להצטרף בכל עת. ימים א-ה בין השעות 8:30-15:30", "location": "אחד העם 42 תל אביב", "tuition": "שכ\"ל ממומן ע\"י משרד הרווחה קיימת זכאות לסיוע בדמי שיקום בתקופת התוכנית והחזרי נסיעות.", "regions": ["תל אביב והמרכז"], "tags": [], "url": "https://saleet.org.il/"}, {"category": "יוצאות ממעגל הזנות", "name": "יוצרות עתיד", "population": "לנשים וטרנסג'נדרים בגילאי 18 ומעלה, היוצאות ממעגל הזנות.", "goal": "חיזוק כישורי עבודה רכים, לימוד מיומנויות מחשב בסיסיות, התנהלות כלכלית נבונה וליווי פסיכוסוציאלי מתמשך לצד הקניית מיומנויות תעסוקתיות בשני מסלולים: . 1.תפירה, תדמיתנות ועיצוב. 2.שיווק דיגיטלי.", "duration": "3 11חודשים - לימודי בוקר /ערב, ימים בשבוע, בהיקף של 18 שעות שבועיות.", "location": "תל אביב וחיפה", "tuition": "14,000 ₪", "regions": ["תל אביב והמרכז", "חיפה והצפון"], "tags": ["גיל 18+"], "url": "https://yotsrot.org/"}, {"category": "יוצאות ממעגל הזנות", "name": "תעסוקה מיטיבה", "population": "נשים וגברים היוצאים ממעגל הזנות", "goal": "הקניית כישורי עבודה, סדנאות מקצועיות שונות, לימודי אוריינות, מחשבים, עברית, אנגלית , מפגשים עם מעסיקים , יחד עם הקניית מיומנויות רכות, התייחסות לאספקטים רגשיים, אסטרטגיות לניהול עצמי ועוד. בשבועיים האחרונים תהיה גם התנסות בעבודה בקייט פרייד.", "duration": "משך 13 שבועות, 5 ימים בשבוע, למשך 5 שעות ביום", "location": "תל אביב", "tuition": "שכ\"ל ממומן ע\"י משרד הרווחה ועמותת \"הופ סנטר\" קיימת זכאות לסיוע בדמי שיקום בתקופת התוכנית והחזרי נסיעות.", "regions": ["תל אביב והמרכז"], "tags": [], "url": "https://www.hopecenter.org.il/"}, {"category": "נפגעות תקיפה מינית", "name": "בדרכך", "population": "נשים בגילאי עבודה המתמודדות עם טראומה מינית מורכבת ומוכרות כזכאיות לשיקום תעסוקתי ונמצאות בליווי טיפולי", "goal": "תכנית זו הינה תכנית תכנית לחיזוק מיומנויות תעסוקתיות ייעודית לאוכלוסית נפגעות תקיפה מינית. המטרה היא סיוע בהשתלבות הדרגתית בעולם העבודה באמצעות שדרוג \"ארגז הכלים התעסוקתי האישי\", העצמה וחיזוק תחושת המסוגלות התעסוקתית.", "duration": "6 חודשים, 5ימים בשבוע 08:30-14:30", "location": "פתח תקווה", "tuition": "משולם במסגרת תוכנית חיזוק מיומנויות תעסוקתיות בהתאם לתנאי המכרז.", "regions": ["תל אביב והמרכז"], "tags": [], "url": ""}, {"category": "תקיעות/ הכנה לשיקום", "name": "חוזרים למסלול - תכנית פיילוט במדיקל קר", "population": "משתקמים הזקוקים ל\"טעינה מחדש\" כדי לחזור לתפקוד. מדובר בתכנית אינטנסיבית המתאימה למי שיכול להתמודד עם אינטנסיביות של פעילות ושיכול לשבת יום שלם בסדנאות ויכול לעלות קומה ברגל לא מתאים למשתקמים המוכרים על מצב נפשי ומקבלים תרופות פסיכיאטריות או שעשו נסיונות אובדניים", "goal": "התכנית מסייעת בתהליך ה\"טעינה מחדש\" לשם חזרה לתפקוד וגילוי הרצונות האישיים והפנימיים של כל משתתף. המשתתפים עוברים תהליך של מציאת השורש העיקרי של הקושי בחיים, עיבודו מחדש תוך לימוד כלים לאופן בו יכולים לקחת אחריות על החיים, הבריאות והרווחה בכל תחומי החיים. מסייעת להסיר חסמים הקשורים לביטחון עצי, דימוי עצמי, דימויי גוף, חקר עצמי, תפיסות עצמיות וכד'", "duration": "מדובר בתכנית קצרה ואינטנסיבית בת 5 ימים בתנאי פנימייה. הפעילות הינה משעות הבוקר עד שעות הערב. בתום התכנית מתקיים ליווי של המשתתפים למשך מספר חודשים", "location": "מדיקל קר בבת ים", "tuition": "6,820 ₪", "regions": ["תל אביב והמרכז"], "tags": [], "url": ""}];
+const META = {"בריאות הנפש": {"t": "#5E8291", "i": "<path d=\"M12 5a3 3 0 0 0-3 3 3 3 0 0 0-1 5 3 3 0 0 0 2 5 3 3 0 0 0 5 0 3 3 0 0 0 2-5 3 3 0 0 0-1-5 3 3 0 0 0-3-3Z\"/><path d=\"M12 5v14\"/>"}, "על הרצף האוטיסטי": {"t": "#6F8C5F", "i": "<circle cx=\"8\" cy=\"12\" r=\"4\"/><circle cx=\"16\" cy=\"12\" r=\"4\"/>"}, "לקות למידה קשה": {"t": "#93804F", "i": "<path d=\"M4 5.5A2.5 2.5 0 0 1 6.5 3H12v16H6.5A2.5 2.5 0 0 0 4 21.5z\"/><path d=\"M20 5.5A2.5 2.5 0 0 0 17.5 3H12v16h5.5A2.5 2.5 0 0 1 20 21.5z\"/>"}, "נפגעי ראש": {"t": "#84719A", "i": "<path d=\"M15 21v-3a2 2 0 0 0 2-2v-1h1a1 1 0 0 0 .8-1.6L17 9.5A6 6 0 1 0 7 13v8\"/>"}, "מחלימים מסרטן": {"t": "#B37F93", "i": "<path d=\"M12 22s-4-3-4-7a4 4 0 0 1 8 0c0 4-4 7-4 7Z\"/><path d=\"m9 9-3 5\"/><path d=\"m15 9 3 5\"/>"}, "עיוורים": {"t": "#5F8682", "i": "<path d=\"M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z\"/><circle cx=\"12\" cy=\"12\" r=\"2.5\"/>"}, "ליקויי שמיעה": {"t": "#828F5F", "i": "<path d=\"M6 8.5a6 6 0 1 1 12 0c0 3-2 4-3.5 5.2C13 15 13 16.5 13 18a2.5 2.5 0 0 1-5 0\"/><path d=\"M9 9a3 3 0 0 1 5 0\"/>"}, "אקדמיה": {"t": "#6E80A0", "i": "<path d=\"M22 9 12 5 2 9l10 4 10-4Z\"/><path d=\"M6 11v5c0 1 3 3 6 3s6-2 6-3v-5\"/>"}, "הכנה לעיסוק ייחודי כטרום שיקום": {"t": "#976F5C", "i": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/><path d=\"M3 12h18\"/>"}, "הכנה לעבודה": {"t": "#5F927F", "i": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"12\" rx=\"2\"/><path d=\"M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2\"/><path d=\"m9 13 3 2 3-2\"/>"}, "יוצאות ממעגל הזנות": {"t": "#9C6C7C", "i": "<path d=\"M12 21s-6-4.3-9-8.5C1 9 3 5 6.5 5 9 5 12 8 12 8s3-3 5.5-3C21 5 23 9 21 12.5 18 16.7 12 21 12 21Z\"/>"}, "נפגעות תקיפה מינית": {"t": "#7A6C9A", "i": "<path d=\"M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z\"/><path d=\"M9.5 12.5 11 14l3.5-3.5\"/>"}, "תקיעות/ הכנה לשיקום": {"t": "#8A8A5F", "i": "<path d=\"M3 12a9 9 0 0 1 15-6.7L21 8\"/><path d=\"M21 3v5h-5\"/><path d=\"M21 12a9 9 0 0 1-15 6.7L3 16\"/><path d=\"M3 21v-5h5\"/>"}};
+
+const IC = {
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  pin:'<path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/>',
+  users:'<path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.5"/>',
+  target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3"/>',
+  arrow:'<path d="M15 6l-6 6 6 6"/>',
+  x:'<path d="M6 6l12 12M18 6 6 18"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.5 3.5 5.8 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.8-3.5-9s1-6.5 3.5-9Z"/>',
+  ext:'<path d="M13 5h6v6"/><path d="M19 5l-8 8"/><path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/>',
+  flag:'<path d="M4 21V4"/><path d="M4 4h11l-1.5 3L15 10H4"/>',
+  mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>'
+};
+const esc = s => (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+const REPORT_EMAIL = "Amirti@nioi.gov.il";
+function mailto(name, kind){
+  const clean = (name||'').replace(/"/g,'').trim();
+  const subject = `דיווח על תוכנית טרום שיקום: ${clean}`;
+  const body = kind==='notexist'
+    ? `שם התוכנית: ${clean}\n\nהתוכנית לא קיימת יותר.\n\n(פרטים נוספים אם יש):\n`
+    : `שם התוכנית: ${clean}\n\nהפרטים הנכונים לגבי התוכנית הם:\n`;
+  return `mailto:${REPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function buildClientText(p){
+  const clean=(p.name||'').replace(/"/g,'').trim();
+  let t = `תוכנית טרום שיקום: ${clean}\n`;
+  if(p.population) t += `\nלמי מיועדת: ${p.population}`;
+  if(p.goal)       t += `\n\nמטרת התוכנית: ${p.goal}`;
+  if(p.duration)   t += `\n\nמשך התוכנית: ${p.duration}`;
+  if(p.location)   t += `\nמקום ההכשרה: ${p.location}`;
+  if(p.url)        t += `\n\nאתר התוכנית: ${p.url}`;
+  t += `\n\nאפשר ליצור קשר עם התוכנית לקבלת פרטים נוספים ולשאלות.`;
+  return t;
+}
+function fallbackCopy(text, done){
+  const ta=document.createElement('textarea');
+  ta.value=text; ta.setAttribute('readonly','');
+  ta.style.position='fixed'; ta.style.top='-1000px'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{ ta.setSelectionRange(0, text.length); }catch(e){}
+  try{ document.execCommand('copy'); done(true); }catch(e){ done(false); }
+  document.body.removeChild(ta);
+}
+function copyClientText(p, btn){
+  const text=buildClientText(p);
+  const span=btn.querySelector('span'); const orig=span.textContent;
+  const done=(ok)=>{ span.textContent= ok?'הועתק ✓':'העתקה נכשלה'; btn.classList.toggle('ok',ok);
+    setTimeout(()=>{ span.textContent=orig; btn.classList.remove('ok'); },1900); };
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(()=>done(true)).catch(()=>fallbackCopy(text,done));
+  } else fallbackCopy(text,done);
+}
+function hi(s){ s=esc(s); const q=query.trim(); if(!q) return s;
+  try{ return s.replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>'); }catch(e){ return s; } }
+
+const cats = [...new Set(DATA.map(p=>p.category))];
+const regCount = {};
+DATA.forEach(p=>p.regions.forEach(r=>regCount[r]=(regCount[r]||0)+1));
+const REG_ORDER = ['תל אביב והמרכז','ירושלים והסביבה','חיפה והצפון','דרום','מקוון / מרחוק'];
+const regs = Object.keys(regCount).sort((a,b)=>{
+  const ia=REG_ORDER.indexOf(a), ib=REG_ORDER.indexOf(b);
+  return (ia<0?99:ia)-(ib<0?99:ib);
+});
+
+let active='__all__', selReg=new Set(), query='';
+const content=document.getElementById('trum-content');
+
+// build rail
+const rail=document.getElementById('trum-rail');
+rail.innerHTML =
+  '<div class="rail-h">אוכלוסיות היעד</div>'+
+  `<button class="chip all on" data-t="cat" data-c="__all__">בחירת הכל<span class="cn">${DATA.length}</span></button>`+
+  cats.map(c=>{const n=DATA.filter(p=>p.category===c).length,t=META[c].t;
+    return `<button class="chip" data-t="cat" data-c="${esc(c)}"><span class="dot" style="background:${t}"></span>${esc(c)}<span class="cn">${n}</span></button>`;}).join('')+
+  '<div class="rail-h mt">מיקום</div>'+
+  `<button class="chip all reg on" data-t="regall">כל המקומות</button>`+
+  regs.map(r=>`<button class="chip reg" data-t="reg" data-r="${esc(r)}"><span class="dot"></span>${esc(r)}<span class="cn">${regCount[r]}</span></button>`).join('');
+
+function metaRow(icon,txt){ if(!txt)return'';
+  return `<div class="meta-row"><svg viewBox="0 0 24 24">${icon}</svg><span>${hi(txt)}</span></div>`; }
+function tagsHtml(p){ if(!p.tags.length)return'';
+  return `<div class="tags">${p.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>`; }
+
+function cardHtml(p,idx){
+  return `<button class="t-card" style="--ct:${META[p.category].t}" data-i="${idx}">
+    <h3>${hi(p.name)}</h3>
+    ${tagsHtml(p)}
+    <p class="pop">${hi(p.population)||'—'}</p>
+    <div class="meta">${metaRow(IC.clock,p.duration)}${metaRow(IC.pin,p.location)}</div>
+    <div class="more">פרטים ואפשרויות <svg viewBox="0 0 24 24">${IC.arrow}</svg></div>
+  </button>`;
+}
+
+function matches(p){
+  if(active!=='__all__' && p.category!==active) return false;
+  if(selReg.size && !p.regions.some(r=>selReg.has(r))) return false;
+  if(query.trim()){ const s=query.trim().toLowerCase();
+    if(!Object.values(p).flat().join(' ').toLowerCase().includes(s)) return false; }
+  return true;
+}
+
+function render(){
+  const list=DATA.map((p,i)=>({p,i})).filter(o=>matches(o.p));
+  document.getElementById('trum-pc').textContent=list.length;
+  document.getElementById('trum-cc').textContent=new Set(list.map(o=>o.p.category)).size;
+
+  if(!list.length){
+    content.innerHTML=`<div class="grid"><div class="empty">
+      <h3>לא נמצאו תוכניות</h3><p>נסו מונח חיפוש אחר או נקו את הסינון.</p>
+      <button id="trum-clr">ניקוי הכל</button></div></div>`;
+    document.getElementById('trum-clr').onclick=clearAll; return;
+  }
+  const shown=cats.filter(c=>list.some(o=>o.p.category===c));
+  content.innerHTML=shown.map(c=>{
+    const items=list.filter(o=>o.p.category===c);
+    return `<section class="sec">
+      <div class="sec-h">
+        <div class="sec-ic" style="background:${META[c].t}"><svg viewBox="0 0 24 24">${META[c].i}</svg></div>
+        <div class="sec-t">${esc(c)}</div>
+        <div class="sec-c">${items.length} תוכניות</div>
+      </div>
+      <div class="grid">${items.map(o=>cardHtml(o.p,o.i)).join('')}</div>
+    </section>`;
+  }).join('');
+}
+
+function clearAll(){query='';active='__all__';selReg.clear();
+  document.getElementById('trum-q').value='';syncRail();render();}
+
+// drawer
+const drawer=document.getElementById('trum-drawer'),scrim=document.getElementById('trum-scrim');
+let curProg=null;
+drawer.addEventListener('click',e=>{ const cb=e.target.closest('.t-copybtn');
+  if(cb && curProg) copyClientText(curProg, cb); });
+function fact(icon,label,val){ if(!val)return'';
+  return `<div class="fact full"><div class="fl"><svg viewBox="0 0 24 24">${icon}</svg>${label}</div><div class="fv">${esc(val)}</div></div>`; }
+function openDrawer(p){
+  curProg=p;
+  const t=META[p.category].t;
+  drawer.innerHTML=`
+    <div class="dr-top">
+      <button class="dr-x" id="trum-drx" aria-label="סגירה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">${IC.x}</svg></button>
+      <span class="dr-cat" style="background:${t}"><svg viewBox="0 0 24 24">${META[p.category].i}</svg>${esc(p.category)}</span>
+      <h2 id="trum-drTitle">${esc(p.name)}</h2>
+      ${p.tags.length?`<div class="dr-tags">${p.tags.map(x=>`<span class="tag">${esc(x)}</span>`).join('')}</div>`:''}
+    </div>
+    <div class="dr-body">
+      <div class="dr-facts">
+        ${fact(IC.clock,'משך התוכנית',p.duration)}
+        ${fact(IC.pin,'מקום ההכשרה',p.location)}
+      </div>
+      ${p.url?`<a class="dr-link" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer"><svg class="g" viewBox="0 0 24 24">${IC.globe}</svg><span>לאתר הרשמי של התוכנית</span><svg class="e" viewBox="0 0 24 24">${IC.ext}</svg></a>
+      <button class="t-copybtn"><svg viewBox="0 0 24 24">${IC.copy}</svg><span>העתקת טקסט למבוטח</span></button>`:''}
+      ${p.population?`<div class="block"><div class="block-l">אוכלוסיית היעד</div><p>${esc(p.population)}</p></div>`:''}
+      ${p.goal?`<div class="block"><div class="block-l">מטרת התוכנית</div><p>${esc(p.goal)}</p></div>`:''}
+      <div class="dr-note"><svg viewBox="0 0 24 24">${IC.info}</svg>
+        <span>לנתונים המלאים, לחוזרים ולפרטי ההתקשרות — ראו את קובץ המקור של ריכוז התוכניות.</span></div>
+      <div class="dr-report">
+        <div class="dr-report-h"><svg viewBox="0 0 24 24">${IC.flag}</svg>מצאתם אי-דיוק? דווחו לאמיר</div>
+        <div class="dr-report-btns">
+          <a class="rep-btn" href="${mailto(p.name,'notexist')}"><svg viewBox="0 0 24 24">${IC.mail}</svg>התוכנית לא קיימת</a>
+          <a class="rep-btn" href="${mailto(p.name,'fix')}"><svg viewBox="0 0 24 24">${IC.mail}</svg>הפרטים הנכונים הם…</a>
+        </div>
+      </div>
+    </div>`;
+  drawer.classList.add('open');scrim.classList.add('open');
+  document.getElementById('trum-drx').onclick=closeDrawer;drawer.querySelector('.dr-body').scrollTop=0;
+}
+function closeDrawer(){drawer.classList.remove('open');scrim.classList.remove('open');}
+scrim.onclick=closeDrawer;
+document.addEventListener('keydown',function(e){if(e.key!=='Escape')return;var ov=document.getElementById('trumOverlay');if(!ov||!ov.classList.contains('open'))return;if(drawer.classList.contains('open')){closeDrawer();}else{window.closeTrumPrograms();}});
+
+// events
+content.addEventListener('click',e=>{const el=e.target.closest('.t-card,.t-row');
+  if(el)openDrawer(DATA[+el.dataset.i]);});
+
+function syncRail(){
+  document.querySelectorAll('.chip[data-t="cat"]').forEach(ch=>ch.classList.toggle('on',ch.dataset.c===active));
+  document.querySelector('.chip[data-t="regall"]').classList.toggle('on',selReg.size===0);
+  document.querySelectorAll('.chip[data-t="reg"]').forEach(ch=>ch.classList.toggle('on',selReg.has(ch.dataset.r)));
+}
+rail.addEventListener('click',e=>{const ch=e.target.closest('.chip');if(!ch)return;
+  const ty=ch.dataset.t;
+  if(ty==='cat'){active=ch.dataset.c;window.scrollTo({top:0,behavior:'smooth'});}
+  else if(ty==='regall'){selReg.clear();}
+  else if(ty==='reg'){const r=ch.dataset.r;selReg.has(r)?selReg.delete(r):selReg.add(r);}
+  syncRail();render();});
+
+document.getElementById('trum-q').addEventListener('input',e=>{query=e.target.value;render();});
+
+render();
+
+
+// ===== פתיחה/סגירה של תצוגת תוכניות טרום שיקום + אנליטיקס =====
+window.openTrumPrograms = function(){
+  var ov = document.getElementById('trumOverlay');
+  if(!ov) return;
+  ov.classList.add('open');
+  ov.setAttribute('aria-hidden','false');
+  document.body.classList.add('trum-lock');
+  ov.scrollTop = 0;
+  var q = document.getElementById('trum-q');
+  if(q){ try{ q.focus(); }catch(e){} }
+  try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('פתיחה: תוכניות טרום שיקום'); } catch(e){}
+};
+window.closeTrumPrograms = function(){
+  var ov = document.getElementById('trumOverlay');
+  if(!ov) return;
+  closeDrawer();
+  ov.classList.remove('open');
+  ov.setAttribute('aria-hidden','true');
+  document.body.classList.remove('trum-lock');
+};
+
+})();
+
+</script>
 </body>
 
 <div class="copy-toast" id="copyToast">✓ ההודעה הועתקה</div>
