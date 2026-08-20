@@ -2736,10 +2736,10 @@ body.mobile-search-open .mobile-sub-grid.open { display: none; }
 .sub-grid-back-top { margin-top: 0; margin-bottom: 2px; }
 @media (hover: hover) and (pointer: fine) {
   #subGrid-studies.open { grid-template-columns: repeat(2, 1fr); max-width: 620px; }
-  #subGrid-eiva.open { grid-template-columns: repeat(3, 1fr); max-width: 880px; }
+  #subGrid-eiva.open { grid-template-columns: repeat(2, 1fr); max-width: 600px; }
 }
 @media (hover: none) and (pointer: coarse) {
-  #subGrid-eiva.open { grid-template-columns: 1fr; max-width: 420px; }
+  #subGrid-eiva.open { grid-template-columns: 1fr 1fr; max-width: 440px; }
   .mobile-sub-grid .dashboard-tile { min-height: 96px; }
 }
 
@@ -4243,7 +4243,7 @@ body.trum-lock { overflow: hidden; }
     <button type="button" class="filter-chip filter-chip-all active" data-filter="all" onclick="toggleFilter(this)">הכל</button>
     <button type="button" class="filter-chip filter-chip-fav" data-filter="fav" onclick="toggleFavFilter(this)" title="הצג רק הודעות מועדפות">⭐ מועדפים</button>
     <button type="button" class="filter-chip filter-studies" data-filter="studies" onclick="toggleFilter(this)">שיקום מקצועי - נ"כ ונ"ע</button>
-    <button type="button" class="filter-chip filter-eiva" data-filter="eiva" onclick="toggleFilter(this)">פעולות איבה</button>
+    <button type="button" class="filter-chip filter-eiva" data-filter="eiva" onclick="toggleFilter(this)">שיקום מקצועי נ"א</button>
     <button type="button" class="filter-chip filter-therapists" data-filter="therapists" onclick="toggleFilter(this)">מטפלים/ספקים</button>
     <button type="button" class="filter-chip filter-routing" data-filter="routing" onclick="toggleFilter(this)">הפניה</button>
     <button type="button" class="filter-chip filter-consent" data-filter="consent" onclick="toggleFilter(this)">ויתור סודיות</button>
@@ -4469,7 +4469,7 @@ body.trum-lock { overflow: hidden; }
   </button>
   <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-terror);" onclick="openSubGrid('eiva', this)">
     <span class="dashboard-tile-icon">🕊️</span>
-    <span class="dashboard-tile-label">פעולות איבה</span>
+    <span class="dashboard-tile-label">שיקום מקצועי<br>נ"א</span>
   </button>
   <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-therapists);" onclick="dashboardTileClick('therapists', this)">
     <span class="dashboard-tile-icon">👨‍⚕️</span>
@@ -4517,6 +4517,10 @@ body.trum-lock { overflow: hidden; }
   <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-kids);" onclick="subTileClick('eiva', 'kids', this)">
     <span class="dashboard-tile-icon">🧒</span>
     <span class="dashboard-tile-label">ילדים</span>
+  </button>
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-terror);" onclick="subTileClick('eiva', 'deptquery', this)">
+    <span class="dashboard-tile-icon">🏥</span>
+    <span class="dashboard-tile-label">הפניה למחלקת איבה</span>
   </button>
   <button type="button" class="sub-grid-back" onclick="closeSubGrid()">➜ חזרה לכל הקטגוריות</button>
 </div>
@@ -4847,13 +4851,14 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
       <div class="cat-icon">
         <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
       </div>
-      <h2>פעולות איבה</h2>
+      <h2>שיקום מקצועי נ"א</h2>
     </div>
 
     <div class="eiva-tabs" role="tablist">
       <button type="button" class="eiva-tab active" data-eiva-tab="terror" onclick="switchEivaTab('terror')">🕊️ נכים</button>
       <button type="button" class="eiva-tab" data-eiva-tab="family" onclick="switchEivaTab('family')">👪 משפחות</button>
       <button type="button" class="eiva-tab" data-eiva-tab="kids" onclick="switchEivaTab('kids')">🧒 ילדים</button>
+      <button type="button" class="eiva-tab" data-eiva-tab="deptquery" onclick="switchEivaTab('deptquery')">🏥 הפניה למחלקת איבה</button>
     </div>
 
     <div class="eiva-panel active" id="eiva-panel-terror" data-eiva-panel="terror">
@@ -4986,46 +4991,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
             ✏️ תיקון
           </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg7" onclick="toggleFav('msg7', event)" title="הוסף למועדפים">☆ מועדפים</button>
-        </div>
-      </div>
-    </div>
-    <div class="card terror-card">
-      <div class="card-header-row">
-      <button class="card-toggle" onclick="toggleCard(this)">
-        <span class="card-toggle-title">תרופות וקנאביס – בקשת החזר</span>
-        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="card-quick-actions" onclick="event.stopPropagation()">
-        <button class="quick-btn quick-copy" onclick="quickCopy('msg8', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
-        <button class="quick-btn quick-wa" onclick="quickWa('msg8')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
-        <button class="quick-btn quick-mail" onclick="quickMail('msg8')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg8" onclick="toggleFav('msg8', event)" title="מועדפים">☆</button>
-      
-      </div>
-      </div>
-      <div class="card-collapsible">
-        <div class="card-body" id="msg8">💊🌿• להגשת בקשה להחזר הוצאות של תרופות וקנאביס רפואי:
-https://forms.btl.gov.il/Form/OBStart/HechzerHotzaotTrufut
-
-💬 בירורים והמשך מעקב
-הטיפול בבקשות מתבצע במחלקת נפגעי פעולות איבה. במידה ויש שאלות נוספות, ניתן לשלוח הודעה ישירה דרך האזור האישי באתר ביטוח לאומי למחלקת "נפגעי פעולות איבה".</div>
-        <div class="card-footer">
-          <button class="copy-btn" onclick="copyMsg('msg8', this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק</span>
-          </button>
-          <button class="whatsapp-btn" onclick="sendWhatsapp('msg8')">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>וואטסאפ</span>
-          </button>
-          <button class="email-btn" onclick="sendEmail('msg8')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-            <span>מייל</span>
-          </button>
-          <button class="feedback-btn" onclick="sendFeedback('msg8')">
-            ✏️ תיקון
-          </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg8" onclick="toggleFav('msg8', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5612,6 +5577,89 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
             ✏️ תיקון
           </button>
           <button class="fav-btn fav-footer-btn" id="fav-footer-msg25" onclick="toggleFav('msg25', event)" title="הוסף למועדפים">☆ מועדפים</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="eiva-panel" id="eiva-panel-deptquery" data-eiva-panel="deptquery">
+
+    <div class="card terror-card">
+      <div class="card-header-row">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">שאלה למחלקת איבה</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-quick-actions" onclick="event.stopPropagation()">
+        <button class="quick-btn quick-copy" onclick="quickCopy('msg_eivadept', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        <button class="quick-btn quick-wa" onclick="quickWa('msg_eivadept')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
+        <button class="quick-btn quick-mail" onclick="quickMail('msg_eivadept')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+        <button class="quick-btn quick-fav" id="qfav-msg_eivadept" onclick="toggleFav('msg_eivadept', event)" title="מועדפים">☆</button>
+      </div>
+      </div>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg_eivadept">היי, בטוח לאומי מחולק למחלקות שונות, ולכל אחת יש את הידע המקצועי שלה.
+כדי לקבל מענה בנושא, יש להכנס למידע האישי:https://ps.btl.gov.il/#/login
+ללחוץ על צור קשר ובנושא הפנייה לרשום נפגעי פעולות איבה
+במידת הצורך, אפשר גם לפנות ל*6050 והם ישאירו הודעה בשמכם.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg_eivadept', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msg_eivadept')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>וואטסאפ</span>
+          </button>
+          <button class="email-btn" onclick="sendEmail('msg_eivadept')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg_eivadept')">
+            ✏️ תיקון
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg_eivadept" onclick="toggleFav('msg_eivadept', event)" title="הוסף למועדפים">☆ מועדפים</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card terror-card">
+      <div class="card-header-row">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">מדריך העלאת מסמכים</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-quick-actions" onclick="event.stopPropagation()">
+        <button class="quick-btn quick-copy" onclick="quickCopy('msg_eivaup', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        <button class="quick-btn quick-wa" onclick="quickWa('msg_eivaup')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
+        <button class="quick-btn quick-mail" onclick="quickMail('msg_eivaup')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+        <button class="quick-btn quick-fav" id="qfav-msg_eivaup" onclick="toggleFav('msg_eivaup', event)" title="מועדפים">☆</button>
+      </div>
+      </div>
+      <div class="card-collapsible">
+        <div class="branch-picker" onclick="event.stopPropagation()">
+          <span class="branch-picker-label">בחרו מכשיר:</span>
+          <button type="button" class="branch-pill active" data-device="mobile" onclick="selectUploadDevice('eivadept', 'mobile', this)">📱 נייד</button>
+          <button type="button" class="branch-pill" data-device="desktop" onclick="selectUploadDevice('eivadept', 'desktop', this)">🖥️ מחשב</button>
+        </div>
+        <div class="card-body" id="msg_eivaup"></div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg_eivaup', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msg_eivaup')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>וואטסאפ</span>
+          </button>
+          <button class="email-btn" onclick="sendEmail('msg_eivaup')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg_eivaup')">
+            ✏️ תיקון
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg_eivaup" onclick="toggleFav('msg_eivaup', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -7916,7 +7964,8 @@ function dashboardTileClick(filterId, tileEl) {
     shorttrain: 'refund-panel-shorttrain',
     terror: 'eiva-panel-terror',
     family: 'eiva-panel-family',
-    kids: 'eiva-panel-kids'
+    kids: 'eiva-panel-kids',
+    deptquery: 'eiva-panel-deptquery'
   };
   function injectTileCounts() {
     document.querySelectorAll('.dashboard-tile').forEach(function (tile) {
@@ -8087,6 +8136,49 @@ function dashboardTileClick(filterId, tileEl) {
 • חובה שהשם המלא של המבוטח יופיע על גבי הקבלה באופן ברור.
 • ודאו שצילום הקבלה שלם, מואר וקריא לחלוטין לפני הלחיצה על שליחה.
 • לאחר השליחה, לרוב לוקח כשבועיים עד שהכסף נכנס לחשבון.`
+    },
+    eivadept: {
+      bodyId: 'msg_eivaup',
+      mobile: `📱 מדריך: העלאת מסמכים מהנייד – מחלקת נפגעי איבה 📱
+שלב אחר שלב להעלאת מסמכים בקלות:
+
+1️⃣ נכנסים לאתר:
+🔗 https://ps.btl.gov.il/#/login
+מתחברים ל"שירות אישי" בביטוח הלאומי (בעזרת קוד חד-פעמי או סיסמה).
+2️⃣ פותחים תפריט: לוחצים על 3 הפסים בפינה העליונה ובוחרים העלאת מסמכים.
+3️⃣ ממלאים פרטים במדויק:
+🔸 נושא: איבה
+🔸 קטגוריה: בוחרים את הקטגוריה שמתאימה למסמך שמעלים
+🔸 מסמך: בוחרים לפי סוג המסמך שמעלים בפועל
+👈 בסיום, לוחצים על הכפתור התכלת צרף קובץ.
+4️⃣ מעלים את המסמך: מצלמים אותו ישירות מהמצלמה או בוחרים תמונה מוכנה מהגלריה.
+5️⃣ שולחים: ממתינים לחיווי הירוק ("הועלה בהצלחה"), גוללים קצת למטה ולוחצים על הכפתור הכחול שלח מסמך.
+
+📢 חשוב מאוד לדעת:
+• חובה שהשם המלא של המבוטח יופיע על גבי המסמך באופן ברור.
+• ודאו שצילום המסמך שלם, מואר וקריא לחלוטין לפני הלחיצה על שליחה.
+
+❓ בכל שאלה או בירור ניתן לפנות למחלקת נפגעי איבה.`,
+      desktop: `🖥️ מדריך: העלאת מסמכים מהמחשב – מחלקת נפגעי איבה 🖥️
+שלב אחר שלב להעלאת מסמכים בקלות:
+
+1️⃣ נכנסים לאתר:
+🔗 https://ps.btl.gov.il/#/login
+מתחברים ל"שירות אישי" בביטוח הלאומי (בעזרת קוד חד-פעמי או סיסמה).
+2️⃣ בוחרים באפשרות העלאת מסמכים מתוך רשימת האפשרויות שנמצאת בצד ימין.
+3️⃣ ממלאים פרטים במדויק:
+🔸 נושא: איבה
+🔸 קטגוריה: בוחרים את הקטגוריה שמתאימה למסמך שמעלים
+🔸 מסמך: בוחרים לפי סוג המסמך שמעלים בפועל
+👈 בסיום, לוחצים על הכפתור התכלת צרף קובץ.
+4️⃣ מעלים את המסמך: בוחרים את קובץ המסמך השמור במחשב.
+5️⃣ שולחים: ממתינים לחיווי הירוק ("הועלה בהצלחה"), גוללים קצת למטה ולוחצים על הכפתור הכחול שלח מסמך.
+
+📢 חשוב מאוד לדעת:
+• חובה שהשם המלא של המבוטח יופיע על גבי המסמך באופן ברור.
+• ודאו שצילום המסמך שלם, מואר וקריא לחלוטין לפני הלחיצה על שליחה.
+
+❓ בכל שאלה או בירור ניתן לפנות למחלקת נפגעי איבה.`
     }
   };
   function selectUploadDevice(catKey, device, btn) {
@@ -8130,6 +8222,8 @@ function dashboardTileClick(filterId, tileEl) {
     if (b18) b18.textContent = UPLOAD_GUIDES.terror.mobile;
     const b17 = document.getElementById('msg17');
     if (b17) b17.textContent = UPLOAD_GUIDES.family.mobile;
+    const bEiva = document.getElementById('msg_eivaup');
+    if (bEiva) bEiva.textContent = UPLOAD_GUIDES.eivadept.mobile;
   })();
 
   /* ===== הצטרפות לקבוצת העדכונים במייל =====
