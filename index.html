@@ -1860,7 +1860,7 @@ body.dark-mode .vat-calc-view #vatAmount { background: #3d3616; color: var(--ink
   gap: 8px;
   width: 100%;
   margin-top: 12px;
-  background: #25954a;
+  background: var(--navy);
   color: #fff;
   border: none;
   border-radius: var(--radius);
@@ -1872,7 +1872,7 @@ body.dark-mode .vat-calc-view #vatAmount { background: #3d3616; color: var(--ink
   transition: background 0.15s;
   -webkit-tap-highlight-color: transparent;
 }
-.contact-popup-wa-btn:hover { background: #1f7a3c; }
+.contact-popup-wa-btn:hover { background: var(--navy-soft); }
 .contact-popup-wa-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
 
 .changelog-panel {
@@ -3648,7 +3648,7 @@ footer.page-footer {
   align-items: center;
   justify-content: center;
   gap: 7px;
-  background: #25954a;
+  background: #2a5fa8;
   color: #fdf8ee;
   border: none;
   width: 40px;
@@ -3663,10 +3663,10 @@ footer.page-footer {
   transition: background 0.15s, transform 0.12s;
   -webkit-tap-highlight-color: transparent;
 }
-.footer-contact-wa:hover { background: #1f7a3c; }
+.footer-contact-wa:hover { background: #1f4a86; }
 .footer-contact-wa:active { transform: scale(0.96); }
 .footer-contact-wa svg { width: 17px; height: 17px; flex-shrink: 0; }
-.footer-contact-wa .icon-desktop { display: none; }
+.footer-contact-wa .icon-mobile { display: none; }
 
 /* מחשב בלבד: אין וואטסאפ בדסקטופ, אז הכפתור פותח מייל — צבע כחול ואייקון מעטפה במקום ירוק/וואטסאפ */
 @media (hover: hover) and (pointer: fine) {
@@ -4154,6 +4154,16 @@ body.trum-lock { overflow: hidden; }
   box-shadow: 0 2px 12px rgba(43,38,32,0.14);
   border: 1px solid var(--rule);
 }
+
+/* כפתורי פנייה לאמיר (בלבד): תמיד מייל — אייקון מעטפה + נייבי, במחשב ובנייד */
+.branch-cta-btn .wa-ico, .search-no-results-btn .wa-ico, .tools-hub-suggest-btn .wa-ico { display: none; }
+.branch-cta-btn .mail-ico, .search-no-results-btn .mail-ico, .tools-hub-suggest-btn .mail-ico { display: inline-block; vertical-align: middle; }
+.branch-cta-btn { background: var(--navy); }
+.branch-cta-btn:hover { background: var(--navy-soft); }
+.search-no-results-btn { background: var(--navy); }
+.search-no-results-btn:hover { background: var(--navy-soft); }
+.tools-hub-suggest-btn { background: var(--navy); }
+.tools-hub-suggest-btn:hover { background: var(--navy-soft); }
 </style>
 </head>
 <body>
@@ -4349,9 +4359,9 @@ body.trum-lock { overflow: hidden; }
       <span class="contact-popup-label">טלפון</span>
       <span class="contact-popup-value" dir="ltr">050-6287462</span>
     </div>
-    <button type="button" class="contact-popup-wa-btn" id="contactPopupWaBtn" onclick="sendIdeaWhatsapp()" style="display:none;">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-      <span>שליחה בוואטסאפ במקום</span>
+    <button type="button" class="contact-popup-wa-btn" id="contactPopupWaBtn" onclick="sendIdeaEmail()" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      <span>שליחה במייל</span>
     </button>
   </div>
 </div>
@@ -4542,7 +4552,8 @@ body.trum-lock { overflow: hidden; }
     <span class="search-no-results-title">אוי, לא מצאנו כלום!</span>
     <span class="search-no-results-text">נראה שההודעה הזו עדיין מסתתרת איפשהו...<br>או שפשוט עוד לא הכנסנו אותה לכלי 😅</span>
     <button class="search-no-results-btn" onclick="searchNoResultsWa()">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18z"/></svg>
+      <svg class="mail-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      <svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18z"/></svg>
       שלח לאמיר להוסיף את זה
     </button>
   </div>
@@ -4685,7 +4696,9 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
 • אישור קבלה ללימודים (למי שנמצא בשנה ראשונה)
 • מערכת שעות סמסטר א' – חשוב שיהיה כתוב כמה נ"ז/ש"ס יש
 • קבלות שכר לימוד, כל קבלה שאתם משלמים העבירו אלי למייל. החזר שנתי מקסימלי הינו עד 13079 ש"ח
-• לוח שנה אקדמי</div>
+• לוח שנה אקדמי
+
+מומלץ לשלוח את כל המסמכים יחד באותו מייל, כדי לזרז את הטיפול בבקשה.</div>
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg2', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -4724,7 +4737,9 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
       <div class="card-collapsible">
         <div class="card-body" id="msg3">👨‍🎓👩🏽‍🎓לקראת סמסטר ב', שלחו אלי את המסמכים הבאים למייל :
 • מערכת שעות סמסטר ב'– חשוב שיהיה כתוב כמה נ"ז/ש"ס יש
-• גיליון ציונים (גם אם חלקי, זה בסדר)</div>
+• גיליון ציונים (גם אם חלקי, זה בסדר)
+
+מומלץ לשלוח את כל המסמכים יחד באותו מייל, כדי לזרז את הטיפול בבקשה.</div>
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg3', this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -6187,7 +6202,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
             <p>כתבו לי את שם הסניף וההסבר המפורט על ההגעה אליו — כתובת, קומה, איך למצוא את החדר. אני אוסיף אותו לכלי.</p>
           </div>
           <button class="branch-cta-btn" onclick="requestBranchWhatsapp()">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <svg class="mail-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
             <span>שליחת פרטי הסניף שלי</span>
           </button>
         </div>
@@ -6211,7 +6227,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         <button class="footer-contact-link" onclick="openOutlook()" title="שלח מייל לאמיר">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
         </button>
-        <button class="footer-contact-wa" onclick="footerWhatsapp()" title="וואטסאפ / מייל">
+        <button class="footer-contact-wa" onclick="footerWhatsapp()" title="שליחה במייל">
           <svg class="icon-mobile" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
           <svg class="icon-desktop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
         </button>
@@ -6482,6 +6498,14 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
   }
 
+  function openMailToAmir(subject, body) {
+    var a = document.createElement('a');
+    a.href = 'mailto:amirti@nioi.gov.il?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
   function sendFeedback(id) {
     if (typeof tourIsDesktop === 'function' && tourIsDesktop()) {
       const waBtn = document.getElementById('contactPopupWaBtn');
@@ -6491,14 +6515,15 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     }
     const card = document.getElementById(id)?.closest('.card');
     const title = card?.querySelector('.card-toggle-title')?.textContent || id;
-    const text = `שלום אמיר, יש הצעה לתיקון בהודעה: "${title}"\n\nהבעיה:\n\nהצעה לתיקון:\n`;
-    openWhatsAppSafely(text, false, '972506287462');
+    const body = `שלום אמיר, יש הצעה לתיקון בהודעה: "${title}"\n\nהבעיה:\n\nהצעה לתיקון:\n`;
+    openMailToAmir('תיקון בהודעה: ' + title, body);
   }
 
   function searchNoResultsWa() {
     const query = document.getElementById('searchInput')?.value || '';
     const text = `שלום אמיר, חיפשתי "${query}" בכלי ולא מצאתי. אפשר להוסיף הודעה כזו?`;
-    openWhatsAppSafely(text, false, '972506287462');
+    if (isDesktopDevice()) { var _eb = document.getElementById('contactPopupWaBtn'); if (_eb) _eb.style.display = 'none'; openContactPopup(); return; }
+    openMailToAmir('בקשה להוספת הודעה', text);
   }
 
   function footerWhatsapp() {
@@ -6513,12 +6538,13 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       return;
     }
     const text = 'שלום אמיר, יש לי רעיון לכלי ההודעות:\n\n';
-    openWhatsAppSafely(text, false, '972506287462');
+    openMailToAmir('רעיון לכלי ההודעות', text);
   }
 
   function requestBranchWhatsapp() {
     const text = 'שלום אמיר, אני רוצה להוסיף את הסניף שלי לכלי ("הגעה לסניף"):\n\nשם הסניף: \n\nהסבר מפורט על ההגעה (כתובת, קומה, איך למצוא את החדר): \n\n';
-    openWhatsAppSafely(text, false, '972506287462');
+    if (isDesktopDevice()) { var _eb = document.getElementById('contactPopupWaBtn'); if (_eb) _eb.style.display = 'none'; openContactPopup(); return; }
+    openMailToAmir('הוספת סניף לכלי', text);
   }
 
   function suggestIdea() {
@@ -6528,10 +6554,10 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     openContactPopup();
   }
 
-  function sendIdeaWhatsapp() {
+  function sendIdeaEmail() {
     closeContactPopup();
     const text = 'שלום אמיר, יש לי רעיון או הערה על כלי התבניות:\n\n';
-    openWhatsAppSafely(text, false, '972506287462');
+    openMailToAmir('רעיון או הערה על הכלי', text);
   }
 
   // ===== התראת תיקון כפתור וואטסאפ — נייד בלבד (נפרד לחלוטין מפופאפ העדכונים הקפוא) =====
@@ -6548,7 +6574,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     if (!ov) return;
     setTimeout(function () { ov.classList.add('open'); }, 1400);
   }
-  document.addEventListener('DOMContentLoaded', maybeShowWaFixNotice);
+  /* הפופאפ בנייד (התראת תיקון וואטסאפ) בוטל לבקשת אמיר */
 
   // ===== Shabbat popup =====
   function closeShabbat() {
@@ -7361,7 +7387,8 @@ function dashboardTileClick(filterId, tileEl) {
   /* ===== Tools hub modal ===== */
   function suggestToolIdea() {
     const text = 'שלום אמיר, יש לי רעיון לכלי נוסף למגשרות:\n\n';
-    openWhatsAppSafely(text, false, '972506287462');
+    if (isDesktopDevice()) { var _eb = document.getElementById('contactPopupWaBtn'); if (_eb) _eb.style.display = 'none'; openContactPopup(); return; }
+    openMailToAmir('רעיון לכלי נוסף', text);
   }
 
   let currentZoom = 100;
@@ -9448,8 +9475,9 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
       <div class="tools-hub-suggest-box">
         <p class="tools-hub-suggest-text">💡 יש לכן רעיון לכלי נוסף שיעזור בעבודה השוטפת?</p>
         <button type="button" class="tools-hub-suggest-btn" onclick="suggestToolIdea()">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-          שליחת הצעה לאמיר בוואטסאפ
+          <svg class="mail-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          <svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+          שליחת הצעה לאמיר
         </button>
       </div>
     </div>
