@@ -5243,6 +5243,46 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
     </div>
     -->
 
+    <div class="card terror-card">
+      <div class="card-header-row">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">איתור מטפלים מוכרים</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-quick-actions" onclick="event.stopPropagation()">
+        <button class="quick-btn quick-copy" onclick="quickCopy('msg9t', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        <button class="quick-btn quick-wa" onclick="quickWa('msg9t')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
+        <button class="quick-btn quick-mail" onclick="quickMail('msg9t')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+        <button class="quick-btn quick-fav" id="qfav-msg9t" onclick="toggleFav('msg9t', event)" title="מועדפים">☆</button>
+      </div>
+      </div>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg9t">נפגעי איבה ומשפחות שכולות זכאים לקבל טיפולים נפשיים באמצעות מטפלים המורשים על ידי אגף השיקום.
+במאגר זה תוכלו למצוא מטפל שמתאים לכם, בהתאם לאזור מגוריכם, סוג הטיפול, התמחות, הכשרה מקצועית ועוד.
+https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
+
+אתם יכולים ליצור קשר ישירות עם המטפל להגיד שאתם מוכרים בבטוח לאומי, במידה והוא פנוי ומתאים לכם אז יש להעביר לו את מספר הטלפון שלי כדי שנסדיר את נושא התשלום.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg9t', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msg9t')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>וואטסאפ</span>
+          </button>
+          <button class="email-btn" onclick="sendEmail('msg9t')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg9t')">
+            ✏️ תיקון
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg9t" onclick="toggleFav('msg9t', event)" title="הוסף למועדפים">☆ מועדפים</button>
+        </div>
+      </div>
+    </div>
+
     </div>
 
     <div class="eiva-panel" id="eiva-panel-family" data-eiva-panel="family">
@@ -5441,6 +5481,46 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/BneyMis
       </div>
     </div>
 
+    <div class="card terror-card">
+      <div class="card-header-row">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">איתור מטפלים מוכרים</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-quick-actions" onclick="event.stopPropagation()">
+        <button class="quick-btn quick-copy" onclick="quickCopy('msg9f', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        <button class="quick-btn quick-wa" onclick="quickWa('msg9f')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
+        <button class="quick-btn quick-mail" onclick="quickMail('msg9f')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+        <button class="quick-btn quick-fav" id="qfav-msg9f" onclick="toggleFav('msg9f', event)" title="מועדפים">☆</button>
+      </div>
+      </div>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg9f">נפגעי איבה ומשפחות שכולות זכאים לקבל טיפולים נפשיים באמצעות מטפלים המורשים על ידי אגף השיקום.
+במאגר זה תוכלו למצוא מטפל שמתאים לכם, בהתאם לאזור מגוריכם, סוג הטיפול, התמחות, הכשרה מקצועית ועוד.
+https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
+
+אתם יכולים ליצור קשר ישירות עם המטפל להגיד שאתם מוכרים בבטוח לאומי, במידה והוא פנוי ומתאים לכם אז יש להעביר לו את מספר הטלפון שלי כדי שנסדיר את נושא התשלום.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg9f', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msg9f')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>וואטסאפ</span>
+          </button>
+          <button class="email-btn" onclick="sendEmail('msg9f')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg9f')">
+            ✏️ תיקון
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg9f" onclick="toggleFav('msg9f', event)" title="הוסף למועדפים">☆ מועדפים</button>
+        </div>
+      </div>
+    </div>
+
     </div>
 
     <div class="eiva-panel" id="eiva-panel-kids" data-eiva-panel="kids">
@@ -5602,6 +5682,46 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
         </div>
       </div>
     </div>
+    <div class="card terror-card">
+      <div class="card-header-row">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">איתור מטפלים מוכרים</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-quick-actions" onclick="event.stopPropagation()">
+        <button class="quick-btn quick-copy" onclick="quickCopy('msg9k', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        <button class="quick-btn quick-wa" onclick="quickWa('msg9k')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
+        <button class="quick-btn quick-mail" onclick="quickMail('msg9k')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+        <button class="quick-btn quick-fav" id="qfav-msg9k" onclick="toggleFav('msg9k', event)" title="מועדפים">☆</button>
+      </div>
+      </div>
+      <div class="card-collapsible">
+        <div class="card-body" id="msg9k">נפגעי איבה ומשפחות שכולות זכאים לקבל טיפולים נפשיים באמצעות מטפלים המורשים על ידי אגף השיקום.
+במאגר זה תוכלו למצוא מטפל שמתאים לכם, בהתאם לאזור מגוריכם, סוג הטיפול, התמחות, הכשרה מקצועית ועוד.
+https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
+
+אתם יכולים ליצור קשר ישירות עם המטפל להגיד שאתם מוכרים בבטוח לאומי, במידה והוא פנוי ומתאים לכם אז יש להעביר לו את מספר הטלפון שלי כדי שנסדיר את נושא התשלום.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msg9k', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msg9k')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>וואטסאפ</span>
+          </button>
+          <button class="email-btn" onclick="sendEmail('msg9k')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msg9k')">
+            ✏️ תיקון
+          </button>
+          <button class="fav-btn fav-footer-btn" id="fav-footer-msg9k" onclick="toggleFav('msg9k', event)" title="הוסף למועדפים">☆ מועדפים</button>
+        </div>
+      </div>
+    </div>
+
     </div>
 
     <div class="eiva-panel" id="eiva-panel-deptquery" data-eiva-panel="deptquery">
@@ -6499,8 +6619,13 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function openMailToAmir(subject, body) {
+    var href = 'mailto:amirti@nioi.gov.il';
+    var params = [];
+    if (subject) params.push('subject=' + encodeURIComponent(subject));
+    if (body) params.push('body=' + encodeURIComponent(body));
+    if (params.length) href += '?' + params.join('&');
     var a = document.createElement('a');
-    a.href = 'mailto:amirti@nioi.gov.il?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    a.href = href;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -6508,9 +6633,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   function sendFeedback(id) {
     if (typeof tourIsDesktop === 'function' && tourIsDesktop()) {
-      const waBtn = document.getElementById('contactPopupWaBtn');
-      if (waBtn) waBtn.style.display = 'none';
-      openContactPopup();
+      openMailToAmir('', '');
       return;
     }
     const card = document.getElementById(id)?.closest('.card');
@@ -6522,7 +6645,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   function searchNoResultsWa() {
     const query = document.getElementById('searchInput')?.value || '';
     const text = `שלום אמיר, חיפשתי "${query}" בכלי ולא מצאתי. אפשר להוסיף הודעה כזו?`;
-    if (isDesktopDevice()) { var _eb = document.getElementById('contactPopupWaBtn'); if (_eb) _eb.style.display = 'none'; openContactPopup(); return; }
+    if (isDesktopDevice()) { openMailToAmir('', ''); return; }
     openMailToAmir('בקשה להוספת הודעה', text);
   }
 
@@ -6543,14 +6666,17 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   function requestBranchWhatsapp() {
     const text = 'שלום אמיר, אני רוצה להוסיף את הסניף שלי לכלי ("הגעה לסניף"):\n\nשם הסניף: \n\nהסבר מפורט על ההגעה (כתובת, קומה, איך למצוא את החדר): \n\n';
-    if (isDesktopDevice()) { var _eb = document.getElementById('contactPopupWaBtn'); if (_eb) _eb.style.display = 'none'; openContactPopup(); return; }
+    if (isDesktopDevice()) { openMailToAmir('', ''); return; }
     openMailToAmir('הוספת סניף לכלי', text);
   }
 
   function suggestIdea() {
+    if (typeof tourIsDesktop === 'function' && tourIsDesktop()) {
+      openMailToAmir('', '');
+      return;
+    }
     const waBtn = document.getElementById('contactPopupWaBtn');
-    const isDesktop = typeof tourIsDesktop === 'function' && tourIsDesktop();
-    if (waBtn) waBtn.style.display = isDesktop ? 'none' : 'flex';
+    if (waBtn) waBtn.style.display = 'flex';
     openContactPopup();
   }
 
@@ -7387,7 +7513,7 @@ function dashboardTileClick(filterId, tileEl) {
   /* ===== Tools hub modal ===== */
   function suggestToolIdea() {
     const text = 'שלום אמיר, יש לי רעיון לכלי נוסף למגשרות:\n\n';
-    if (isDesktopDevice()) { var _eb = document.getElementById('contactPopupWaBtn'); if (_eb) _eb.style.display = 'none'; openContactPopup(); return; }
+    if (isDesktopDevice()) { openMailToAmir('', ''); return; }
     openMailToAmir('רעיון לכלי נוסף', text);
   }
 
