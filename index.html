@@ -5,7 +5,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<script defer src="https://cloud.umami.is/script.js" data-website-id="456ba13d-2e1d-4855-a635-9500ed668346" data-auto-track="false"></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="456ba13d-2e1d-4855-a635-9500ed668346"></script>
 <script>
 /* רענון אוטומטי: בודק מול השרת אם קיימת גרסה חדשה של הדף וטוען אותה מחדש בלי צורך בפעולה מצד המשתמש.
    רץ בטעינה, וגם כשחוזרים ללשונית (visibilitychange) — למקרה שהיא נשארה פתוחה ברקע בזמן שהתפרסם עדכון
@@ -7267,33 +7267,7 @@ function dashboardTileClick(filterId, tileEl) {
      ארגונית (רשת המשרד) עם אותה תמונת מחשב סטנדרטית — הן נראות לו כאותו מבקר בדיוק.
      כדי להבדיל ביניהן, יוצרים מזהה אנונימי אקראי שנשמר מקומית בכל מכשיר/דפדפן (לא שם, לא מזהה אישי —
      רק מחרוזת רנדומלית), ומעבירים אותו ל-Umami דרך identify() כך שכל מכשיר נספר בנפרד */
-  (function setupUmamiIdentity() {
-    try {
-      var KEY = 'shikum_umami_uid';
-      var uid = localStorage.getItem(KEY);
-      if (!uid) {
-        uid = 'u_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
-        localStorage.setItem(KEY, uid);
-      }
-      /* חשוב: מעבירים את המזהה כמחרוזת (לא כאובייקט) — זו הצורה שקובעת מזהה לסשן.
-         auto-track כבוי, ולכן קודם קובעים את זהות המכשיר ורק אז שולחים את צפיית העמוד ידנית,
-         כדי שהצפייה הראשונה כבר תישא את המזהה וכל מכשיר ייספר כסשן נפרד (ולא כפול). */
-      var sentPageview = false;
-      var attempts = 0;
-      (function ready() {
-        attempts++;
-        if (window.umami && typeof window.umami.identify === 'function' && typeof window.umami.track === 'function') {
-          if (!sentPageview) {
-            sentPageview = true;
-            try { window.umami.identify(uid); } catch (e) {}
-            try { window.umami.track(); } catch (e) {}
-          }
-        } else if (attempts < 40) {
-          setTimeout(ready, 150);
-        }
-      })();
-    } catch (e) {}
-  })();
+  /* מעקב Umami: auto-track דלוק — צפיות העמוד נספרות אוטומטית עם טעינת הסקריפט */
 
   function syncCopyToClipboard(text) {
     /* העתקה סינכרונית (execCommand) שמסתיימת מיד — חשוב באייפון לפני ניווט */
