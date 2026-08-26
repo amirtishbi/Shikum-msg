@@ -4164,6 +4164,11 @@ body.trum-lock { overflow: hidden; }
 .search-no-results-btn:hover { background: var(--navy-soft); }
 .tools-hub-suggest-btn { background: var(--navy); }
 .tools-hub-suggest-btn:hover { background: var(--navy-soft); }
+
+/* לינקים לחיצים בתוך הודעות — ההעתקה נשארת טקסט רגיל (הטקסט של הלינק הוא ה-URL עצמו) */
+.card-body .msg-link { color: var(--navy); text-decoration: underline; text-underline-offset: 2px; word-break: break-word; }
+.card-body .msg-link:hover { text-decoration: none; }
+body.dark-mode .card-body .msg-link { color: #7fb3ff; }
 </style>
 </head>
 <body>
@@ -4219,6 +4224,7 @@ body.trum-lock { overflow: hidden; }
       <li><span class="bm-dot"></span>רמת גן</li>
       <li><span class="bm-dot"></span>רמלה</li>
       <li><span class="bm-dot"></span>רחובות</li>
+      <li><span class="bm-dot"></span>ירושלים</li>
     </ul>
     <svg class="branch-map-svg" viewBox="20 0 60 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="מפת ישראל עם הסניפים">
       <path class="bm-outline" d="M38,12 L52,5 L66,8 L70,17 L67,26 L71,36 L69,50 L64,60 L62,74 L64,88 L69,100 L72,112 L69,126 L63,140 L56,158 L51,176 L48,196 L44,178 L38,152 L33,124 L31,98 L33,74 L36,52 L33,32 Z"/>
@@ -4226,6 +4232,7 @@ body.trum-lock { overflow: hidden; }
       <g class="bm-pin" transform="translate(46,74)"><circle r="4"/></g>
       <g class="bm-pin" transform="translate(50,84)"><circle r="4"/></g>
       <g class="bm-pin" transform="translate(45,93)"><circle r="4"/></g>
+      <g class="bm-pin" transform="translate(59,82)"><circle r="4"/></g>
     </svg>
   </div>
   <p class="branch-map-invite">רוצות להוסיף את הסניף שלכן להוראות הגעה, שלחו לי בקשה 👇</p>
@@ -6294,6 +6301,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           <button type="button" class="branch-pill" data-branch="ramla" onclick="selectBranch('ramla', this)">רמלה</button>
           <button type="button" class="branch-pill" data-branch="rehovot" onclick="selectBranch('rehovot', this)">רחובות</button>
           <button type="button" class="branch-pill" data-branch="ks" onclick="selectBranch('ks', this)">כפר סבא</button>
+          <button type="button" class="branch-pill" data-branch="jerusalem" onclick="selectBranch('jerusalem', this)">ירושלים</button>
         </div>
         <div class="card-body" id="msg12"></div>
         <div class="card-footer">
@@ -7020,6 +7028,13 @@ function dashboardTileClick(filterId, tileEl) {
       if (Math.abs(delta) > 4) window.scrollBy({ top: delta, behavior: 'auto' });
     }
     animateCategoryEnter(filterId);
+    /* קטגוריות עם כרטיס יחיד — לפתוח אותו ישר (אין ממה לבחור) */
+    if (filterId === 'consent' || filterId === 'admin') {
+      const soloCard = section && section.querySelector('.card');
+      if (soloCard && typeof openCard === 'function' && !soloCard.classList.contains('open')) {
+        setTimeout(function () { try { openCard(soloCard); } catch (e) {} }, 260);
+      }
+    }
   }
 
   function toggleFilter(chip) {
@@ -8338,7 +8353,10 @@ function dashboardTileClick(filterId, tileEl) {
 קומה 5, מחלקת שיקום.`,
     ks: `📍הפגישה מתקיימת בביטוח לאומי סניף כפר סבא:
 רחוב ויצמן 39, כפר סבא.
-קומה 1, יש להציג למאבטחים ת.ז ולציין שהגעתם לעו"ס שיקום.`
+קומה 1, יש להציג למאבטחים ת.ז ולציין שהגעתם לעו"ס שיקום.`,
+    jerusalem: `📍הפגישה מתקיימת בביטוח לאומי סניף ירושלים:
+רחוב בן שטח 4, ירושלים.
+קומה 1.`
   };
   function selectBranch(key, btn) {
     const body = document.getElementById('msg12');
@@ -8346,6 +8364,25 @@ function dashboardTileClick(filterId, tileEl) {
     body.textContent = BRANCH_DIRECTIONS[key];
     const picker = btn.closest('.branch-picker');
     if (picker) picker.querySelectorAll('.branch-pill').forEach(function (b) { b.classList.toggle('active', b === btn); });
+    /* בחירת סניף = העתקה אוטומטית של ההוראות (בלי לסגור את הכרטיס) */
+    let text = body.innerText;
+    if (typeof isDesktopDevice === 'function' && isDesktopDevice() && typeof emailFriendlyText === 'function') text = emailFriendlyText(text);
+    (async function () {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (e) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+        document.body.appendChild(ta);
+        ta.focus(); ta.select();
+        try { document.execCommand('copy'); } catch (_) {}
+        document.body.removeChild(ta);
+      }
+      try { showCopiedToast(); } catch (e) {}
+      if (typeof hapticTap === 'function') hapticTap();
+      try { trackUse('העתקה', 'msg12'); } catch (e) {}
+    })();
   }
 
   /* מקור אמת יחיד: גופי כרטיסי הבחירה נטענים מהנתונים כאן, לא מה-HTML */
@@ -10008,6 +10045,63 @@ window.closeTrumPrograms = function(){
 
 })();
 
+</script>
+
+<script>
+/* הפיכת כתובות URL בתוך ההודעות ללחיצות. הטקסט של הקישור זהה ל-URL,
+   כך ש-innerText/textContent (שמשמשים להעתקה ולשליחה) ממשיכים להחזיר טקסט רגיל. */
+(function () {
+  var URL_RX = /(https?:\/\/[^\s<>()]+)/g;
+  function linkifyBody(el) {
+    if (!el) return;
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    var targets = [], n;
+    while ((n = walker.nextNode())) {
+      if (n.parentNode && n.parentNode.closest && n.parentNode.closest('a')) continue;
+      URL_RX.lastIndex = 0;
+      if (URL_RX.test(n.nodeValue)) targets.push(n);
+    }
+    targets.forEach(function (node) {
+      var s = node.nodeValue, frag = document.createDocumentFragment(), last = 0, m;
+      URL_RX.lastIndex = 0;
+      while ((m = URL_RX.exec(s))) {
+        var url = m[0], tail = '';
+        var tm = url.match(/[)\].,;:!?"']+$/);
+        if (tm) { tail = tm[0]; url = url.slice(0, url.length - tail.length); }
+        if (m.index > last) frag.appendChild(document.createTextNode(s.slice(last, m.index)));
+        var a = document.createElement('a');
+        a.href = url; a.textContent = url;
+        a.target = '_blank'; a.rel = 'noopener noreferrer';
+        a.className = 'msg-link';
+        frag.appendChild(a);
+        if (tail) frag.appendChild(document.createTextNode(tail));
+        last = m.index + m[0].length;
+      }
+      if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+  function init() {
+    var bodies = document.querySelectorAll('.card-body');
+    bodies.forEach(linkifyBody);
+    // תוכן שמתעדכן דינמית (מדריכי העלאה, בונה זכויות וכו') — לינקוף מחדש אוטומטית
+    try {
+      var obs = new MutationObserver(function (muts) {
+        var set = new Set();
+        muts.forEach(function (mu) {
+          var t = mu.target;
+          if (t && t.nodeType === 3) t = t.parentNode;
+          var b = t && t.closest ? t.closest('.card-body') : null;
+          if (b) set.add(b);
+        });
+        set.forEach(function (b) { try { linkifyBody(b); } catch (e) {} });
+      });
+      bodies.forEach(function (b) { obs.observe(b, { childList: true, subtree: true, characterData: true }); });
+    } catch (e) {}
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
 </script>
 </body>
 
