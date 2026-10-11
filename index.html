@@ -4199,6 +4199,105 @@ body.dark-mode .card-body .msg-link { color: #7fb3ff; }
   .trum-programs-cta-title { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 1.05rem; }
   .trum-programs-cta-sub { font-size: 0.82rem; opacity: 0.85; }
 }
+/* ===== שעון נוכחות (כלי מודאלי, הכל בתחילית ac-) ===== */
+.ac-overlay{display:none;position:fixed;inset:0;z-index:10000;background:rgba(20,24,22,.55);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 14px}
+.ac-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+.ac-modal{position:relative;width:100%;max-width:440px;margin:0 auto;border-radius:20px;
+  background:#eef2f1;border:1px solid rgba(0,0,0,.08);padding:44px 16px 18px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.ac-close{position:absolute;top:10px;left:10px;width:34px;height:34px;border:0;border-radius:50%;
+  background:var(--ac-line);color:var(--ac-ink);font-size:1rem;font-weight:800;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.ac-close:active{transform:scale(.92)}
+
+.attendance-clock{
+  --ac-bg:#eef2f1;--ac-surface:#ffffff;--ac-ink:#14302b;--ac-muted:#5b726d;--ac-line:#d3dedb;
+  --ac-accent:#0f7a63;--ac-on-accent:#ffffff;--ac-accent-soft:#d8efe8;--ac-warn:#b4570f;
+  --ac-gold:#f2c94c;--ac-gold-ink:#3d2c00;--ac-gold-btn:#fbe7a6;
+  color:var(--ac-ink);font-family:'Heebo','Assistant',system-ui,sans-serif;font-size:17px;line-height:1.4;
+  display:flex;flex-direction:column;gap:10px}
+body.dark-mode .ac-modal{background:#0f1a18;border-color:rgba(255,255,255,.08)}
+body.dark-mode .attendance-clock{
+  --ac-bg:#0f1a18;--ac-surface:#172623;--ac-ink:#e3efec;--ac-muted:#93aaa4;--ac-line:#2a3d39;
+  --ac-accent:#4fd1ad;--ac-on-accent:#0b1916;--ac-accent-soft:#1d3a33;--ac-warn:#f0a35e;
+  --ac-gold:#e0b53c;--ac-gold-ink:#2a1e00;--ac-gold-btn:#f0cf6e}
+body.dark-mode .ac-close{background:var(--ac-line);color:var(--ac-ink)}
+
+.attendance-clock *{box-sizing:border-box}
+.attendance-clock button{font:inherit;font-weight:700;border:0;border-radius:10px;cursor:pointer;
+  touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.attendance-clock button:focus-visible{outline:3px solid var(--ac-accent);outline-offset:2px}
+.ac-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.ac-head h1{font-weight:800;font-size:1.3rem;margin:0}
+.ac-day{color:var(--ac-muted);font-weight:600}
+
+.ac-entry{background:var(--ac-gold);color:var(--ac-gold-ink);border-radius:18px;padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ac-entry .ac-lbl{font-weight:700;font-size:1.1rem;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.ac-now{background:var(--ac-gold-btn);color:var(--ac-gold-ink);padding:6px 12px;font-size:.95rem}
+.ac-clockrow{display:flex;align-items:center;gap:6px}
+.ac-unit{display:flex;flex-direction:column;align-items:center;gap:4px}
+.ac-big{font-size:3.1rem;line-height:1;font-weight:800;font-variant-numeric:tabular-nums;min-width:2ch;text-align:center}
+.ac-num{font-family:inherit;font-weight:800;color:inherit;background:transparent;border:0;
+  border-bottom:2px dashed transparent;border-radius:0;padding:0;margin:0;width:2.2ch;text-align:center;
+  font-variant-numeric:tabular-nums;cursor:text}
+.ac-entry .ac-num{font-size:3.1rem;line-height:1.05}
+.ac-wctl .ac-num{width:3.4ch}
+.ac-num:hover{border-bottom-color:currentColor}
+.ac-num:focus{outline:none;border-bottom-color:currentColor;background:rgba(255,255,255,.35)}
+.ac-step{width:64px;height:34px;background:var(--ac-gold-btn);color:var(--ac-gold-ink);font-size:.95rem}
+.ac-step:active{filter:brightness(.9)}
+
+.ac-work{background:var(--ac-surface);border:1px solid var(--ac-line);border-radius:14px;padding:8px 12px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ac-work .ac-lbl{font-weight:700}
+.ac-wctl{display:flex;align-items:center;gap:8px;direction:ltr}
+.ac-wctl .ac-val{font-size:1.6rem;font-weight:800;min-width:3.2ch;text-align:center;font-variant-numeric:tabular-nums}
+.ac-sm{width:42px;height:38px;background:var(--ac-accent-soft);color:var(--ac-ink);font-size:1.2rem}
+
+.ac-hero{background:var(--ac-accent);color:var(--ac-on-accent);border-radius:18px;padding:14px 16px;
+  display:flex;flex-direction:column;gap:2px}
+.ac-hero .ac-top{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.ac-hero .ac-lbl{font-weight:600;opacity:.85}
+.ac-hero .ac-time{font-size:3.6rem;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;direction:ltr}
+.ac-hero .ac-left{font-weight:700;min-height:1.4em}
+.ac-track{display:flex;align-items:center;gap:8px;margin-top:12px}
+.ac-flag{font-size:1.4rem;line-height:1}
+.ac-lane{position:relative;flex:1;height:10px;border-radius:99px;background:rgba(255,255,255,.28);
+  background-image:repeating-linear-gradient(90deg,transparent 0 10px,rgba(255,255,255,.35) 10px 18px)}
+.ac-done{position:absolute;inset-block:0;right:0;width:0;border-radius:99px;background:currentColor;transition:width .6s ease}
+.ac-runner{position:absolute;top:50%;right:0;transform:translate(50%,-62%);font-size:1.6rem;line-height:1;transition:right .6s ease}
+.ac-ends{display:flex;justify-content:space-between;font-weight:600;font-size:.85rem;opacity:.85;
+  font-variant-numeric:tabular-nums;padding-inline:32px}
+
+.ac-bal{background:var(--ac-surface);border:1px solid var(--ac-line);border-radius:14px;padding:10px 14px;
+  display:flex;flex-direction:column;gap:2px}
+.ac-bal .ac-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.ac-bal .ac-lbl{font-weight:700}
+.ac-out{font-size:1.5rem;font-weight:800;color:var(--ac-accent);font-variant-numeric:tabular-nums;direction:ltr}
+.ac-out.ac-minus{color:var(--ac-warn)}
+.ac-hint{color:var(--ac-muted);font-size:.85rem;margin:0}
+@media (prefers-reduced-motion:reduce){.ac-done,.ac-runner{transition:none}}
+
+/* כפתור שעון בכותרת (מובייל) — מוסתר בדסקטופ שם יש כפתור בסרגל הכלים */
+.attendance-head-btn{flex-shrink:0;width:36px;height:36px;border-radius:50%;border:none;
+  background:linear-gradient(145deg,#2f6f63,#164a40);color:#eafff8;font-size:1.05rem;line-height:1;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:0 3px 8px rgba(0,0,0,.3),inset 0 1px 1px rgba(255,255,255,.2);
+  transition:transform .12s;-webkit-tap-highlight-color:transparent}
+.attendance-head-btn:active{transform:scale(.92)}
+@media (hover: hover) and (pointer: fine){.attendance-head-btn{display:none}}
+/* למובייל: לצמצם מרווחים בכותרת כך שהלוגו והטקסט לא יידחסו עם כפתור השעון */
+@media (max-width: 600px){
+  .header-inner{gap:9px}
+  /* הכותרת תופסת רק את רוחבה; השעון מתמרכז בחלל שבין הכותרת/לוגו לכפתור "מה הולך פה?" */
+  .header-titles{flex:0 1 auto}
+  .attendance-head-btn{width:34px;height:34px;font-size:1rem;margin-inline:auto}
+}
+@media (max-width: 400px){
+  .header-inner{gap:7px}
+  .attendance-head-btn{width:32px;height:32px}
+}
 </style>
 </head>
 <body>
@@ -4213,6 +4312,7 @@ body.dark-mode .card-body .msg-link { color: #7fb3ff; }
       <h1>כל התבניות<br>במקום אחד!</h1>
       <p>שיקום מקצועי</p>
     </div>
+    <button type="button" class="attendance-head-btn" onclick="openAttendance()" title="שעון נוכחות" aria-label="שעון נוכחות">🕐</button>
     <button type="button" class="changelog-btn" onclick="openChangelog()">
       מה הולך פה?
       <span class="changelog-badge" id="changelogBadge"></span>
@@ -4337,6 +4437,10 @@ body.dark-mode .card-body .msg-link { color: #7fb3ff; }
     <button type="button" class="tool-direct-btn" onclick="openDirectTool('travel')" title="מחשבון נסיעות ופרמטרים">
       <span class="tool-direct-emoji">🚌</span>
       <span>נסיעות/פרמטרים</span>
+    </button>
+    <button type="button" class="tool-direct-btn" onclick="openAttendance()" title="שעון נוכחות">
+      <span class="tool-direct-emoji">🕐</span>
+      <span>שעון נוכחות</span>
     </button>
     <button type="button" class="trum-open-chip" onclick="openTrumPrograms()" title="ריכוז תוכניות טרום שיקום ייחודיות — מסודר לפי אוכלוסיית יעד (מחשב)"><span class="trum-open-emoji">🎓</span><span>תוכניות טרום שיקום</span></button>
   </div>
@@ -7952,6 +8056,121 @@ function dashboardTileClick(filterId, tileEl) {
     openToolCalc(tool);
   }
 
+  /* ===== שעון נוכחות (מודאל) ===== */
+  function openAttendance() {
+    if (typeof acInitClock === 'function') acInitClock();
+    document.getElementById('attendanceOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (window.acClock && typeof window.acClock.render === 'function') window.acClock.render();
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('כלי: שעון נוכחות'); } catch (e) {}
+  }
+  function closeAttendance() {
+    document.getElementById('attendanceOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeAttendanceOutside(e) {
+    if (e.target && e.target.id === 'attendanceOverlay') closeAttendance();
+  }
+  function acInitClock() {
+    const root = document.getElementById('attendanceOverlay');
+    if (!root || window.__acInited) return;
+    window.__acInited = true;
+    const CONFIG = { workByDay: { 0:"7:45",1:"7:45",2:"7:45",3:"7:45",4:"7:45",5:null,6:null }, defaultEntry:"08:37" };
+    const DAYS = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"];
+    const $ = id => document.getElementById(id);
+    const pad = n => String(n).padStart(2,"0");
+    const toMin = s => { const [h,m] = s.split(":").map(Number); return h*60+m; };
+    const fmtDur = m => { const h=Math.floor(m/60), r=m%60;
+      if(!h) return `${r} דקות`; if(!r) return `${h} שעות`; return `${h} שעות ו-${r} דקות`; };
+    const hm = m => `${Math.floor(m/60)}:${pad(m%60)}`;
+    const todayKey = () => { const d=new Date(); return `ac_entry-${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`; };
+    const store = { get(k){try{return localStorage.getItem(k)}catch(e){return null}}, set(k,v){try{localStorage.setItem(k,v)}catch(e){}} };
+
+    const dow = new Date().getDay();
+    $("acDay").textContent = "יום " + DAYS[dow];
+    let entry = toMin(store.get(todayKey()) || CONFIG.defaultEntry);
+    let work  = toMin(store.get("ac_work") || CONFIG.workByDay[dow] || "7:45");
+
+    function render() {
+      const setV = (id,v) => { if(document.activeElement !== $(id)) $(id).value = v; };
+      setV("acHDisp", pad(Math.floor(entry/60))); setV("acMDisp", pad(entry%60));
+      setV("acWDisp", hm(work));
+      const exitMin = entry + work;
+      const exitStr = `${pad(Math.floor(exitMin/60)%24)}:${pad(exitMin%60)}`;
+      $("acExit").textContent = exitStr;
+      const n = new Date(), nowMin = n.getHours()*60 + n.getMinutes();
+      const diff = exitMin - nowMin;
+      if(nowMin < entry) $("acLeft").textContent = "עוד לא נכנסת";
+      else if(diff > 0) $("acLeft").textContent = `נשארו ${fmtDur(diff)}`;
+      else if(diff === 0) $("acLeft").textContent = "זהו, אפשר ללכת 🎉";
+      else $("acLeft").textContent = `סיימת לפני ${fmtDur(-diff)}`;
+      const p = work > 0 ? Math.min(1, Math.max(0, (nowMin-entry)/work)) : 0;
+      $("acDone").style.width = (p*100) + "%";
+      const runner = root.querySelector(".ac-runner"); if(runner) runner.style.right = (p*100) + "%";
+      $("acTStart").textContent = `${pad(Math.floor(entry/60))}:${pad(entry%60)}`;
+      $("acTEnd").textContent = exitStr;
+      $("acPct").textContent = Math.round(p*100) + "%";
+      const worked = Math.max(0, nowMin-entry);
+      $("acBalHint").textContent = `עבדת עד עכשיו ${hm(worked)} (${(worked/60).toFixed(2)} שעות)`;
+      const b = $("acBal");
+      if(diff > 0){ $("acBalLbl").textContent="חוסר אם אצא עכשיו"; b.textContent=`-${hm(diff)} (${(diff/60).toFixed(2)})`; b.classList.add("ac-minus"); }
+      else{ $("acBalLbl").textContent = diff===0 ? "מאוזן" : "עודף אם אצא עכשיו"; b.textContent=`+${hm(-diff)} (${(-diff/60).toFixed(2)})`; b.classList.remove("ac-minus"); }
+    }
+    window.acClock = { render };
+
+    function bump(t,d) {
+      if(t === "entry"){ entry = ((entry+d)%1440+1440)%1440; store.set(todayKey(), `${pad(Math.floor(entry/60))}:${pad(entry%60)}`); }
+      else { work = Math.min(16*60, Math.max(0, work+d)); store.set("ac_work", hm(work)); }
+      render();
+    }
+    root.querySelectorAll("[data-d]").forEach(btn => {
+      const t = btn.dataset.act, d = +btn.dataset.d; let t1, t2;
+      const stop = () => { clearTimeout(t1); clearInterval(t2); };
+      btn.addEventListener("pointerdown", e => { e.preventDefault(); bump(t,d);
+        t1 = setTimeout(() => { t2 = setInterval(() => bump(t,d), 90); }, 400); });
+      ["pointerup","pointerleave","pointercancel"].forEach(ev => btn.addEventListener(ev, stop));
+      btn.addEventListener("click", e => { if(e.detail === 0) bump(t,d); });
+      btn.addEventListener("contextmenu", e => e.preventDefault());
+    });
+    const saveEntry = () => store.set(todayKey(), `${pad(Math.floor(entry/60))}:${pad(entry%60)}`);
+    function commitEntry() {
+      const h = parseInt($("acHDisp").value,10), m = parseInt($("acMDisp").value,10);
+      const H = isNaN(h) ? Math.floor(entry/60) : Math.min(23, Math.max(0,h));
+      const M = isNaN(m) ? entry%60 : Math.min(59, Math.max(0,m));
+      entry = H*60 + M; saveEntry();
+    }
+    function parseWork(s) {
+      s = s.trim().replace(",",".");
+      if(s.includes(":")){ const [h,m] = s.split(":"); return (parseInt(h,10)||0)*60 + Math.min(59, parseInt(m,10)||0); }
+      if(s.includes(".")) return Math.round(parseFloat(s)*60);
+      if(/^\d{3,4}$/.test(s)) return parseInt(s.slice(0,-2),10)*60 + Math.min(59, parseInt(s.slice(-2),10));
+      const n = parseInt(s,10); return isNaN(n) ? NaN : n*60;
+    }
+    ["acHDisp","acMDisp","acWDisp"].forEach(id => {
+      const el = $(id);
+      el.addEventListener("focus", () => setTimeout(() => el.select(), 0));
+      el.addEventListener("keydown", e => { if(e.key === "Enter") el.blur(); });
+      el.addEventListener("blur", () => {
+        if(id === "acWDisp"){ const w = parseWork(el.value); if(!isNaN(w)){ work = Math.min(16*60, Math.max(0,w)); store.set("ac_work", hm(work)); } }
+        else commitEntry();
+        render();
+      });
+    });
+    $("acHDisp").addEventListener("input", e => {
+      const v = e.target.value.replace(/\D/g,""); e.target.value = v;
+      if(v.length === 2 || (v.length === 1 && +v > 2)){ commitEntry(); render(); $("acMDisp").focus(); }
+    });
+    $("acMDisp").addEventListener("input", e => {
+      const v = e.target.value.replace(/\D/g,""); e.target.value = v;
+      if(v.length === 2){ commitEntry(); render(); $("acMDisp").blur(); }
+    });
+    $("acNowBtn").addEventListener("click", () => { const n = new Date(); entry = n.getHours()*60 + n.getMinutes(); bump("entry",0); });
+
+    render(); setInterval(render, 30000);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', acInitClock);
+  else acInitClock();
+
   /* ===== מחשבון פשוט (prefixed bc) ===== */
   let bcCurrent = '0', bcPrev = null, bcOperator = null, bcFresh = true;
   function bcRender() {
@@ -9748,6 +9967,68 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     </div>
 
     <p class="settings-note">ההגדרות נשמרות במכשיר הזה בלבד (לא בין מכשירים שונים)</p>
+  </div>
+</div>
+
+<div class="ac-overlay" id="attendanceOverlay" onclick="closeAttendanceOutside(event)">
+  <div class="ac-modal" role="dialog" aria-modal="true" aria-label="שעון נוכחות">
+    <button type="button" class="ac-close" onclick="closeAttendance()" aria-label="סגירה">✕</button>
+    <div class="attendance-clock" dir="rtl">
+      <div class="ac-head">
+        <h1>🕐 שעון נוכחות</h1>
+        <span class="ac-day" id="acDay"></span>
+      </div>
+      <section class="ac-entry">
+        <div class="ac-lbl">
+          כניסה
+          <button type="button" class="ac-now" id="acNowBtn">עכשיו</button>
+        </div>
+        <div class="ac-clockrow" dir="ltr">
+          <div class="ac-unit">
+            <button type="button" class="ac-step" data-act="entry" data-d="60" aria-label="שעה יותר">▲</button>
+            <input class="ac-big ac-num" id="acHDisp" inputmode="numeric" maxlength="2" autocomplete="off" aria-label="שעת כניסה: שעה">
+            <button type="button" class="ac-step" data-act="entry" data-d="-60" aria-label="שעה פחות">▼</button>
+          </div>
+          <span class="ac-big">:</span>
+          <div class="ac-unit">
+            <button type="button" class="ac-step" data-act="entry" data-d="1" aria-label="דקה יותר">▲</button>
+            <input class="ac-big ac-num" id="acMDisp" inputmode="numeric" maxlength="2" autocomplete="off" aria-label="שעת כניסה: דקות">
+            <button type="button" class="ac-step" data-act="entry" data-d="-1" aria-label="דקה פחות">▼</button>
+          </div>
+        </div>
+      </section>
+      <section class="ac-work">
+        <span class="ac-lbl">שעות עבודה</span>
+        <div class="ac-wctl">
+          <button type="button" class="ac-sm" data-act="work" data-d="-5" aria-label="5 דקות פחות">−</button>
+          <input class="ac-val ac-num" id="acWDisp" inputmode="decimal" maxlength="5" autocomplete="off" aria-label="שעות עבודה">
+          <button type="button" class="ac-sm" data-act="work" data-d="5" aria-label="5 דקות יותר">+</button>
+        </div>
+      </section>
+      <section class="ac-hero" aria-live="polite">
+        <div class="ac-top">
+          <span class="ac-lbl">שעת יציאה</span>
+          <span class="ac-time" id="acExit">--:--</span>
+        </div>
+        <span class="ac-left" id="acLeft"></span>
+        <div class="ac-track" aria-hidden="true">
+          <span class="ac-flag">🏢</span>
+          <div class="ac-lane">
+            <div class="ac-done" id="acDone"></div>
+            <span class="ac-runner" id="acRunner">🏃</span>
+          </div>
+          <span class="ac-flag">🏠</span>
+        </div>
+        <div class="ac-ends"><span id="acTStart"></span><span id="acPct"></span><span id="acTEnd"></span></div>
+      </section>
+      <section class="ac-bal">
+        <div class="ac-row">
+          <span class="ac-lbl" id="acBalLbl">חוסר אם אצא עכשיו</span>
+          <span class="ac-out" id="acBal"></span>
+        </div>
+        <p class="ac-hint" id="acBalHint"></p>
+      </section>
+    </div>
   </div>
 </div>
 
