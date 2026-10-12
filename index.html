@@ -702,6 +702,82 @@ header p {
   }
 }
 
+/* ===== פאנל "תודה + שיתוף" — דסקטופ, נערם מעל "חדש במערכת" והעצלן ===== */
+.tp-panel { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .tp-panel {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 24px;
+    bottom: 560px; /* נקודת פתיחה; ה-JS ממקם מדויק מעל שאר הפאנלים */
+    width: 256px;
+    max-height: calc(100vh - 32px);
+    background: var(--paper-card);
+    border: 2px solid var(--navy);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(31, 43, 61, 0.18);
+    overflow: hidden;
+    direction: rtl;
+    text-align: right;
+    font-family: 'Heebo', sans-serif;
+    z-index: 58;
+  }
+  .tp-panel::before {
+    content: '';
+    display: block;
+    flex-shrink: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #e6b94d, var(--stamp-red));
+  }
+  .tp-scroll { flex: 1 1 auto; overflow-y: auto; }
+  .tp-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 9px 12px 4px;
+  }
+  .tp-title { font-weight: 800; color: var(--navy); font-size: 1rem; }
+  .tp-close {
+    background: none; border: none; cursor: pointer; color: var(--ink-soft);
+    font-size: 1rem; line-height: 1; padding: 3px 5px; border-radius: 6px;
+  }
+  .tp-close:hover { background: color-mix(in srgb, var(--ink-soft) 15%, transparent); }
+  .tp-stats { display: flex; gap: 6px; padding: 4px 12px 8px; }
+  .tp-stat {
+    flex: 1; text-align: center;
+    background: color-mix(in srgb, var(--navy) 7%, transparent);
+    border-radius: 10px; padding: 7px 4px;
+  }
+  .tp-stat-num { font-weight: 800; color: var(--navy); font-size: 1.05rem; line-height: 1.1; }
+  .tp-stat-lbl { font-size: 0.68rem; color: var(--ink-soft); margin-top: 2px; }
+  .tp-stats-note { font-size: 0.7rem; color: var(--ink-soft); padding: 0 12px 8px; text-align: center; }
+  .tp-thanks { font-size: 0.84rem; color: var(--ink); line-height: 1.5; padding: 0 12px 8px; }
+  .tp-share-label { font-size: 0.8rem; font-weight: 700; color: var(--navy); padding: 2px 12px 5px; }
+  .tp-msg {
+    margin: 0 12px;
+    background: color-mix(in srgb, var(--navy) 4%, var(--paper-card));
+    border: 1px dashed var(--navy); border-radius: 10px;
+    padding: 8px 10px; font-size: 0.78rem; color: var(--ink); line-height: 1.5;
+    white-space: pre-wrap; word-break: break-word; max-height: 130px; overflow-y: auto;
+  }
+  .tp-btns { display: flex; gap: 6px; padding: 7px 12px 4px; }
+  .tp-btns:last-child { padding-bottom: 12px; }
+  .tp-btn {
+    flex: 1; border: none; border-radius: 9px; padding: 9px 6px; cursor: pointer;
+    font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 0.85rem;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    transition: transform 0.12s, filter 0.12s;
+  }
+  .tp-btn:hover { filter: brightness(1.06); }
+  .tp-btn:active { transform: scale(0.97); }
+  .tp-btn-copy { background: var(--navy); color: #fff; }
+  .tp-btn-mail { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
+  .tp-btn-mail:hover { background: color-mix(in srgb, var(--navy) 9%, transparent); filter: none; }
+  .tp-btn.copied { background: var(--stamp-red); color: #fff; border-color: var(--stamp-red); }
+  .tp-fb-label { font-size: 0.8rem; font-weight: 700; color: var(--navy); padding: 6px 12px 3px; }
+  .tp-fb-sub { font-size: 0.76rem; color: var(--ink-soft); line-height: 1.45; padding: 0 12px 2px; }
+  .tp-divider { height: 1px; background: color-mix(in srgb, var(--navy) 18%, transparent); margin: 6px 12px 2px; }
+}
+
 /* ===== כניסה חגיגית למסך הבית (דסקטופ): כל אריח נדלק בצבעו בתורו, פעם אחת ===== */
 @keyframes tileFestiveGlow {
   0%   { box-shadow: 0 2px 6px rgba(43,38,32,0.07); }
@@ -3226,6 +3302,16 @@ body.dark-mode .refund-block { background: rgba(255,255,255,0.02); }
   text-overflow: ellipsis;
   display: inline-block;
 }
+/* לשונית הסבר ייחודית (מדריך העלאת מסמכים/קבלות) — טקסט בצבע מודגש כדי שתתבלט */
+.card-toggle-title.upload-guide-title {
+  color: var(--cat-consent);
+  font-weight: 800;
+}
+.card-toggle-title.upload-guide-title::before {
+  content: "📘 ";
+  font-weight: 400;
+}
+body.dark-mode .card-toggle-title.upload-guide-title { color: #4fd1ad; }
 
 .card-toggle-arrow {
   flex-shrink: 0;
@@ -4384,6 +4470,29 @@ body.dark-mode .ac-close{background:var(--ac-line);color:var(--ac-ink)}
   <ul class="new-msgs-list" id="newMsgsList"></ul>
 </div>
 
+<div class="tp-panel" id="thanksPanel" role="complementary" aria-label="תודה ושיתוף">
+  <div class="tp-scroll">
+    <div class="tp-head">
+      <span class="tp-title">💛 תודה שאתן כאן</span>
+      <button class="tp-close" onclick="tpClose()" title="סגירה" aria-label="סגירה">✕</button>
+    </div>
+    <div class="tp-stats" id="tpStats"></div>
+    <div class="tp-stats-note" id="tpStatsNote"></div>
+    <div class="tp-thanks">תודה לכל מי שנכנסה, השתמשה ושיתפה אותנו בפידבקים — זה עוזר לנו לשפר את האתר כל הזמן 🙏</div>
+    <div class="tp-share-label">מכירות מישהי שעוד לא מכירה את האתר? שלחו לה 👇</div>
+    <div class="tp-msg" id="tpMsgBox"></div>
+    <div class="tp-btns">
+      <button type="button" class="tp-btn tp-btn-copy" onclick="tpCopy(this)">📋 העתקת ההודעה</button>
+    </div>
+    <div class="tp-divider"></div>
+    <div class="tp-fb-label">✉️ ואשמח לשמוע גם ממך</div>
+    <div class="tp-fb-sub">איך הייתה חוויית השימוש עד עכשיו? יש לך מחשבות להמשך? כתבי לי מייל 🙂</div>
+    <div class="tp-btns">
+      <button type="button" class="tp-btn tp-btn-mail" onclick="tpEmail()">✉️ כתיבת מייל</button>
+    </div>
+  </div>
+</div>
+
 <div class="desktop-mascot-fab" id="desktopMascotFab" onclick="subTileClick('studies','students',null)" onkeydown="if(event.key==='Enter'||event.key===' '){subTileClick('studies','students',null);}" role="button" tabindex="0" title="לחצו למעבר לסטודנטים">
   <span class="desktop-mascot-badge" id="desktopMascotBadge">👆 סטודנטים</span>
 </div>
@@ -5120,6 +5229,7 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
       <div class="card-collapsible">
         <div class="card-body" id="msg29">שלום, רצינו לעדכן אתכם על מסלול סיוע נוסף שיכול להשלים את הסיוע שאתם מקבלים דרכנו 🕊️
 הקרן לנפגעי טרור של הסוכנות היהודית מעניקה מענק שיקומי משלים של עד 25,000 ₪ לבית אב, למימוש כנגד הצעות מחיר או חשבוניות בתחומי שיקום שונים.
+ℹ️ שימו לב: החל מחודש 03/2026 נדרשת דרגת נכות של 30% לפחות כדי לקבל את הסיוע.
 🔗 למידע מלא ולבדיקת זכאות:
 https://fvot.jewishagency.org/long-term-support/
 📞 ליצירת קשר עם הקרן: 03-7628372</div>
@@ -5147,7 +5257,7 @@ https://fvot.jewishagency.org/long-term-support/
     <div class="card terror-card" data-added="2026-07-22">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
-        <span class="card-toggle-title">מדריך להעלאת מסמכים</span>
+        <span class="card-toggle-title upload-guide-title">מדריך להעלאת מסמכים</span>
         <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="card-quick-actions" onclick="event.stopPropagation()">
@@ -5517,6 +5627,7 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
       <div class="card-collapsible">
         <div class="card-body" id="msg30">שלום, רצינו לעדכן אתכם על מסלול סיוע נוסף שיכול להשלים את הסיוע שאתם מקבלים דרכנו 🕊️
 הקרן לנפגעי טרור של הסוכנות היהודית מעניקה מענק שיקומי משלים של עד 25,000 ₪ לבית אב, למימוש כנגד הצעות מחיר או חשבוניות בתחומי שיקום שונים.
+ℹ️ שימו לב: החל מחודש 03/2026 נדרשת דרגת נכות של 30% לפחות כדי לקבל את הסיוע.
 🔗 למידע מלא ולבדיקת זכאות:
 https://fvot.jewishagency.org/long-term-support/
 📞 ליצירת קשר עם הקרן: 03-7628372</div>
@@ -5755,6 +5866,7 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
       <div class="card-collapsible">
         <div class="card-body" id="msg31">שלום, רצינו לעדכן אתכם על מסלול סיוע נוסף שיכול להשלים את הסיוע שאתם מקבלים דרכנו 🕊️
 הקרן לנפגעי טרור של הסוכנות היהודית מעניקה מענק שיקומי משלים של עד 25,000 ₪ לבית אב, למימוש כנגד הצעות מחיר או חשבוניות בתחומי שיקום שונים.
+ℹ️ שימו לב: החל מחודש 03/2026 נדרשת דרגת נכות של 30% לפחות כדי לקבל את הסיוע.
 🔗 למידע מלא ולבדיקת זכאות:
 https://fvot.jewishagency.org/long-term-support/
 📞 ליצירת קשר עם הקרן: 03-7628372</div>
@@ -5982,7 +6094,7 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
     <div class="card terror-card">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
-        <span class="card-toggle-title">מדריך העלאת מסמכים</span>
+        <span class="card-toggle-title upload-guide-title">מדריך העלאת מסמכים</span>
         <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="card-quick-actions" onclick="event.stopPropagation()">
@@ -7430,8 +7542,7 @@ function dashboardTileClick(filterId, tileEl) {
   const REQUIRES_INPUT_MSG = 'יש למלא פרטים בכרטיסייה לפני ההעתקה/שליחה 📝';
   const REQUIRES_SELECTION_MSGS = {
     msg12: 'יש לוודא את בחירת הסניף בכרטיסייה לפני ההעתקה/שליחה 📝',
-    msg17: 'יש לוודא את בחירת המכשיר (נייד/מחשב) בכרטיסייה לפני ההעתקה/שליחה 📝',
-    msg18: 'יש לוודא את בחירת המכשיר (נייד/מחשב) בכרטיסייה לפני ההעתקה/שליחה 📝'
+    msg17: 'יש לוודא את בחירת המכשיר (נייד/מחשב) בכרטיסייה לפני ההעתקה/שליחה 📝'
   };
   const REQUIRES_SELECTION = new Set(Object.keys(REQUIRES_SELECTION_MSGS));
 
@@ -7862,8 +7973,9 @@ function dashboardTileClick(filterId, tileEl) {
     panel.classList.add('has-items');
     matchSidePanelHeights();
     positionNewMsgsPanel();
+    if (typeof positionThanksPanel === 'function') positionThanksPanel();
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(function () { matchSidePanelHeights(); positionNewMsgsPanel(); });
+      document.fonts.ready.then(function () { matchSidePanelHeights(); positionNewMsgsPanel(); if (typeof positionThanksPanel === 'function') positionThanksPanel(); });
     }
   }
 
@@ -8821,6 +8933,7 @@ function dashboardTileClick(filterId, tileEl) {
   window.addEventListener('resize', function () {
     if (typeof matchSidePanelHeights === 'function') matchSidePanelHeights();
     if (typeof positionNewMsgsPanel === 'function') positionNewMsgsPanel();
+    if (typeof positionThanksPanel === 'function') positionThanksPanel();
   });
 
   /* הבהוב ההזמנה להצטרפות — פעם אחת בלבד לכל עובדת, מופעל אחרי דקה באתר (לא בכניסה) */
@@ -10574,6 +10687,120 @@ window.closeTrumPrograms = function(){
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+</script>
+
+<!-- ===== פאנל "תודה + שיתוף" (דסקטופ) ===== -->
+<script>
+  /* ====== הגדרות שאפשר לערוך ביד ======
+     מספרים מעוגלים/אֶברגרין — לא תלויים במשיכת נתונים חיה.
+     לעדכון: שנו את הטקסט בשדה num. */
+  var TP_STATS = [
+    { num: '139',   lbl: 'משתמשות' },
+    { num: '392',   lbl: 'כניסות' },
+    { num: '1,080', lbl: 'שימושים' }
+  ];
+  var TP_STATS_NOTE = '📊 נתוני החודשיים האחרונים';
+  var TP_FEEDBACK_EMAIL = 'amirti@nioi.gov.il';
+
+  var TP_SITE_URL = 'https://amirtishbi.github.io/Shikum-msg/';
+  function tpSiteUrl() { return TP_SITE_URL; }
+
+  function tpBuildMsg() {
+    return 'היי 🙂\n' +
+      'רציתי להמליץ לך על אתר שמרכז את כל התבניות וההודעות לשיקום במקום אחד — חוסך הרבה זמן בעבודה היומיומית.\n' +
+      'כניסה לאתר:\n' +
+      tpSiteUrl() + '\n' +
+      'מקווה שיעזור לך כמו שעוזר לנו 💛';
+  }
+
+  function tpFallbackCopy(text) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    } catch (e) {}
+  }
+
+  async function tpCopy(btn) {
+    var text = tpBuildMsg();
+    try { await navigator.clipboard.writeText(text); }
+    catch (e) { tpFallbackCopy(text); }
+    var orig = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.innerHTML = '✓ הועתק!';
+    setTimeout(function () { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2200);
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('שיתוף: העתקת הודעת הזמנה'); } catch (e) {}
+  }
+
+  /* הנושא והגוף באנגלית — Outlook משבש עברית בקישורי mailto (קידוד ANSI ישן) */
+  function tpEmail() {
+    var subject = encodeURIComponent('Feedback - Templates Tool');
+    var body = encodeURIComponent('Hi Amir,\nI wanted to share my experience using the Templates Tool so far, and some thoughts for the future:\n\n');
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('משוב: מייל חוויית שימוש'); } catch (e) {}
+    try { window.location.href = 'mailto:' + TP_FEEDBACK_EMAIL + '?subject=' + subject + '&body=' + body; } catch (e) {}
+  }
+
+  function tpClose() {
+    var panel = document.getElementById('thanksPanel');
+    if (panel) panel.style.display = 'none';
+    try { sessionStorage.setItem('tp_dismissed', '1'); } catch (e) {}
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('פאנל תודה: סגירה'); } catch (e) {}
+  }
+
+  /* מיקום: נערם מעל העצלן ומעל פאנל "חדש במערכת" אם הוא מוצג */
+  function positionThanksPanel() {
+    var panel = document.getElementById('thanksPanel');
+    var fab = document.getElementById('desktopMascotFab');
+    if (!panel || !fab) return;
+    if (getComputedStyle(fab).display === 'none') return;
+    if (panel.style.display === 'none') return;
+    var fabRect = fab.getBoundingClientRect();
+    if (!fabRect.height) return;
+    var anchorFromBottom = 24 + fabRect.height; /* הקצה העליון של העצלן, נמדד מתחתית המסך */
+    var nm = document.getElementById('newMsgsPanel');
+    if (nm && nm.classList.contains('has-items') && getComputedStyle(nm).display !== 'none') {
+      var nmBottom = parseFloat(getComputedStyle(nm).bottom) || 0;
+      var nmTop = nmBottom + nm.offsetHeight;
+      if (nmTop > anchorFromBottom) anchorFromBottom = nmTop;
+    }
+    var bottom = anchorFromBottom + 16;
+    var maxBottom = window.innerHeight - panel.offsetHeight - 16;
+    if (maxBottom > 0) bottom = Math.min(bottom, maxBottom);
+    panel.style.bottom = Math.max(bottom, 16) + 'px';
+  }
+
+  function tpInit() {
+    if (window.__tpInited) return;
+    window.__tpInited = true;
+    var panel = document.getElementById('thanksPanel');
+    if (!panel) return;
+    var dismissed = false;
+    try { dismissed = sessionStorage.getItem('tp_dismissed') === '1'; } catch (e) {}
+    if (dismissed) { panel.style.display = 'none'; return; }
+    var box = document.getElementById('tpMsgBox');
+    if (box) box.textContent = tpBuildMsg();
+    var note = document.getElementById('tpStatsNote');
+    if (note) note.textContent = TP_STATS_NOTE;
+    var sc = document.getElementById('tpStats');
+    if (sc) {
+      sc.innerHTML = TP_STATS.map(function (s) {
+        return '<div class="tp-stat"><div class="tp-stat-num">' + s.num +
+               '</div><div class="tp-stat-lbl">' + s.lbl + '</div></div>';
+      }).join('');
+    }
+    positionThanksPanel();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(positionThanksPanel);
+    }
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('פאנל תודה: הצגה'); } catch (e) {}
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tpInit);
+  else tpInit();
 </script>
 </body>
 
