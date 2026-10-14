@@ -8983,7 +8983,12 @@ function dashboardTileClick(filterId, tileEl) {
       }
       try { showCopiedToast(); } catch (e) {}
       if (typeof hapticTap === 'function') hapticTap();
-      try { trackUse('העתקה', 'msg12'); } catch (e) {}
+      /* מעקב Umami לפי עיר — נספר משתי המפות (הראשית ובתוך הלשונית), שתיהן קוראות לפונקציה זו */
+      try {
+        var BRANCH_CITY_NAMES = { ks: 'כפר סבא', rg: 'רמת גן', ramla: 'רמלה', rehovot: 'רחובות', jerusalem: 'ירושלים' };
+        var cityName = BRANCH_CITY_NAMES[key] || key;
+        if (window.umami && typeof window.umami.track === 'function') window.umami.track(('העתקה: הגעה לסניף – ' + cityName).slice(0, 50));
+      } catch (e) {}
     })();
   }
 
