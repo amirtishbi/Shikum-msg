@@ -11019,6 +11019,74 @@ window.closeTrumPrograms = function(){
     }, true);
   })();
 </script>
+
+<!-- ===== פופ-אפ לנייד: המלצה על גרסת המחשב ===== -->
+<style>
+  .mobile-hint-overlay { display: none; position: fixed; inset: 0; z-index: 12000; background: rgba(0,0,0,0.45); }
+  .mobile-hint-overlay.open { display: block; }
+  @media (hover: hover) and (pointer: fine) { .mobile-hint-overlay { display: none !important; } }
+  .mobile-hint-sheet {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    background: var(--paper-card);
+    border-radius: 18px 18px 0 0;
+    padding: 18px 18px calc(18px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -6px 24px rgba(0,0,0,0.25);
+    direction: rtl; text-align: right; font-family: 'Heebo', sans-serif;
+    animation: mhUp 0.25s ease;
+  }
+  @keyframes mhUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .mobile-hint-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .mobile-hint-title { font-weight: 800; color: var(--navy); font-size: 1.1rem; line-height: 1.3; }
+  .mobile-hint-close { background: none; border: none; font-size: 1.3rem; color: var(--ink-soft); cursor: pointer; line-height: 1; padding: 2px 6px; }
+  .mobile-hint-body { font-size: 0.95rem; color: var(--ink); line-height: 1.55; margin: 8px 0 14px; }
+  .mobile-hint-btns { display: flex; flex-direction: column; gap: 9px; }
+  .mobile-hint-btn { border: none; border-radius: 12px; padding: 13px; font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 0.98rem; cursor: pointer; }
+  .mobile-hint-btn-primary { background: var(--navy); color: #fff; }
+  .mobile-hint-btn-soft { background: color-mix(in srgb, var(--navy) 10%, transparent); color: var(--navy); font-size: 0.92rem; }
+  .mobile-hint-btn-ghost { background: transparent; color: var(--ink-soft); }
+</style>
+<div class="mobile-hint-overlay" id="mobileHint" onclick="if(event.target===this)closeMobileHintLater()">
+  <div class="mobile-hint-sheet" role="dialog" aria-label="טיפ: האתר נוח יותר במחשב">
+    <div class="mobile-hint-head">
+      <span class="mobile-hint-title">💻 רוצים את החוויה המלאה? נסו במחשב</span>
+      <button class="mobile-hint-close" onclick="closeMobileHintLater()" aria-label="סגירה">✕</button>
+    </div>
+    <div class="mobile-hint-body">גולשים מהנייד? שווה לדעת שבאתר דרך המחשב התצוגה נוחה יותר, עם יותר אפשרויות וכלים. אפשר לשלוח לעצמכם את קישור האתר למייל, ולפתוח אותו מהמחשב כשנוח 🙂</div>
+    <div class="mobile-hint-btns">
+      <button class="mobile-hint-btn mobile-hint-btn-primary" onclick="mobileHintEmail()">📧 שליחת קישור האתר למייל</button>
+      <button class="mobile-hint-btn mobile-hint-btn-soft" onclick="dismissMobileHintForever()">מכירה, האתר במחשב באמת מדהים — אל תציגו שוב</button>
+      <button class="mobile-hint-btn mobile-hint-btn-ghost" onclick="closeMobileHintLater()">אולי אחר כך</button>
+    </div>
+  </div>
+</div>
+<script>
+  (function () {
+    var KEY = 'mobile_desktop_hint_dismissed';
+    function isMobile() { try { return window.matchMedia('(max-width: 600px)').matches; } catch (e) { return false; } }
+    function hide() { var o = document.getElementById('mobileHint'); if (o) o.classList.remove('open'); }
+    function setSeen() { try { localStorage.setItem(KEY, '1'); } catch (e) {} }
+    /* "אולי אחר כך" / ✕ / רקע — סוגר בלבד, יוצג שוב בכניסה הבאה */
+    window.closeMobileHintLater = function () { try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('נייד: אולי אחר כך'); } catch (e) {} hide(); };
+    /* "אל תציגו שוב" — לא יוצג יותר אף פעם */
+    window.dismissMobileHintForever = function () { try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('נייד: אל תציג שוב'); } catch (e) {} setSeen(); hide(); };
+    window.showMobileHint = function () { var o = document.getElementById('mobileHint'); if (o) o.classList.add('open'); };
+    window.mobileHintEmail = function () {
+      var url = 'https://amirtishbi.github.io/Shikum-msg/';
+      var subject = encodeURIComponent('קישור לאתר התבניות');
+      var body = encodeURIComponent('קישור לאתר "כל התבניות במקום אחד", לפתיחה מהמחשב:\n' + url);
+      try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('נייד: שליחת קישור למייל'); } catch (e) {}
+      try { window.location.href = 'mailto:?subject=' + subject + '&body=' + body; } catch (e) {}
+      setSeen(); hide();
+    };
+    function maybeShow() {
+      if (!isMobile()) return;
+      var seen = false; try { seen = localStorage.getItem(KEY) === '1'; } catch (e) {}
+      if (seen) return;
+      setTimeout(window.showMobileHint, 1500);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', maybeShow); else maybeShow();
+  })();
+</script>
 </body>
 
 <div class="copy-toast" id="copyToast">✓ ההודעה הועתקה</div>
