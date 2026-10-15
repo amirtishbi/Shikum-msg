@@ -10950,7 +10950,6 @@ window.closeTrumPrograms = function(){
     var panel = document.getElementById('thanksPanel');
     if (panel) panel.style.display = 'none';
     try { sessionStorage.setItem('tp_dismissed', '1'); } catch (e) {}
-    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('פאנל תודה: סגירה'); } catch (e) {}
   }
 
   /* מיקום: נערם מעל העצלן ומעל פאנל "חדש במערכת" אם הוא מוצג */
@@ -11002,11 +11001,23 @@ window.closeTrumPrograms = function(){
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(positionThanksPanel);
     }
-    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('פאנל תודה: הצגה'); } catch (e) {}
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tpInit);
   else tpInit();
+</script>
+
+<!-- ===== מעקב Umami: לחיצה על סרטון מדריך העלאת קבלות ===== -->
+<script>
+  (function () {
+    var VIDEO_FILE_ID = '1KLVLyHZutq8LE0lGs25N-cDVfxNc1gHA';
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a') : null;
+      if (a && a.href && a.href.indexOf(VIDEO_FILE_ID) !== -1) {
+        try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('וידאו: מדריך העלאת קבלות'); } catch (err) {}
+      }
+    }, true);
+  })();
 </script>
 </body>
 
