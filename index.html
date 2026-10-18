@@ -8615,6 +8615,16 @@ function dashboardTileClick(filterId, tileEl) {
     }
   }
 
+  /* טלפון: לחיצה בכל מקום בשורת הכפתורים (שלא על כפתור) פותחת את ההודעה — כל הכרטיס הוא שטח לחיצה */
+  document.addEventListener('click', function (e) {
+    if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+    var qa = e.target.closest && e.target.closest('.card-header-row .card-quick-actions');
+    if (!qa || e.target.closest('button')) return;
+    var row = qa.closest('.card-header-row');
+    var tg = row ? row.querySelector('.card-toggle') : null;
+    if (tg) { e.stopPropagation(); toggleCard(tg); }
+  }, true);
+
   // ===== Quick action buttons (on closed card) =====
   const REQUIRES_INPUT = new Set(['msg10', 'msg15']);
   const REQUIRES_INPUT_MSG = 'יש למלא פרטים בכרטיסייה לפני ההעתקה/שליחה 📝';
@@ -9843,6 +9853,7 @@ function dashboardTileClick(filterId, tileEl) {
   }
   /* סגירת מצב הפוקוס של כל תפריט רדיאלי פתוח (כולל ניקוי מאזיני תנועה) */
   function radialCloseAll() {
+    if (typeof mFlowerClose === 'function') mFlowerClose();
     document.querySelectorAll('.tile-wrap.radial-open').forEach(function (w) {
       if (typeof w._radialClose === 'function') w._radialClose(); else w.classList.remove('radial-open');
     });
@@ -9982,11 +9993,73 @@ function dashboardTileClick(filterId, tileEl) {
           if (wrap.classList.contains('radial-open')) { close(); return; }
           radialCloseAll();
           open();
+        } else if (window.matchMedia('(hover: none) and (pointer: coarse)').matches && wrap.querySelector('.tile-petal')) {
+          /* טלפון: הקטגוריה קופצת למרכז המסך עם תתי הקטגוריות כמו פרח */
+          e.stopPropagation();
+          e.preventDefault();
+          mFlowerOpen(wrap);
         }
       }, true);
     });
   }
   document.addEventListener('DOMContentLoaded', initRadialMenus);
+
+  /* ===== פרח בטלפון: שכבה במרכז המסך ===== */
+  function mFlowerEl() {
+    var el = document.getElementById('mFlower');
+    if (el) return el;
+    el = document.createElement('div');
+    el.className = 'm-flower';
+    el.id = 'mFlower';
+    el.innerHTML = '<div class="m-flower-stage"><div class="m-flower-ring"></div>'
+      + '<button type="button" class="m-flower-core" aria-label="סגירה"></button></div>';
+    el.addEventListener('click', function (e) {
+      /* לחיצה על הרקע או על המרכז סוגרת; לחיצה על עלה מבצעת את הפעולה שלו (שסוגרת דרך radialCloseAll) */
+      if (e.target.closest('.tile-petal')) return;
+      mFlowerClose();
+    });
+    document.body.appendChild(el);
+    return el;
+  }
+  function mFlowerOpen(wrap) {
+    var el = mFlowerEl();
+    var stage = el.querySelector('.m-flower-stage');
+    var core = el.querySelector('.m-flower-core');
+    var tile = wrap.querySelector('.dashboard-tile');
+    stage.querySelectorAll('.tile-petal').forEach(function (p) { p.remove(); });
+    var color = tile ? getComputedStyle(tile).getPropertyValue('--tile-color') : '';
+    el.style.setProperty('--tile-color', color || 'var(--navy)');
+    var icon = tile ? (tile.querySelector('.dashboard-tile-icon') || {}).textContent : '';
+    var lblEl = tile ? tile.querySelector('.dashboard-tile-label') : null;
+    var label = lblEl ? lblEl.innerHTML.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').replace(/&quot;/g, '"') : '';
+    core.innerHTML = '<span class="m-core-ico"></span><span class="m-core-lbl"></span><span class="m-core-x">✕</span>';
+    core.querySelector('.m-core-ico').textContent = icon || '';
+    core.querySelector('.m-core-lbl').textContent = (label || '').replace(/\s+/g, ' ').trim();
+    var petals = wrap.querySelectorAll('.tile-radial .tile-petal');
+    var n = petals.length;
+    var R = Math.min(132, Math.round(window.innerWidth * 0.34));
+    el.style.setProperty('--mR', R + 'px');
+    petals.forEach(function (p, i) {
+      var c = p.cloneNode(true);
+      var a = (-90 + (360 / n) * i) * Math.PI / 180;
+      c.style.setProperty('--mx', (Math.cos(a) * R).toFixed(1) + 'px');
+      c.style.setProperty('--my', (Math.sin(a) * R).toFixed(1) + 'px');
+      c.style.setProperty('--d', (i * 45) + 'ms');
+      stage.appendChild(c);
+    });
+    document.body.classList.add('m-flower-open');
+    el.classList.add('show');
+    void el.offsetWidth;
+    el.classList.add('open');
+    umTrack('פרח נייד: ' + (label || '').replace(/\s+/g, ' ').trim());
+  }
+  function mFlowerClose() {
+    var el = document.getElementById('mFlower');
+    if (!el || !el.classList.contains('show')) return;
+    el.classList.remove('open');
+    document.body.classList.remove('m-flower-open');
+    setTimeout(function () { if (!el.classList.contains('open')) el.classList.remove('show'); }, 260);
+  }
 
   /* ===== בורר מכשיר (נייד/מחשב) במדריכי העלאת מסמכים ===== */
   const UPLOAD_GUIDES = {
@@ -12245,6 +12318,79 @@ window.closeTrumPrograms = function(){
 .about-list li span { flex: 0 0 auto; width: 22px; text-align: center; }
 .about-foot { margin-top: 14px !important; padding: 10px 12px; border-radius: 10px; background: color-mix(in srgb, #e6b94d 16%, transparent); border: 1px solid color-mix(in srgb, #e6b94d 45%, transparent); font-size: 0.85rem; }
 body.dark-mode .about-h { color: #e6b94d; }
+
+/* ===== פרח בטלפון — הקטגוריה במרכז המסך ותתי הקטגוריות סביבה ===== */
+.m-flower { display: none; }
+.m-flower.show {
+  display: block; position: fixed; inset: 0; z-index: 400;
+  background: rgba(18, 22, 30, 0); transition: background 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.m-flower.open { background: rgba(18, 22, 30, 0.72); }
+body.m-flower-open { overflow: hidden; }
+.m-flower-stage { position: absolute; left: 50%; top: 48%; width: 0; height: 0; }
+.m-flower-ring {
+  position: absolute; left: 0; top: 0; width: calc(var(--mR) * 2); height: calc(var(--mR) * 2);
+  transform: translate(-50%, -50%) scale(0.4); opacity: 0;
+  border: 2px dashed rgba(255, 255, 255, 0.35); border-radius: 50%;
+  transition: transform 0.35s ease, opacity 0.3s ease;
+}
+.m-flower.open .m-flower-ring { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+.m-flower-core {
+  position: absolute; left: 0; top: 0; width: 124px; height: 124px; border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.5); opacity: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  background: #fffdf7; border: 3px solid var(--tile-color); cursor: pointer;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--tile-color) 25%, transparent), 0 0 40px 6px color-mix(in srgb, var(--tile-color) 45%, transparent), 0 14px 30px rgba(0,0,0,0.35);
+  font-family: 'Heebo', sans-serif; color: var(--ink);
+  transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+}
+.m-flower.open .m-flower-core { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+.m-core-ico { font-size: 2rem; line-height: 1; }
+.m-core-lbl { font-size: 0.82rem; font-weight: 800; text-align: center; line-height: 1.15; padding: 0 8px; }
+.m-core-x { font-size: 0.7rem; color: var(--ink-soft); font-weight: 700; }
+.m-flower .tile-petal {
+  position: absolute; left: 0; top: 0; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  background: none; border: none; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transform: translate(-50%, -50%) scale(0); opacity: 0;
+  transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+  transition-delay: var(--d, 0ms);
+}
+.m-flower.open .tile-petal { transform: translate(calc(-50% + var(--mx)), calc(-50% + var(--my))) scale(1); opacity: 1; }
+.m-flower .tile-petal:active .petal-badge { transform: scale(0.92); }
+.m-flower .petal-badge {
+  position: relative; width: 64px; height: 64px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 1.7rem; line-height: 1;
+  background: radial-gradient(circle at 34% 28%, #ffffff 0%, color-mix(in srgb, var(--tile-color) 12%, #ffffff) 100%);
+  border: 2px solid color-mix(in srgb, var(--tile-color) 55%, #fff);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 16px color-mix(in srgb, var(--tile-color) 35%, transparent);
+  transition: transform 0.15s ease;
+}
+.m-flower .petal-label {
+  font-family: 'Heebo', sans-serif; font-size: 0.78rem; font-weight: 800; color: var(--ink);
+  background: rgba(255, 255, 255, 0.97); padding: 2px 10px; border-radius: 999px; white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.m-flower .petal-count {
+  position: absolute; top: -4px; left: -4px; min-width: 22px; height: 22px; padding: 0 6px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--tile-color); color: #fff; border: 1.5px solid color-mix(in srgb, var(--tile-color) 60%, #000);
+  border-radius: 11px; font-family: 'Heebo', sans-serif; font-size: 0.72rem; font-weight: 800; line-height: 1;
+}
+.m-flower .tile-petal.petal-add .petal-badge { border-style: dashed; font-size: 1.4rem; }
+
+/* ===== טלפון: כל אריחי מסך הבית באותו גודל (גם כשהשם בשתי שורות) ===== */
+@media (hover: none) and (pointer: coarse) {
+  /* שטח השם שמור לשתי שורות בכל אריח — כך כל האריחים באותו גובה */
+  #mobileDashboardGrid .dashboard-tile-label { min-height: 2.6em; display: flex; align-items: center; justify-content: center; text-align: center; }
+  #mobileDashboardGrid > .tile-wrap { align-items: stretch; }
+  #mobileDashboardGrid .dashboard-tile { height: 100%; }
+}
+
+/* טלפון: כל השורה מגיבה ללחיצה — גם השטח הריק ליד הכפתורים */
+@media (hover: none) and (pointer: coarse) {
+  .card-header-row .card-quick-actions { cursor: pointer; }
+}
 </style>
 <div class="mobile-hint-overlay" id="mobileHint" onclick="if(event.target===this)closeMobileHintLater()">
   <div class="mobile-hint-sheet" role="dialog" aria-label="טיפ: האתר נוח יותר במחשב">
