@@ -4913,7 +4913,6 @@ body.dark-mode .ac-close{background:var(--ac-line);color:var(--ac-ink)}
 <nav class="filter-bar" id="filterBarChips" aria-label="סינון לפי קטגוריה">
   <div class="filter-bar-inner">
     <button type="button" class="filter-chip filter-chip-all active" data-filter="all" onclick="toggleFilter(this)">הכל</button>
-    <button type="button" class="filter-chip filter-chip-fav" data-filter="fav" onclick="toggleFavFilter(this)" title="הצג רק הודעות מועדפות">⭐ מועדפים</button>
     <button type="button" class="filter-chip filter-studies" data-filter="studies" onclick="toggleFilter(this)">שיקום מקצועי - נ"כ ונ"ע</button>
     <button type="button" class="filter-chip filter-eiva" data-filter="eiva" onclick="toggleFilter(this)">שיקום איבה</button>
     <button type="button" class="filter-chip filter-therapists" data-filter="therapists" onclick="toggleFilter(this)">מטפלים/ספקים</button>
@@ -5299,7 +5298,6 @@ body.dark-mode .ac-close{background:var(--ac-line);color:var(--ac-ink)}
         <button class="quick-btn quick-copy" onclick="quickCopy('msg26', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg26')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg26')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg26" onclick="toggleFav('msg26', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -5332,7 +5330,6 @@ https://govforms.gov.il/mw/forms/t270@btl.gov.il
           <button class="feedback-btn" onclick="sendFeedback('msg26')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg26" onclick="toggleFav('msg26', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5368,7 +5365,6 @@ https://govforms.gov.il/mw/forms/t270@btl.gov.il
         <button class="quick-btn quick-copy" onclick="quickCopy('msg1', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg1')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg1')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg1" onclick="toggleFav('msg1', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -5404,7 +5400,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
           <button class="feedback-btn" onclick="sendFeedback('msg1')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg1" onclick="toggleFav('msg1', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5419,7 +5414,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
         <button class="quick-btn quick-copy" onclick="quickCopy('msg_psycho', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg_psycho')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg_psycho')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg_psycho" onclick="toggleFav('msg_psycho', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -5456,7 +5450,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
           <button class="feedback-btn" onclick="sendFeedback('msg_psycho')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg_psycho" onclick="toggleFav('msg_psycho', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5471,7 +5464,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
         <button class="quick-btn quick-copy" onclick="quickCopy('msg2', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg2')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg2')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg2" onclick="toggleFav('msg2', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -5500,7 +5492,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
           <button class="feedback-btn" onclick="sendFeedback('msg2')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg2" onclick="toggleFav('msg2', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5515,7 +5506,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
         <button class="quick-btn quick-copy" onclick="quickCopy('msg3', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg3')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg3')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg3" onclick="toggleFav('msg3', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -5541,7 +5531,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
           <button class="feedback-btn" onclick="sendFeedback('msg3')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg3" onclick="toggleFav('msg3', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5556,7 +5545,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
         <button class="quick-btn quick-copy" onclick="quickCopy('msg4', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg4')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg4')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg4" onclick="toggleFav('msg4', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -5580,7 +5568,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
           <button class="feedback-btn" onclick="sendFeedback('msg4')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg4" onclick="toggleFav('msg4', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5595,7 +5582,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
         <button class="quick-btn quick-copy" onclick="quickCopy('msg5', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg5')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg5')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg5" onclick="toggleFav('msg5', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -5649,7 +5635,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
           <button class="feedback-btn" onclick="sendFeedback('msg5')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg5" onclick="toggleFav('msg5', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5685,7 +5670,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
         <button class="quick-btn quick-copy" onclick="quickCopy('msgDebtLoan', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msgDebtLoan')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msgDebtLoan')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msgDebtLoan" onclick="toggleFav('msgDebtLoan', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -5744,7 +5728,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           <button class="feedback-btn" onclick="sendFeedback('msgDebtLoan')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msgDebtLoan" onclick="toggleFav('msgDebtLoan', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5759,7 +5742,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         <button class="quick-btn quick-copy" onclick="quickCopy('msgDental', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msgDental')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msgDental')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msgDental" onclick="toggleFav('msgDental', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -5801,7 +5783,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           <button class="feedback-btn" onclick="sendFeedback('msgDental')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msgDental" onclick="toggleFav('msgDental', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5816,7 +5797,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         <button class="quick-btn quick-copy" onclick="quickCopy('msgEivaCenters', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msgEivaCenters')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msgEivaCenters')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msgEivaCenters" onclick="toggleFav('msgEivaCenters', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -5859,7 +5839,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/eyva-centers/Pages/defaul
           <button class="feedback-btn" onclick="sendFeedback('msgEivaCenters')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msgEivaCenters" onclick="toggleFav('msgEivaCenters', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5874,7 +5853,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/eyva-centers/Pages/defaul
         <button class="quick-btn quick-copy" onclick="quickCopy('msg29', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg29')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg29')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg29" onclick="toggleFav('msg29', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -5900,7 +5878,6 @@ https://fvot.jewishagency.org/long-term-support/
           <button class="feedback-btn" onclick="sendFeedback('msg29')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg29" onclick="toggleFav('msg29', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5915,7 +5892,6 @@ https://fvot.jewishagency.org/long-term-support/
         <button class="quick-btn quick-copy" onclick="quickCopy('msg18', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg18')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg18')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg18" onclick="toggleFav('msg18', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -5942,7 +5918,6 @@ https://fvot.jewishagency.org/long-term-support/
           <button class="feedback-btn" onclick="sendFeedback('msg18')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg18" onclick="toggleFav('msg18', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -5959,7 +5934,6 @@ https://fvot.jewishagency.org/long-term-support/
         <button class="quick-btn quick-copy" onclick="quickCopy('msg7', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg7')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg7')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg7" onclick="toggleFav('msg7', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -5992,7 +5966,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
           <button class="feedback-btn" onclick="sendFeedback('msg7')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg7" onclick="toggleFav('msg7', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6006,7 +5979,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
         <button class="quick-btn quick-copy" onclick="quickCopy('msg14', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg14')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg14')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg14" onclick="toggleFav('msg14', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -6043,7 +6015,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
           <button class="feedback-btn" onclick="sendFeedback('msg14')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg14" onclick="toggleFav('msg14', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6057,7 +6028,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
         <button class="quick-btn quick-copy" onclick="quickCopy('msg16', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg16')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg16')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg16" onclick="toggleFav('msg16', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -6087,7 +6057,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
           <button class="feedback-btn" onclick="sendFeedback('msg16')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg16" onclick="toggleFav('msg16', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6101,7 +6070,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
         <button class="quick-btn quick-copy" onclick="quickCopy('msg6', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg6')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg6')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg6" onclick="toggleFav('msg6', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -6127,7 +6095,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
           <button class="feedback-btn" onclick="sendFeedback('msg6')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg6" onclick="toggleFav('msg6', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6143,7 +6110,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
         <button class="quick-btn quick-copy" onclick="quickCopy('msg23', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg23')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg23')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg23" onclick="toggleFav('msg23', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -6171,7 +6137,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
             <span>מייל</span>
           </button>
           <button class="feedback-btn" onclick="sendFeedback('msg23')">✏️ תיקון</button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg23" onclick="toggleFav('msg23', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6212,7 +6177,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
             <span>מייל</span>
           </button>
           <button class="feedback-btn" onclick="sendFeedback('msg_rights')">✏️ תיקון</button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg_rights" onclick="toggleFav('msg_rights', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6228,7 +6192,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
         <button class="quick-btn quick-copy" onclick="quickCopy('msg9t', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg9t')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg9t')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg9t" onclick="toggleFav('msg9t', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -6253,7 +6216,6 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
           <button class="feedback-btn" onclick="sendFeedback('msg9t')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg9t" onclick="toggleFav('msg9t', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6272,7 +6234,6 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
         <button class="quick-btn quick-copy" onclick="quickCopy('msgFamilyReceipts', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msgFamilyReceipts')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msgFamilyReceipts')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msgFamilyReceipts" onclick="toggleFav('msgFamilyReceipts', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -6309,7 +6270,6 @@ https://drive.google.com/file/d/1KLVLyHZutq8LE0lGs25N-cDVfxNc1gHA/view?usp=shari
           <button class="feedback-btn" onclick="sendFeedback('msgFamilyReceipts')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msgFamilyReceipts" onclick="toggleFav('msgFamilyReceipts', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6324,7 +6284,6 @@ https://drive.google.com/file/d/1KLVLyHZutq8LE0lGs25N-cDVfxNc1gHA/view?usp=shari
         <button class="quick-btn quick-copy" onclick="quickCopy('msg30', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg30')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg30')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg30" onclick="toggleFav('msg30', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -6350,7 +6309,6 @@ https://fvot.jewishagency.org/long-term-support/
           <button class="feedback-btn" onclick="sendFeedback('msg30')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg30" onclick="toggleFav('msg30', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6365,7 +6323,6 @@ https://fvot.jewishagency.org/long-term-support/
         <button class="quick-btn quick-copy" onclick="quickCopy('msg17', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg17')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg17')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg17" onclick="toggleFav('msg17', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -6387,7 +6344,6 @@ https://fvot.jewishagency.org/long-term-support/
           <button class="feedback-btn" onclick="sendFeedback('msg17')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg17" onclick="toggleFav('msg17', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6402,7 +6358,6 @@ https://fvot.jewishagency.org/long-term-support/
         <button class="quick-btn quick-copy" onclick="quickCopy('msg13', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg13')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg13')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg13" onclick="toggleFav('msg13', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -6464,7 +6419,6 @@ CBT, DBT, NLP, אימון אישי, הדרכה אדלריאנית, התמקדו�
           <button class="feedback-btn" onclick="sendFeedback('msg13')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg13" onclick="toggleFav('msg13', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6479,7 +6433,6 @@ CBT, DBT, NLP, אימון אישי, הדרכה אדלריאנית, התמקדו�
         <button class="quick-btn quick-copy" onclick="quickCopy('msg24', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg24')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg24')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg24" onclick="toggleFav('msg24', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -6504,7 +6457,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/BneyMis
             <span>מייל</span>
           </button>
           <button class="feedback-btn" onclick="sendFeedback('msg24')">✏️ תיקון</button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg24" onclick="toggleFav('msg24', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6519,7 +6471,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/BneyMis
         <button class="quick-btn quick-copy" onclick="quickCopy('msg9f', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg9f')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg9f')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg9f" onclick="toggleFav('msg9f', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -6544,7 +6495,6 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
           <button class="feedback-btn" onclick="sendFeedback('msg9f')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg9f" onclick="toggleFav('msg9f', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6563,7 +6513,6 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
         <button class="quick-btn quick-copy" onclick="quickCopy('msg31', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg31')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg31')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg31" onclick="toggleFav('msg31', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -6589,7 +6538,6 @@ https://fvot.jewishagency.org/long-term-support/
           <button class="feedback-btn" onclick="sendFeedback('msg31')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg31" onclick="toggleFav('msg31', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6604,7 +6552,6 @@ https://fvot.jewishagency.org/long-term-support/
         <button class="quick-btn quick-copy" onclick="quickCopy('msg19', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg19')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg19')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg19" onclick="toggleFav('msg19', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -6659,7 +6606,6 @@ https://fvot.jewishagency.org/long-term-support/
           <button class="feedback-btn" onclick="sendFeedback('msg19')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg19" onclick="toggleFav('msg19', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6674,7 +6620,6 @@ https://fvot.jewishagency.org/long-term-support/
         <button class="quick-btn quick-copy" onclick="quickCopy('msg25', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg25')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg25')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg25" onclick="toggleFav('msg25', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -6707,7 +6652,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
           <button class="feedback-btn" onclick="sendFeedback('msg25')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg25" onclick="toggleFav('msg25', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6721,7 +6665,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
         <button class="quick-btn quick-copy" onclick="quickCopy('msg9k', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg9k')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg9k')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg9k" onclick="toggleFav('msg9k', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -6746,7 +6689,6 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
           <button class="feedback-btn" onclick="sendFeedback('msg9k')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg9k" onclick="toggleFav('msg9k', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6765,7 +6707,6 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
         <button class="quick-btn quick-copy" onclick="quickCopy('msg_eivadept', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg_eivadept')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg_eivadept')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg_eivadept" onclick="toggleFav('msg_eivadept', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -6789,7 +6730,6 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
           <button class="feedback-btn" onclick="sendFeedback('msg_eivadept')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg_eivadept" onclick="toggleFav('msg_eivadept', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6804,7 +6744,6 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
         <button class="quick-btn quick-copy" onclick="quickCopy('msg_eivaup', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg_eivaup')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg_eivaup')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg_eivaup" onclick="toggleFav('msg_eivaup', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -6830,7 +6769,6 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
           <button class="feedback-btn" onclick="sendFeedback('msg_eivaup')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg_eivaup" onclick="toggleFav('msg_eivaup', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6859,7 +6797,6 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
         <button class="quick-btn quick-copy" onclick="quickCopy('msg20', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg20')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg20')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg20" onclick="toggleFav('msg20', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -6914,7 +6851,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/forms/Rehabilitation_forms_
           <button class="feedback-btn" onclick="sendFeedback('msg20')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg20" onclick="toggleFav('msg20', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6929,7 +6865,6 @@ https://www.btl.gov.il/טפסים%20ואישורים/forms/Rehabilitation_forms_
         <button class="quick-btn quick-copy" onclick="quickCopy('msg28', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg28')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg28')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg28" onclick="toggleFav('msg28', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -6960,7 +6895,6 @@ https://b2b.btl.gov.il/BTL.ILG.B2B.WebSite/login
           <button class="feedback-btn" onclick="sendFeedback('msg28')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg28" onclick="toggleFav('msg28', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -6975,7 +6909,6 @@ https://b2b.btl.gov.il/BTL.ILG.B2B.WebSite/login
         <button class="quick-btn quick-copy" onclick="quickCopy('msg9', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg9')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg9')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg9" onclick="toggleFav('msg9', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -7001,7 +6934,6 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
           <button class="feedback-btn" onclick="sendFeedback('msg9')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg9" onclick="toggleFav('msg9', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -7016,7 +6948,6 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
         <button class="quick-btn quick-copy" onclick="quickCopy('msg22', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg22')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg22')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg22" onclick="toggleFav('msg22', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -7046,7 +6977,6 @@ https://govforms.gov.il/mw/forms/t269@btl.gov.il
           <button class="feedback-btn" onclick="sendFeedback('msg22')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg22" onclick="toggleFav('msg22', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -7063,7 +6993,6 @@ https://govforms.gov.il/mw/forms/t269@btl.gov.il
         <button class="quick-btn quick-copy" onclick="quickCopy('msg27', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg27')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg27')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg27" onclick="toggleFav('msg27', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -7096,7 +7025,6 @@ https://drive.google.com/file/d/1cNL2E4lqK3wE68Zi39yKw4wwlLzQRLGU/view?usp=shari
           <button class="feedback-btn" onclick="sendFeedback('msg27')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg27" onclick="toggleFav('msg27', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -7122,7 +7050,6 @@ https://drive.google.com/file/d/1cNL2E4lqK3wE68Zi39yKw4wwlLzQRLGU/view?usp=shari
         <button class="quick-btn quick-copy" onclick="quickCopy('msg_sal', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg_sal')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg_sal')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg_sal" onclick="toggleFav('msg_sal', event)" title="מועדפים">☆</button>
       </div>
       </div>
       <div class="card-collapsible">
@@ -7173,7 +7100,6 @@ https://www.gov.il/he/departments/topics/rehabilitation-basket
           <button class="feedback-btn" onclick="sendFeedback('msg_sal')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg_sal" onclick="toggleFav('msg_sal', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -7212,7 +7138,6 @@ https://www.gov.il/he/departments/topics/rehabilitation-basket
             <span>מייל</span>
           </button>
           <button class="feedback-btn" onclick="sendFeedback('msg10')">✏️ תיקון</button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg10" onclick="toggleFav('msg10', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -7285,7 +7210,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
             <span>מייל</span>
           </button>
           <button class="feedback-btn" onclick="sendFeedback('msg15')">✏️ תיקון</button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg15" onclick="toggleFav('msg15', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
       </div>
     </div>
@@ -7312,7 +7236,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         <button class="quick-btn quick-copy" onclick="quickCopy('msg12', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg12')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg12')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-        <button class="quick-btn quick-fav" id="qfav-msg12" onclick="toggleFav('msg12', event)" title="מועדפים">☆</button>
       
       </div>
       </div>
@@ -7363,7 +7286,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           <button class="feedback-btn" onclick="sendFeedback('msg12')">
             ✏️ תיקון
           </button>
-          <button class="fav-btn fav-footer-btn" id="fav-footer-msg12" onclick="toggleFav('msg12', event)" title="הוסף למועדפים">☆ מועדפים</button>
         </div>
 
         <div class="branch-cta-card">
@@ -8074,6 +7996,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   /* יציאה ממצב חיפוש וחזרה למסך הבית */
   function srExitToHome() {
     _searchKbFixed = false;
+    document.body.classList.remove('m-search-show');
+    if (typeof syncSearchNav === 'function') syncSearchNav();
     var input = document.getElementById('searchInput');
     if (input) input.value = '';
     document.body.classList.remove('search-mode', 'desk-search-open');
@@ -8278,7 +8202,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
             + '<div class="sr-head" onclick="srOpenCard(\'' + m.bodyId + '\')">'
               + '<div class="sr-top">'
                 + '<span class="sr-dyn-ico">✏️</span>'
-                + starBtn
                 + '<span class="sr-title">' + titleHtml + '</span>'
                 + tagHtml
               + '</div>'
@@ -8301,7 +8224,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           + '<div class="sr-head" onclick="srToggle(this)">'
             + '<div class="sr-top">'
               + SR_SVG_CHEV
-              + starBtn
               + '<span class="sr-title">' + titleHtml + '</span>'
               + tagHtml
               + srActs
@@ -8343,8 +8265,37 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     /* במחשב: סגירת שדה החיפוש וחזרה למסך הבית הנקי עם האריחים */
     var mobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     if (!mobile) { document.body.classList.remove('desk-search-open'); return; }
-    input.focus();
+    /* טלפון: ניקוי סוגר את שורת החיפוש */
+    document.body.classList.remove('m-search-show');
+    if (typeof syncSearchNav === 'function') syncSearchNav();
   }
+
+  /* טלפון: כפתור הזכוכית המגדלת ב-header פותח/סוגר את שורת החיפוש */
+  function mSearchToggle() {
+    const input = document.getElementById('searchInput');
+    if (document.body.classList.contains('m-search-show')) {
+      document.body.classList.remove('m-search-show');
+      syncSearchNav();
+      if (input && input.value) { input.value = ''; doSearch(''); }
+      return;
+    }
+    document.body.classList.add('m-search-show');
+    syncSearchNav();
+    umTrack('חיפוש: נפתח');
+    _searchKbFixed = false;
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    if (input) input.focus(); /* בטלפון בלי אנימציה — רק מסגרת זהב */
+  }
+  /* טלפון: נגיעה בקטגוריה כשהחיפוש פתוח סוגרת אותו, כדי שהאריחים ייכנסו במסך */
+  document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('m-search-show')) return;
+    if (!e.target.closest || !e.target.closest('#mobileDashboardGrid .dashboard-tile')) return;
+    const input = document.getElementById('searchInput');
+    if (input && input.value) { input.value = ''; doSearch(''); }
+    document.body.classList.remove('m-search-show');
+    if (input) input.blur();
+    syncSearchNav();
+  }, true);
 
   /* מחשב: פתיחה/סגירה של שדה החיפוש מכפתור "חיפוש" */
   /* אפקט "וואו" בפתיחת החיפוש: הדף מתעמעם, התיבה קופצת עם הילה זהובה, ברק עובר עליה וניצוצות מתפזרים */
@@ -9789,7 +9740,8 @@ function dashboardTileClick(filterId, tileEl) {
     const homeBtn = document.getElementById('bottomNavHome');
     const favBtn = document.getElementById('bottomNavFav');
     if (favBtn) favBtn.classList.toggle('active', !!favActive);
-    if (homeBtn) homeBtn.classList.toggle('active', !favActive && !anyCategoryFilterActive() && !document.body.classList.contains('mobile-search-open'));
+    if (homeBtn) homeBtn.classList.toggle('active', !favActive && !anyCategoryFilterActive() && !document.body.classList.contains('mobile-search-open') && !document.body.classList.contains('m-search-show'));
+    if (typeof syncSearchNav === 'function') syncSearchNav();
   }
 
   /* ===== מסכי בחירת-משנה ===== */
@@ -10471,6 +10423,7 @@ function dashboardTileClick(filterId, tileEl) {
     if (typeof hapticTap === 'function') hapticTap();
     if (typeof closeSubGrid === 'function') closeSubGrid();
     if (typeof closeMobileSearch === 'function') closeMobileSearch();
+    document.body.classList.remove('m-search-show');
     const allChip = document.querySelector('.filter-chip-all');
     if (allChip) toggleFilter(allChip);
     const input = document.getElementById('searchInput');
@@ -10485,6 +10438,33 @@ function dashboardTileClick(filterId, tileEl) {
     if (favChip) toggleFavFilter(favChip);
     if (window.scrollY > 4) window.scrollTo({ top: 0, behavior: 'auto' });
     syncBottomNav();
+  }
+
+  /* סרגל תחתון: חיפוש (במקום מועדפים) — פותח/סוגר את שורת החיפוש */
+  function bottomNavSearch() {
+    if (typeof hapticTap === 'function') hapticTap();
+    if (typeof mFlowerClose === 'function') mFlowerClose(); /* פרח פתוח נסגר */
+    mSearchToggle();
+  }
+  /* טלפון: חיפוש פתוח וריק + גלילה למטה — שורת החיפוש נסגרת */
+  (function () {
+    let startY = null;
+    window.addEventListener('scroll', function () {
+      if (!document.body.classList.contains('m-search-show')) { startY = null; return; }
+      const input = document.getElementById('searchInput');
+      if (input && input.value.trim()) { startY = null; return; } /* יש תוצאות — לא סוגרים */
+      if (startY === null) { startY = window.scrollY; return; }
+      if (window.scrollY - startY > 40) {
+        document.body.classList.remove('m-search-show');
+        if (input) input.blur();
+        syncSearchNav();
+        startY = null;
+      }
+    }, { passive: true });
+  })();
+  function syncSearchNav() {
+    const b = document.getElementById('bottomNavSearch');
+    if (b) b.classList.toggle('active', document.body.classList.contains('m-search-show'));
   }
 
   function bottomNavIdea() {
@@ -11861,9 +11841,9 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     <span class="bottom-nav-emoji">🏠</span>
     <span>בית</span>
   </button>
-  <button type="button" class="bottom-nav-btn" id="bottomNavFav" onclick="bottomNavFav()">
-    <span class="bottom-nav-emoji">⭐</span>
-    <span>מועדפים</span>
+  <button type="button" class="bottom-nav-btn" id="bottomNavSearch" onclick="bottomNavSearch()">
+    <span class="bottom-nav-emoji bottom-nav-search-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span>
+    <span>חיפוש</span>
   </button>
   <button type="button" class="bottom-nav-btn" id="bottomNavIdea" onclick="bottomNavIdea()">
     <span class="bottom-nav-emoji">💡</span>
@@ -12491,6 +12471,117 @@ body.m-flower-open { overflow: hidden; }
   75% { transform: rotate(-3deg) scale(1); }
 }
 .attendance-head-btn.wiggle .head-tools-img { animation: toolsWiggle 1s ease-in-out 2; }
+}
+
+/* ===== טלפון: שורת החיפוש מוסתרת — נפתחת מכפתור הזכוכית המגדלת ב-header ===== */
+.head-search-btn { display: none; }
+@media (hover: none) and (pointer: coarse) {
+  body:not(.m-search-show) .search-bar { display: none !important; }
+  .head-search-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 1px;
+    background: none; border: none; padding: 2px 4px; cursor: pointer; flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .head-search-btn:active { transform: scale(0.92); }
+  .head-search-ico {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at 35% 30%, #fffdf7, #e9e2d2);
+    color: var(--navy); box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    border: 2px solid #e6b94d;
+  }
+  .head-search-ico svg { width: 21px; height: 21px; }
+  body.m-search-show .head-search-ico { background: #e6b94d; }
+  /* שני הכפתורים יושבים יחד באמצע הכותרת */
+  .attendance-head-btn { margin-inline: auto !important; }
+}
+
+/* טלפון: כותרת עליונה קומפקטית — שני הכפתורים נכנסים בלי לדחוס את שם האתר */
+@media (hover: none) and (pointer: coarse) and (max-width: 600px) {
+  header { padding-top: 8px !important; padding-bottom: 8px !important; }
+  .header-inner { gap: 6px !important; }
+  .header-emblem { width: 54px !important; height: 54px !important; }
+  .header-emblem img { width: 54px !important; height: 54px !important; }
+  header h1 { font-size: 0.98rem !important; line-height: 1.2 !important; white-space: nowrap; }
+  header p { font-size: 0.68rem !important; margin-top: 1px !important; }
+  .changelog-btn { height: 34px !important; padding: 0 11px !important; font-size: 0.78rem !important; white-space: nowrap; }
+  .attendance-head-btn .head-tools-img { width: 32px !important; height: 32px !important; }
+  .head-search-ico { width: 32px !important; height: 32px !important; }
+  .head-search-ico svg { width: 17px !important; height: 17px !important; }
+  .head-tools-lbl { font-size: 0.66rem !important; }
+  .attendance-head-btn, .head-search-btn { padding: 0 2px !important; min-width: 0 !important; }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .mobile-dashboard-grid .dashboard-tile-icon.has-img { width: 76px !important; height: 76px !important; }
+  .mobile-home-title { margin-top: 2px !important; margin-bottom: 4px !important; }
+}
+
+/* מועדפים בוטלו — הסתרת שאריות אם נשארו */
+.quick-fav, .fav-footer-btn, .fav-btn, .filter-chip-fav, .sr-star { display: none !important; }
+.bottom-nav-search-ico svg { width: 24px; height: 24px; display: block; margin: 0 auto; color: #e6b94d; }
+
+/* אפקט ה"וואו" של החיפוש — גם בטלפון (במקור הוגדר רק למחשב) */
+@media (hover: none) and (pointer: coarse) {
+  /* ===== אפקט "וואו" בפתיחת החיפוש ===== */
+  .search-inner { position: relative; }
+  @keyframes searchPop {
+    0%   { transform: translateY(-14px) scale(0.55); opacity: 0; }
+    30%  { transform: translateY(4px) scale(1.32); opacity: 1;
+           box-shadow: 0 0 0 4px #e6b94d, 0 0 34px 10px rgba(230, 185, 77, 0.75); border-color: #e6b94d; }
+    48%  { transform: translateY(0) scale(0.94); }
+    62%  { transform: scale(1.1);  box-shadow: 0 0 0 3px #e6b94d, 0 0 26px 6px rgba(230, 185, 77, 0.6); }
+    78%  { transform: scale(0.98); }
+    100% { transform: scale(1);    box-shadow: 0 0 0 2px #e6b94d, 0 0 0 0 rgba(230, 185, 77, 0); border-color: #e6b94d; }
+  }
+  @keyframes searchShine {
+    0% { transform: translateX(160%) skewX(-20deg); opacity: 0; }
+    15% { opacity: 1; }
+    100% { transform: translateX(-260%) skewX(-20deg); opacity: 0; }
+  }
+  body.m-search-show .search-inner.search-pop {
+    animation: searchPop 1.25s cubic-bezier(.25, 1.3, .45, 1) both;
+    z-index: 2;
+  }
+  .search-inner.search-pop::after {
+    content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 40%;
+    border-radius: inherit; pointer-events: none;
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255, 236, 170, 0.95), rgba(255,255,255,0));
+    animation: searchShine 0.9s ease-out 0.35s both;
+  }
+  .search-inner.search-pop { overflow: hidden; }
+  /* הדף מתעמעם לרגע כדי שהעין תלך לחיפוש */
+  @keyframes swSpot { 0% { opacity: 0; } 20% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; } }
+  .sw-spot {
+    position: fixed; inset: 0; z-index: 99; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 0%, rgba(20, 28, 40, 0.35), rgba(20, 28, 40, 0.62) 60%);
+    animation: swSpot 1.8s ease both;
+  }
+  /* ניצוצות שמתפזרים מהתיבה */
+  @keyframes swSpark {
+    0%   { transform: translate(-50%, -50%) scale(0.2) rotate(0); opacity: 0; }
+    15%  { opacity: 1; }
+    100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(var(--rot)); opacity: 0; }
+  }
+  .sw-spark {
+    position: fixed; z-index: 101; pointer-events: none; line-height: 1;
+    text-shadow: 0 0 10px rgba(230, 185, 77, 1), 0 0 2px #fff;
+    animation: swSpark 1.3s cubic-bezier(.15, .7, .3, 1) both;
+  }
+  @keyframes swRing {
+    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.95; }
+    100% { transform: translate(-50%, -50%) scale(2.4, 4.5); opacity: 0; }
+  }
+  .sw-ring {
+    border: 3px solid #e6b94d; border-radius: 999px;
+    box-shadow: 0 0 18px rgba(230, 185, 77, 0.8), inset 0 0 12px rgba(230, 185, 77, 0.5);
+    animation: swRing 1s ease-out both;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  body.m-search-show .search-inner { border-color: #e6b94d !important; box-shadow: 0 0 0 2px rgba(230, 185, 77, 0.45) !important; }
+}
 </style>
 <div class="mobile-hint-overlay" id="mobileHint" onclick="if(event.target===this)closeMobileHintLater()">
   <div class="mobile-hint-sheet" role="dialog" aria-label="טיפ: האתר נוח יותר במחשב">
