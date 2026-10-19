@@ -10055,6 +10055,111 @@ function dashboardTileClick(filterId, tileEl) {
       setTimeout(function () { btn.classList.remove('wiggle'); }, 2200);
     }, 1500);
   });
+  /* ===== מחשב: התאמה למסכים קטנים =====
+     1. במסך צר (פחות מ-1450px רוחב או 760px גובה) — הכרטיסים בצדדים מתכווצים לכפתורים בפינות, והעצלן הגדול מוסתר.
+     2. הגריד של מסך הבית מוקטן/מוגדל (zoom) כך שייכנס בין הכרטיסים ובגובה המסך, בלי גלילה ובלי התנגשות. */
+  function deskIsDesktop() { return window.matchMedia('(hover: hover) and (pointer: fine)').matches; }
+  function initDeskPills() {
+    if (document.getElementById('pillNew')) return;
+    const mk = function (id, cls, html, target) {
+      const b = document.createElement('button');
+      b.type = 'button'; b.id = id; b.className = 'side-pill ' + cls; b.innerHTML = html;
+      b.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const el = document.getElementById(target);
+        const open = !el.classList.contains('side-expanded');
+        document.querySelectorAll('.side-expanded').forEach(function (x) { x.classList.remove('side-expanded'); });
+        if (open) { el.classList.add('side-expanded'); umTrack('מסך קטן: פתיחת ' + (target === 'homeNew' ? 'חדש באתר' : 'רשימת תפוצה')); }
+      });
+      document.body.appendChild(b);
+    };
+    const n = document.querySelectorAll('#homeNewList > li').length;
+    mk('pillNew', 'side-pill-right', '🎁 חדש באתר' + (n ? ' <span class="side-pill-n">' + n + '</span>' : '') + '<span class="side-pill-chev">▲</span>', 'homeNew');
+    mk('pillJoin', 'side-pill-left', '💌 הצטרפות לעדכונים<span class="side-pill-chev">▲</span>', 'leftStack');
+    /* כפתור סגירה בתוך כל כרטיס כשהוא נפתח מהכפתור */
+    ['homeNew', 'leftStack'].forEach(function (id) {
+      const el = document.getElementById(id);
+      if (!el || el.querySelector('.side-close')) return;
+      const x = document.createElement('button');
+      x.type = 'button'; x.className = 'side-close'; x.setAttribute('aria-label', 'סגירה'); x.textContent = '✕';
+      x.addEventListener('click', function (e) { e.stopPropagation(); el.classList.remove('side-expanded'); });
+      el.appendChild(x);
+    });
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('#homeNew, #leftStack, .side-pill')) return;
+      document.querySelectorAll('.side-expanded').forEach(function (x) { x.classList.remove('side-expanded'); });
+    });
+  }
+  /* מחשב zoom לגריד במצב נתון (מלא/מכווץ) ומחיל אותו; מחזיר את ה-zoom שנקבע */
+  function applyGridZoom(grid, compact) {
+    grid.style.zoom = '';
+    const gw = grid.offsetWidth, gh = grid.offsetHeight;
+    const gr = grid.getBoundingClientRect();
+    let side = 24;
+    if (!compact) {
+      const L = document.getElementById('leftStack'), R = document.getElementById('homeNew');
+      const lr = L && getComputedStyle(L).display !== 'none' ? L.getBoundingClientRect().right : 0;
+      const rl = R && getComputedStyle(R).display !== 'none' ? window.innerWidth - R.getBoundingClientRect().left : 0;
+      side = Math.max(lr, rl) + 18;
+    }
+    const availW = window.innerWidth - side * 2;
+    let overflow = document.documentElement.scrollHeight - window.innerHeight;
+    if (compact) overflow = Math.max(overflow, gr.bottom + window.scrollY - (window.innerHeight - 64));
+    let availH = gh - overflow - 8;
+    if (overflow <= 0 && !compact) {
+      const free = window.innerHeight - gr.bottom - (parseFloat(getComputedStyle(grid).marginBottom) || 0);
+      availH = gh + Math.max(0, free) - 8;
+    }
+    let z = Math.max(0.55, Math.min(availW / gw, availH / gh, 1.12));
+    if (Math.abs(z - 1) > 0.01) grid.style.zoom = z.toFixed(3);
+    for (let i = 0; i < 4; i++) {
+      const over = document.documentElement.scrollHeight - window.innerHeight;
+      if (over <= 0 || z <= 0.55) break;
+      const hNow = grid.getBoundingClientRect().height;
+      z = Math.max(0.55, z * (hNow - over - 4) / hNow);
+      grid.style.zoom = z.toFixed(3);
+    }
+    return z;
+  }
+  /* גובה פנוי מתחת ל-header */
+  function deskTopOffset() {
+    const header = document.querySelector('.sticky-top');
+    return header ? header.getBoundingClientRect().bottom : 80;
+  }
+  /* האם הכרטיסים בצדדים נכנסים לגובה. withSloth — עם העצלן הגדול מתחת ל"חדש באתר" */
+  function sidePanelsFitHeight(withSloth) {
+    const top = deskTopOffset();
+    const L = document.getElementById('leftStack');
+    const R = document.getElementById('homeNew');
+    const lh = L ? L.scrollHeight : 0;
+    const rh = R ? R.scrollHeight : 0;
+    const rightBottom = withSloth ? 226 : 20;
+    return (lh + 24 + top + 8 <= window.innerHeight) && (rh + rightBottom + top + 8 <= window.innerHeight);
+  }
+  function fitDeskLayout() {
+    if (!deskIsDesktop()) return;
+    initDeskPills();
+    const grid = document.getElementById('mobileDashboardGrid');
+    const onHome = grid && grid.offsetParent;
+    /* קודם מנסים מצב מלא: הכרטיסים בצדדים פתוחים. מתכווצים רק אם הגריד היה יוצא קטן מדי או שהכרטיסים לא נכנסים לגובה */
+    document.body.classList.remove('desk-compact', 'desk-nosloth');
+    /* שלב ביניים: אם "חדש באתר" לא נכנס יחד עם העצלן — מסתירים רק את העצלן ו"חדש באתר" יורד לפינה */
+    const noSloth = !sidePanelsFitHeight(true);
+    document.body.classList.toggle('desk-nosloth', noSloth);
+    let compact = window.innerWidth < 1100 || !sidePanelsFitHeight(false);
+    if (!compact && onHome) {
+      const zFull = applyGridZoom(grid, false);
+      if (zFull < 0.6) compact = true; /* עדיף גריד מעט קטן עם הכרטיסים פתוחים, על פני כרטיסים סגורים */
+    }
+    document.body.classList.toggle('desk-compact', compact);
+    if (!compact) document.querySelectorAll('.side-expanded').forEach(function (x) { x.classList.remove('side-expanded'); });
+    if (onHome && compact) applyGridZoom(grid, true);
+    if (grid && !onHome) grid.style.zoom = '';
+  }
+  window.addEventListener('resize', fitDeskLayout);
+  window.addEventListener('load', function () { fitDeskLayout(); setTimeout(fitDeskLayout, 300); });
+  document.addEventListener('DOMContentLoaded', function () { setTimeout(fitDeskLayout, 80); });
+
   /* כפתור הכלים ב-header בטלפון — פותח את פרח הכלים */
   function mToolsFlower() {
     var w = document.querySelector('.tile-wrap[data-radial="tools"]');
@@ -10411,6 +10516,7 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
   function deskGoHome() {
+    setTimeout(function () { if (typeof fitDeskLayout === 'function') fitDeskLayout(); }, 30);
     closeSubGrid();
     const allChip = document.querySelector('.filter-chip-all');
     if (allChip) toggleFilter(allChip);
@@ -12581,6 +12687,50 @@ body.m-flower-open { overflow: hidden; }
 
 @media (hover: none) and (pointer: coarse) {
   body.m-search-show .search-inner { border-color: #e6b94d !important; box-shadow: 0 0 0 2px rgba(230, 185, 77, 0.45) !important; }
+}
+
+/* ===== מחשב, מסך קטן: כרטיסי הצד מתכווצים לכפתורים בפינות ===== */
+.side-pill { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  body.desk-compact .desktop-mascot-fab { display: none !important; }
+  body.desk-compact .side-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    position: fixed; bottom: 16px; z-index: 61;
+    background: linear-gradient(160deg, #24344d, var(--navy)); color: #fff;
+    border: 2px solid #e6b94d; border-radius: 999px; padding: 9px 16px;
+    font-family: 'Heebo', sans-serif; font-size: 0.9rem; font-weight: 800; cursor: pointer;
+    box-shadow: 0 8px 20px rgba(31, 43, 61, 0.3); transition: transform 0.15s ease;
+  }
+  body.desk-compact .side-pill:hover { transform: translateY(-2px); }
+  body.desk-compact .side-pill-right { right: 16px; }
+  body.desk-compact .side-pill-left { left: 16px; }
+  .side-pill-n { background: #e6b94d; color: #1f2b3d; border-radius: 999px; min-width: 20px; height: 20px; padding: 0 6px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; }
+  body.desk-compact #homeNew { display: none !important; }
+  body.desk-compact #homeNew.side-expanded { display: block !important; bottom: 70px !important; right: 16px !important; z-index: 120; max-height: calc(100vh - 160px); }
+  body.desk-compact #leftStack { display: none !important; }
+  body.desk-compact #leftStack.side-expanded { display: flex !important; bottom: 70px !important; left: 16px !important; z-index: 120; }
+  body.search-mode .side-pill { display: none !important; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.desk-nosloth .desktop-mascot-fab { display: none !important; }
+  body.desk-nosloth:not(.desk-compact) #homeNew { bottom: 20px !important; max-height: calc(100vh - 110px) !important; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .side-pill-chev { font-size: 0.62rem; opacity: 0.85; margin-inline-start: 2px; transition: transform 0.2s ease; }
+  body.desk-compact #homeNew.side-expanded ~ #pillNew .side-pill-chev { transform: rotate(180deg); }
+  @keyframes pillNudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+  body.desk-compact .side-pill { animation: pillNudge 1.4s ease-in-out 2 1s; }
+  .side-close { display: none; }
+  body.desk-compact .side-expanded > .side-close {
+    display: flex; align-items: center; justify-content: center;
+    position: absolute; top: 8px; left: 8px; width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.3);
+    font-size: 0.85rem; cursor: pointer; z-index: 3;
+  }
+  body.desk-compact #leftStack.side-expanded { position: fixed; }
+  body.desk-compact #leftStack.side-expanded > .side-close { top: 8px; left: 8px; }
 }
 </style>
 <div class="mobile-hint-overlay" id="mobileHint" onclick="if(event.target===this)closeMobileHintLater()">
