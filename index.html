@@ -8091,7 +8091,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   function searchNoResultsWa() {
     const query = document.getElementById('searchInput')?.value || '';
-    umTrack('חיפוש · כתבו לאמיר: ' + query);
+    umTrackNav('חיפוש · כתבו לאמיר: ' + query);
     const text = `שלום אמיר, חיפשתי "${query}" בכלי ולא מצאתי. אפשר להוסיף הודעה כזו?`;
     if (isDesktopDevice()) { openMailToAmir('', ''); return; }
     openMailToAmir('בקשה להוספת הודעה', text);
@@ -8360,6 +8360,26 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   // ===== Category filter bar (multi-select) =====
   // ===== Search (fuzzy + ranked) =====
+  /* שליחת אירוע שלא הולך לאיבוד גם כשהדף עובר מיד לאפליקציה אחרת (וואטסאפ/מייל):
+     שולחים ישירות לשרת של Umami עם keepalive — הבקשה ממשיכה גם אחרי שהדף עוזב */
+  const UM_WEBSITE = '456ba13d-2e1d-4855-a635-9500ed668346';
+  function umTrackNav(label) {
+    const name = String(label).slice(0, 50);
+    try {
+      if (window.fetch) {
+        fetch('https://cloud.umami.is/api/send', {
+          method: 'POST', keepalive: true, mode: 'cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'event', payload: {
+            website: UM_WEBSITE, hostname: location.hostname, language: navigator.language,
+            referrer: document.referrer, screen: screen.width + 'x' + screen.height,
+            title: document.title, url: location.pathname + location.search, name: name } })
+        }).catch(function () {});
+        return;
+      }
+    } catch (e) {}
+    umTrack(name);
+  }
   /* שליחת אירוע ל-Umami (עד 50 תווים) */
   function umTrack(label) {
     try { if (window.umami && typeof window.umami.track === 'function') window.umami.track(String(label).slice(0, 50)); } catch (e) {}
@@ -8692,7 +8712,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         const fullText = escHtml((m.bodyText || '').replace(/\s+$/, ''));
         const srActs = '<span class="sr-acts">'
           + '<button class="quick-btn quick-copy sr-q" title="העתקה" aria-label="העתקה" onclick="event.stopPropagation(); srCopyMsg(\'' + m.bodyId + '\', this)">' + SR_SVG_COPY + '</button>'
-          + '<button class="quick-btn quick-wa sr-q" title="שליחה בוואטסאפ" aria-label="שליחה בוואטסאפ" onclick="event.stopPropagation(); umTrack(\'מחיפוש · וואטסאפ: \' + cardTitleOf(\'' + m.bodyId + '\')); sendWhatsapp(\'' + m.bodyId + '\')">' + SR_SVG_WA + '</button>'
+          + '<button class="quick-btn quick-wa sr-q" title="שליחה בוואטסאפ" aria-label="שליחה בוואטסאפ" onclick="event.stopPropagation(); umTrackNav(\'מחיפוש · וואטסאפ: \' + cardTitleOf(\'' + m.bodyId + '\')); sendWhatsapp(\'' + m.bodyId + '\')">' + SR_SVG_WA + '</button>'
           + '</span>';
         html += '<div class="sr-card" style="--rc:' + ci.color + '">'
           + '<div class="sr-head" onclick="srToggle(this)">'
@@ -8957,7 +8977,19 @@ function dashboardTileClick(filterId, tileEl) {
     if (typeof updateMobileFilterState === 'function') updateMobileFilterState();
   }
 
+  /* מעקב קריאה: פתיחת הודעה נרשמת פעם אחת לכל הודעה בכל ביקור */
+  const _openedTracked = {};
+  function trackCardOpen(card) {
+    try {
+      const t = card.querySelector('.card-toggle-title');
+      const name = t ? (t.dataset.orig || t.textContent).trim() : '';
+      if (!name || _openedTracked[name]) return;
+      _openedTracked[name] = 1;
+      umTrack('פתיחה: ' + name);
+    } catch (e) {}
+  }
   function openCard(card) {
+    trackCardOpen(card);
     if (typeof isMobileSheetActive === 'function' && isMobileSheetActive()) {
       openMobileSheetForCard(card);
       return;
@@ -8986,6 +9018,7 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
   function openMobileSheetForCard(card) {
+    if (typeof trackCardOpen === 'function') trackCardOpen(card);
     const titleEl = card.querySelector('.card-toggle-title');
 
     mobileSheetParent = card.parentElement;
@@ -9090,6 +9123,7 @@ function dashboardTileClick(filterId, tileEl) {
       }
       if (!name) name = String(id);
       const label = (action + ': ' + name).slice(0, 50);
+      if (action === 'וואטסאפ' || action === 'מייל') { umTrackNav(label); return; } /* יוצאים מהאתר מיד אחרי */
       if (window.umami && typeof window.umami.track === 'function') window.umami.track(label);
     } catch (e) {}
   }
@@ -10326,7 +10360,7 @@ function dashboardTileClick(filterId, tileEl) {
   function requestBranch(ev) {
     if (ev) ev.stopPropagation();
     if (typeof radialCloseAll === 'function') radialCloseAll();
-    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('בקשת סניף חסר'); } catch (e) {}
+    umTrackNav('בקשת סניף חסר');
     /* בדסקטופ פותחים מייל ריק (עברית ב-mailto יוצאת ג'יבריש ב-Outlook); בנייד ממלאים נוסח */
     if (typeof isDesktopDevice === 'function' && isDesktopDevice()) { openMailToAmir('', ''); return; }
     openMailToAmir('בקשה להוספת סניף', 'שלום אמיר, חסרות לי הוראות הגעה לסניף ______ — אפשר להוסיף?');
@@ -10393,6 +10427,7 @@ function dashboardTileClick(filterId, tileEl) {
       wrap._radialClose = close;
       function open() {
         if (timer) { clearTimeout(timer); timer = null; }
+        try { const lb = wrap.querySelector('.dashboard-tile-label'); umTrack('פרח מחשב: ' + (lb ? lb.textContent.replace(/\s+/g, ' ').trim() : '')); } catch (e) {}
         wrap.classList.add('radial-open');
         document.body.classList.add('radial-active');
         if (!moveHandler) {
@@ -10921,14 +10956,14 @@ function dashboardTileClick(filterId, tileEl) {
     return 'mailto:AMIRTI@NIOI.GOV.IL?subject=' + subject + '&body=' + body;
   }
   function requestBranchEmail() {
-    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('בקשה: הוספת סניף'); } catch (e) {}
+    umTrackNav('בקשה: הוספת סניף');
     const subject = encodeURIComponent('Adding branch directions - Templates Tool');
     const body = encodeURIComponent('Hi Amir,\nPlease add arrival directions for our branch:\nBranch name: \nAddress: \nDirections: ');
     window.location.href = 'mailto:AMIRTI@NIOI.GOV.IL?subject=' + subject + '&body=' + body;
   }
 
   function joinUpdatesEmail() {
-    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('הצטרפות: קבוצת עדכונים'); } catch (e) {}
+    umTrackNav('הצטרפות: קבוצת עדכונים');
     window.location.href = buildJoinMailto();
   }
 
@@ -12861,7 +12896,7 @@ window.closeTrumPrograms = function(){
   function tpEmail() {
     var subject = encodeURIComponent('Feedback - Templates Tool');
     var body = encodeURIComponent('Hi Amir,\nI wanted to share my experience using the Templates Tool so far, and some thoughts for the future:\n\n');
-    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('משוב: מייל חוויית שימוש'); } catch (e) {}
+    umTrackNav('משוב: מייל חוויית שימוש');
     try { window.location.href = 'mailto:' + TP_FEEDBACK_EMAIL + '?subject=' + subject + '&body=' + body; } catch (e) {}
   }
 
