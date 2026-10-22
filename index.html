@@ -3821,6 +3821,7 @@ body.dark-mode .card-body .msg-link { color: #7fb3ff; }
 .rem-note { font-size: 0.78rem; color: var(--cat-routing); }
 .rem-prev { background: var(--paper); border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px; font-size: 0.88rem; line-height: 1.6; white-space: pre-wrap; word-break: break-word; max-height: 220px; overflow-y: auto; }
 .rem-prev.dim { color: var(--ink-soft); }
+.rem-typed { background: #f6e0b4; color: inherit; border-radius: 4px; padding: 0 3px; box-shadow: 0 0 0 1px #e6b94d inset; }
 .rem-acts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .rem-acts button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 11px 8px; border-radius: 12px; border: none; color: #fff; font-weight: 700; font-size: 0.9rem; cursor: pointer; }
 .rem-acts button:disabled { opacity: 0.45; cursor: default; }
@@ -3843,6 +3844,8 @@ body.dark-mode .card-body .msg-link { color: #7fb3ff; }
   .rem-overlay { padding: 0; align-items: flex-start; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
   .rem-box { max-width: none; border-radius: 0; min-height: 100%; }
   .rem-row { grid-template-columns: 1fr; }
+  .rem-acts { grid-template-columns: 1fr 1fr; }
+  .rem-mail { display: none !important; }
 }
 /* ===== שעון נוכחות (כלי מודאלי, הכל בתחילית ac-) ===== */
 .ac-overlay{display:none;position:fixed;inset:0;z-index:10000;background:rgba(20,24,22,.55);
@@ -10774,14 +10777,23 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
       count: +$('remCount').value
     };
   }
-  function title(st) { return 'לשלוח ' + (st.what || 'מסמכים') + ' לשיקום'; }
+  function title(st) {
+    var w = st.what || st.details.replace(/\s+/g, ' ').trim();
+    if (w.length > 50) w = w.slice(0, 48) + '…';
+    return 'ביטוח לאומי - מחלקת שיקום: ' + w;
+  }
   /* קידוד מינימלי: העברית נשארת קריאה (כמו בקישורי הטפסים באתר), רק תווים שוברים מקודדים — הקישור קצר בהרבה */
   function enc(t) {
     return String(t).replace(/%/g, '%25').replace(/&/g, '%26').replace(/#/g, '%23').replace(/\+/g, '%2B')
       .replace(/\?/g, '%3F').replace(/=/g, '%3D').replace(/"/g, '%22').replace(/</g, '%3C').replace(/>/g, '%3E')
       .replace(/\r?\n/g, '%0A').replace(/\s/g, '+');
   }
-  function eventDesc(st) { return st.details + (st.link ? '\nהטופס בקישור: ' + st.link : ''); }
+  function eventDesc(st) {
+    /* ב"אחר" הפירוט כבר מופיע בכותרת — לא חוזרים עליו (אלא אם נחתך בכותרת) */
+    var d = st.details;
+    if (!st.what && d.replace(/\s+/g, ' ').trim().length <= 50) d = '';
+    return [d, st.link ? 'הטופס בקישור: ' + st.link : ''].filter(Boolean).join('\n');
+  }
   function rrule(st) { return freq === 'monthly' ? 'RRULE:FREQ=MONTHLY' + (st.count ? ';COUNT=' + st.count : '') : ''; }
   function gLink(st) {
     var q = 'action=TEMPLATE'
@@ -10805,10 +10817,26 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
       + '🗓️ מתי: ' + whenText(st) + '\n\n'
       + 'כך זה יופיע ביומן שלך:\n'
       + title(st) + '\n'
-      + eventDesc(st) + '\n\n'
+      + (eventDesc(st) ? eventDesc(st) + '\n' : '') + '\n'
       + 'שימו לב: הקישור עובד רק למי שמחובר ליומן של Google.\n'
       + 'להוספת התזכורת ליומן, לחצו על הקישור ואז על "שמירה":\n'
       + gLink(st) + '\n\nתודה!';
+  }
+  /* תצוגה מקדימה: ב"אחר" הטקסט שהעובד מקליד מסומן ברקע צבעוני (רק לתצוגה — ההעתקה והשליחה נשארות טקסט רגיל) */
+  function escH(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function previewHtml(st) {
+    var msg = message(st);
+    if (st.what || !st.details.trim()) return escH(msg);
+    var cut = msg.indexOf('https://calendar.google.com');
+    var head = cut > -1 ? msg.slice(0, cut) : msg, tail = cut > -1 ? msg.slice(cut) : '';
+    var full = st.details.replace(/\s+/g, ' ').trim();
+    var t = title(st), short = t.slice(t.indexOf(': ') + 2);
+    var parts = [st.details.trim(), full, short].filter(function (x, i, a) { return x && a.indexOf(x) === i; })
+      .sort(function (a, b) { return b.length - a.length; });
+    var out = escH(head);
+    parts.forEach(function (x) { var e = escH(x); out = out.split(e).join('\u0001' + e + '\u0002'); });
+    out = out.replace(/\u0001+/g, '<mark class="rem-typed">').replace(/\u0002+/g, '</mark>');
+    return out + escH(tail);
   }
   function render() {
     var st = state();
@@ -10817,7 +10845,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     $('remDayNote').hidden = !(freq === 'monthly' && st.date && +st.date.split('-')[2] > 28);
     var ok = st.date && (st.what || st.details);
     var box = $('remMsg');
-    if (ok) { box.textContent = message(st); box.classList.remove('dim'); }
+    if (ok) { box.innerHTML = previewHtml(st); box.classList.remove('dim'); }
     else { box.textContent = !st.date ? 'יש לבחור תאריך.' : 'יש לכתוב מה לבקש בשדה הפירוט.'; box.classList.add('dim'); }
     ['remCopyBtn', 'remWaBtn', 'remMailBtn'].forEach(function (id) { $(id).disabled = !ok; });
   }
