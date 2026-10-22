@@ -651,12 +651,12 @@ body.dark-mode .sr-ask { background: color-mix(in srgb, #e6b94d 14%, var(--paper
   .home-new-title { font-weight: 900; color: #fff; font-size: 1.12rem; line-height: 1.25; margin: 0 0 9px; }
   .home-new .join-hero { margin-bottom: 7px; }
   .home-new .join-env { width: 38px; height: 38px; font-size: 1.3rem; border-radius: 12px; }
-  .home-new-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .home-new-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
   .home-new-item {
     display: flex; align-items: flex-start; gap: 10px; width: 100%;
     background: rgba(255, 255, 255, 0.07);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 12px; padding: 7px 9px;
+    border-radius: 12px; padding: 6px 9px;
     font-family: 'Heebo', sans-serif; color: #fff; text-align: right; cursor: pointer;
     transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
   }
@@ -669,7 +669,7 @@ body.dark-mode .sr-ask { background: color-mix(in srgb, #e6b94d 14%, var(--paper
   .home-new-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
   .home-new-name { font-size: 0.95rem; font-weight: 800; line-height: 1.25; }
   .home-new-where { font-size: 0.7rem; font-weight: 700; color: #e6b94d; }
-  .home-new-blurb { font-size: 0.8rem; font-weight: 500; color: rgba(255, 255, 255, 0.78); line-height: 1.4; margin-top: 2px; }
+  .home-new-blurb { font-size: 0.8rem; font-weight: 500; color: rgba(255, 255, 255, 0.78); line-height: 1.35; margin-top: 1px; }
   .home-new-go { flex: 0 0 auto; align-self: center; color: #e6b94d; font-weight: 900; transition: transform 0.2s ease; }
   .home-new-item:hover .home-new-go { transform: translateX(-3px); }
   body.search-mode .home-new { display: none !important; }
@@ -3795,7 +3795,7 @@ body.dark-mode .card-body .msg-link { color: #7fb3ff; }
 .trum-programs-cta-title { font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 1.05rem; }
 .trum-programs-cta-sub { font-size: 0.82rem; opacity: 0.85; }
 /* ===== תזכורת ליומן למשתקם (כלי מודאלי, הכל בתחילית rem-) ===== */
-.rem-overlay { position: fixed; inset: 0; z-index: 1250; background: rgba(20,24,30,0.55); display: none; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 28px 16px; }
+.rem-overlay { position: fixed; inset: 0; z-index: 1250; overscroll-behavior: contain; background: rgba(20,24,30,0.55); display: none; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 28px 16px; }
 .rem-overlay.open { display: flex; }
 .rem-box { width: 100%; max-width: 560px; background: var(--paper-card); color: var(--ink); border-radius: 18px; box-shadow: 0 18px 50px rgba(0,0,0,0.3); overflow: hidden; }
 .rem-head { display: flex; align-items: center; gap: 12px; padding: 16px 18px; background: var(--navy); color: #f3efe4; }
@@ -3807,6 +3807,7 @@ body.dark-mode .card-body .msg-link { color: #7fb3ff; }
 .rem-x:hover { background: rgba(255,255,255,0.1); }
 .rem-body { padding: 16px 18px 20px; display: flex; flex-direction: column; gap: 14px; }
 .rem-f { display: flex; flex-direction: column; gap: 6px; }
+.rem-col { display: flex; flex-direction: column; gap: 14px; }
 .rem-about { margin: 0; line-height: 1.6; }
 .rem-about b { display: block; font-size: 0.9rem; margin-bottom: 2px; }
 .rem-f > label, .rem-lbl { font-size: 0.82rem; font-weight: 700; color: var(--ink-soft); }
@@ -3826,12 +3827,20 @@ body.dark-mode .card-body .msg-link { color: #7fb3ff; }
 @media (hover: hover) and (pointer: fine) {
   .rem-acts { grid-template-columns: 1fr 1fr; }
   .rem-wa { display: none !important; }
+  /* מחשב: חלון רחב בשתי עמודות — הגדרות מימין, ההודעה משמאל — הכל במסך אחד בלי גלילה */
+  .rem-overlay { align-items: center; padding: 12px 16px; }
+  .rem-box { max-width: 1120px; }
+  .rem-body { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; align-items: stretch; padding: 16px 22px 20px; }
+  .rem-about { grid-column: 1 / -1; }
+  .rem-out { height: 0; min-height: 100%; }
+  .rem-prev-wrap { flex: 1 1 0; min-height: 0; }
+  .rem-prev { flex: 1 1 0; min-height: 0; max-height: none; }
 }
 .rem-copy { background: var(--stamp-red); }
 .rem-wa { background: #3f9a5d; }
 .rem-mail { background: var(--navy); }
 @media (hover: none) and (pointer: coarse) {
-  .rem-overlay { padding: 0; align-items: stretch; }
+  .rem-overlay { padding: 0; align-items: flex-start; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
   .rem-box { max-width: none; border-radius: 0; min-height: 100%; }
   .rem-row { grid-template-columns: 1fr; }
 }
@@ -8142,10 +8151,11 @@ function dashboardTileClick(filterId, tileEl) {
   /* ===== "חדש באתר" (מחשב) — הרשימה מנוהלת כאן ידנית =====
      להוספה: פריט חדש עם bodyId של ההודעה, אייקון, ומשפט קריצה קצר. להסרה: למחוק את השורה. */
   const HOME_NEW_ITEMS = [
+    { action: 'reminder', icon: '📅', name: 'תזכורת ליומן למשתקם', where: 'כלים', blurb: 'קישור שמכניס למבוטח תזכורת קבועה ליומן.' },
     { bodyId: 'msgDental', icon: '🦷', where: 'שיקום איבה · נכים', blurb: 'מי זכאי לטיפולי שיניים, ואיך פונים למחלקת איבה לבדיקה.' },
     { action: 'trum', icon: '🎓', name: 'תוכניות טרום שיקום', where: 'כלים', blurb: 'ריכוז ארצי של התוכניות: בוחרים אוכלוסייה ומעתיקים למבוטח.' },
     { bodyId: 'msgDebtLoan', icon: '💸', where: 'שיקום איבה · נכים', blurb: 'חובות מעיקים? הלוואה ייעודית ויועץ פיננסי, מנוסח ומוכן.' },
-    { bodyId: 'msgFamilyReceipts', icon: '🧾', where: 'שיקום איבה · משפחות', blurb: 'מגישים קבלות דרך מצפן הזכויות, ב-6 צעדים פשוטים ועם סרטון הדרכה.' }
+    { bodyId: 'msgFamilyReceipts', icon: '🧾', where: 'שיקום איבה · משפחות', blurb: 'מגישים קבלות דרך מצפן הזכויות, עם סרטון הדרכה.' }
   ];
   function buildHomeNew() {
     const box = document.getElementById('homeNew');
@@ -8173,6 +8183,7 @@ function dashboardTileClick(filterId, tileEl) {
         try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('חדש באתר: ' + name); } catch (e) {}
         if (it.action === 'search') { if (typeof toggleDeskSearch === 'function') toggleDeskSearch(); return; }
         if (it.action === 'trum') { if (typeof openTrumPrograms === 'function') openTrumPrograms(); return; }
+        if (it.action === 'reminder') { if (typeof openReminder === 'function') openReminder(); return; }
         goToNewMsg(card);
       };
       li.appendChild(btn);
@@ -9475,6 +9486,7 @@ function dashboardTileClick(filterId, tileEl) {
 
   function bottomNavHome() {
     if (typeof hapticTap === 'function') hapticTap();
+    if (typeof mFlowerClose === 'function') mFlowerClose();
     if (typeof closeSubGrid === 'function') closeSubGrid();
     if (typeof closeMobileSearch === 'function') closeMobileSearch();
     document.body.classList.remove('m-search-show');
@@ -10469,6 +10481,14 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
         </span>
         <span class="tools-hub-card-arrow">←</span>
       </button>
+      <button type="button" class="tools-hub-card" onclick="closeToolsHub(); openReminder();">
+        <span class="tools-hub-card-emoji">📅</span>
+        <span class="tools-hub-card-text">
+          <span class="tools-hub-card-title">תזכורת ליומן למשתקם</span>
+          <span class="tools-hub-card-desc">הודעה עם קישור שמוסיף למבוטח תזכורת ליומן, חוזרת או חד פעמית.</span>
+        </span>
+        <span class="tools-hub-card-arrow">←</span>
+      </button>
 
       <p class="tools-hub-empty-note">כלים נוספים יתווספו כאן בהמשך 🙂</p>
 
@@ -10671,6 +10691,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
         האירוע נשמר רק ביומן של המבוטח, ולא ביומן שלכם.
         כך האחריות על ההחזרים עוברת למבוטח, והוא יודע בדיוק מה נדרש ממנו ומתי.
       </div>
+      <div class="rem-col rem-form">
       <div class="rem-f">
         <label for="remWhat">מה לבקש</label>
         <select id="remWhat"></select>
@@ -10709,7 +10730,9 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
         </select>
       </div>
       <div class="rem-note" id="remDayNote" hidden>בחודשים קצרים התזכורת לא תופיע ביום הזה. מומלץ לבחור יום בין 1 ל-28.</div>
-      <div class="rem-f">
+      </div>
+      <div class="rem-col rem-out">
+      <div class="rem-f rem-prev-wrap">
         <span class="rem-lbl">ההודעה למשתקם</span>
         <div class="rem-prev" id="remMsg"></div>
       </div>
@@ -10717,6 +10740,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
         <button type="button" class="rem-copy" id="remCopyBtn" onclick="remCopy(this)">העתקה</button>
         <button type="button" class="rem-wa" id="remWaBtn" onclick="remWa()">וואטסאפ</button>
         <button type="button" class="rem-mail" id="remMailBtn" onclick="remMail()">מייל</button>
+      </div>
       </div>
     </div>
   </div>
