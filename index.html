@@ -3794,6 +3794,47 @@ body.dark-mode .card-body .msg-link { color: #7fb3ff; }
 .trum-programs-cta-text { display: flex; flex-direction: column; gap: 3px; }
 .trum-programs-cta-title { font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 1.05rem; }
 .trum-programs-cta-sub { font-size: 0.82rem; opacity: 0.85; }
+/* ===== תזכורת ליומן למשתקם (כלי מודאלי, הכל בתחילית rem-) ===== */
+.rem-overlay { position: fixed; inset: 0; z-index: 1250; background: rgba(20,24,30,0.55); display: none; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 28px 16px; }
+.rem-overlay.open { display: flex; }
+.rem-box { width: 100%; max-width: 560px; background: var(--paper-card); color: var(--ink); border-radius: 18px; box-shadow: 0 18px 50px rgba(0,0,0,0.3); overflow: hidden; }
+.rem-head { display: flex; align-items: center; gap: 12px; padding: 16px 18px; background: var(--navy); color: #f3efe4; }
+.rem-head-ico { font-size: 1.6rem; line-height: 1; }
+.rem-head-t { flex: 1; min-width: 0; }
+.rem-head-t b { display: block; font-size: 1.1rem; font-weight: 800; }
+.rem-head-t span { display: block; font-size: 0.78rem; opacity: 0.8; margin-top: 2px; }
+.rem-x { flex: none; height: 36px; padding: 0 14px; border-radius: 999px; border: 1.5px solid rgba(243,239,228,0.35); background: transparent; color: #f3efe4; font-weight: 700; font-size: 0.85rem; cursor: pointer; }
+.rem-x:hover { background: rgba(255,255,255,0.1); }
+.rem-body { padding: 16px 18px 20px; display: flex; flex-direction: column; gap: 14px; }
+.rem-f { display: flex; flex-direction: column; gap: 6px; }
+.rem-about { margin: 0; line-height: 1.6; }
+.rem-about b { display: block; font-size: 0.9rem; margin-bottom: 2px; }
+.rem-f > label, .rem-lbl { font-size: 0.82rem; font-weight: 700; color: var(--ink-soft); }
+.rem-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rem-body input, .rem-body select, .rem-body textarea { width: 100%; box-sizing: border-box; font-family: inherit; font-size: 16px; color: var(--ink); background: var(--paper); border: 1.5px solid var(--rule-strong); border-radius: 10px; padding: 10px 12px; outline: none; }
+.rem-body textarea { min-height: 64px; resize: vertical; line-height: 1.5; }
+.rem-body input:focus, .rem-body select:focus, .rem-body textarea:focus { border-color: var(--navy); }
+.rem-seg { display: flex; gap: 8px; }
+.rem-seg button { flex: 1; padding: 10px; border-radius: 10px; border: 1.5px solid var(--rule-strong); background: var(--paper); color: var(--ink); font-weight: 700; font-size: 0.9rem; cursor: pointer; }
+.rem-seg button.on { background: var(--navy); border-color: var(--navy); color: #f3efe4; }
+.rem-note { font-size: 0.78rem; color: var(--cat-routing); }
+.rem-prev { background: var(--paper); border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px; font-size: 0.88rem; line-height: 1.6; white-space: pre-wrap; word-break: break-word; max-height: 220px; overflow-y: auto; }
+.rem-prev.dim { color: var(--ink-soft); }
+.rem-acts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.rem-acts button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 11px 8px; border-radius: 12px; border: none; color: #fff; font-weight: 700; font-size: 0.9rem; cursor: pointer; }
+.rem-acts button:disabled { opacity: 0.45; cursor: default; }
+@media (hover: hover) and (pointer: fine) {
+  .rem-acts { grid-template-columns: 1fr 1fr; }
+  .rem-wa { display: none !important; }
+}
+.rem-copy { background: var(--stamp-red); }
+.rem-wa { background: #3f9a5d; }
+.rem-mail { background: var(--navy); }
+@media (hover: none) and (pointer: coarse) {
+  .rem-overlay { padding: 0; align-items: stretch; }
+  .rem-box { max-width: none; border-radius: 0; min-height: 100%; }
+  .rem-row { grid-template-columns: 1fr; }
+}
 /* ===== שעון נוכחות (כלי מודאלי, הכל בתחילית ac-) ===== */
 .ac-overlay{display:none;position:fixed;inset:0;z-index:10000;background:rgba(20,24,22,.55);
   overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 14px}
@@ -4647,6 +4688,7 @@ html, body, body *, body *::before, body *::after, input, textarea, select, butt
       <button type="button" class="tile-petal" style="--i:2;--tile-color: var(--navy);" onclick="radialTool('travel',event)"><span class="petal-badge">🚌</span><span class="petal-label">נסיעות</span></button>
       <button type="button" class="tile-petal" style="--i:3;--tile-color: var(--navy);" onclick="radialTool('attendance',event)"><span class="petal-badge">🕐</span><span class="petal-label">נוכחות</span></button>
       <button type="button" class="tile-petal" style="--i:4;--tile-color: var(--navy);" onclick="radialTool('trum',event)"><span class="petal-badge">🎓</span><span class="petal-label">טרום שיקום</span></button>
+      <button type="button" class="tile-petal" style="--i:5;--tile-color: var(--navy);" onclick="radialTool('reminder',event)"><span class="petal-badge">📅</span><span class="petal-label">תזכורת ליומן</span></button>
     </div>
   </div>
 </div>
@@ -4720,7 +4762,6 @@ html, body, body *, body *::before, body *::after, input, textarea, select, butt
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">טופס 270 – תביעה לשיקום מקצועי</span>
-        <span class="card-new-badge">חדש</span>
         <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="card-quick-actions" onclick="event.stopPropagation()">
@@ -4833,7 +4874,7 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
       </div>
     </div>
 
-    <div class="card studies-card" data-added="2026-08-27">
+    <div class="card studies-card">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">החזר על קורס פסיכומטרי</span>
@@ -4904,6 +4945,9 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
 • קבלות שכר לימוד, כל קבלה שאתם משלמים העבירו אלי למייל. החזר שנתי מקסימלי הינו עד 13079 ש"ח
 • לוח שנה אקדמי
 
+⚠️ לגבי מערכת השעות: יש לשלוח מסמך רשמי של מקום הלימודים, שמופיעים בו שם הסטודנט/ית והלוגו של המוסד.
+לרוב אפשר להוציא את המערכת בעצמכם מתוך המערכת הממוחשבת של מקום הלימודים. אם אין אפשרות כזו, יש לבקש ממזכירות החוג להוציא מסמך כזה.
+
 מומלץ לשלוח את כל המסמכים יחד באותו מייל, כדי לזרז את הטיפול בבקשה.</div>
         <div class="card-footer">
           <button class="copy-btn" onclick="copyMsg('msg2', this)">
@@ -4942,6 +4986,9 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
         <div class="card-body" id="msg3">👨‍🎓👩🏽‍🎓לקראת סמסטר ב', שלחו אלי את המסמכים הבאים למייל :
 • מערכת שעות סמסטר ב'– חשוב שיהיה כתוב כמה נ"ז/ש"ס יש
 • גיליון ציונים (גם אם חלקי, זה בסדר)
+
+⚠️ לגבי מערכת השעות: יש לשלוח מסמך רשמי של מקום הלימודים, שמופיעים בו שם הסטודנט/ית והלוגו של המוסד.
+לרוב אפשר להוציא את המערכת בעצמכם מתוך המערכת הממוחשבת של מקום הלימודים. אם אין אפשרות כזו, יש לבקש ממזכירות החוג להוציא מסמך כזה.
 
 מומלץ לשלוח את כל המסמכים יחד באותו מייל, כדי לזרז את הטיפול בבקשה.</div>
         <div class="card-footer">
@@ -5001,7 +5048,7 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
       </div>
     </div>
 
-    <div class="card studies-card" data-added="2026-08-06">
+    <div class="card studies-card">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">תיחור</span>
@@ -5039,7 +5086,8 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
 4️⃣ פירוט תוכנית הלימודים – נושאים ותחומי הלימוד
 5️⃣ סוג התעודה הניתנת – מי הגוף המנפיק והאם היא מוכרת על ידי משרד העבודה, החינוך או גורם רשמי אחר
 6️⃣ עלות שכר הלימוד הכוללת – כולל דמי רישום, חומרי לימוד והוצאות נוספות
-7️⃣ ציוד נדרש – האם יש צורך בציוד מיוחד במסגרת הלימודים.
+7️⃣ ציוד נדרש – האם יש צורך בציוד מיוחד במסגרת הלימודים
+8️⃣ מספר עוסק של מוסד הלימודים (עוסק מורשה / ח.פ.)
 
 📊 כמה הצעות מחיר יש להגיש?
 🔸 עד 5,000 ₪ – הצעה אחת בלבד
@@ -5161,7 +5209,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       </div>
     </div>
 
-    <div class="card terror-card" data-added="2026-10-18">
+    <div class="card terror-card">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">טיפולי שיניים</span>
@@ -5272,7 +5320,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/eyva-centers/Pages/defaul
       </div>
     </div>
 
-    <div class="card terror-card" data-added="2026-07-27">
+    <div class="card terror-card">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">הקרן לנפגעי טרור – מענק שיקומי משלים</span>
@@ -5311,7 +5359,7 @@ https://fvot.jewishagency.org/long-term-support/
       </div>
     </div>
 
-    <div class="card terror-card" data-added="2026-07-22">
+    <div class="card terror-card">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title upload-guide-title">מדריך להעלאת מסמכים</span>
@@ -6132,11 +6180,10 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
     </div>
 
     
-    <div class="card therapists-card" data-added="2026-07-21">
+    <div class="card therapists-card">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">הגשת חשבוניות במערכת</span>
-        <span class="card-new-badge">חדש</span>
         <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="card-quick-actions" onclick="event.stopPropagation()">
@@ -6200,11 +6247,10 @@ https://www.btl.gov.il/טפסים%20ואישורים/forms/Rehabilitation_forms_
         </div>
       </div>
     </div>
-    <div class="card therapists-card" data-added="2026-07-23">
+    <div class="card therapists-card">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">מערכת B2B לספקים</span>
-        <span class="card-new-badge">חדש</span>
         <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="card-quick-actions" onclick="event.stopPropagation()">
@@ -6332,7 +6378,6 @@ https://govforms.gov.il/mw/forms/t269@btl.gov.il
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
         <span class="card-toggle-title">בקשה לדו"ח הערכה</span>
-        <span class="card-new-badge">חדש</span>
         <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="card-quick-actions" onclick="event.stopPropagation()">
@@ -7215,7 +7260,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     { kind: 'vat', icon: '🧮', name: 'מחשבון מע"מ', kw: 'מעמ מע"מ מס ערך מוסף מחשבון חשבונית' },
     { kind: 'travel', icon: '🚌', name: 'מחשבון נסיעות ופרמטרים', kw: 'נסיעות נסיעה תחבורה אוטובוס רכבת פרמטרים החזר נסיעות דרך שווה' },
     { kind: 'attendance', icon: '🕐', name: 'שעון נוכחות', kw: 'נוכחות שעון שעות יציאה כניסה' },
-    { kind: 'trum', icon: '🧭', name: 'תוכניות טרום שיקום', kw: 'טרום שיקום תוכניות תכניות' }
+    { kind: 'trum', icon: '🧭', name: 'תוכניות טרום שיקום', kw: 'טרום שיקום תוכניות תכניות' },
+    { kind: 'reminder', icon: '📅', name: 'תזכורת ליומן למשתקם', kw: 'תזכורת יומן אירוע חודשי קבלות להזכיר תאריך' }
   ];
   function srOpenTool(kind) {
     var t = SEARCH_TOOLS.filter(function (x) { return x.kind === kind; })[0];
@@ -8055,6 +8101,19 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
 
+  /* ===== מדריך העלאת הקבלות תמיד ראשון בלשונית שלו (נכים / משפחות) — גם כשנוספות הודעות חדשות ===== */
+  function pinUploadGuidesFirst() {
+    document.querySelectorAll('.eiva-panel').forEach(function (panel) {
+      var t = panel.querySelector('.upload-guide-title');
+      var guide = t && t.closest('.card');
+      if (!guide) return;
+      var first = Array.prototype.find.call(panel.children, function (el) { return el.classList.contains('card'); });
+      if (first && first !== guide) panel.insertBefore(guide, first);
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function () { setTimeout(pinUploadGuidesFirst, 0); });
+  window.addEventListener('load', pinUploadGuidesFirst);
+
   /* ===== NEW badge on recently-added cards =====
      To mark a future card as new, add data-added="YYYY-MM-DD" to its outer .card div.
      The badge shows automatically for 7 days from that date, then disappears on its own. */
@@ -8084,7 +8143,7 @@ function dashboardTileClick(filterId, tileEl) {
      להוספה: פריט חדש עם bodyId של ההודעה, אייקון, ומשפט קריצה קצר. להסרה: למחוק את השורה. */
   const HOME_NEW_ITEMS = [
     { bodyId: 'msgDental', icon: '🦷', where: 'שיקום איבה · נכים', blurb: 'מי זכאי לטיפולי שיניים, ואיך פונים למחלקת איבה לבדיקה.' },
-    { action: 'search', icon: '🔍', name: 'חיפוש חכם', where: 'בכל האתר', blurb: 'זוכרים מילה אחת? זה מספיק. מקלידים ומעתיקים.' },
+    { action: 'trum', icon: '🎓', name: 'תוכניות טרום שיקום', where: 'כלים', blurb: 'ריכוז ארצי של התוכניות: בוחרים אוכלוסייה ומעתיקים למבוטח.' },
     { bodyId: 'msgDebtLoan', icon: '💸', where: 'שיקום איבה · נכים', blurb: 'חובות מעיקים? הלוואה ייעודית ויועץ פיננסי, מנוסח ומוכן.' },
     { bodyId: 'msgFamilyReceipts', icon: '🧾', where: 'שיקום איבה · משפחות', blurb: 'מגישים קבלות דרך מצפן הזכויות, ב-6 צעדים פשוטים ועם סרטון הדרכה.' }
   ];
@@ -8113,6 +8172,7 @@ function dashboardTileClick(filterId, tileEl) {
       btn.onclick = function () {
         try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('חדש באתר: ' + name); } catch (e) {}
         if (it.action === 'search') { if (typeof toggleDeskSearch === 'function') toggleDeskSearch(); return; }
+        if (it.action === 'trum') { if (typeof openTrumPrograms === 'function') openTrumPrograms(); return; }
         goToNewMsg(card);
       };
       li.appendChild(btn);
@@ -8717,6 +8777,7 @@ function dashboardTileClick(filterId, tileEl) {
     radialCloseAll();
     if (kind === 'attendance') { if (typeof openAttendance === 'function') openAttendance(); }
     else if (kind === 'trum') { if (typeof openTrumPrograms === 'function') openTrumPrograms(); }
+    else if (kind === 'reminder') { if (typeof openReminder === 'function') openReminder(); }
     else if (typeof openDirectTool === 'function') {
       openDirectTool(kind); /* basic / vat / travel */
       /* נבחר ישירות מהפרח — אין צורך ב"חזרה לכלים נוספים" (הפרח הוא בורר הכלים); היציאה היא "חזרה למסך הבית" */
@@ -9932,7 +9993,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
             { key: 'eiva_psych', label: 'טיפול פסיכולוגי', checked: false, text: `🔹 טיפול פסיכולוגי: זכאות לשעתיים שבועיות של טיפול פרטני במימון ישיר שלנו למטפל מתוך המאגר.
 🔗 לאיתור מטפל במאגר: https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
 🔗 לבקשת הכרה במטפל חדש שאינו במאגר: https://govforms.gov.il/mw/forms/t269@btl.gov.il` },
-            { key: 'eiva_sport', label: 'פעילות ספורט', checked: false, text: `🔹 פעילות ספורט: החזר עבור פעילות ספורט (באחוזים זמניים נדרש ניבוי).` },
+            { key: 'eiva_sport', label: 'פעילות ספורט', checked: false, text: `🔹 פעילות ספורט: החזר עבור פעילות ספורט.` },
             { key: 'eiva_preshikum', label: 'תוכנית טרום שיקום נפש אחת', checked: false, text: `🔹 תוכנית טרום שיקום נפש אחת: מסגרת ביניים תומכת (חוגי אמנות, מוזיקה וכו') לשימור מיומנויות אישיות ותעסוקתיות – מיועד למתמודדים עם פוסט טראומה שאינם עובדים ואינם לומדים.` },
             { key: 'eiva_medadvice', label: 'ייעוץ רפואי', checked: false, text: `🔹 ייעוץ רפואי: החזר על עד 3 התייעצויות בשנה.` }
           ]
@@ -9979,10 +10040,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     titleSpan.className = 'card-toggle-title';
     titleSpan.textContent = data.shortTitle || data.title;
     toggleBtn.appendChild(titleSpan);
-    const newBadge = document.createElement('span');
-    newBadge.className = 'card-new-badge';
-    newBadge.textContent = 'חדש';
-    toggleBtn.appendChild(newBadge);
     toggleBtn.insertAdjacentHTML('beforeend', '<svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>');
     toggleBtn.onclick = function () { toggleCard(toggleBtn); };
     headerRow.appendChild(toggleBtn);
@@ -10598,6 +10655,209 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
   </button>
 </nav>
 
+
+<!-- ===== תזכורת ליומן למשתקם ===== -->
+<div class="rem-overlay" id="remOverlay" onclick="if(event.target===this)closeReminder()">
+  <div class="rem-box" role="dialog" aria-modal="true" aria-label="תזכורת ליומן">
+    <div class="rem-head">
+      <span class="rem-head-ico">📅</span>
+      <div class="rem-head-t"><b>תזכורת ליומן למשתקם</b><span>הוא מוסיף ליומן שלו בלחיצה, ומקבל תזכורת לשלוח לך</span></div>
+      <button type="button" class="rem-x" onclick="closeReminder()">✕ סגירה</button>
+    </div>
+    <div class="rem-body">
+      <div class="staff-note rem-about">
+        <b>ℹ️ למה הכלי הזה?</b>
+        כשהמבוטח צריך לשלוח אלינו משהו באופן קבוע או בתאריך מסוים, כמו דוח נוכחות או תלוש שכר, הכלי יוצר עבורו הודעה עם קישור שמוסיף תזכורת ליומן שלו. זו יכולה להיות גם כל תזכורת אחרת, לא רק שליחת טפסים. אפשר לקבוע אירוע חוזר (כל חודש) או אירוע חד פעמי.
+        האירוע נשמר רק ביומן של המבוטח, ולא ביומן שלכם.
+        כך האחריות על ההחזרים עוברת למבוטח, והוא יודע בדיוק מה נדרש ממנו ומתי.
+      </div>
+      <div class="rem-f">
+        <label for="remWhat">מה לבקש</label>
+        <select id="remWhat"></select>
+      </div>
+      <div class="rem-f">
+        <label for="remDetails">פירוט (יופיע באירוע ביומן)</label>
+        <textarea id="remDetails"></textarea>
+      </div>
+      <div class="rem-f">
+        <span class="rem-lbl">תדירות</span>
+        <div class="rem-seg" id="remFreq">
+          <button type="button" data-f="monthly" class="on">כל חודש</button>
+          <button type="button" data-f="once">פעם אחת</button>
+        </div>
+      </div>
+      <div class="rem-row">
+        <div class="rem-f"><label for="remDate" id="remDateLbl">התזכורת הראשונה</label><input id="remDate" type="date"></div>
+        <div class="rem-f"><label for="remTime">שעה</label><input id="remTime" type="time" value="09:00"></div>
+      </div>
+      <div class="rem-f" id="remCountWrap">
+        <label for="remCount">למשך</label>
+        <select id="remCount">
+          <option value="1">חודש אחד</option>
+          <option value="2">2 חודשים</option>
+          <option value="3">3 חודשים</option>
+          <option value="4">4 חודשים</option>
+          <option value="5">5 חודשים</option>
+          <option value="6">6 חודשים</option>
+          <option value="7">7 חודשים</option>
+          <option value="8">8 חודשים</option>
+          <option value="9">9 חודשים</option>
+          <option value="10">10 חודשים</option>
+          <option value="11">11 חודשים</option>
+          <option value="12" selected>שנה (12 חודשים)</option>
+          <option value="0">ללא הגבלה</option>
+        </select>
+      </div>
+      <div class="rem-note" id="remDayNote" hidden>בחודשים קצרים התזכורת לא תופיע ביום הזה. מומלץ לבחור יום בין 1 ל-28.</div>
+      <div class="rem-f">
+        <span class="rem-lbl">ההודעה למשתקם</span>
+        <div class="rem-prev" id="remMsg"></div>
+      </div>
+      <div class="rem-acts">
+        <button type="button" class="rem-copy" id="remCopyBtn" onclick="remCopy(this)">העתקה</button>
+        <button type="button" class="rem-wa" id="remWaBtn" onclick="remWa()">וואטסאפ</button>
+        <button type="button" class="rem-mail" id="remMailBtn" onclick="remMail()">מייל</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== תזכורת ליומן למשתקם ===== */
+(function () {
+  var ATT_LINK = 'https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf';
+  var PRESETS = [
+    { t: 'טופס נוכחות', d: 'למלא את דוח הנוכחות של החודש ולשלוח. אין צורך בחתימת מקום ההכשרה, מספיקה חתימה שלכם בלבד.', link: ATT_LINK },
+    { t: 'תלוש שכר', d: 'לשלוח את תלוש השכר של החודש.' },
+    { t: 'אחר', d: '' }
+  ];
+  var freq = 'monthly';
+  function $(id) { return document.getElementById(id); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function ymd(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function heDate(v) { var a = v.split('-'); return a[2] + '.' + a[1] + '.' + a[0]; }
+  function stamp(v, t) { return v.replace(/-/g, '') + 'T' + t.replace(':', '') + '00'; }
+  function plus30(t) { var a = t.split(':'), m = (+a[0]) * 60 + (+a[1]) + 30; m = m % 1440; return pad(Math.floor(m / 60)) + ':' + pad(m % 60); }
+
+  function state() {
+    var i = +$('remWhat').value, p = PRESETS[i] || PRESETS[0];
+    return {
+      what: p.t === 'אחר' ? '' : p.t,
+      link: p.link || '',
+      details: $('remDetails').value.trim(),
+      date: $('remDate').value,
+      time: $('remTime').value || '09:00',
+      count: +$('remCount').value
+    };
+  }
+  function title(st) { return 'לשלוח ' + (st.what || 'מסמכים') + ' לשיקום'; }
+  /* קידוד מינימלי: העברית נשארת קריאה (כמו בקישורי הטפסים באתר), רק תווים שוברים מקודדים — הקישור קצר בהרבה */
+  function enc(t) {
+    return String(t).replace(/%/g, '%25').replace(/&/g, '%26').replace(/#/g, '%23').replace(/\+/g, '%2B')
+      .replace(/\?/g, '%3F').replace(/=/g, '%3D').replace(/"/g, '%22').replace(/</g, '%3C').replace(/>/g, '%3E')
+      .replace(/\r?\n/g, '%0A').replace(/\s/g, '+');
+  }
+  function eventDesc(st) { return st.details + (st.link ? '\nהטופס בקישור: ' + st.link : ''); }
+  function rrule(st) { return freq === 'monthly' ? 'RRULE:FREQ=MONTHLY' + (st.count ? ';COUNT=' + st.count : '') : ''; }
+  function gLink(st) {
+    var q = 'action=TEMPLATE'
+      + '&text=' + enc(title(st))
+      + '&details=' + enc(eventDesc(st))
+      + '&dates=' + stamp(st.date, st.time) + '/' + stamp(st.date, plus30(st.time))
+      + '&ctz=Asia/Jerusalem';
+    var r = rrule(st); if (r) q += '&recur=' + enc(r);
+    return 'https://calendar.google.com/calendar/render?' + q;
+  }
+  function whenText(st) {
+    if (freq === 'monthly') {
+      var day = +st.date.split('-')[2];
+      var dur = !st.count ? '' : st.count === 1 ? ', למשך חודש אחד' : st.count === 12 ? ', למשך שנה' : ', למשך ' + st.count + ' חודשים';
+      return 'כל חודש ב-' + day + ' לחודש בשעה ' + st.time + ', החל מ-' + heDate(st.date) + dur;
+    }
+    return 'ב-' + heDate(st.date) + ' בשעה ' + st.time;
+  }
+  function message(st) {
+    return 'שלום,\nכדי שיהיה קל לזכור, הכנתי עבורך תזכורת ליומן.\n'
+      + '🗓️ מתי: ' + whenText(st) + '\n\n'
+      + 'כך זה יופיע ביומן שלך:\n'
+      + title(st) + '\n'
+      + eventDesc(st) + '\n\n'
+      + 'שימו לב: הקישור עובד רק למי שמחובר ליומן של Google.\n'
+      + 'להוספת התזכורת ליומן, לחצו על הקישור ואז על "שמירה":\n'
+      + gLink(st) + '\n\nתודה!';
+  }
+  function render() {
+    var st = state();
+    $('remCountWrap').hidden = freq !== 'monthly';
+    $('remDateLbl').textContent = freq === 'monthly' ? 'התזכורת הראשונה' : 'תאריך';
+    $('remDayNote').hidden = !(freq === 'monthly' && st.date && +st.date.split('-')[2] > 28);
+    var ok = st.date && (st.what || st.details);
+    var box = $('remMsg');
+    if (ok) { box.textContent = message(st); box.classList.remove('dim'); }
+    else { box.textContent = !st.date ? 'יש לבחור תאריך.' : 'יש לכתוב מה לבקש בשדה הפירוט.'; box.classList.add('dim'); }
+    ['remCopyBtn', 'remWaBtn', 'remMailBtn'].forEach(function (id) { $(id).disabled = !ok; });
+  }
+  /* אנליטיקס: כל הודעה שנוצרה נשלחת עם פירוט האירוע (שם האירוע קצר — עד 50 תווים; הפירוט המלא כנתוני אירוע) */
+  function remTrack(action) {
+    var st = state();
+    var whatLbl = st.what || ('אחר: ' + st.details);
+    var when = freq === 'monthly' ? ('חודשי ' + (st.count ? st.count : '∞')) : 'חד פעמי';
+    var name = ('תזכורת · ' + action + ' · ' + whatLbl + ' · ' + when).slice(0, 50);
+    var data = { action: action, what: whatLbl.slice(0, 120), freq: freq === 'monthly' ? 'חודשי' : 'חד פעמי',
+      months: freq === 'monthly' ? (st.count || 'ללא הגבלה') : 1, start: st.date, time: st.time, details: st.details.slice(0, 200) };
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track(name, data); } catch (e) {}
+  }
+
+  window.openReminder = function () {
+    var ov = $('remOverlay'); if (!ov) return;
+    if (!$('remWhat').options.length) {
+      $('remWhat').innerHTML = PRESETS.map(function (p, i) { return '<option value="' + i + '">' + p.t + '</option>'; }).join('');
+      $('remDetails').value = PRESETS[0].d;
+      var d = new Date(); d.setMonth(d.getMonth() + 1, 1); $('remDate').value = ymd(d);
+    }
+    ov.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    render();
+    umTrack('כלי: תזכורת ליומן');
+  };
+  window.closeReminder = function () { var ov = $('remOverlay'); if (ov) ov.classList.remove('open'); document.body.style.overflow = ''; };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!$('remOverlay')) return;
+    $('remWhat').addEventListener('change', function () { var p = PRESETS[+this.value]; $('remDetails').value = p ? p.d : ''; render(); });
+    ['remDetails', 'remDate', 'remTime', 'remCount'].forEach(function (id) { $(id).addEventListener('input', render); $(id).addEventListener('change', render); });
+    $('remFreq').addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      freq = b.dataset.f;
+      Array.prototype.forEach.call(this.children, function (x) { x.classList.toggle('on', x === b); });
+      render();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('remOverlay').classList.contains('open')) closeReminder(); });
+  });
+
+  window.remCopy = function (btn) {
+    var text = $('remMsg').textContent;
+    (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).catch(function () {
+      var ta = document.createElement('textarea'); ta.value = text; ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    }).then(function () {
+      if (typeof showCopiedToast === 'function') showCopiedToast();
+      btn.textContent = '✓ הועתק'; setTimeout(function () { btn.textContent = 'העתקה'; }, 1600);
+    });
+    remTrack('העתקה');
+  };
+  window.remWa = function () {
+    if (typeof openWhatsAppSafely === 'function') openWhatsAppSafely($('remMsg').textContent, false);
+    remTrack('וואטסאפ');
+  };
+  window.remMail = function () {
+    var a = document.createElement('a');
+    a.href = 'mailto:?subject=' + encodeURIComponent('תזכורת ליומן: ' + (state().what || 'שליחת מסמכים')) + '&body=' + encodeURIComponent($('remMsg').textContent);
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    remTrack('מייל');
+  };
+})();
+</script>
 
 <!-- ===== תוכניות טרום שיקום: שכבת תצוגה מלאה ===== -->
 <div class="trum-overlay" id="trumOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="תוכניות טרום שיקום">
