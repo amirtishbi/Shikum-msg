@@ -782,14 +782,6 @@ body.dark-mode .sr-ask { background: color-mix(in srgb, #e6b94d 14%, var(--paper
     width: 276px;
     z-index: 60;
   }
-  /* סגנונות המפה — בשימוש בתוך כרטיס "הגעה לסניף" */
-  .branch-map-row { display: flex; align-items: center; justify-content: center; gap: 18px; margin-bottom: 6px; }
-  .branch-map-svg { display: block; width: 70px; height: 214px; flex-shrink: 0; }
-  .branch-map-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-  .branch-map-legend li { display: flex; align-items: center; gap: 7px; font-weight: 700; font-size: 0.95rem; color: var(--navy); }
-  .bm-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--stamp-red); border: 1.5px solid #fff; box-shadow: 0 0 0 1px var(--stamp-red); flex-shrink: 0; }
-  .bm-outline { fill: #efe6d2; stroke: var(--navy); stroke-width: 2; stroke-linejoin: round; }
-  .bm-pin circle { fill: var(--stamp-red); stroke: #fff; stroke-width: 1.5; }
   /* ===== באנר ההצטרפות לרשימת התפוצה — כרטיס בולט ומזמין ===== */
   .join-banner {
     display: block;
@@ -3768,18 +3760,7 @@ body.trum-lock { overflow: hidden; }
 .card-body .msg-link:hover { text-decoration: none; }
 body.dark-mode .card-body .msg-link { color: #7fb3ff; }
 
-/* מפת סניפים לחיצה — לחיצה על עיר מעתיקה את הוראות ההגעה */
-
-.branch-map-legend li[data-branch] { cursor: pointer; border-radius: 7px; padding: 3px 7px; transition: background 0.12s, color 0.12s; }
-.branch-map-legend li[data-branch]:hover { background: rgba(31,43,61,0.09); }
-.branch-map-legend li[data-branch].active { background: var(--navy); color: #fff; }
-.branch-map-legend li[data-branch].active .bm-dot { box-shadow: 0 0 0 2px #fff; }
-/* מפה בתוך כרטיס "הוראות הגעה" — מחשב בלבד (במובייל נשארים כפתורי הסניפים) */
-.branch-map-incard { display: none; }
-.branch-map-incard-title { font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 1rem; color: var(--navy); margin-bottom: 10px; }
 @media (hover: hover) and (pointer: fine) {
-  .branch-map-incard { display: block; margin-bottom: 6px; }
-  .branch-map-incard ~ .branch-picker { display: none; }
 }
 
 /* קישור לכלי "תוכניות טרום שיקום" בטאב טרום שיקום */
@@ -3794,6 +3775,16 @@ body.dark-mode .card-body .msg-link { color: #7fb3ff; }
 .trum-programs-cta-text { display: flex; flex-direction: column; gap: 3px; }
 .trum-programs-cta-title { font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 1.05rem; }
 .trum-programs-cta-sub { font-size: 0.82rem; opacity: 0.85; }
+/* ===== הגעה לסניף: עיגול "קביעת פגישה" שצץ ליד העיר בפרח + חלון תאריך (תחילית meet-) ===== */
+.meet-bubble { position: fixed; z-index: 3200; width: 118px; height: 118px; margin: -59px 0 0 -59px; border-radius: 50%; border: 3px solid #fff; background: #e6b94d; color: var(--navy); font-family: 'Heebo', sans-serif; font-weight: 800; font-size: 0.86rem; line-height: 1.25; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-align: center; padding: 10px; cursor: pointer; box-shadow: 0 10px 26px rgba(17,23,34,0.35); animation: meetPop .32s cubic-bezier(.34,1.5,.64,1) both; }
+.meet-bubble span { font-size: 1.5rem; line-height: 1; }
+.meet-bubble small { font-size: 0.72rem; font-weight: 700; opacity: 0.8; }
+.meet-bubble:hover { filter: brightness(1.05); transform: scale(1.04); }
+@keyframes meetPop { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.meet-box { max-width: 600px !important; }
+.meet-box .rem-body { display: flex !important; flex-direction: column; }
+.meet-box .rem-prev { flex: none !important; min-height: 140px; max-height: 300px !important; overflow-y: auto; }
+.meet-bubble.on-core { width: 150px; height: 150px; margin: -75px 0 0 -75px; font-size: 0.95rem; }
 /* ===== תזכורת ליומן למשתקם (כלי מודאלי, הכל בתחילית rem-) ===== */
 .rem-overlay { position: fixed; inset: 0; z-index: 1250; overscroll-behavior: contain; background: rgba(20,24,30,0.55); display: none; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 28px 16px; }
 .rem-overlay.open { display: flex; }
@@ -4464,7 +4455,7 @@ html, body, body *, body *::before, body *::after, input, textarea, select, butt
     <button type="button" class="filter-chip filter-therapists" data-filter="therapists" onclick="toggleFilter(this)">מטפלים/ספקים</button>
     <button type="button" class="filter-chip filter-routing" data-filter="routing" onclick="toggleFilter(this)">הפניה</button>
     <button type="button" class="filter-chip filter-consent" data-filter="consent" onclick="toggleFilter(this)">ויתור סודיות</button>
-    <button type="button" class="filter-chip filter-admin" data-filter="admin" onclick="toggleFilter(this)">הגעה לסניף</button>
+    <button type="button" class="filter-chip filter-admin" data-filter="admin" onclick="toggleFilter(this)">סניפים: כתובת ופגישה</button>
   </div>
 </nav>
 
@@ -4548,7 +4539,7 @@ html, body, body *, body *::before, body *::after, input, textarea, select, butt
 
         <div class="about-h">מה יש כאן?</div>
         <ul class="about-list">
-          <li><span>📂</span>הודעות מוכנות לפי נושאים: שיקום מקצועי, שיקום איבה, מטפלים וספקים, הפניה למחלקה, ויתור סודיות והגעה לסניף.</li>
+          <li><span>📂</span>הודעות מוכנות לפי נושאים: שיקום מקצועי, שיקום איבה, מטפלים וספקים, הפניה למחלקה, ויתור סודיות, וכתובות הסניפים עם אפשרות לזימון לפגישה.</li>
           <li><span>✍️</span>הודעות שמתאימות את עצמן: מסמנים מה רלוונטי, ומקבלים נוסח אישי מוכן.</li>
           <li><span>🔍</span>חיפוש בכל האתר. מילה אחת מספיקה.</li>
           <li><span>🧰</span>כלים לעבודה: מחשבונים, מחשבון נסיעות, שעון נוכחות ותוכניות טרום שיקום.</li>
@@ -4673,7 +4664,7 @@ html, body, body *, body *::before, body *::after, input, textarea, select, butt
   <div class="tile-wrap" data-radial="admin">
     <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-admin);" onclick="dashboardTileClick('admin', this)">
       <span class="dashboard-tile-icon has-img ico-admin"><img alt="" src="data:image/webp;base64,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"></span>
-      <span class="dashboard-tile-label">הגעה לסניף</span>
+      <span class="dashboard-tile-label">סניפים: כתובת ופגישה</span>
     </button>
     <div class="tile-radial" aria-hidden="true">
       <button type="button" class="tile-petal" style="--i:0;--tile-color: var(--cat-admin);" onclick="radialBranch('rg',event)"><span class="petal-badge">📍</span><span class="petal-label">רמת גן</span></button>
@@ -6626,7 +6617,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       <div class="cat-icon">
         <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
       </div>
-      <h2>הגעה לסניף</h2>
+      <h2>סניפים: כתובת ופגישה</h2>
     </div>
 
     <div class="card admin-card">
@@ -6636,35 +6627,14 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="card-quick-actions" onclick="event.stopPropagation()">
-        <button class="quick-btn quick-copy" onclick="quickCopy('msg12', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         <button class="quick-btn quick-wa" onclick="quickWa('msg12')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
         <button class="quick-btn quick-mail" onclick="quickMail('msg12')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
       
       </div>
       </div>
       <div class="card-collapsible">
-        <div class="branch-map-incard" onclick="event.stopPropagation()">
-          <div class="branch-map-incard-title">🗺️ לחצו על עיר להעתקת הוראות ההגעה</div>
-          <div class="branch-map-row">
-            <ul class="branch-map-legend">
-      <li data-branch="ks" onclick="copyBranchDirections('ks', this)"><span class="bm-dot"></span>כפר סבא</li>
-      <li data-branch="rg" onclick="copyBranchDirections('rg', this)"><span class="bm-dot"></span>רמת גן</li>
-      <li data-branch="ramla" onclick="copyBranchDirections('ramla', this)"><span class="bm-dot"></span>רמלה</li>
-      <li data-branch="rehovot" onclick="copyBranchDirections('rehovot', this)"><span class="bm-dot"></span>רחובות</li>
-      <li data-branch="jerusalem" onclick="copyBranchDirections('jerusalem', this)"><span class="bm-dot"></span>ירושלים</li>
-    </ul>
-            <svg class="branch-map-svg" viewBox="20 0 60 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="מפת ישראל עם הסניפים">
-      <path class="bm-outline" d="M38,12 L52,5 L66,8 L70,17 L67,26 L71,36 L69,50 L64,60 L62,74 L64,88 L69,100 L72,112 L69,126 L63,140 L56,158 L51,176 L48,196 L44,178 L38,152 L33,124 L31,98 L33,74 L36,52 L33,32 Z"/>
-      <g class="bm-pin" transform="translate(44,64)"><circle r="4"/></g>
-      <g class="bm-pin" transform="translate(46,74)"><circle r="4"/></g>
-      <g class="bm-pin" transform="translate(50,84)"><circle r="4"/></g>
-      <g class="bm-pin" transform="translate(45,93)"><circle r="4"/></g>
-      <g class="bm-pin" transform="translate(59,82)"><circle r="4"/></g>
-    </svg>
-          </div>
-        </div>
         <div class="branch-picker" onclick="event.stopPropagation()">
-          <span class="branch-picker-label">בחרו סניף:</span>
+          <span class="branch-picker-label">לחיצה על סניף מעתיקה את ההודעה:</span>
           <button type="button" class="branch-pill active" data-branch="rg" onclick="selectBranch('rg', this)">רמת גן</button>
           <button type="button" class="branch-pill" data-branch="ramla" onclick="selectBranch('ramla', this)">רמלה</button>
           <button type="button" class="branch-pill" data-branch="rehovot" onclick="selectBranch('rehovot', this)">רחובות</button>
@@ -6674,10 +6644,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         </div>
         <div class="card-body" id="msg12"></div>
         <div class="card-footer">
-          <button class="copy-btn" onclick="copyMsg('msg12', this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק</span>
-          </button>
           <button class="whatsapp-btn" onclick="sendWhatsapp('msg12')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
             <span>וואטסאפ</span>
@@ -8799,25 +8765,13 @@ function dashboardTileClick(filterId, tileEl) {
       if (bb) bb.style.display = 'none';
     }
   }
-  /* עלה ב"הגעה לסניף" — פתיחת ההודעה עם הסניף שנבחר (ובחירתו מעתיקה אוטומטית) */
+  /* עלה ב"הגעה לסניף" — העתקה מיידית של הוראות ההגעה, ועיגול נוסף לקביעת פגישה עם תאריך */
   function radialBranch(key, ev) {
     if (ev) ev.stopPropagation();
     umTrack('פרח: הגעה לסניף › ' + (petalLabel(ev) || key));
-    radialCloseAll();
-    if (typeof dashboardTileClick === 'function') dashboardTileClick('admin', null);
-    if (typeof updateCrumb === 'function') updateCrumb();
-    var body = document.getElementById('msg12');
-    var card = body ? body.closest('.card') : null;
-    if (!card) return;
-    if (typeof openCard === 'function' && !card.classList.contains('open')) openCard(card);
-    setTimeout(function () {
-      var pill = card.querySelector('.branch-pill[data-branch="' + key + '"]');
-      if (pill) pill.click();
-      var sticky = document.querySelector('.sticky-top');
-      var stickyH = sticky ? sticky.getBoundingClientRect().height : 130;
-      var y = card.getBoundingClientRect().top + window.pageYOffset - stickyH - 70;
-      window.scrollTo({ top: Math.max(0, y), behavior: 'auto' });
-    }, 170);
+    copyBranchDirections(key);
+    var petal = ev && ev.target && ev.target.closest ? ev.target.closest('.tile-petal') : null;
+    if (typeof showMeetBubble === 'function') showMeetBubble(key, petal);
   }
   /* בקשת סניף שלא קיים — פותח מייל ממוקד לאמיר */
   function requestBranch(ev) {
@@ -9303,29 +9257,35 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
   /* ===== בורר סניפים בכרטיס ההגעה ===== */
-  const BRANCH_DIRECTIONS = {
-    rg: `📍הפגישה מתקיימת בבטוח לאומי סניף רמת גן:
-רחוב החשמונאים 15, יש להגיד לשומר שהוזמנתם לפקיד שיקום.
-לעלות לקומה 2, להמשיך ישר עד הסוף מהמעלית ואז שמאלה עד האינטרקום.`,
-    ramla: `📍הפגישה מתקיימת בביטוח לאומי סניף רמלה:
-רחוב תל חי 1, רמלה. יש להגיד לשומר שאתם מוזמנים לשיקום.
-לעלות במעלית מס' 4 לשיקום, קומה רביעית. ביציאה מהמעלית יש לפנות שמאלה לפי השילוט "שיקום".`,
-    rehovot: `📍הפגישה מתקיימת בביטוח לאומי סניף רחובות:
-רחוב רמז 64, רחובות.
-קומה 5, מחלקת שיקום.`,
-    ks: `📍הפגישה מתקיימת בביטוח לאומי סניף כפר סבא:
-רחוב ויצמן 39, כפר סבא.
-קומה 1, יש להציג למאבטחים ת.ז ולציין שהגעתם לעו"ס שיקום.`,
-    jerusalem: `📍הפגישה מתקיימת בביטוח לאומי סניף ירושלים:
-רחוב בן שטח 4, ירושלים.
-קומה 1.`
+  /* סניפים: שם העיר + הוראות ההגעה. ההודעה נבנית ב-branchMsg (עם תאריך/שעה אופציונליים לקביעת פגישה) */
+  const BRANCHES = {
+    rg: { city: 'רמת גן', dir: `📍 רחוב החשמונאים 15, רמת גן. יש להגיד לשומר שהוזמנתם לפקיד שיקום.
+לעלות לקומה 2, להמשיך ישר עד הסוף מהמעלית ואז שמאלה עד האינטרקום.` },
+    ramla: { city: 'רמלה', dir: `📍 רחוב תל חי 1, רמלה. יש להגיד לשומר שאתם מוזמנים לשיקום.
+לעלות במעלית מס' 4 לשיקום, קומה רביעית. ביציאה מהמעלית יש לפנות שמאלה לפי השילוט "שיקום".` },
+    rehovot: { city: 'רחובות', dir: `📍 רחוב רמז 64, רחובות.
+קומה 5, מחלקת שיקום.` },
+    ks: { city: 'כפר סבא', dir: `📍 רחוב ויצמן 39, כפר סבא.
+קומה 1, יש להציג למאבטחים ת.ז ולציין שהגעתם לעו"ס שיקום.` },
+    jerusalem: { city: 'ירושלים', dir: `📍 רחוב בן שטח 4, ירושלים.
+קומה 1.` }
   };
+  const HE_DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+  function branchMsg(key, date, time) {
+    var b = BRANCHES[key]; if (!b) return '';
+    var when = '';
+    if (date) {
+      var a = date.split('-'), d = new Date(+a[0], +a[1] - 1, +a[2]);
+      when += ', ביום ' + HE_DAYS[d.getDay()] + ' ' + a[2] + '.' + a[1] + '.' + a[0];
+    }
+    if (time) when += ' בשעה ' + time;
+    return 'שלום רב,\nנקבעה לך פגישה במחלקת שיקום סניף ' + b.city + when + '.\n\n' + b.dir;
+  }
+  const BRANCH_DIRECTIONS = {};
+  Object.keys(BRANCHES).forEach(function (k) { BRANCH_DIRECTIONS[k] = branchMsg(k); });
   function copyBranchDirections(key, el) {
     if (!BRANCH_DIRECTIONS[key]) return;
     var text = BRANCH_DIRECTIONS[key];
-    var body = document.getElementById('msg12');
-    if (body) body.textContent = text;
-    document.querySelectorAll('.branch-map-legend li[data-branch]').forEach(function (li) { li.classList.toggle('active', li.dataset.branch === key); });
     var out = text;
     if (typeof isDesktopDevice === 'function' && isDesktopDevice() && typeof emailFriendlyText === 'function') out = emailFriendlyText(out);
     (async function () {
@@ -9336,7 +9296,7 @@ function dashboardTileClick(filterId, tileEl) {
       }
       try { showCopiedToast(); } catch (e) {}
       if (typeof hapticTap === 'function') hapticTap();
-      /* מעקב Umami לפי עיר — נספר משתי המפות (הראשית ובתוך הלשונית), שתיהן קוראות לפונקציה זו */
+      /* מעקב Umami לפי עיר — העתקה מהפרח */
       try {
         var BRANCH_CITY_NAMES = { ks: 'כפר סבא', rg: 'רמת גן', ramla: 'רמלה', rehovot: 'רחובות', jerusalem: 'ירושלים' };
         var cityName = BRANCH_CITY_NAMES[key] || key;
@@ -9437,7 +9397,7 @@ function dashboardTileClick(filterId, tileEl) {
   /* נשמר בשם הישן כי יש קריאות קיימות — כעת מעדכן את פירורי הלחם */
   function updateBackBtnLabel() { updateCrumb(); }
 
-  var CRUMB_CAT_NAMES = { studies: 'שיקום מקצועי', eiva: 'שיקום איבה', therapists: 'מטפלים/ספקים', routing: 'הפניה', consent: 'ויתור סודיות', admin: 'הגעה לסניף' };
+  var CRUMB_CAT_NAMES = { studies: 'שיקום מקצועי', eiva: 'שיקום איבה', therapists: 'מטפלים/ספקים', routing: 'הפניה', consent: 'ויתור סודיות', admin: 'סניפים: כתובת ופגישה' };
   /* תת-הקטגוריה הפעילה כרגע (מתוך הלשונית הפתוחה) */
   function crumbCurrentSub(cat) {
     if (cat === 'eiva') { var e = document.querySelector('.eiva-tab.active'); return e ? e.textContent.replace(/^[^֐-׿]+/, '').trim() : ''; }
@@ -10678,6 +10638,117 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
   </button>
 </nav>
 
+
+<!-- ===== קביעת פגישה בסניף ===== -->
+<div class="rem-overlay" id="meetOverlay" onclick="if(event.target===this)closeMeet()">
+  <div class="rem-box meet-box" role="dialog" aria-modal="true" aria-label="קביעת פגישה בסניף">
+    <div class="rem-head">
+      <span class="rem-head-ico">📅</span>
+      <div class="rem-head-t"><b id="meetTitle">קביעת פגישה</b><span>מוסיפים תאריך ושעה להודעת ההגעה (לא חובה)</span></div>
+      <button type="button" class="rem-x" onclick="closeMeet()">✕ סגירה</button>
+    </div>
+    <div class="rem-body">
+      <div class="rem-row">
+        <div class="rem-f"><label for="meetDate">תאריך הפגישה</label><input id="meetDate" type="date"></div>
+        <div class="rem-f"><label for="meetTime">שעה (לא חובה)</label><input id="meetTime" type="time"></div>
+      </div>
+      <div class="rem-f">
+        <span class="rem-lbl">ההודעה</span>
+        <div class="rem-prev" id="meetMsg"></div>
+      </div>
+      <div class="rem-acts">
+        <button type="button" class="rem-copy" onclick="meetCopy(this)">העתקה</button>
+        <button type="button" class="rem-wa" onclick="meetWa()">וואטסאפ</button>
+        <button type="button" class="rem-mail" onclick="meetMail()">מייל</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== קביעת פגישה בסניף ===== */
+(function () {
+  var cur = null;
+  function $(id) { return document.getElementById(id); }
+  var bubbleTimer = null;
+  function removeBubble() { clearTimeout(bubbleTimer); var b = document.querySelector('.meet-bubble'); if (b) b.remove(); }
+  window.showMeetBubble = function (key, petal) {
+    removeBubble();
+    if (!petal) return;
+    var pr = petal.getBoundingClientRect();
+    var px = pr.left + pr.width / 2, py = pr.top + pr.height / 2;
+    var core = petal.closest('.m-flower') ? document.querySelector('.m-flower-core') : (petal.closest('.tile-wrap') ? petal.closest('.tile-wrap').querySelector('.dashboard-tile') : null);
+    var cx = innerWidth / 2, cy = innerHeight / 2;
+    if (core) { var cr = core.getBoundingClientRect(); cx = cr.left + cr.width / 2; cy = cr.top + cr.height / 2; }
+    var onCore = !!petal.closest('.m-flower'); /* טלפון: העיגול יושב על העצלן במרכז הפרח */
+    var x, y;
+    if (onCore) { x = cx; y = cy; }
+    else {
+      var dx = px - cx, dy = py - cy, len = Math.sqrt(dx * dx + dy * dy) || 1;
+      x = px + dx / len * 100; y = py + dy / len * 100;
+      x = Math.max(66, Math.min(innerWidth - 66, x)); y = Math.max(66, Math.min(innerHeight - 66, y));
+    }
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'meet-bubble' + (onCore ? ' on-core' : '');
+    b.style.left = x + 'px'; b.style.top = y + 'px';
+    b.innerHTML = '<span>📅</span>להוסיף גם תאריך פגישה?<small>הכתובת כבר הועתקה</small>';
+    umTrack('קביעת תאריך: הוצג העיגול › ' + (BRANCHES[key] ? BRANCHES[key].city : key));
+    b.addEventListener('click', function (e) { e.stopPropagation(); removeBubble(); if (typeof radialCloseAll === 'function') radialCloseAll(); openMeet(key); });
+    document.body.appendChild(b);
+    /* לא לחצו תוך 5 שניות — העיגול והפרח נסגרים יחד */
+    bubbleTimer = setTimeout(function () { removeBubble(); if (typeof radialCloseAll === 'function') radialCloseAll(); }, 5000);
+  };
+  document.addEventListener('pointerdown', function (e) {
+    if (!document.querySelector('.meet-bubble')) return;
+    if (e.target.closest('.meet-bubble')) return;
+    if (e.target.closest('.tile-petal')) return; /* לחיצה על עיר אחרת תחליף את העיגול */
+    removeBubble();
+  }, true);
+  window.addEventListener('scroll', removeBubble, { passive: true });
+  window.addEventListener('resize', removeBubble);
+
+  function text() { return branchMsg(cur, $('meetDate').value, $('meetTime').value); }
+  function render() { $('meetMsg').textContent = text(); }
+  window.openMeet = function (key) {
+    cur = key;
+    $('meetTitle').textContent = 'קביעת פגישה – סניף ' + (BRANCHES[key] ? BRANCHES[key].city : '');
+    $('meetDate').value = ''; $('meetTime').value = '';
+    render();
+    $('meetOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    umTrack('קביעת תאריך: פתיחה › ' + (BRANCHES[key] ? BRANCHES[key].city : key));
+  };
+  window.closeMeet = function () { $('meetOverlay').classList.remove('open'); document.body.style.overflow = ''; };
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!$('meetOverlay')) return;
+    ['meetDate', 'meetTime'].forEach(function (id) { $(id).addEventListener('input', render); $(id).addEventListener('change', render); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('meetOverlay').classList.contains('open')) closeMeet(); });
+  });
+  function track(action) {
+    var city = BRANCHES[cur] ? BRANCHES[cur].city : cur;
+    var d = $('meetDate').value, t = $('meetTime').value;
+    var name = ('קביעת תאריך: ' + action + ' › ' + city + (d ? (t ? ' · תאריך+שעה' : ' · תאריך') : ' · בלי תאריך')).slice(0, 50);
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track(name, { action: action, city: city, date: d || 'ללא', time: t || 'ללא' }); } catch (e) {}
+  }
+  window.meetCopy = function (btn) {
+    var t = text();
+    if (typeof isDesktopDevice === 'function' && isDesktopDevice() && typeof emailFriendlyText === 'function') t = emailFriendlyText(t);
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).catch(function () {
+      var ta = document.createElement('textarea'); ta.value = t; ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    }).then(function () {
+      if (typeof showCopiedToast === 'function') showCopiedToast();
+      btn.textContent = '✓ הועתק'; setTimeout(function () { btn.textContent = 'העתקה'; }, 1600);
+    });
+    track('העתקה');
+  };
+  window.meetWa = function () { if (typeof openWhatsAppSafely === 'function') openWhatsAppSafely(text(), false); track('וואטסאפ'); };
+  window.meetMail = function () {
+    var a = document.createElement('a'); a.href = 'mailto:?body=' + encodeURIComponent(text());
+    document.body.appendChild(a); a.click(); document.body.removeChild(a); track('מייל');
+  };
+})();
+</script>
 
 <!-- ===== תזכורת ליומן למשתקם ===== -->
 <div class="rem-overlay" id="remOverlay" onclick="if(event.target===this)closeReminder()">
