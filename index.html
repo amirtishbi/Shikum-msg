@@ -3827,6 +3827,8 @@ body.dark-mode .card-body .msg-link { color: #7fb3ff; }
 .rem-col { display: flex; flex-direction: column; gap: 14px; }
 .rem-about { margin: 0; line-height: 1.6; }
 .rem-about b { display: block; font-size: 0.9rem; margin-bottom: 2px; }
+/* שדה מוסתר (למשל "למשך" באירוע חד פעמי) — גובר על display:flex של .rem-f */
+.rem-body [hidden] { display: none; }
 .rem-f > label, .rem-lbl { font-size: 0.82rem; font-weight: 700; color: var(--ink-soft); }
 .rem-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .rem-body input, .rem-body select, .rem-body textarea { width: 100%; box-sizing: border-box; font-family: inherit; font-size: 16px; color: var(--ink); background: var(--paper); border: 1.5px solid var(--rule-strong); border-radius: 10px; padding: 10px 12px; outline: none; }
@@ -7249,7 +7251,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     c.classList.toggle('open');
     if (c.classList.contains('open')) {
       var t = c.querySelector('.sr-title');
-      umTrack('מחיפוש · פתיחה: ' + (t ? t.textContent.trim() : ''));
     }
   }
 
@@ -7279,7 +7280,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   /* פתיחת ההודעה האמיתית (למשל בורר נייד/מחשב או ויתור סודיות) כדי שאפשר יהיה לבחור ואז להעתיק */
   function srOpenCard(bodyId) {
-    umTrack('מחיפוש · פתיחה לבחירה: ' + cardTitleOf(bodyId));
     var body = document.getElementById(bodyId);
     var card = body ? body.closest('.card') : null;
     if (!card) return;
@@ -7538,7 +7538,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     document.body.classList.add('m-search-show');
     syncSearchNav();
 
-    umTrack('חיפוש: נפתח');
     _searchKbFixed = false;
     window.scrollTo({ top: 0, behavior: 'auto' });
     if (input) input.focus(); /* בטלפון בלי אנימציה — רק מסגרת זהב */
@@ -7608,7 +7607,6 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     const open = document.body.classList.toggle('desk-search-open');
     const input = document.getElementById('searchInput');
     if (open) {
-      umTrack('חיפוש: נפתח');
       _searchKbFixed = false;
       if (input) setTimeout(function () { input.focus(); }, 30);
       /* הבלטה רגעית של תיבת החיפוש כשהיא נפתחת */
@@ -7741,7 +7739,7 @@ function dashboardTileClick(filterId, tileEl) {
       const name = t ? (t.dataset.orig || t.textContent).trim() : '';
       if (!name || _openedTracked[name]) return;
       _openedTracked[name] = 1;
-      umTrack('פתיחה: ' + name);
+      /* פתיחת הודעה לא נמדדת — רק העתקה/שליחה (הפחתת רעש ב-Umami) */
     } catch (e) {}
   }
   function openCard(card) {
@@ -8831,7 +8829,6 @@ function dashboardTileClick(filterId, tileEl) {
   }
   function radialGo(parent, tabId, ev) {
     if (ev) ev.stopPropagation();
-    umTrack('פרח: ' + ((typeof CRUMB_CAT_NAMES !== 'undefined' && CRUMB_CAT_NAMES[parent]) || parent) + ' › ' + (petalLabel(ev) || tabId));
     /* סגירת מצב הפוקוס מיד עם הבחירה */
     if (typeof radialCloseAll === 'function') radialCloseAll();
     if (typeof dashboardTileClick === 'function') dashboardTileClick(parent, null);
@@ -8849,7 +8846,7 @@ function dashboardTileClick(filterId, tileEl) {
   }
   /* עלה ב"כלים" — פתיחת הכלי ישירות */
   function radialTool(kind, ev) {
-    if (ev) { ev.stopPropagation(); umTrack('פרח: כלים › ' + (petalLabel(ev) || kind)); }
+    if (ev) ev.stopPropagation(); /* פתיחת הכלי עצמה נמדדת בתוך הכלי */
     radialCloseAll();
     if (kind === 'attendance') { if (typeof openAttendance === 'function') openAttendance(); }
     else if (kind === 'trum') { if (typeof openTrumPrograms === 'function') openTrumPrograms(); }
@@ -8864,7 +8861,6 @@ function dashboardTileClick(filterId, tileEl) {
   /* עלה ב"הגעה לסניף" — העתקה מיידית של הוראות ההגעה, ועיגול נוסף לקביעת פגישה עם תאריך */
   function radialBranch(key, ev) {
     if (ev) ev.stopPropagation();
-    umTrack('פרח: הגעה לסניף › ' + (petalLabel(ev) || key));
     copyBranchDirections(key);
     var petal = ev && ev.target && ev.target.closest ? ev.target.closest('.tile-petal') : null;
     if (typeof showMeetBubble === 'function') showMeetBubble(key, petal);
@@ -8940,7 +8936,6 @@ function dashboardTileClick(filterId, tileEl) {
       wrap._radialClose = close;
       function open() {
         if (timer) { clearTimeout(timer); timer = null; }
-        try { const lb = wrap.querySelector('.dashboard-tile-label'); umTrack('פרח מחשב: ' + (lb ? lb.textContent.replace(/\s+/g, ' ').trim() : '')); } catch (e) {}
         wrap.classList.add('radial-open');
         document.body.classList.add('radial-active');
         if (!moveHandler) {
@@ -9036,7 +9031,6 @@ function dashboardTileClick(filterId, tileEl) {
     el.classList.add('show');
     void el.offsetWidth;
     el.classList.add('open');
-    umTrack('פרח נייד: ' + (label || '').replace(/\s+/g, ' ').trim());
   }
   /* ===== מחשב: התאמה למסכים קטנים =====
      1. כשהכרטיסים בצדדים לא נכנסים לגובה/רוחב, או בתוך קטגוריה — הם מתכווצים לכפתורים בפינות (והעצלן הגדול מוסתר).
@@ -10835,7 +10829,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     b.type = 'button'; b.className = 'meet-bubble';
     b.style.left = x + 'px'; b.style.top = y + 'px';
     b.innerHTML = '<span>📅</span>להוסיף גם תאריך פגישה?<small>הכתובת כבר הועתקה</small>';
-    umTrack('קביעת תאריך: הוצג העיגול › ' + (BRANCHES[key] ? BRANCHES[key].city : key));
     b.addEventListener('click', function (e) { e.stopPropagation(); removeBubble(); if (typeof radialCloseAll === 'function') radialCloseAll(); openMeet(key); });
     document.body.appendChild(b);
     /* לא לחצו תוך 5 שניות — העיגול והפרח נסגרים יחד */
@@ -10868,7 +10861,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     render();
     $('meetOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
-    umTrack('קביעת תאריך: פתיחה › ' + (BRANCHES[key] ? BRANCHES[key].city : key));
   };
   window.closeMeet = function () { $('meetOverlay').classList.remove('open'); document.body.style.overflow = ''; };
   document.addEventListener('DOMContentLoaded', function () {
@@ -10880,7 +10872,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     var city = BRANCHES[cur] ? BRANCHES[cur].city : cur;
     syncTime();
     var d = $('meetDate').value, t = $('meetTime').value;
-    var name = ('קביעת תאריך: ' + action + ' › ' + city + (d ? (t ? ' · תאריך+שעה' : ' · תאריך') : ' · בלי תאריך')).slice(0, 50);
+    var name = ('קביעת פגישה: ' + action + ' › ' + city).slice(0, 50); /* תאריך ושעה חובה — נשלחים כנתוני האירוע */
     try { if (window.umami && typeof window.umami.track === 'function') window.umami.track(name, { action: action, city: city, date: d || 'ללא', time: t || 'ללא' }); } catch (e) {}
   }
   window.meetCopy = function (btn) {
@@ -10944,14 +10936,11 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
       <div class="rem-f">
         <span class="rem-lbl">תדירות</span>
         <div class="rem-seg" id="remFreq">
-          <button type="button" data-f="monthly" class="on">כל חודש</button>
-          <button type="button" data-f="once">פעם אחת</button>
+          <button type="button" data-f="monthly">כל חודש</button>
+          <button type="button" data-f="once" class="on">פעם אחת</button>
         </div>
       </div>
-      <div class="rem-row">
-        <div class="rem-f"><label for="remDate" id="remDateLbl">התזכורת הראשונה</label><input id="remDate" type="date"></div>
-        <div class="rem-f"><label for="remTime">שעה</label><input id="remTime" type="time" value="09:00"></div>
-      </div>
+      <div class="rem-f"><label for="remDate" id="remDateLbl">התזכורת הראשונה</label><input id="remDate" type="date"></div>
       <div class="rem-f" id="remCountWrap">
         <label for="remCount">למשך</label>
         <select id="remCount">
@@ -10996,7 +10985,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     { t: 'תלוש שכר', d: 'לשלוח את תלוש השכר של החודש.' },
     { t: 'אחר', d: '' }
   ];
-  var freq = 'monthly';
+  var freq = 'once'; /* ברירת מחדל: אירוע חד פעמי */
   function $(id) { return document.getElementById(id); }
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function ymd(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
@@ -11011,13 +11000,14 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
       link: p.link || '',
       details: $('remDetails').value.trim(),
       date: $('remDate').value,
-      time: $('remTime').value || '09:00',
+      time: '09:00', /* תמיד 9 בבוקר */
       count: +$('remCount').value
     };
   }
   function title(st) {
     var w = st.what || st.details.replace(/\s+/g, ' ').trim();
-    if (w.length > 50) w = w.slice(0, 48) + '…';
+    /* ב"אחר" עם פירוט ארוך: כותרת כללית, והפירוט המלא מופיע מתחתיה פעם אחת (בלי כפילות של כותרת חתוכה) */
+    if (w.length > 50) w = 'תזכורת';
     return 'ביטוח לאומי - מחלקת שיקום: ' + w;
   }
   /* קידוד מינימלי: העברית נשארת קריאה (כמו בקישורי הטפסים באתר), רק תווים שוברים מקודדים — הקישור קצר בהרבה */
@@ -11068,7 +11058,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     var cut = msg.indexOf('https://calendar.google.com');
     var head = cut > -1 ? msg.slice(0, cut) : msg, tail = cut > -1 ? msg.slice(cut) : '';
     var full = st.details.replace(/\s+/g, ' ').trim();
-    var t = title(st), short = t.slice(t.indexOf(': ') + 2);
+    var t = title(st), short = full.length > 50 ? '' : t.slice(t.indexOf(': ') + 2); /* כותרת כללית — לא מסמנים */
     var parts = [st.details.trim(), full, short].filter(function (x, i, a) { return x && a.indexOf(x) === i; })
       .sort(function (a, b) { return b.length - a.length; });
     var out = escH(head);
@@ -11115,7 +11105,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
   document.addEventListener('DOMContentLoaded', function () {
     if (!$('remOverlay')) return;
     $('remWhat').addEventListener('change', function () { var p = PRESETS[+this.value]; $('remDetails').value = p ? p.d : ''; render(); });
-    ['remDetails', 'remDate', 'remTime', 'remCount'].forEach(function (id) { $(id).addEventListener('input', render); $(id).addEventListener('change', render); });
+    ['remDetails', 'remDate', 'remCount'].forEach(function (id) { $(id).addEventListener('input', render); $(id).addEventListener('change', render); });
     $('remFreq').addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
       freq = b.dataset.f;
