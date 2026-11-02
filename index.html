@@ -2138,6 +2138,8 @@ body.sheet-open { overflow: hidden; }
     transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
   }
   .petal-badge { position: relative; }
+  /* תווית ארוכה בשתי שורות (מדריך לשליחת קבלות ומסמכים) */
+  .petal-label.petal-label-2l { line-height: 1.25; border-radius: 10px; padding: 2px 9px; }
   
   .petal-label {
     font-family: 'Heebo', sans-serif; font-size: 0.72rem; font-weight: 700;
@@ -4659,6 +4661,7 @@ html, body, body *, body *::before, body *::after, input, textarea, select, butt
       <button type="button" class="tile-petal" style="--i:1;--tile-color: var(--cat-studies);" onclick="radialGo('studies','shorttrain',event)"><span class="petal-badge">🛠️</span><span class="petal-label">הכשרה</span></button>
       <button type="button" class="tile-petal" style="--i:2;--tile-color: var(--cat-studies);" onclick="radialGo('studies','trum',event)"><span class="petal-badge">🧭</span><span class="petal-label">טרום שיקום</span></button>
       <button type="button" class="tile-petal" style="--i:3;--tile-color: var(--cat-studies);" onclick="radialGo('studies','claim',event)"><span class="petal-badge">📝</span><span class="petal-label">תביעה</span></button>
+      <button type="button" class="tile-petal" style="--i:4;--tile-color: var(--cat-studies);" onclick="radialGo('studies','docs',event)"><span class="petal-badge">📤</span><span class="petal-label petal-label-2l">מדריך לשליחת<br>קבלות ומסמכים</span></button>
     </div>
   </div>
   <div class="tile-wrap" data-radial="eiva" data-fan-center="90" data-fan-span="158">
@@ -4739,6 +4742,10 @@ html, body, body *, body *::before, body *::after, input, textarea, select, butt
   <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-studies);" onclick="subTileClick('studies', 'claim', this)">
     <span class="dashboard-tile-icon">📄</span>
     <span class="dashboard-tile-label">תביעה לשיקום מקצועי</span>
+  </button>
+  <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-studies);" onclick="subTileClick('studies', 'docs', this)">
+    <span class="dashboard-tile-icon">📤</span>
+    <span class="dashboard-tile-label">מדריך לשליחת קבלות ומסמכים</span>
   </button>
   <button type="button" class="sub-grid-back" onclick="closeSubGrid()">➜ חזרה לכל הקטגוריות</button>
 </div>
@@ -4838,6 +4845,7 @@ https://govforms.gov.il/mw/forms/t270@btl.gov.il
       <button type="button" class="studies-refund-tab" data-refund-tab="shorttrain" onclick="switchRefundTab('shorttrain')">הכשרה מקצועית</button>
       <button type="button" class="studies-refund-tab" data-refund-tab="trum" onclick="switchRefundTab('trum')">טרום שיקום</button>
       <button type="button" class="studies-refund-tab" data-refund-tab="claim" onclick="switchRefundTab('claim')">תביעה לשיקום מקצועי</button>
+      <button type="button" class="studies-refund-tab" data-refund-tab="docs" onclick="switchRefundTab('docs')">מדריך לשליחת קבלות ומסמכים</button>
     </div>
     <div class="studies-refund-panel active" id="refund-panel-students" data-refund-panel="students"></div>
     <div class="studies-refund-panel" id="refund-panel-shorttrain" data-refund-panel="shorttrain"></div>
@@ -4851,6 +4859,7 @@ https://govforms.gov.il/mw/forms/t270@btl.gov.il
       </button>
     </div>
     <div class="studies-refund-panel" id="refund-panel-claim" data-refund-panel="claim"></div>
+    <div class="studies-refund-panel" id="refund-panel-docs" data-refund-panel="docs"></div>
 
     <div class="card studies-card">
       <div class="card-header-row">
@@ -5075,6 +5084,64 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
       </div>
     </div>
 
+
+    <div class="card studies-card" data-added="2026-11-02">
+      <div class="card-header-row">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">מדריך לשליחת קבלות ומסמכים</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      </div>
+      <div class="card-collapsible">
+        <div class="staff-note" onclick="event.stopPropagation()">ℹ️ יש סניפים שמקבלים קבלות ומסמכים בדרך הזו, ולכן נוצרה ההודעה. אם חסר משהו, כתבו לי.</div>
+        <div class="consent-fields">
+          <div class="consent-field-group">
+            <label class="consent-field-label" for="b2bBranch">סניף מטפל:</label>
+            <input type="text" id="b2bBranch" class="consent-input" placeholder="הקלידו את שם הסניף..." oninput="updateB2bPreview()">
+          </div>
+        </div>
+        <div class="card-body" id="msgB2bReceipts">📤 מדריך: שליחת קבלות ומסמכים – שיקום מקצועי 📤
+שלב אחר שלב להעברת קבלות ומסמכים בקלות:
+
+1️⃣ נכנסים לאתר:
+🔗 https://b2b.btl.gov.il/BTL.ILG.Payments/DocumentsForm.aspx
+2️⃣ בוחרים: מחלקת קצבאות.
+3️⃣ מאשרים את הצהרת הפרטיות: לוחצים על אישור.
+4️⃣ ממלאים פרטים אישיים:
+🔸 נושא: שיקום
+🔸 מספר תעודת זהות (כולל ספרת ביקורת), שם משפחה, שם פרטי, שנת לידה וטלפון
+🔸 מומלץ לסמן קבלת אישור לטלפון ולהוסיף כתובת מייל, כדי לקבל אישור שהמסמכים התקבלו
+👈 לוחצים על הבא.
+5️⃣ בוחרים את המסמך:
+🔸 סניף מטפל: <span id="b2bBranchPreview">_____</span>
+🔸 קטגוריה: עיסוקים
+🔸 מסמך: לימודים/הכשרה מקצועית
+6️⃣ מעלים את הקבלה או המסמך (למשל דוח נוכחות, מערכת שעות או הצעת מחיר): לוחצים על בחירת קובץ, ומצלמים ישירות מהמצלמה או בוחרים תמונה מוכנה מהגלריה. אפשר להעלות עד 15 מסמכים בשליחה אחת.
+7️⃣ שולחים: מסמנים ✅ ב"הריני מאשר/ת לשלוח את המסמכים המופיעים ברשימה לעיל" ולוחצים על שליחה.
+
+📢 חשוב מאוד לדעת:
+• בקבלות: ודאו שהמסמך שאתם מעלים הוא קבלה ולא חשבונית מס, ושהשם המלא של המבוטח מופיע עליה באופן ברור.
+• ודאו שהצילום שלם, מואר וקריא לחלוטין לפני הלחיצה על שליחה.
+• לאחר שליחת קבלה, לרוב לוקח כשבועיים עד שהכסף נכנס לחשבון.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="b2bAct('copy', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק</span>
+          </button>
+          <button class="whatsapp-btn" onclick="b2bAct('wa', this)">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>וואטסאפ</span>
+          </button>
+          <button class="email-btn" onclick="b2bAct('mail', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msgB2bReceipts')">
+            ✏️ תיקון
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="card studies-card">
       <div class="card-header-row">
       <button class="card-toggle" onclick="toggleCard(this)">
@@ -7110,6 +7177,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     msg7:              'טיפול טיפולים אלטרנטיבי החזר קבלה רפורמה נפש אחת',
     msg12:             'סניף הגעה הגעות כתובת חניה נסיעה רמת גן כפר סבא רמלה רחובות ירושלים',
     msg15:             'ויתור סודיות וסר טופס הפניה',
+    msgB2bReceipts:    'קבלה קבלות החזר העלאה שליחה מסמכים דוח נוכחות מערכת שעות הצעת מחיר B2B בי טו בי קצבאות סניף מטפל לימודים הכשרה',
     msg18:             'העלאת מסמכים מסמך מסמכים קבלה נייד מחשב',
     msg_eivaup:        'העלאת מסמכים מסמך מסמכים'
   };
@@ -7124,7 +7192,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   /* תוויות תת-קטגוריה — לתגית ולחיפוש לפי שם תת-קטגוריה */
   var EIVA_SUB = { terror: 'נכים', family: 'משפחות', kids: 'ילדים', deptquery: 'הפניה למחלקת איבה' };
-  var STUDIES_SUB = { students: 'סטודנטים', shorttrain: 'הכשרה מקצועית', trum: 'טרום שיקום', claim: 'תביעה לשיקום מקצועי' };
+  var STUDIES_SUB = { students: 'סטודנטים', shorttrain: 'הכשרה מקצועית', trum: 'טרום שיקום', claim: 'תביעה לשיקום מקצועי', docs: 'קבלות ומסמכים' };
   /* תווית קטגוריה מקוצרת לתגית (שם ה-h2 יכול להיות ארוך) */
   var CAT_SHORT = { studies: 'שיקום מקצועי', eiva: 'שיקום איבה' };
   /* תת-הקטגוריה של כרטיס לפי הפאנל שבו הוא יושב */
@@ -8145,7 +8213,7 @@ function dashboardTileClick(filterId, tileEl) {
   /* ===== "חדש באתר" (מחשב) — הרשימה מנוהלת כאן ידנית =====
      להוספה: פריט חדש עם bodyId של ההודעה, אייקון, ומשפט קריצה קצר. להסרה: למחוק את השורה. */
   const HOME_NEW_ITEMS = [
-    { action: 'reminder', icon: '📅', name: 'תזכורת ליומן למשתקם', where: 'כלים', blurb: 'קישור שמכניס למבוטח תזכורת קבועה ליומן.' },
+    { bodyId: 'msgB2bReceipts', icon: '📤', where: 'שיקום מקצועי', blurb: 'קבלות, דוחות נוכחות ומסמכים נוספים דרך אתר הקצבאות.' },
     { bodyId: 'msgDental', icon: '🦷', where: 'שיקום איבה · נכים', blurb: 'מי זכאי לטיפולי שיניים, ואיך פונים למחלקת איבה לבדיקה.' },
     { action: 'trum', icon: '🎓', name: 'תוכניות טרום שיקום', where: 'כלים', blurb: 'ריכוז ארצי של התוכניות: בוחרים אוכלוסייה ומעתיקים למבוטח.' },
     { bodyId: 'msgDebtLoan', icon: '💸', where: 'שיקום איבה · נכים', blurb: 'חובות מעיקים? הלוואה ייעודית ויועץ פיננסי, מנוסח ומוכן.' },
@@ -8206,6 +8274,8 @@ function dashboardTileClick(filterId, tileEl) {
     if (section && typeof dashboardTileClick === 'function') dashboardTileClick(section.id, null);
     const panel = card ? card.closest('.eiva-panel') : null;
     if (panel && typeof switchEivaTab === 'function') switchEivaTab(panel.dataset.eivaPanel);
+    const rPanel = card ? card.closest('.studies-refund-panel') : null;
+    if (rPanel && typeof switchRefundTab === 'function') switchRefundTab(rPanel.dataset.refundPanel);
     setTimeout(function () {
       if (typeof openCard === 'function') openCard(card);
       /* מיקום בתחילת ההודעה, עם מספיק מקום מעליה כדי שייראה שם הלשונית */
@@ -9856,6 +9926,28 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     closeCard(btn);
   }
 
+  // ===== מדריך שליחת קבלות B2B (msgB2bReceipts) — סניף מטפל מוקלד ידנית, חובה לפני העתקה/שליחה =====
+  function updateB2bPreview() {
+    var v = document.getElementById('b2bBranch').value.trim();
+    document.getElementById('b2bBranchPreview').textContent = v || '_____';
+  }
+  function b2bAct(kind, btn) {
+    var inp = document.getElementById('b2bBranch');
+    if (!inp.value.trim()) {
+      inp.classList.add('input-error');
+      showToast('יש להקליד סניף מטפל 📝', true);
+      inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(function () { inp.focus({ preventScroll: true }); }, 350);
+      inp.placeholder = 'יש להזין סניף מטפל לפני ההעתקה';
+      setTimeout(function () { inp.classList.remove('input-error'); }, 2500);
+      return;
+    }
+    updateB2bPreview();
+    if (kind === 'copy') copyMsg('msgB2bReceipts', btn);
+    else if (kind === 'wa') sendWhatsapp('msgB2bReceipts');
+    else sendEmail('msgB2bReceipts');
+  }
+
   function switchEivaTab(tabId) {
     document.querySelectorAll('.eiva-tab').forEach(function (t) {
       t.classList.toggle('active', t.dataset.eivaTab === tabId);
@@ -10255,8 +10347,8 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     try { localStorage.setItem('shikum_refund_tab', tabId); } catch (e) {}
     if (typeof updateCrumb === 'function') updateCrumb();
     /* טאב עם כרטיס יחיד — לפתוח אותו ישר */
-    if (refundInteractive && tabId === 'claim') {
-      var claimPanel = document.getElementById('refund-panel-claim');
+    if (refundInteractive && (tabId === 'claim' || tabId === 'docs')) {
+      var claimPanel = document.getElementById('refund-panel-' + tabId);
       var claimCard = claimPanel && claimPanel.querySelector('.card');
       if (claimCard && typeof openCard === 'function' && !claimCard.classList.contains('open')) {
         setTimeout(function () { try { openCard(claimCard); } catch (e) {} }, 200);
@@ -10279,6 +10371,9 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     const shorttrainCardIds = ['msg5', 'msg1', 'msg4'];
     const trumCardIds = ['msg_psycho'];
     const claimCardIds = ['msg26'];
+    const docsPanel = document.getElementById('refund-panel-docs');
+    const docsCard = document.getElementById('msgB2bReceipts');
+    if (docsPanel && docsCard) docsPanel.appendChild(docsCard.closest('.card'));
 
     studentsCardIds.forEach(function (id) {
       const bodyEl = document.getElementById(id);
