@@ -96,6 +96,7 @@
   --cat-family: #8a2f8a;
   --cat-kids: #8a2f8a;
   --cat-therapists: #2456b8;
+  --cat-guides: #b07d12;
 
   --radius: 4px;
   --radius-lg: 6px;
@@ -122,6 +123,7 @@ body.dark-mode {
   --cat-family: #c261c2;
   --cat-kids: #c261c2;
   --cat-therapists: #5a86e0;
+  --cat-guides: #e0b14a;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -2209,6 +2211,8 @@ body.sheet-open { overflow: hidden; }
     box-shadow: 0 -4px 18px rgba(17,23,34,0.35);
   }
   body.sheet-open .bottom-nav { display: none; }
+  /* טלפון: המדריכים זמינים מהסרגל התחתון — האריח מוסתר כדי שמסך הבית ייכנס בלי גלילה */
+  #mobileDashboardGrid > .tile-wrap[data-radial="guides"] { display: none; }
 }
 .bottom-nav-btn {
   flex: 1;
@@ -3778,6 +3782,12 @@ body.dark-mode .card-body .msg-link { color: #7fb3ff; }
 .trum-programs-cta-title { font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 1.05rem; }
 .trum-programs-cta-sub { font-size: 0.82rem; opacity: 0.85; }
 /* ===== הגעה לסניף: עיגול "קביעת פגישה" שנפתח במקום, על עיגול העיר עצמו + חלון תאריך (תחילית meet-) ===== */
+/* מדריכים — שני סיבובי 360° בכניסה לאתר לתשומת לב, זמני (המחלקה guides-spin נוספת ל-body עד GUIDES_SPIN_UNTIL) */
+@keyframes guidesSpin { 0% { transform: rotate(0); } 25%, 100% { transform: rotate(360deg); } }
+body.guides-spin .ico-guides, body.guides-spin #bottomNavGuides .bottom-nav-emoji { animation: guidesSpin 4s ease-in-out 1s 2; /* שני סיבובים בכניסה לאתר, ואז נעצר */ }
+body.guides-spin #bottomNavGuides .bottom-nav-emoji { display: inline-block; }
+/* אריח "מדריכים למבוטח" — אייקון אימוג'י גדול במקום תמונת העצלן */
+.dashboard-tile-icon.ico-guides { font-size: 3.4rem; line-height: 1; display: flex; align-items: center; justify-content: center; }
 .meet-bubble { position: fixed; z-index: 3200; width: 112px; height: 112px; margin: -56px 0 0 -56px; border-radius: 50%; border: 3px solid #fff; background: #e6b94d; color: var(--navy); font-family: 'Heebo', sans-serif; font-weight: 800; font-size: 0.8rem; line-height: 1.25; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-align: center; padding: 10px; cursor: pointer; box-shadow: 0 10px 26px rgba(17,23,34,0.35); animation: meetPop .42s cubic-bezier(.22,1,.36,1) both; }
 .meet-bubble span { font-size: 1.4rem; line-height: 1; }
 .meet-bubble > * { animation: meetFade .3s ease .14s both; }
@@ -3806,7 +3816,8 @@ body.dark-mode .card-body .msg-link { color: #7fb3ff; }
 .jpop-text { margin: 0 0 18px; font-size: 0.95rem; line-height: 1.6; color: rgba(243,239,228,0.88); }
 .jpop-join { width: 100%; padding: 13px; border: none; border-radius: 999px; background: #e6b94d; color: var(--navy); font-family: 'Heebo', sans-serif; font-weight: 800; font-size: 1rem; cursor: pointer; box-shadow: 0 6px 16px rgba(230,185,77,0.3); }
 .jpop-join:hover { filter: brightness(1.05); }
-.jpop-later { margin-top: 10px; background: none; border: none; color: rgba(243,239,228,0.65); font-size: 0.86rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 6px 10px; }
+.jpop-later { width: 100%; margin-top: 10px; padding: 11px; background: transparent; border: 1.5px solid rgba(243,239,228,0.35); border-radius: 999px; color: #f3efe4; font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 0.92rem; cursor: pointer; }
+.jpop-later:hover { background: rgba(255,255,255,0.08); }
 .jpop-x { position: absolute; top: 10px; left: 10px; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid rgba(243,239,228,0.3); background: transparent; color: #f3efe4; font-size: 0.95rem; cursor: pointer; }
 .jpop-x:hover { background: rgba(255,255,255,0.1); }
 @keyframes jpopFade { from { opacity: 0; } to { opacity: 1; } }
@@ -4324,8 +4335,6 @@ html.home-reveal .side-pill { transition: opacity 0.3s ease; }
     100% { transform: rotate(0) scale(1); }
   }
 
-/* כפתור החיפוש בסרגל התחתון קופץ בלחיצה */
-  #bottomNavSearch.active .bottom-nav-search-ico svg { animation: mSearchIcon 0.7s ease-out; }
 }
 
 /* ===== טלפון: כפתור החיפוש בסרגל התחתון מבליט את עצמו ===== */
@@ -4702,6 +4711,19 @@ html, body, body *, body *::before, body *::after, input, textarea, select, butt
       <button type="button" class="tile-petal" style="--i:3;--tile-color: var(--cat-admin);" onclick="radialBranch('ks',event)"><span class="petal-badge">📍</span><span class="petal-label">כפר סבא</span></button>
       <button type="button" class="tile-petal" style="--i:4;--tile-color: var(--cat-admin);" onclick="radialBranch('jerusalem',event)"><span class="petal-badge">📍</span><span class="petal-label">ירושלים</span></button>
       <button type="button" class="tile-petal petal-add" style="--i:5;--tile-color: var(--cat-admin);" onclick="requestBranch(event)"><span class="petal-badge">➕</span><span class="petal-label">סניף אחר</span></button>
+    </div>
+  </div>
+  <div class="tile-wrap" data-radial="guides">
+    <button type="button" class="dashboard-tile" style="--tile-color: var(--cat-guides);">
+      <span class="dashboard-tile-icon ico-guides">📘</span>
+      <span class="dashboard-tile-label">מדריכים למבוטח</span>
+    </button>
+    <div class="tile-radial" aria-hidden="true">
+      <button type="button" class="tile-petal" style="--i:0;--tile-color: var(--cat-guides);" onclick="radialGuide('msg18',event)"><span class="petal-badge">📘</span><span class="petal-label petal-label-2l">קבלות<br>איבה נכים</span></button>
+      <button type="button" class="tile-petal" style="--i:1;--tile-color: var(--cat-guides);" onclick="radialGuide('msgFamilyReceipts',event)"><span class="petal-badge">📘</span><span class="petal-label petal-label-2l">קבלות<br>איבה משפחות</span></button>
+      <button type="button" class="tile-petal" style="--i:2;--tile-color: var(--cat-guides);" onclick="radialGuide('msgKidsReceipts',event)"><span class="petal-badge">📘</span><span class="petal-label petal-label-2l">קבלות<br>איבה ילדים</span></button>
+      <button type="button" class="tile-petal" style="--i:3;--tile-color: var(--cat-guides);" onclick="radialGuide('msg_eivaup',event)"><span class="petal-badge">📘</span><span class="petal-label petal-label-2l">מסמכים<br>למחלקת איבה</span></button>
+      <button type="button" class="tile-petal" style="--i:4;--tile-color: var(--cat-guides);" onclick="radialGuide('msgB2bReceipts',event)"><span class="petal-badge">📘</span><span class="petal-label petal-label-2l">קבלות ומסמכים<br>שיקום מקצועי</span></button>
     </div>
   </div>
   <!-- אריחי פעולה (מחשב) — אותה שפה ויזואלית כמו הקטגוריות -->
@@ -5729,10 +5751,13 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
       <div class="card-collapsible">
         <div class="staff-note" onclick="event.stopPropagation()">ℹ️ מדובר בנושא חדש, ולכן הפידבקים מהשטח חשובים. פנו אליי עם כל פידבק שעולה בנושא, כדי שנוכל לדייק את המסר למבוטחים בהתאם.</div>
         <div class="card-body" id="msgFamilyReceipts">שלום,
+⚠️ שימו לב: הגשת הקבלות לפי המדריך הזה מיועדת רק לזכויות בשיקום. מסמכים בנושאים אחרים יש להעלות באתר האישי, תחת המחלקה הרלוונטית לאותו נושא.
+
 באתר האישי של הביטוח הלאומי אפשר עכשיו להגיש קבלות להחזר דרך מצפן הזכויות.
 איך מגישים קבלה:
 
-1. נכנסים לאתר האישי בביטוח הלאומי
+1. נכנסים לאתר האישי בביטוח הלאומי:
+🔗 https://ps.btl.gov.il/#/login
 2. בתפריט שבצד לוחצים על "מצפן הזכויות שלי" ואז על "כניסה למצפן הזכויות"
 3. תחת "ההטבות שלי" בוחרים את ההטבה המתאימה (היא צריכה להיות בסטטוס "פעילה")
 4. לוחצים על "פרטים נוספים"
@@ -5797,41 +5822,6 @@ https://fvot.jewishagency.org/long-term-support/
             <span>מייל</span>
           </button>
           <button class="feedback-btn" onclick="sendFeedback('msg30')">
-            ✏️ תיקון
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card family-card">
-      <div class="card-header-row">
-      <button class="card-toggle" onclick="toggleCard(this)">
-        <span class="card-toggle-title">מדריך להעלאת מסמכים</span>
-        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="card-quick-actions" onclick="event.stopPropagation()">
-        <button class="quick-btn quick-copy" onclick="quickCopy('msg17', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
-        <button class="quick-btn quick-wa" onclick="quickWa('msg17')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
-        <button class="quick-btn quick-mail" onclick="quickMail('msg17')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
-      
-      </div>
-      </div>
-      <div class="card-collapsible">
-        <div class="card-body" id="msg17"></div>
-        <div class="card-footer">
-          <button class="copy-btn" onclick="copyMsg('msg17', this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="btn-label">העתק</span>
-          </button>
-          <button class="whatsapp-btn" onclick="sendWhatsapp('msg17')">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
-            <span>וואטסאפ</span>
-          </button>
-          <button class="email-btn" onclick="sendEmail('msg17')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-            <span>מייל</span>
-          </button>
-          <button class="feedback-btn" onclick="sendFeedback('msg17')">
             ✏️ תיקון
           </button>
         </div>
@@ -5992,6 +5982,48 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
     </div>
 
     <div class="eiva-panel" id="eiva-panel-kids" data-eiva-panel="kids">
+
+    <div class="card kids-card" data-added="2026-11-04">
+      <div class="card-header-row">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title upload-guide-title">מדריך להעלאת מסמכים</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-quick-actions" onclick="event.stopPropagation()">
+        <button class="quick-btn quick-copy" onclick="quickCopy('msgKidsReceipts', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        <button class="quick-btn quick-wa" onclick="quickWa('msgKidsReceipts')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
+        <button class="quick-btn quick-mail" onclick="quickMail('msgKidsReceipts')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+      
+      </div>
+      </div>
+      <div class="card-collapsible">
+        <div class="branch-picker" onclick="event.stopPropagation()">
+          <span class="branch-picker-label">בחרו מכשיר:</span>
+          <button type="button" class="branch-pill active" data-device="mobile" onclick="selectUploadDevice('kids', 'mobile', this)">📱 נייד</button>
+          <button type="button" class="branch-pill" data-device="desktop" onclick="selectUploadDevice('kids', 'desktop', this)">🖥️ מחשב</button>
+        </div>
+        <div class="card-body" id="msgKidsReceipts"></div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msgKidsReceipts', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msgKidsReceipts')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>וואטסאפ</span>
+          </button>
+          <button class="email-btn" onclick="sendEmail('msgKidsReceipts')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msgKidsReceipts')">
+            ✏️ תיקון
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="refund-panel-eivarights"></div>
 
     <div class="card kids-card">
       <div class="card-header-row">
@@ -7181,6 +7213,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     msg15:             'ויתור סודיות וסר טופס הפניה',
     msgB2bReceipts:    'קבלה קבלות החזר העלאה שליחה מסמכים דוח נוכחות מערכת שעות הצעת מחיר B2B בי טו בי קצבאות סניף מטפל לימודים הכשרה',
     msg18:             'העלאת מסמכים מסמך מסמכים קבלה נייד מחשב',
+    msgKidsReceipts:   'העלאת מסמכים קבלה קבלות ילד ילדים נייד מחשב החזר',
     msg_eivaup:        'העלאת מסמכים מסמך מסמכים'
   };
   /* נרמול: הסרת גרשיים/מרכאות/פיסוק/ניקוד כדי שחיפוש יהיה סלחני ("מעמ"→מע"מ, "וסר"→וס"ר) */
@@ -7609,9 +7642,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     if (open) {
       _searchKbFixed = false;
       if (input) setTimeout(function () { input.focus(); }, 30);
-      /* הבלטה רגעית של תיבת החיפוש כשהיא נפתחת */
-      const row = document.querySelector('.search-inner');
-      if (row) setTimeout(function () { searchWow(row); }, 20);
+      /* אנימציית "וואו" בפתיחת החיפוש בוטלה לבקשת אמיר */
     } else {
       if (input) input.value = '';
       doSearch('');
@@ -7845,8 +7876,7 @@ function dashboardTileClick(filterId, tileEl) {
   const REQUIRES_INPUT = new Set(['msg10', 'msg15']);
   const REQUIRES_INPUT_MSG = 'יש למלא פרטים בכרטיסייה לפני ההעתקה/שליחה 📝';
   const REQUIRES_SELECTION_MSGS = {
-    msg12: 'יש לוודא את בחירת הסניף בכרטיסייה לפני ההעתקה/שליחה 📝',
-    msg17: 'יש לוודא את בחירת המכשיר (נייד/מחשב) בכרטיסייה לפני ההעתקה/שליחה 📝'
+    msg12: 'יש לוודא את בחירת הסניף בכרטיסייה לפני ההעתקה/שליחה 📝'
   };
   const REQUIRES_SELECTION = new Set(Object.keys(REQUIRES_SELECTION_MSGS));
 
@@ -8865,6 +8895,13 @@ function dashboardTileClick(filterId, tileEl) {
     var petal = ev && ev.target && ev.target.closest ? ev.target.closest('.tile-petal') : null;
     if (typeof showMeetBubble === 'function') showMeetBubble(key, petal);
   }
+  /* עלה ב"מדריכים" — מעבר להודעה במקומה הקבוע (המדריכים נשארים גם בקטגוריות שלהם) */
+  function radialGuide(bodyId, ev) {
+    if (ev) ev.stopPropagation();
+    if (typeof radialCloseAll === 'function') radialCloseAll();
+    var b = document.getElementById(bodyId), card = b && b.closest('.card');
+    if (card && typeof goToNewMsg === 'function') goToNewMsg(card);
+  }
   /* בקשת סניף שלא קיים — פותח מייל ממוקד לאמיר */
   function requestBranch(ev) {
     if (ev) ev.stopPropagation();
@@ -8996,6 +9033,7 @@ function dashboardTileClick(filterId, tileEl) {
   }
   function mFlowerOpen(wrap) {
     window._mFlowerTools = !!(wrap && wrap.getAttribute('data-radial') === 'tools');
+    window._mFlowerGuides = !!(wrap && wrap.getAttribute('data-radial') === 'guides');
     var el = mFlowerEl();
     var stage = el.querySelector('.m-flower-stage');
     var core = el.querySelector('.m-flower-core');
@@ -9209,6 +9247,8 @@ function dashboardTileClick(filterId, tileEl) {
     terror: {
       bodyId: 'msg18',
       mobile: `📱 מדריך: העלאת קבלות מהנייד – שיקום לנפגעי איבה 📱
+⚠️ שימו לב: ההעלאה לפי המדריך הזה מיועדת רק למסמכים של זכויות בשיקום. מסמכים בנושאים אחרים יש להעלות באתר האישי, תחת המחלקה הרלוונטית לאותו נושא.
+
 שלב אחר שלב להגשת קבלות בקלות:
 
 1️⃣ נכנסים לאתר:
@@ -9229,6 +9269,8 @@ function dashboardTileClick(filterId, tileEl) {
 • ודאו שצילום הקבלה שלם, מואר וקריא לחלוטין לפני הלחיצה על שליחה.
 • לאחר השליחה, לרוב לוקח כשבועיים עד שהכסף נכנס לחשבון.`,
       desktop: `🖥️ מדריך: העלאת קבלות מהמחשב – שיקום לנפגעי איבה 🖥️
+⚠️ שימו לב: ההעלאה לפי המדריך הזה מיועדת רק למסמכים של זכויות בשיקום. מסמכים בנושאים אחרים יש להעלות באתר האישי, תחת המחלקה הרלוונטית לאותו נושא.
+
 שלב אחר שלב להגשת קבלות בקלות:
 
 1️⃣ נכנסים לאתר:
@@ -9249,46 +9291,52 @@ function dashboardTileClick(filterId, tileEl) {
 • ודאו שצילום הקבלה שלם, מואר וקריא לחלוטין לפני הלחיצה על שליחה.
 • לאחר השליחה, לרוב לוקח כשבועיים עד שהכסף נכנס לחשבון.`
     },
-    family: {
-      bodyId: 'msg17',
-      mobile: `📱 מדריך: העלאת קבלות מהנייד – משפחות שכולות 📱
+    kids: {
+      bodyId: 'msgKidsReceipts',
+      mobile: `📱 מדריך: העלאת קבלות מהנייד – שיקום לילדים נפגעי איבה 📱
+⚠️ חשוב מאוד: יש להתחבר לאזור האישי של הילד/ה (עם תעודת הזהות של הילד/ה), ולא לאזור האישי של ההורה.
+⚠️ שימו לב: ההעלאה לפי המדריך הזה מיועדת רק למסמכים של זכויות בשיקום. מסמכים בנושאים אחרים יש להעלות באתר האישי, תחת המחלקה הרלוונטית לאותו נושא.
+
 שלב אחר שלב להגשת קבלות בקלות:
 
 1️⃣ נכנסים לאתר:
 🔗 https://ps.btl.gov.il/#/login
-מתחברים ל"שירות אישי" בביטוח הלאומי (בעזרת קוד חד-פעמי או סיסמה).
+מתחברים ל"שירות אישי" של הילד/ה בביטוח הלאומי (בעזרת קוד חד-פעמי או סיסמה).
 2️⃣ פותחים תפריט: לוחצים על 3 הפסים בפינה העליונה ובוחרים העלאת מסמכים.
 3️⃣ ממלאים פרטים במדויק:
 🔸 נושא: שיקום
-🔸 קטגוריה: החזר כספי למשפחות שכולות
-🔸 מסמך: חשבוניות/קבלות
+🔸 קטגוריה: שיקום לנפגעי איבה החל מה7.10.23
+🔸 מסמך: חשבוניות/קבלות על הוצאות
 👈 בסיום, לוחצים על הכפתור התכלת צרף קובץ.
 4️⃣ מעלים את הקבלה: מצלמים אותה ישירות מהמצלמה או בוחרים תמונה מוכנה מהגלריה.
 5️⃣ שולחים: ממתינים לחיווי הירוק ("הועלה בהצלחה"), גוללים קצת למטה ולוחצים על הכפתור הכחול שלח מסמך.
 
 📢 חשוב מאוד לדעת:
-• ודאו שהמסמך שאתם מעלים הוא קבלה (לא חשבונית מס).
-• חובה שהשם המלא של המבוטח יופיע על גבי הקבלה באופן ברור.
+• ודאו שהמסמך שאתם מעלים הוא קבלה ולא חשבונית מס.
+• חובה שהשם המלא של הילד/ה יופיע על גבי הקבלה באופן ברור.
 • ודאו שצילום הקבלה שלם, מואר וקריא לחלוטין לפני הלחיצה על שליחה.
 • לאחר השליחה, לרוב לוקח כשבועיים עד שהכסף נכנס לחשבון.`,
-      desktop: `🖥️ מדריך: העלאת קבלות מהמחשב – משפחות שכולות 🖥️
+      desktop: `🖥️ מדריך: העלאת קבלות מהמחשב – שיקום לילדים נפגעי איבה 🖥️
+⚠️ חשוב מאוד: יש להתחבר לאזור האישי של הילד/ה (עם תעודת הזהות של הילד/ה), ולא לאזור האישי של ההורה.
+⚠️ שימו לב: ההעלאה לפי המדריך הזה מיועדת רק למסמכים של זכויות בשיקום. מסמכים בנושאים אחרים יש להעלות באתר האישי, תחת המחלקה הרלוונטית לאותו נושא.
+
 שלב אחר שלב להגשת קבלות בקלות:
 
 1️⃣ נכנסים לאתר:
 🔗 https://ps.btl.gov.il/#/login
-מתחברים ל"שירות אישי" בביטוח הלאומי (בעזרת קוד חד-פעמי או סיסמה).
+מתחברים ל"שירות אישי" של הילד/ה בביטוח הלאומי (בעזרת קוד חד-פעמי או סיסמה).
 2️⃣ בוחרים באפשרות העלאת מסמכים מתוך רשימת האפשרויות שנמצאת בצד ימין.
 3️⃣ ממלאים פרטים במדויק:
 🔸 נושא: שיקום
-🔸 קטגוריה: החזר כספי למשפחות שכולות
-🔸 מסמך: חשבוניות/קבלות
+🔸 קטגוריה: שיקום לנפגעי איבה החל מה7.10.23
+🔸 מסמך: חשבוניות/קבלות על הוצאות
 👈 בסיום, לוחצים על הכפתור התכלת צרף קובץ.
 4️⃣ מעלים את הקבלה: בוחרים את קובץ הקבלה השמור במחשב.
 5️⃣ שולחים: ממתינים לחיווי הירוק ("הועלה בהצלחה"), גוללים קצת למטה ולוחצים על הכפתור הכחול שלח מסמך.
 
 📢 חשוב מאוד לדעת:
-• ודאו שהמסמך שאתם מעלים הוא קבלה (לא חשבונית מס).
-• חובה שהשם המלא של המבוטח יופיע על גבי הקבלה באופן ברור.
+• ודאו שהמסמך שאתם מעלים הוא קבלה ולא חשבונית מס.
+• חובה שהשם המלא של הילד/ה יופיע על גבי הקבלה באופן ברור.
 • ודאו שצילום הקבלה שלם, מואר וקריא לחלוטין לפני הלחיצה על שליחה.
 • לאחר השליחה, לרוב לוקח כשבועיים עד שהכסף נכנס לחשבון.`
     },
@@ -9428,8 +9476,8 @@ function dashboardTileClick(filterId, tileEl) {
     if (b12) b12.textContent = BRANCH_DIRECTIONS.rg;
     const b18 = document.getElementById('msg18');
     if (b18) b18.textContent = UPLOAD_GUIDES.terror.mobile;
-    const b17 = document.getElementById('msg17');
-    if (b17) b17.textContent = 'בנוגע להעלאת מסמכים עבור משפחות שכולות:\nבקרוב תעלה מערכת חדשה באתר האישי, ויצאו הנחיות מתאימות לאחר השקת המערכת.';
+    const bKids = document.getElementById('msgKidsReceipts');
+    if (bKids) bKids.textContent = UPLOAD_GUIDES.kids.mobile;
     const bEiva = document.getElementById('msg_eivaup');
     if (bEiva) bEiva.textContent = UPLOAD_GUIDES.eivadept.mobile;
   })();
@@ -9583,6 +9631,7 @@ function dashboardTileClick(filterId, tileEl) {
   /* טלפון: אנימציה שמבליטה את כפתור החיפוש בסרגל התחתון — פיצ'ר חדש.
      מופעלת בכניסה לאתר, עד שהמשתמש לוחץ עליו בפעם הראשונה */
   document.addEventListener('DOMContentLoaded', function () {
+    return; /* הבלטת כפתור החיפוש בוטלה לבקשת אמיר — להחזרה: למחוק שורה זו */
     if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
     try { if (localStorage.getItem('shikum_msearch_used')) return; } catch (e) {}
     setTimeout(function () {
@@ -9637,10 +9686,11 @@ function dashboardTileClick(filterId, tileEl) {
     var ov = document.getElementById('contactPopupOverlay');
     var idea = !!(ov && ov.classList.contains('open'));
     var tools = document.body.classList.contains('m-flower-open') && !!window._mFlowerTools;
-    var bi = document.getElementById('bottomNavIdea'), bt = document.getElementById('bottomNavTools');
-    if (bi) bi.classList.toggle('active', idea);
+    var guides = document.body.classList.contains('m-flower-open') && !!window._mFlowerGuides;
+    var bt = document.getElementById('bottomNavTools'), bg = document.getElementById('bottomNavGuides');
     if (bt) bt.classList.toggle('active', tools);
-    if (idea || tools) {
+    if (bg) bg.classList.toggle('active', guides);
+    if (idea || tools || guides) {
       var h = document.getElementById('bottomNavHome'); if (h) h.classList.remove('active');
     } else if (typeof syncBottomNav === 'function') syncBottomNav();
   }
@@ -9655,6 +9705,19 @@ function dashboardTileClick(filterId, tileEl) {
     }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
   });
 
+  /* סיבוב אייקון המדריכים לתשומת לב — זמני, עד סוף 17.11.2026 */
+  (function () {
+    var GUIDES_SPIN_UNTIL = new Date(2026, 10, 18);
+    if (new Date() < GUIDES_SPIN_UNTIL) document.body.classList.add('guides-spin');
+  })();
+  /* סרגל תחתון: מדריכים למבוטח — פותח את פרח המדריכים (במקום האריח, כדי שמסך הבית בטלפון לא ידרוש גלילה) */
+  function bottomNavGuides() {
+    if (typeof hapticTap === 'function') hapticTap();
+    document.body.classList.remove('m-search-show');
+    if (typeof syncSearchNav === 'function') syncSearchNav();
+    var w = document.querySelector('.tile-wrap[data-radial="guides"]');
+    if (w && typeof mFlowerOpen === 'function') mFlowerOpen(w);
+  }
   function bottomNavIdea() {
     if (typeof hapticTap === 'function') hapticTap();
     if (typeof suggestIdea === 'function') suggestIdea();
@@ -10772,9 +10835,9 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     <span class="bottom-nav-emoji bottom-nav-search-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span>
     <span>חיפוש</span>
   </button>
-  <button type="button" class="bottom-nav-btn" id="bottomNavIdea" onclick="bottomNavIdea()">
-    <span class="bottom-nav-emoji">💡</span>
-    <span>רעיון</span>
+  <button type="button" class="bottom-nav-btn" id="bottomNavGuides" onclick="bottomNavGuides()">
+    <span class="bottom-nav-emoji">📘</span>
+    <span>מדריכים</span>
   </button>
   <button type="button" class="bottom-nav-btn" id="bottomNavTools" onclick="bottomNavTools()">
     <span class="bottom-nav-emoji"><img class="bottom-nav-tools-img" alt="" src="data:image/webp;base64,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"></span>
@@ -10905,7 +10968,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     <div class="jpop-title" id="jpopTitle">תבנית חדשה עלתה? תדעו ראשונים</div>
     <p class="jpop-text">פעם בכמה שבועות אני שולח מייל קצר עם מה שחדש באתר: תבניות, כלים ועדכונים שחוסכים זמן בעבודה היומיומית. מצטרפים בלחיצה אחת, בלי טפסים.</p>
     <button type="button" class="jpop-join" onclick="jpopJoin()">הצטרפות לעדכונים</button>
-    <div><button type="button" class="jpop-later" onclick="jpopDismiss('לא עכשיו')">לא עכשיו</button></div>
+    <button type="button" class="jpop-later" onclick="jpopDismiss('אני כבר בפנים')">אני כבר בפנים 👍</button>
   </div>
 </div>
 
