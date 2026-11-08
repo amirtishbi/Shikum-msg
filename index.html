@@ -3264,6 +3264,17 @@ body.dark-mode .staff-note { background: color-mix(in srgb, #e6b94d 20%, transpa
 }
 .feedback-btn:hover { background: #fff3cd; border-color: #e6b94d; color: #7a5500; border-style: solid; }
 .feedback-btn:active { transform: scale(0.95); }
+/* ===== משוב בלחיצה: "ההודעה עזרה?" 👍 / 🤔 מתחת לכפתורי ההודעה (תחילית fb-) ===== */
+.fb-row { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 12px 4px; flex-wrap: wrap; font-family: 'Heebo', sans-serif; }
+.fb-q { font-size: 0.82rem; color: var(--ink-soft); font-weight: 600; margin-inline-end: 4px; }
+.fb-chip { border: 1.5px solid var(--rule-strong); background: var(--paper-card); color: var(--ink); border-radius: 999px; padding: 6px 14px; font-size: 0.86rem; font-weight: 700; cursor: pointer; font-family: 'Heebo', sans-serif; -webkit-tap-highlight-color: transparent; }
+.fb-chip:hover { border-color: var(--navy); }
+.fb-chip.on { border-color: var(--navy); background: color-mix(in srgb, var(--navy) 8%, transparent); cursor: default; }
+.fb-thanks { width: 100%; text-align: center; font-size: 0.86rem; color: var(--ink-soft); padding: 2px 0 4px; }
+.fb-more { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; padding: 4px 0 6px; }
+.fb-more-t { font-size: 0.88rem; color: var(--ink); font-weight: 600; text-align: center; }
+.fb-more-b { border: none; background: #e6b94d; color: var(--navy); border-radius: 999px; padding: 9px 18px; font-weight: 800; font-size: 0.9rem; font-family: 'Heebo', sans-serif; cursor: pointer; }
+.fb-more-b:hover { filter: brightness(1.05); }
 .email-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 
 @media (max-width: 400px) {
@@ -9896,6 +9907,41 @@ function dashboardTileClick(filterId, tileEl) {
     });
   }
   window.addEventListener('load', function () { setTimeout(addDynOpenButtons, 50); });
+
+  /* ===== משוב בלחיצה על כל הודעה — נרשם ב-Umami; אחרי הצבעה לא מוצג שוב באותה הודעה למשך 30 יום ===== */
+  var FB_DAYS = 30;
+  function fbKey(id) { return 'shikum_fb_' + id; }
+  function fbRecent(id) {
+    try { var t = +localStorage.getItem(fbKey(id)); return t && (Date.now() - t) < FB_DAYS * 864e5; } catch (e) { return false; }
+  }
+  function fbTitle(card) { var t = card.querySelector('.card-toggle-title'); return t ? t.textContent.replace(/\s+/g, ' ').trim() : ''; }
+  function fbVote(btn, kind) {
+    var row = btn.closest('.fb-row'), card = btn.closest('.card'), id = row.getAttribute('data-id');
+    var title = fbTitle(card);
+    try { localStorage.setItem(fbKey(id), String(Date.now())); } catch (e) {}
+    umTrack((kind === 'up' ? 'משוב 👍: ' : 'משוב 🤔: ') + title);
+    if (kind === 'up') {
+      row.innerHTML = '<button type="button" class="fb-chip on">👍 עזר לי</button><div class="fb-thanks">תודה! זה עוזר לי לדעת מה עובד 🙏</div>';
+    } else {
+      row.innerHTML = '<button type="button" class="fb-chip on">🤔 חסר משהו</button><div class="fb-more"><div class="fb-more-t">תודה שאמרת! מה חסר או לא מדויק?</div><button type="button" class="fb-more-b">✉️ ספרו לי, זה לוקח 10 שניות</button></div>';
+      row.querySelector('.fb-more-b').onclick = function (e) { e.stopPropagation(); umTrackNav('משוב · כתבו לאמיר: ' + title); sendFeedback(id); };
+    }
+  }
+  function addFeedbackRows() {
+    document.querySelectorAll('section.category .card').forEach(function (card) {
+      if (card.querySelector('.fb-row')) return;
+      var footer = card.querySelector('.card-footer') || card.querySelector('.refund-actions'); /* פירוטים — כפתורים ב-refund-actions */
+      var body = card.querySelector('.card-body[id]') || card.querySelector('.refund-preview-text[id]');
+      if (!footer || !body || fbRecent(body.id)) return;
+      var row = document.createElement('div');
+      row.className = 'fb-row';
+      row.setAttribute('data-id', body.id);
+      row.innerHTML = '<span class="fb-q">ההודעה עזרה?</span><button type="button" class="fb-chip" data-k="up">👍 עזר לי</button><button type="button" class="fb-chip" data-k="miss">🤔 חסר משהו</button>';
+      row.addEventListener('click', function (e) { e.stopPropagation(); var b = e.target.closest('.fb-chip[data-k]'); if (b) fbVote(b, b.getAttribute('data-k')); });
+      footer.parentNode.insertBefore(row, footer.nextSibling);
+    });
+  }
+  window.addEventListener('load', function () { setTimeout(addFeedbackRows, 60); });
   /* סיבוב אייקון המדריכים לתשומת לב — זמני, עד סוף 17.11.2026 */
   (function () {
     var GUIDES_SPIN_UNTIL = new Date(2026, 10, 18);
