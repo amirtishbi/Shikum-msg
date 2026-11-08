@@ -3151,11 +3151,13 @@ body.dark-mode .staff-note { background: color-mix(in srgb, #e6b94d 20%, transpa
 @media (hover: hover) and (pointer: fine) {
   .card-footer .whatsapp-btn { display: none; }
   .card-footer .email-btn { display: none; }
-  .card-footer .copy-btn { width: 100%; }
+  .card-footer { justify-content: center; }
+  .card-footer .copy-btn { width: auto; min-width: 200px; padding-inline: 32px; }
   /* כרטיסי ההחזרים האינטראקטיביים משתמשים ב-.refund-actions (לא .card-footer) — להסתיר גם שם ווצאפ/מייל במחשב */
   .refund-actions .whatsapp-btn { display: none; }
   .refund-actions .email-btn { display: none; }
-  .refund-actions .copy-btn { flex: 1; width: 100%; }
+  .refund-actions { justify-content: center; }
+  .refund-actions .copy-btn { flex: 0 0 auto; width: auto; min-width: 200px; padding-inline: 32px; }
 }
 
 /* סלולר בלבד: בפוטר הכרטיס הפתוח משאירים העתק + וואטסאפ + מועדפים (בהתאם לכפתורים הקטנים) */
@@ -6973,11 +6975,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function openOutlook() {
-    const a = document.createElement('a');
-    a.href = 'mailto:amirti@nioi.gov.il?subject=' + encodeURIComponent('הצעה / בקשה לכלי ההודעות');
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    openMailToAmir('הצעה / בקשה לכלי ההודעות', '');
   }
 
   // ===== Department selection (msg10) =====
@@ -7100,11 +7098,23 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
   }
 
-  function openMailToAmir(subject, body) {
-    var href = 'mailto:amirti@nioi.gov.il';
-    var params = [];
-    if (subject) params.push('subject=' + encodeURIComponent(subject));
-    if (body) params.push('body=' + encodeURIComponent(body));
+  /* מייל בטוח לעברית: במחשב (Outlook) עברית שמועברת ב-mailto יוצאת ג'יבריש —
+     לכן במחשב הטקסט בעברית מועתק ללוח, המייל נפתח עם נושא באנגלית, ומוצגת הודעה להדביק.
+     בנייד — mailto רגיל עם העברית. */
+  function safeMail(to, subject, body, subjectEn) {
+    var desk = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var href = 'mailto:' + (to || ''), params = [];
+    if (desk) {
+      var txt = [subject, body].filter(Boolean).join('\n\n');
+      if (subjectEn) params.push('subject=' + encodeURIComponent(subjectEn));
+      if (txt) {
+        try { navigator.clipboard.writeText(txt); } catch (e) {}
+        if (typeof showToast === 'function') showToast('הטקסט הועתק — הדביקו בגוף המייל (Ctrl+V) 📋');
+      }
+    } else {
+      if (subject) params.push('subject=' + encodeURIComponent(subject));
+      if (body) params.push('body=' + encodeURIComponent(body));
+    }
     if (params.length) href += '?' + params.join('&');
     var a = document.createElement('a');
     a.href = href;
@@ -7112,12 +7122,12 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     a.click();
     document.body.removeChild(a);
   }
+  window.safeMail = safeMail;
+  function openMailToAmir(subject, body) {
+    safeMail('amirti@nioi.gov.il', subject, body, 'Templates tool - message to Amir');
+  }
 
   function sendFeedback(id) {
-    if (typeof tourIsDesktop === 'function' && tourIsDesktop()) {
-      openMailToAmir('', '');
-      return;
-    }
     const card = document.getElementById(id)?.closest('.card');
     const title = card?.querySelector('.card-toggle-title')?.textContent || id;
     const body = `שלום אמיר, יש הצעה לתיקון בהודעה: "${title}"\n\nהבעיה:\n\nהצעה לתיקון:\n`;
@@ -7154,8 +7164,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function suggestIdea() {
-    if (typeof tourIsDesktop === 'function' && tourIsDesktop()) {
-      openMailToAmir('', '');
+    if (isDesktopDevice()) {
+      openMailToAmir('רעיון או הערה על הכלי', 'שלום אמיר, יש לי רעיון או הערה על כלי התבניות:\n\n');
       return;
     }
     const waBtn = document.getElementById('contactPopupWaBtn');
@@ -11510,6 +11520,14 @@ const IC = {
 const esc = s => (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 const REPORT_EMAIL = "Amirti@nioi.gov.il";
+/* במחשב: קישורי "דיווח" עוברים דרך safeMail (עברית ללוח + נושא באנגלית) */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a.rep-btn[href^="mailto:"]');
+  if (!a || !window.matchMedia('(hover: hover) and (pointer: fine)').matches || !window.safeMail) return;
+  e.preventDefault();
+  var u = new URL(a.getAttribute('href').replace(/^mailto:/, 'http://x/?to=').replace('?subject', '&subject'));
+  window.safeMail(REPORT_EMAIL, u.searchParams.get('subject') || '', u.searchParams.get('body') || '', 'Pre-rehab program report');
+}, true);
 function mailto(name, kind){
   const clean = (name||'').replace(/"/g,'').trim();
   const subject = `דיווח על תוכנית טרום שיקום: ${clean}`;
