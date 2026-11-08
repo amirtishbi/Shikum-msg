@@ -287,15 +287,12 @@ body.dark-mode mark.search-hl { background: color-mix(in srgb, #e6b94d 42%, tran
 @media (hover: hover) and (pointer: fine) {
   /* הכלים הבודדים + החיפוש והכלים עברו לאריחי הרשת — מסתירים אותם מהסרגל העליון */
   
-  /* החיפוש נפתח בלחיצה על אריח "חיפוש" ולא יושב פתוח כל הזמן */
-  .search-inner { display: none; }
-  body.desk-search-open .search-inner { display: flex; max-width: 380px; }
-  /* מיכל הסרגל העליון מקבל מסגרת רק כשהחיפוש פתוח — אחרת נקי (רק גלגל ההגדרות) */
+  /* שורת החיפוש מוצגת תמיד במחשב, גדולה וברורה; אריח "חיפוש" רק מכניס אליה את הסמן */
+  .search-inner { display: flex; max-width: 540px; padding: 10px 20px; border-width: 2px; }
+  .search-input { font-size: 1.08rem; }
+  .search-icon { width: 20px; height: 20px; }
   .search-bar-inner-row { background: transparent; border-color: transparent; box-shadow: none; }
-  body.desk-search-open .search-bar-inner-row {
-    background: var(--paper-card); border: 1px solid var(--rule-strong);
-    box-shadow: 0 1px 3px rgba(43, 38, 32, 0.05);
-  }
+  .search-inner.search-nudge { border-color: #e6b94d; box-shadow: 0 0 0 4px rgba(230,185,77,0.25); transition: border-color .2s, box-shadow .2s; }
   /* ===== אפקט "וואו" בפתיחת החיפוש ===== */
   .search-inner { position: relative; }
   @keyframes searchPop {
@@ -402,18 +399,27 @@ body.search-mode .join-banner { display: none !important; }
 .sr-none p { margin: 10px 0 0; line-height: 1.55; }
 .sr-none-h { font-family: 'Heebo', sans-serif; font-weight: 800; font-size: 1.12rem; color: var(--ink); }
 .sr-none-sub { font-size: 0.95rem; }
-.sr-none-btn { margin-top: 18px; display: inline-flex; align-items: center; gap: 8px; border: none; border-radius: var(--radius); padding: 12px 24px; font-family: 'Heebo', sans-serif; font-size: 0.95rem; font-weight: 700; color: #fdf8ee; background: var(--navy); cursor: pointer; transition: transform 0.12s, background 0.15s; -webkit-tap-highlight-color: transparent; }
-.sr-none-btn:hover { background: var(--stamp-red); transform: translateY(-1px); }
+.sr-none-btn { margin-top: 18px; display: inline-flex; align-items: center; gap: 8px; border: none; border-radius: 999px; padding: 14px 28px; font-family: 'Heebo', sans-serif; font-size: 1.02rem; font-weight: 800; color: var(--navy); background: #e6b94d; box-shadow: 0 6px 16px rgba(230,185,77,0.35); cursor: pointer; transition: transform 0.12s, filter 0.15s; -webkit-tap-highlight-color: transparent; }
+.sr-none-btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
 .sr-none-btn:active { transform: translateY(0); }
 /* הודעה דינמית בתוצאות — פותחת את ההודעה למילוי במקום העתקה עיוורת */
 .sr-dyn-ico { font-size: 1rem; flex-shrink: 0; line-height: 1; }
-.sr-dyn-note { margin-top: 7px; font-size: 0.83rem; color: var(--stamp-red); font-weight: 700; }
+.sr-dyn-note { margin-top: 7px; font-size: 0.83rem; color: var(--ink-soft); font-weight: 600; }
+/* "פתח לבחירה" — מסגרת כחולה בלי מילוי: פותח את ההודעה, לא מעתיק (שונה מכפתור ההעתקה האדום) */
+.sr-card-dyn .copy-btn.sr-open-btn { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); box-shadow: none; }
+@media (hover: hover) and (pointer: fine) { .sr-card-dyn .copy-btn.sr-open-btn { width: auto; padding-inline: 22px; } }
+.sr-card-dyn .copy-btn.sr-open-btn:hover { background: color-mix(in srgb, var(--navy) 8%, transparent); }
+body.dark-mode .sr-card-dyn .copy-btn.sr-open-btn { color: #e6ddc8; border-color: #e6ddc8; }
 .sr-card-dyn .sr-head { cursor: pointer; }
 /* אופציית "לא מצאת? כתוב לאמיר" — נבדלת ויזואלית מתוצאה אמיתית */
-.sr-ask { --rc: var(--navy); border: 1.5px dashed color-mix(in srgb, var(--navy) 35%, var(--rule-strong)) !important; background: color-mix(in srgb, #e6b94d 16%, var(--paper-card)); }
-body.dark-mode .sr-ask { background: color-mix(in srgb, #e6b94d 14%, var(--paper-card)); }
-.sr-ask .sr-title { color: var(--navy); }
-.sr-ask .sr-head { cursor: default; }
+.sr-ask { --rc: #e6b94d; border: 1.5px solid rgba(230,185,77,0.6) !important; background: linear-gradient(160deg, var(--navy) 0%, #1c2638 100%) !important; color: #f3efe4; text-align: center; padding: 22px 20px 20px !important; margin-top: 6px; }
+body.dark-mode .sr-ask { background: linear-gradient(160deg, #1c2638 0%, #141b28 100%) !important; }
+.sr-ask-ico { font-size: 2.2rem; line-height: 1; }
+.sr-ask-title { font-family: 'Heebo', sans-serif; font-weight: 800; font-size: 1.15rem; color: #fff; margin: 8px 0 6px; }
+.sr-ask-text { font-size: 0.93rem; line-height: 1.6; color: rgba(243,239,228,0.85); max-width: 460px; margin: 0 auto 14px; }
+.sr-ask-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none; border-radius: 999px; padding: 12px 24px; background: #e6b94d; color: var(--navy); font-family: 'Heebo', sans-serif; font-weight: 800; font-size: 0.98rem; cursor: pointer; box-shadow: 0 6px 16px rgba(230,185,77,0.3); }
+.sr-ask-btn svg { width: 18px; height: 18px; }
+.sr-ask-btn:hover { filter: brightness(1.05); }
 .search-clear:hover { color: var(--ink); }
 
 .search-no-results { text-align: center; padding: 30px 16px; display: none; line-height: 1.8; }
@@ -2820,6 +2826,13 @@ body.dark-mode .refund-block { background: rgba(255,255,255,0.02); }
   flex-shrink: 0;
   padding: 0 10px 0 0;
 }
+/* הודעה שדורשת בחירה/מילוי — כפתור "פתח לבחירה" בכותרת הסגורה (מסגרת כחולה, כמו בחיפוש) */
+.dyn-open-btn { flex-shrink: 0; margin: 0 10px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; border: 1.5px solid var(--navy); background: transparent; color: var(--navy); font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+.dyn-open-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+.dyn-open-btn:hover { background: color-mix(in srgb, var(--navy) 8%, transparent); }
+body.dark-mode .dyn-open-btn { color: #e6ddc8; border-color: #e6ddc8; }
+.card.open .dyn-open-btn { display: none; }
+@media (hover: none) and (pointer: coarse) { .dyn-open-btn { margin: 0 12px 12px; padding: 8px 16px; } }
 
 .card-quick-actions {
   display: flex;
@@ -4014,8 +4027,6 @@ body.dark-mode .ac-close{background:var(--ac-line);color:var(--ac-ink)}
   }
   .desktop-install-promo-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(243,239,228,0.6); }
   .changelog-btn { height: 40px; padding: 0 22px; font-size: 0.95rem; box-shadow: 0 0 0 3px rgba(230,185,77,0.18), 0 4px 12px rgba(0,0,0,0.25); }
-  /* רצועת החיפוש מופיעה רק כשהחיפוש פתוח */
-  body:not(.desk-search-open) .search-bar { display: none; }
 }
 
 /* ===== "הסבר על המערכת" — פשוט ואחיד לנייד ולמחשב ===== */
@@ -5065,6 +5076,109 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
             <span>מייל</span>
           </button>
           <button class="feedback-btn" onclick="sendFeedback('msg3')">
+            ✏️ תיקון
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card studies-card" data-added="2026-11-08">
+      <div class="card-header-row">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">שיעורי עזר: שתי האפשרויות</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-quick-actions" onclick="event.stopPropagation()">
+        <button class="quick-btn quick-copy" onclick="quickCopy('msgTutoring', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        <button class="quick-btn quick-wa" onclick="quickWa('msgTutoring')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
+        <button class="quick-btn quick-mail" onclick="quickMail('msgTutoring')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+      
+      </div>
+      </div>
+      <div class="card-collapsible">
+        <div class="card-body" id="msgTutoring">📚 שיעורי עזר במהלך הלימודים: מה האפשרויות שלכם? 📚
+ביטוח לאומי יכול לממן לכם שיעורי עזר, כדי לעזור לכם להשלים חומר ולהצליח בלימודים. יש שתי דרכים לקבל אותם, ואתם בוחרים מה מתאים לכם.
+
+🏢 אפשרות 1: דרך ספק של ביטוח לאומי
+לביטוח לאומי יש חברות שעובדות איתו בדיוק בשביל זה.
+🔸 אנחנו מפנים אתכם לחברה, והיא מתאימה לכם מורה.
+🔸 אתם לא משלמים כלום ולא צריכים להגיש קבלות. החברה מקבלת את התשלום ישירות מאיתנו.
+🔸 זו הדרך הפשוטה ביותר מבחינת ניירת.
+
+🎓 אפשרות 2: דרך מרכז התמיכה במקום הלימודים שלכם
+בהרבה מכללות ואוניברסיטאות יש מרכז תמיכה שנותן שיעורי עזר.
+🔸 היתרון: המורים מכירים את הקורסים ואת המרצים, והכול קורה במקום הלימודים.
+🔸 ההמלצה שלי: לפנות קודם למרכז התמיכה, כדי שיבדקו איתכם מה אתם צריכים: באילו קורסים, כמה שעות ובאיזה מחיר.
+🔸 את התכנית שהם מציעים יש להעביר אליי. אבדוק אותה ואאשר לפני שמתחילים.
+🔸 במסלול הזה אתם משלמים בעצמכם, ואנחנו מחזירים לכם את הכסף.
+
+📋 למי שבחר באפשרות 2 (מרכז התמיכה): מה מגישים כל חודש כדי לקבל החזר:
+1. קבלה חודשית מרוכזת ממרכז התמיכה על כל השיעורים של אותו חודש.
+2. טופס בל/395 (דיווח מתן שיעורי עזר). כל שיעור נרשם בשורה נפרדת עם תאריך ושעות. אתם חותמים על כל שיעור, והמורה חותם בסוף החודש.
+3. טופס בל/394 (אישור תשלום עבור שיעורי עזר). מרכז התמיכה ממלא וחותם עליו: המקצוע, החודש, מספר השעות, התעריף והסכום ששולם.
+
+📢 חשוב לדעת:
+• בוחרים מסלול אחד בלבד. אי אפשר לקבל חלק מהשיעורים מהספק וחלק ממקום הלימודים.
+• שיעורי העזר מיועדים להבנת החומר ולהשלמת פערים. הם לא מיועדים לכתיבת עבודות.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msgTutoring', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msgTutoring')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>וואטסאפ</span>
+          </button>
+          <button class="email-btn" onclick="sendEmail('msgTutoring')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msgTutoring')">
+            ✏️ תיקון
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card studies-card" data-added="2026-11-08">
+      <div class="card-header-row">
+      <button class="card-toggle" onclick="toggleCard(this)">
+        <span class="card-toggle-title">שיעורי עזר</span>
+        <svg class="card-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="card-quick-actions" onclick="event.stopPropagation()">
+        <button class="quick-btn quick-copy" onclick="quickCopy('msgTutoringST', this)" title="העתקת טקסט"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        <button class="quick-btn quick-wa" onclick="quickWa('msgTutoringST')" title="פתיחת וואטסאפ ושליחת הטקסט"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg></button>
+        <button class="quick-btn quick-mail" onclick="quickMail('msgTutoringST')" title="שליחה במייל"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+      
+      </div>
+      </div>
+      <div class="card-collapsible">
+        <div class="card-body" id="msgTutoringST">📚 שיעורי עזר במהלך ההכשרה 📚
+ביטוח לאומי יכול לממן לכם שיעורי עזר, כדי לעזור לכם להשלים חומר ולהצליח בלימודים.
+
+🏢 איך זה עובד: דרך ספק של ביטוח לאומי
+לביטוח לאומי יש חברות שעובדות איתו בדיוק בשביל זה.
+🔸 אנחנו מפנים אתכם לחברה, והיא מתאימה לכם מורה.
+🔸 אתם לא משלמים כלום ולא צריכים להגיש קבלות. החברה מקבלת את התשלום ישירות מאיתנו.
+
+📢 חשוב לדעת:
+• שיעורי עזר ניתנים רק דרך הספקים של ביטוח לאומי. לא ניתן לקבל החזר על שיעורי עזר ממורים חיצוניים.
+• שיעורי העזר מיועדים להבנת החומר ולהשלמת פערים. הם לא מיועדים לכתיבת עבודות.</div>
+        <div class="card-footer">
+          <button class="copy-btn" onclick="copyMsg('msgTutoringST', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="btn-label">העתק</span>
+          </button>
+          <button class="whatsapp-btn" onclick="sendWhatsapp('msgTutoringST')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.45 13.5L3 21l3.6-1.55a8.94 8.94 0 0 0 5.45 1.85h.05A8.94 8.94 0 0 0 21 12.5a8.86 8.86 0 0 0-3.4-6.18zM12 19.4h-.05a7.4 7.4 0 0 1-4.5-1.55l-.32-.2-3.2 1.05 1.05-3.1-.2-.32a7.43 7.43 0 0 1-1.13-3.93 7.4 7.4 0 0 1 7.4-7.4 7.34 7.34 0 0 1 5.23 2.17 7.34 7.34 0 0 1 2.17 5.23 7.4 7.4 0 0 1-6.45 7.05zm4.07-5.53c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.16-.48.05-.22-.11-.93-.34-1.77-1.09-.65-.58-1.09-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.11-.11.25-.29.37-.43.13-.15.17-.25.26-.41.09-.17.04-.31-.03-.43-.07-.11-.6-1.44-.82-1.97-.22-.52-.44-.45-.6-.46-.15-.01-.33-.01-.5-.01-.18 0-.46.07-.7.32-.24.25-.93.91-.93 2.21 0 1.3.95 2.56 1.08 2.74.13.18 1.85 2.82 4.5 3.85.63.24 1.12.39 1.5.5.63.18 1.21.15 1.66.09.51-.06 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.18-.47-.29z"/></svg>
+            <span>וואטסאפ</span>
+          </button>
+          <button class="email-btn" onclick="sendEmail('msgTutoringST')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>מייל</span>
+          </button>
+          <button class="feedback-btn" onclick="sendFeedback('msgTutoringST')">
             ✏️ תיקון
           </button>
         </div>
@@ -7211,6 +7325,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     msg7:              'טיפול טיפולים אלטרנטיבי החזר קבלה רפורמה נפש אחת',
     msg12:             'סניף הגעה הגעות כתובת חניה נסיעה רמת גן כפר סבא רמלה רחובות ירושלים',
     msg15:             'ויתור סודיות וסר טופס הפניה',
+    msgTutoring:       'שיעורי עזר שיעור עזר מורה פרטי מרכז תמיכה ספק בל 395 בל 394 394 395 החזר קבלה מרוכזת סטודנט לימודים השלמת חומר',
+    msgTutoringST:     'שיעורי עזר שיעור עזר מורה פרטי ספק ספקים החזר הכשרה מקצועית השלמת חומר',
     msgB2bReceipts:    'קבלה קבלות החזר העלאה שליחה מסמכים דוח נוכחות מערכת שעות הצעת מחיר B2B בי טו בי קצבאות סניף מטפל לימודים הכשרה',
     msg18:             'העלאת מסמכים מסמך מסמכים קבלה נייד מחשב',
     msgKidsReceipts:   'העלאת מסמכים קבלה קבלות ילד ילדים נייד מחשב החזר',
@@ -7222,6 +7338,16 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       .replace(/[֑-ׇ]/g, '')
       .replace(/["'”“׳״`.,:;!?()\[\]\/\\\-–—]/g, '')
       .replace(/\s+/g, ' ').trim();
+  }
+  /* כתיב חסר/מלא: מסירים ו/י שאינן אות ראשונה במילה ("שיעורי" = "שעורי" → "שער") */
+  function sLoose(s){
+    return sNorm(s).split(' ').map(function (w) { return w ? w[0] + w.slice(1).replace(/[וי]/g, '') : w; }).join(' ');
+  }
+  /* שורש גס למילה: כתיב חסר + הסרת ת/ה בסוף ("הנגשות" = "הנגשה" → "הנגש") */
+  function sStem(w){
+    var l = sLoose(w);
+    if (l.length >= 4 && /[תה]$/.test(l)) l = l.slice(0, -1);
+    return l;
   }
   function escHtml(s){ return s.replace(/[&<>]/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[m]; }); }
 
@@ -7237,6 +7363,14 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     if (sec.id === 'eiva') { var ep = card.closest('.eiva-panel'); return ep ? (EIVA_SUB[ep.dataset.eivaPanel] || '') : ''; }
     if (sec.id === 'studies') { var sp = card.closest('.studies-refund-panel'); return sp ? (STUDIES_SUB[sp.dataset.refundPanel] || '') : ''; }
     return '';
+  }
+  /* טקסט הקטגוריה של הכרטיס לחיפוש — כותרת הקטגוריה + השם הקצר שלה */
+  function srCatText(card) {
+    var sec = card.closest('section.category');
+    if (!sec) return '';
+    var h2 = sec.querySelector('.cat-header h2');
+    var names = (typeof CRUMB_CAT_NAMES !== 'undefined' && CRUMB_CAT_NAMES[sec.id]) || '';
+    return (h2 ? h2.textContent : '') + ' ' + names + ' ' + ((typeof CAT_SHORT !== 'undefined' && CAT_SHORT[sec.id]) || '');
   }
   /* קטגוריית הכרטיס: תווית + צבע מותג (מתוך משתני --cat-*) */
   function srCatInfo(card) {
@@ -7392,12 +7526,14 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     Array.from(document.querySelectorAll('section.category .card')).forEach(card => {
       if (card.style.display === 'none') return; /* דלג על כרטיסי WIP מוסתרים */
       const titleEl = card.querySelector('.card-toggle-title');
-      const bodyEl = card.querySelector('.card-body');
+      /* פירוטי החזרים (הודעות דינמיות) — בלי card-body; מחפשים בכל הטקסט שלהם */
+      const isRefund = card.classList.contains('refund-toggle-card');
+      const bodyEl = isRefund ? card.querySelector('.refund-preview-text') : card.querySelector('.card-body');
       if (!titleEl || !bodyEl || !bodyEl.id) return;
       const bodyId = bodyEl.id;
       const titleRaw = titleEl.dataset.orig || titleEl.textContent;
       if (titleEl.dataset.orig === undefined) titleEl.dataset.orig = titleRaw;
-      const bodyText = bodyEl.textContent || '';
+      const bodyText = isRefund ? (card.dataset.searchText || bodyEl.textContent || '') : (bodyEl.textContent || '');
       const kwStr = SEARCH_KEYWORDS[bodyId] || '';
       const subLabel = srSubOf(card);
       const title = sNorm(titleRaw);
@@ -7407,19 +7543,46 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       const rawKw = kwStr.split(/\s+/).filter(Boolean);
       const hay = title + ' ' + nbody + ' ' + nkw.join(' ') + ' ' + nsub;
 
-      let score = 0, reason = '', kwHit = '';
-      if (title.indexOf(q) === 0) { score = 11; reason = 'title'; }
-      else if (title.includes(q)) { score = 10; reason = 'title'; }
-      else if (nbody.includes(q)) { score = 8; reason = 'body'; }
-      else if (nsub && (nsub === q || nsub.includes(q))) { score = 7; reason = 'sub'; }
-      else {
-        let ei = -1;
-        for (let i = 0; i < nkw.length; i++) { if (nkw[i] === q) { ei = i; break; } }
-        if (ei === -1) { for (let i = 0; i < nkw.length; i++) { if (nkw[i].indexOf(q) !== -1 || q.indexOf(nkw[i]) !== -1) { ei = i; break; } } }
-        if (ei !== -1) { score = 6; reason = 'kw'; kwHit = rawKw[ei] || nkw[ei]; }
-        else if (words.every(w => hay.includes(w))) { score = 3; reason = 'body'; }
-        else if (words.some(w => hay.includes(w))) { score = 1; reason = 'body'; }
-      }
+      /* ניקוד משוקלל (נוב' 2026): שם ההודעה > שם הקטגוריה/הלשונית > מילות מפתח > טקסט ההודעה.
+         כל מילה בחיפוש מקבלת ניקוד לפי המקום הכי חזק שבו נמצאה, והניקוד מצטבר — כך "קבלות איבה"
+         מעלה את מדריכי הקבלות של איבה (קבלות בשם + איבה בקטגוריה) */
+      const catText = sNorm(srCatText(card));
+      /* גרסאות "רופפות" לכתיב חסר/מלא ויחיד/רבים */
+      const titleL = sLoose(titleRaw), subL = sLoose(subLabel), catL = sLoose(catText);
+      const head = sNorm(card.dataset.searchHead || ''), headL = sLoose(head);
+      const nkwL = nkw.map(sLoose);
+      const qL0 = sLoose(q), qL = qL0.replace(/\s/g, '').length >= 3 ? qL0 : '\u0000'; /* כתיב רופף רק כשנשארות 3+ אותיות */
+      const has = function (n, l, w, ws) { return n.includes(w) || (ws.length >= 3 && l.includes(ws)); };
+      const kwHitOf = function (w, ws) {
+        for (let i = 0; i < nkw.length; i++) { if (nkw[i] === w) return i; }
+        for (let i = 0; i < nkw.length; i++) { if (nkw[i].indexOf(w) !== -1 || (nkw[i].length >= 3 && w.indexOf(nkw[i]) !== -1)) return i; }
+        if (ws.length >= 3) { for (let i = 0; i < nkwL.length; i++) { if (nkwL[i].indexOf(ws) !== -1) return i; } }
+        return -1;
+      };
+      let score = 0, reason = '', kwHit = '', hitCount = 0;
+      let inTitle = false, inSub = false, inKw = false;
+      if (title.indexOf(q) === 0 || titleL.indexOf(qL) === 0) { score += 120; inTitle = true; }
+      else if (title.includes(q) || titleL.includes(qL)) { score += 100; inTitle = true; }
+      else if (words.length > 1 && ((nsub + ' ' + catText).includes(q) || (subL + ' ' + catL).includes(qL))) { score += 70; inSub = true; }
+      else if (words.length > 1 && (head.includes(q) || headL.includes(qL))) { score += 70; inSub = true; }
+      else if (words.length > 1 && nbody.includes(q)) score += 12;
+      words.forEach(function (w) {
+        const ws = sStem(w);
+        let ws2 = 0;
+        if (has(title, titleL, w, ws)) { ws2 = (title.indexOf(w) === 0 || titleL.indexOf(ws) === 0) ? 34 : 30; inTitle = true; }
+        else if (nsub && has(nsub, subL, w, ws)) { ws2 = 22; inSub = true; }
+        else if (head && has(head, headL, w, ws)) { ws2 = 22; inSub = true; }
+        else if (has(catText, catL, w, ws)) { ws2 = 18; inSub = true; }
+        else {
+          const ki = kwHitOf(w, ws);
+          if (ki !== -1) { ws2 = 12; inKw = true; if (!kwHit) kwHit = rawKw[ki] || nkw[ki]; }
+          else if (nbody.includes(w)) ws2 = 4; /* בטקסט עצמו — רק התאמה מדויקת (כתיב רופף יוצר רעש) */
+        }
+        if (ws2) { score += ws2; hitCount++; if (ws2 > 4 && nbody.includes(w)) score += 1; /* שובר שוויון: המילה מופיעה גם בטקסט */ }
+      });
+      if (hitCount && hitCount < words.length) score = Math.round(score * 0.35); /* לא כל המילים נמצאו — יורד למטה */
+      if (!hitCount && score) hitCount = 1;
+      reason = inTitle ? 'title' : inSub ? 'sub' : inKw ? 'kw' : 'body';
       if (score > 0) {
         /* כרטיס "דינמי" — דורש בחירה או הזנת נתונים לפני העתקה, כך שהעתקה עיוורת תיתן טקסט חלקי:
            בורר נייד/מחשב, ויתור סודיות, בחירת סניף, בחירת מחלקה, שדה קלט כלשהו, מחשבון החזרים */
@@ -7456,13 +7619,15 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       html = '<div class="sr-none">'
         + '<div class="big">🤷</div>'
         + '<p class="sr-none-h">לא מצאנו כלום על "' + escHtml(rawq) + '"</p>'
-        + '<p class="sr-none-sub">אולי זו הודעה נדירה במיוחד — ואולי פשוט עוד לא הגיעה לכאן.<br>אמיר רוצה שיהיה כאן הכל. ואם לא הכל, אז לפחות כמעט. 🤏<br>שלחו לו מילה מה חיפשתם, והפעם הבאה זה כבר יחכה לכם כאן.</p>'
-        + '<button class="sr-none-btn" onclick="searchNoResultsWa()">✉️ כתבו לאמיר</button>'
+        + '<p class="sr-none-sub">אולי ההודעה הזו פשוט עוד לא הגיעה לכאן. 😉<br>כתבו לי מה חיפשתם, גם במילה אחת. זה ממש לא מטריד, להפך: ככה האתר משתפר, והפעם הבאה זה כבר יחכה לכם כאן.</p>'
+        + '<button class="sr-none-btn" onclick="searchNoResultsWa()">✉️ כתבו לאמיר, זה לוקח 10 שניות</button>'
         + '</div>';
     } else {
       html = '<div class="sr-meta">נמצאו ' + (matches.length + toolHits.length) + ' תוצאות</div>';
-      toolHits.forEach(function (t) {
-        html += '<div class="sr-card sr-card-tool" style="--rc:var(--navy)" onclick="srOpenTool(\'' + t.kind + '\')">'
+      /* כלי שהתאים בשם — ראשון; כלי שהתאים רק במילת מפתח — אחרי התוצאות החזקות (שם הודעה/לשונית) */
+      const toolStrong = function (t) { const n = sNorm(t.name); return n.includes(q) || words.every(function (w) { return n.includes(w); }); };
+      const toolHtml = function (t) {
+        return '<div class="sr-card sr-card-tool" style="--rc:var(--navy)" onclick="srOpenTool(\'' + t.kind + '\')">'
           + '<div class="sr-head"><div class="sr-top">'
             + '<span class="sr-dyn-ico">' + t.icon + '</span>'
             + '<span class="sr-title">' + escHtml(t.name) + '</span>'
@@ -7470,8 +7635,12 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
             + '<span class="sr-acts"><button class="quick-btn sr-q sr-tool-open" title="פתיחת הכלי" aria-label="פתיחת הכלי" onclick="event.stopPropagation(); srOpenTool(\'' + t.kind + '\')">פתח</button></span>'
           + '</div></div>'
         + '</div>';
-      });
+      };
+      toolHits.filter(toolStrong).forEach(function (t) { html += toolHtml(t); });
+      const weakTools = toolHits.filter(function (t) { return !toolStrong(t); });
+      let weakDone = !weakTools.length;
       matches.forEach(m => {
+        if (!weakDone && m.score < 30) { weakTools.forEach(function (t) { html += toolHtml(t); }); weakDone = true; }
         const ci = srCatInfo(m.card);
         /* שיקום מקצועי — מציגים רק את שם הקטגוריה בלי תת; באיבה כן מראים תת */
         const showSub = m.sub && ci.catId !== 'studies';
@@ -7525,18 +7694,13 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           + '<div class="sr-bottom-acts">' + srActs + '</div>'
         + '</div>';
       });
+      if (!weakDone) weakTools.forEach(function (t) { html += toolHtml(t); });
       /* אופציה אחרונה קבועה — "לא מצאת מה שחיפשת? כתוב לאמיר" */
       html += '<div class="sr-card sr-ask">'
-        + '<div class="sr-head">'
-          + '<div class="sr-top">'
-            + '<span class="sr-dyn-ico">🤔</span>'
-            + '<span class="sr-title">לא מצאת את מה שחיפשת?</span>'
-          + '</div>'
-          + '<div class="sr-prev">אם ההודעה שחיפשת חסרה או לא מדויקת — ספרו לאמיר והיא תתווסף. חשוב שיהיה כאן הכל, ואם לא הכל אז לפחות כמעט. 🤏</div>'
-        + '</div>'
-        + '<div class="card-footer">'
-          + '<button class="copy-btn sr-open-btn" onclick="searchNoResultsWa()">' + SR_SVG_MAIL + '<span class="btn-label">כתבו לאמיר</span></button>'
-        + '</div>'
+        + '<div class="sr-ask-ico" aria-hidden="true">😉</div>'
+        + '<div class="sr-ask-title">לא מצאת בדיוק את מה שחיפשת?</div>'
+        + '<div class="sr-ask-text">כתבו לי, גם אם זו רק מילה אחת. זה ממש לא מטריד, להפך: ככה אני יודע מה חסר, והפעם הבאה זה כבר יחכה לכם כאן.</div>'
+        + '<button class="sr-ask-btn" onclick="searchNoResultsWa()">' + SR_SVG_MAIL + '<span>כתבו לאמיר, זה לוקח 10 שניות</span></button>'
       + '</div>';
     }
 
@@ -7637,15 +7801,20 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function toggleDeskSearch() {
-    const open = document.body.classList.toggle('desk-search-open');
+    /* מחשב: השורה מוצגת תמיד — האריח מכניס את הסמן לחיפוש ומציג לרגע "מה אתן מחפשות?" */
     const input = document.getElementById('searchInput');
-    if (open) {
-      _searchKbFixed = false;
-      if (input) setTimeout(function () { input.focus(); }, 30);
-      /* אנימציית "וואו" בפתיחת החיפוש בוטלה לבקשת אמיר */
-    } else {
-      if (input) input.value = '';
-      doSearch('');
+    document.body.classList.add('desk-search-open');
+    if (input) {
+      input.focus();
+      const row = document.querySelector('.search-inner');
+      if (!input.value) {
+        const orig = input.getAttribute('data-ph') || input.placeholder;
+        input.setAttribute('data-ph', orig);
+        input.placeholder = 'מה אתן מחפשות? 🔍';
+        clearTimeout(window._phT);
+        window._phT = setTimeout(function () { input.placeholder = orig; }, 1600);
+      }
+      if (row) { row.classList.add('search-nudge'); clearTimeout(window._nudgeT); window._nudgeT = setTimeout(function () { row.classList.remove('search-nudge'); }, 1600); }
     }
   }
 
@@ -9705,6 +9874,28 @@ function dashboardTileClick(filterId, tileEl) {
     }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
   });
 
+
+  /* הודעות שדורשות בחירה/מילוי ואין להן כפתורים בכותרת — מוסיפים "פתח לבחירה" כדי שיהיה ברור מה עושים */
+  function addDynOpenButtons() {
+    document.querySelectorAll('section.category .card').forEach(function (card) {
+      if (card.querySelector('.dyn-open-btn')) return;
+      var dyn = card.classList.contains('refund-toggle-card')
+        || !!card.querySelector('input, select, textarea, [contenteditable="true"]')
+        || !!card.querySelector('[onclick*="selectUploadDevice"], [onclick*="selectBranch"], [onclick*="selectDept"], [onclick*="toggleConsentType"]');
+      if (!dyn) return;
+      var qa = card.querySelector('.card-quick-actions');
+      if (qa && qa.querySelector('button')) return; /* יש כבר כפתורי פעולה */
+      var row = card.querySelector('.card-header-row'), tg = row && row.querySelector('.card-toggle');
+      if (!row || !tg) return;
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'dyn-open-btn';
+      b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg><span>פתח לבחירה</span>';
+      b.onclick = function (e) { e.stopPropagation(); tg.click(); };
+      row.appendChild(b);
+    });
+  }
+  window.addEventListener('load', function () { setTimeout(addDynOpenButtons, 50); });
   /* סיבוב אייקון המדריכים לתשומת לב — זמני, עד סוף 17.11.2026 */
   (function () {
     var GUIDES_SPIN_UNTIL = new Date(2026, 10, 18);
@@ -10208,6 +10399,12 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
        until the caseworker taps the title. */
     const card = document.createElement('div');
     card.className = 'card ' + (data.cardClass || 'studies-card') + ' refund-toggle-card';
+    /* כל הטקסט של הפירוט (כולל סעיפים שלא סומנו) — כדי שהחיפוש ימצא אותו */
+    card.dataset.searchText = [data.title, data.shortTitle, data.intro].concat(data.blocks.map(function (b) {
+      return b.title + ' ' + b.items.map(function (it) { return it.label + ' ' + (it.text || ''); }).join(' ');
+    })).join(' ');
+    /* שמות הסעיפים (ציוד לימודי, שירותי תמיכה והנגשות...) — נספרים בחיפוש כמו שם לשונית */
+    card.dataset.searchHead = data.blocks.map(function (b) { return b.title + ' ' + b.items.map(function (it) { return it.label; }).join(' '); }).join(' ');
     if (data.addedDate) card.dataset.added = data.addedDate;
 
     const headerRow = document.createElement('div');
@@ -10424,8 +10621,8 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     const claimPanel = document.getElementById('refund-panel-claim');
     if (!studentsPanel || !shorttrainPanel) return;
 
-    const studentsCardIds = ['msg2', 'msg3'];
-    const shorttrainCardIds = ['msg5', 'msg1', 'msg4'];
+    const studentsCardIds = ['msg2', 'msg3', 'msgTutoring'];
+    const shorttrainCardIds = ['msg5', 'msg1', 'msg4', 'msgTutoringST'];
     const trumCardIds = ['msg_psycho'];
     const claimCardIds = ['msg26'];
     const docsPanel = document.getElementById('refund-panel-docs');
