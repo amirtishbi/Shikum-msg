@@ -10599,7 +10599,9 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
   function rentTextByGimlah(tabId, text) {
     const on = function (k) { const c = document.querySelector('input[data-refund-tab="' + tabId + '"][data-refund-key="' + k + '"]'); return c && c.checked; };
     if (on('gimlah_male')) return text.replace(RENT_SHIKUN_LINE, '• אישור ממשרד השיכון על הסיוע בשכר דירה (יש לפנות קודם למשרד השיכון)');
-    if (on('gimlah_ein') || on('gimlah_chelkit')) return text.replace(RENT_SHIKUN_LINE, '• אם יש השלמת/הבטחת הכנסה: אישור ממשרד השיכון על זכאות או אי-זכאות לסיוע בשכר דירה');
+    /* גמלה חלקית — משרד השיכון לא משתתף: בלי שורת האישור ובלי סעיף ההשלמה */
+    if (on('gimlah_chelkit')) return text.replace(RENT_SHIKUN_LINE + '\n', '').replace(/\n• אם משרד השיכון משתתף[^\n]*/, '');
+    if (on('gimlah_ein')) return text.replace(RENT_SHIKUN_LINE, '• אם יש השלמת/הבטחת הכנסה: אישור ממשרד השיכון על זכאות או אי-זכאות לסיוע בשכר דירה');
     return text;
   }
   function buildRefundText(tabId) {
