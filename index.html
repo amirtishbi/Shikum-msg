@@ -10289,7 +10289,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           id: 'gimlah', icon: '📄', title: 'יש גמלת נכות?',
           items: [
             { key: 'gimlah_ein', label: 'אין גמלה', checked: false, text: `📊 תשלום דמי שיקום חודשיים: מאחר ואינך מקבל גמלת נכות, הינך זכאי במהלך תקופת הלימודים (מינימום 16 שעות שבועיות) לדמי שיקום בגובה גמלת נכות מלאה (100% נכות), בהתאם להרכב המשפחה ובכפוף לתנאי ההכנסה בחוק. התשלום מתבצע אוטומטית מדי חודש על סמך מערכת השעות המאושרת, לאחר אישור התוכנית.` },
-            { key: 'gimlah_chelkit', label: 'גמלה חלקית', checked: false, text: `📊 המשך ותשלום דמי שיקום (חוק לרון): מאחר והינך מקבל גמלת נכות חלקית, זכאותך להשלמת דמי השיקום או המשך הגמלה במהלך הלימודים תיבחן ותחושב באופן מדויק בהתאם לכללי חוק לרון. התשלום מתבצע אוטומטית מדי חודש על סמך מערכת השעות המאושרת, לאחר אישור התוכנית. לתשומת לבך: דמי השיקום משולמים בנפרד מגמלת הנכות ובמועד משתנה (אין יום קבוע בחודש).` }
+            { key: 'gimlah_chelkit', label: 'גמלה חלקית', checked: false, text: `📊 המשך ותשלום דמי שיקום (חוק לרון): מאחר והינך מקבל גמלת נכות חלקית, זכאותך להשלמת דמי השיקום או המשך הגמלה במהלך הלימודים תיבחן ותחושב באופן מדויק בהתאם לכללי חוק לרון. התשלום מתבצע אוטומטית מדי חודש על סמך מערכת השעות המאושרת, לאחר אישור התוכנית. לתשומת לבך: דמי השיקום משולמים בנפרד מגמלת הנכות ובמועד משתנה (אין יום קבוע בחודש).` },
+            { key: 'gimlah_male', label: 'גמלה מלאה', checked: false, text: `` }
           ]
         },
         {
@@ -10335,12 +10336,15 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         {
           id: 'rent', icon: '🛖', title: 'שכר דירה',
           items: [
-            { key: 'rent', label: 'שכר דירה', checked: false, text: `🛖 השתתפות בשכר דירה: סיוע בגובה של עד 1,200 ₪ בחודש יינתן בשל העתקת מקום מגוריך לצורך הלימודים, וזאת בתנאי שמקום מגוריך הקודם מרוחק מעל 40 ק"מ ממוסד הלימודים. לקבלת ההחזר יש להמציא חוזה שכירות בתוקף והוכחת תשלום בפועל עבור החודש הראשון של הסמסטר.
-שימו לב לדגשים החשובים הבאים לגבי הזכאות לשכר דירה:
-• מיצוי זכאות מול משרד השיכון: מבוטחים המקבלים גמלת נכות מלאה או השלמת/הבטחת הכנסה, עשויים להיות זכאים לסיוע בשכ"ד ממשרד השיכון. חובה לפנות קודם כל אליהם למיצוי הזכאות, ולהציג לעובד השיקום אישור רשמי על זכאות או אי-זכאות.
-• קיזוז וכפל גמלאות: במידה ואושר סיוע ממשרד השיכון, ביטוח לאומי ישלים את ההפרש בלבד ועד לתקרה של 1,200 ₪, בתנאי שסך ההשתתפות של שני הגופים יחד לא יעלה על גובה שכר הדירה בפועל. (לדוגמה: אם שכר הדירה הוא 1,500 ₪ ומשרד השיכון משלם 600 ₪, ביטוח לאומי ישלים 900 ₪).
-• השכרת דירה בבעלותך: אם יש בבעלותך דירה והנך משכיר אותה עקב המעבר ללימודים, סכום שכר הדירה שאתה מקבל בגינה יקוזז מסכום הסיוע המגיע לך מביטוח לאומי.
-• מצב משפחתי: משתקם הזכאי לסיוע שהיה נשוי בתחילת התוכנית או נישא במהלכה – זכאי לקבלת הסיוע המרבי. בן או בת הזוג אינם פוגעים בזכאות זו.` }
+            { key: 'rent', label: 'שכר דירה', checked: false, text: `🛖 השתתפות בשכר דירה: עד 1,200 ₪ בחודש, למי שעבר דירה בשביל הלימודים ומקום מגוריו הקודם רחוק יותר מ-40 ק"מ ממוסד הלימודים.
+מה מעבירים:
+• חוזה שכירות בתוקף
+• הוכחת תשלום על החודש הראשון של הסמסטר
+• אם יש גמלת נכות מלאה או השלמת/הבטחת הכנסה: אישור ממשרד השיכון על זכאות או אי-זכאות לסיוע בשכר דירה
+• אם משכירים דירה שבבעלותכם בגלל המעבר: חוזה השכירות של הדירה הזו
+חשוב לדעת:
+• אם משרד השיכון משתתף, ביטוח לאומי משלים את ההפרש, עד 1,200 ₪ ולא יותר משכר הדירה בפועל. לדוגמה: שכר דירה של 1,500 ₪ ומשרד השיכון משלם 600 ₪, ביטוח לאומי משלים 900 ₪.
+• שכר הדירה שמקבלים על דירה בבעלותכם יקוזז מהסיוע.` }
           ]
         }
       ]
@@ -10355,7 +10359,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           id: 'gimlah', icon: '📄', title: 'יש גמלת נכות?',
           items: [
             { key: 'gimlah_ein', label: 'אין גמלה', checked: false, text: `📊 תשלום דמי שיקום חודשיים: מאחר ואינך מקבל גמלת נכות, הינך זכאי במהלך תקופת הלימודים (מינימום 16 שעות שבועיות) לדמי שיקום בגובה גמלת נכות מלאה (100% נכות), בהתאם להרכב המשפחה ובכפוף לתנאי ההכנסה בחוק. תשלומי דמי השיקום מותנים ומבוצעים אך ורק על סמך דיווח הנוכחות החודשי שתגיש בסוף כל חודש.` },
-            { key: 'gimlah_chelkit', label: 'גמלה חלקית', checked: false, text: `📊 המשך ותשלום דמי שיקום (חוק לרון): מאחר והינך מקבל גמלת נכות חלקית, זכאותך להשלמת דמי השיקום או המשך הגמלה במהלך הלימודים תיבחן ותחושב באופן מדויק בהתאם לכללי חוק לרון. תשלומי דמי השיקום מותנים ומבוצעים אך ורק על סמך דיווח הנוכחות החודשי שתגיש בסוף כל חודש. לתשומת לבך: דמי השיקום משולמים בנפרד מגמלת הנכות ובמועד משתנה (אין יום קבוע בחודש).` }
+            { key: 'gimlah_chelkit', label: 'גמלה חלקית', checked: false, text: `📊 המשך ותשלום דמי שיקום (חוק לרון): מאחר והינך מקבל גמלת נכות חלקית, זכאותך להשלמת דמי השיקום או המשך הגמלה במהלך הלימודים תיבחן ותחושב באופן מדויק בהתאם לכללי חוק לרון. תשלומי דמי השיקום מותנים ומבוצעים אך ורק על סמך דיווח הנוכחות החודשי שתגיש בסוף כל חודש. לתשומת לבך: דמי השיקום משולמים בנפרד מגמלת הנכות ובמועד משתנה (אין יום קבוע בחודש).` },
+            { key: 'gimlah_male', label: 'גמלה מלאה', checked: false, text: `` }
           ]
         },
         {
@@ -10529,7 +10534,14 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
         cb.checked = !!item.checked;
         cb.dataset.refundTab = tabId;
         cb.dataset.refundKey = item.key;
-        cb.addEventListener('change', function () { updateRefundPreview(tabId); });
+        /* "יש גמלת נכות?" — בחירה אחת בלבד (אין/חלקית/מלאה): סימון אחת מבטל את האחרות */
+        if (block.id === 'gimlah') cb.dataset.refundExclusive = '1';
+        cb.addEventListener('change', function () {
+          if (cb.checked && cb.dataset.refundExclusive) {
+            document.querySelectorAll('input[data-refund-tab="' + tabId + '"][data-refund-exclusive]').forEach(function (o) { if (o !== cb) o.checked = false; });
+          }
+          updateRefundPreview(tabId);
+        });
         const span = document.createElement('span');
         span.textContent = item.label;
         label.appendChild(cb);
@@ -10577,10 +10589,19 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
     updateRefundPreview(tabId);
   }
 
+  /* לכפתור "בחר הכל": בלי אפשרויות הגמלה (בחירה אחת — לא מסמנים את כולן) */
   function getRefundCheckboxes(tabId) {
-    return Array.from(document.querySelectorAll('input[data-refund-tab="' + tabId + '"]'));
+    return Array.from(document.querySelectorAll('input[data-refund-tab="' + tabId + '"]:not([data-refund-exclusive])'));
   }
 
+  /* שכר דירה לפי בחירת הגמלה: גמלה מלאה = יש סיוע בשכ"ד דרך משרד השיכון, לכן האישור ממנו חובה */
+  const RENT_SHIKUN_LINE = '• אם יש גמלת נכות מלאה או השלמת/הבטחת הכנסה: אישור ממשרד השיכון על זכאות או אי-זכאות לסיוע בשכר דירה';
+  function rentTextByGimlah(tabId, text) {
+    const on = function (k) { const c = document.querySelector('input[data-refund-tab="' + tabId + '"][data-refund-key="' + k + '"]'); return c && c.checked; };
+    if (on('gimlah_male')) return text.replace(RENT_SHIKUN_LINE, '• אישור ממשרד השיכון על הסיוע בשכר דירה (יש לפנות קודם למשרד השיכון)');
+    if (on('gimlah_ein') || on('gimlah_chelkit')) return text.replace(RENT_SHIKUN_LINE, '• אם יש השלמת/הבטחת הכנסה: אישור ממשרד השיכון על זכאות או אי-זכאות לסיוע בשכר דירה');
+    return text;
+  }
   function buildRefundText(tabId) {
     const data = REFUND_DATA[tabId];
     if (!data) return '';
@@ -10591,12 +10612,24 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
       const blockParts = [];
       block.items.forEach(function (item) {
         const cb = document.querySelector('input[data-refund-tab="' + tabId + '"][data-refund-key="' + item.key + '"]');
-        if (cb && cb.checked) blockParts.push(item.text);
+        /* פריט בלי טקסט (גמלה מלאה) — משפיע רק על סעיפים אחרים, לא נכנס להודעה */
+        if (cb && cb.checked && item.text) blockParts.push(item.key === 'rent' ? rentTextByGimlah(tabId, item.text) : item.text);
       });
       if (blockParts.length === 0) return; /* קטגוריה ריקה מושמטת כולל הכותרת שלה */
       if (block.msgHeader) parts.push(block.msgHeader);
       blockParts.forEach(function (t) { parts.push(t); });
     });
+    /* חודש לא מלא — נכנס אוטומטית כשסומנו דמי שיקום (אין גמלה/גמלה חלקית), נסיעות או שכר דירה (סטודנטים/הכשרה קצרה) */
+    if (tabId === 'students' || tabId === 'shorttrain') {
+      const partial = data.blocks.some(function (block) {
+        return block.items.some(function (item) {
+          if (!/^(gimlah_ein|gimlah_chelkit|travel_.+|rent)$/.test(item.key)) return false; /* גמלה מלאה — משולמת כרגיל, לא רלוונטי */
+          const cb = document.querySelector('input[data-refund-tab="' + tabId + '"][data-refund-key="' + item.key + '"]');
+          return cb && cb.checked;
+        });
+      });
+      if (partial) parts.push('📅 חודש לא מלא: כשהתוכנית מתחילה או מסתיימת באמצע החודש, התשלום על אותו חודש מחושב לפי מספר הימים בפועל. נסיעות ושכר דירה משולמים בהתאם לתאריכי התוכנית, ולכן ייתכן שתראו סכום חלקי, או שהתשלום על אותו חודש יגיע בשתי פעימות.');
+    }
     if (data.closing) parts.push(data.closing);
     return parts.join('\n\n');
   }
