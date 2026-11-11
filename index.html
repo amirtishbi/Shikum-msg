@@ -8504,10 +8504,10 @@ function dashboardTileClick(filterId, tileEl) {
   /* ===== "חדש באתר" (מחשב) — הרשימה מנוהלת כאן ידנית =====
      להוספה: פריט חדש עם bodyId של ההודעה, אייקון, ומשפט קריצה קצר. להסרה: למחוק את השורה. */
   const HOME_NEW_ITEMS = [
+    { refundTab: 'dentalfam', icon: '🦷', where: 'שיקום איבה · משפחות', blurb: 'מסמנים את האוכלוסייה, וההודעה מציגה רק את האחוז והתקרה שלה.' },
     { bodyId: 'msgB2bReceipts', icon: '📤', where: 'שיקום מקצועי', blurb: 'קבלות, דוחות נוכחות ומסמכים נוספים דרך אתר הקצבאות.' },
     { bodyId: 'msgDental', icon: '🦷', where: 'שיקום איבה · נכים', blurb: 'מי זכאי לטיפולי שיניים, ואיך פונים למחלקת איבה לבדיקה.' },
     { action: 'trum', icon: '🎓', name: 'תוכניות טרום שיקום', where: 'כלים', blurb: 'ריכוז ארצי של התוכניות: בוחרים אוכלוסייה ומעתיקים למבוטח.' },
-    { bodyId: 'msgDebtLoan', icon: '💸', where: 'שיקום איבה · נכים', blurb: 'חובות מעיקים? הלוואה ייעודית ויועץ פיננסי, מנוסח ומוכן.' },
     { bodyId: 'msgFamilyReceipts', icon: '🧾', where: 'שיקום איבה · משפחות', blurb: 'מגישים קבלות דרך מצפן הזכויות, עם סרטון הדרכה.' }
   ];
   function buildHomeNew() {
@@ -8517,7 +8517,8 @@ function dashboardTileClick(filterId, tileEl) {
     list.innerHTML = '';
     HOME_NEW_ITEMS.forEach(function (it) {
       const body = it.bodyId ? document.getElementById(it.bodyId) : null;
-      const card = body ? body.closest('.card') : null;
+      /* בוני הודעות (refundTab) — הכרטיס נבנה בקוד בתוך refund-panel-<id> */
+      const card = body ? body.closest('.card') : (it.refundTab ? document.querySelector('#refund-panel-' + it.refundTab + ' .card') : null);
       if (!card && !it.action) return;
       const titleEl = card ? card.querySelector('.card-toggle-title') : null;
       const name = it.name || (titleEl ? titleEl.textContent.trim() : '');
@@ -10909,6 +10910,8 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
 
   document.addEventListener('DOMContentLoaded', function () {
     initRefundTabs();
+    /* "חדש באתר" נבנה לפני בוני ההודעות — בונים שוב כדי לכלול אותם */
+    if (typeof buildHomeNew === 'function') buildHomeNew();
     /* תגיות חדש/NEW גם לכרטיסי הפירוט שנבנים כאן (נוצרים אחרי הסבב הראשון של התגיות) */
     if (typeof applyNewBadges === 'function') applyNewBadges();
   });
