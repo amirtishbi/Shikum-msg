@@ -1,0 +1,32 @@
+# בדיקת קישורים חודשית — ב-1 לכל חודש בבוקר (ואפשר להריץ ידנית מ-Actions).
+# אם נמצאו קישורים שבורים, נפתח Issue במאגר עם הרשימה — ו-GitHub שולח אותו במייל לבעל המאגר.
+name: בדיקת קישורים חודשית
+on:
+  schedule:
+    - cron: '17 5 1 * *'   # 1 לחודש, 05:17 UTC (07:17/08:17 שעון ישראל)
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: בדיקת כל הקישורים החיצוניים
+        id: run
+        run: |
+          set +e
+          node .github/scripts/check-links.js index.html link-report.md
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+      - name: פתיחת Issue אם יש קישורים שבורים
+        if: steps.run.outputs.code == '2'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create broken-links --color d73a4a --description "קישורים שבורים באתר" 2>/dev/null || true
+          gh issue create --title "קישורים שבורים באתר — $(date +%m/%Y)" --body-file link-report.md --label broken-links --assignee "${{ github.repository_owner }}"

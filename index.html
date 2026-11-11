@@ -3844,20 +3844,30 @@ body.guides-spin #bottomNavGuides .bottom-nav-emoji { display: inline-block; }
 .meet-time b { font-weight: 800; color: var(--ink-soft); padding-bottom: 11px; }
 .meet-need { font-size: 0.8rem; color: var(--cat-routing); text-align: center; margin: -4px 0 0; }
 .meet-box .rem-prev { flex: none !important; min-height: 140px; max-height: 300px !important; overflow-y: auto; }
-/* ===== חלון הזמנה לרשימת התפוצה — קופץ אחרי העתקה, לתקופה מוגבלת (תחילית jpop-) ===== */
-.jpop-overlay { position: fixed; inset: 0; z-index: 3300; background: rgba(20,24,30,0.55); display: none; align-items: center; justify-content: center; padding: 16px; }
-.jpop-overlay.open { display: flex; animation: jpopFade .25s ease both; }
-.jpop-box { position: relative; width: 100%; max-width: 400px; background: var(--navy); color: #f3efe4; border-radius: 20px; border: 1.5px solid rgba(230,185,77,0.55); box-shadow: 0 20px 50px rgba(0,0,0,0.35); padding: 26px 24px 20px; text-align: center; animation: jpopIn .38s cubic-bezier(.22,1,.36,1) both; }
-.jpop-env { font-size: 2.4rem; line-height: 1; }
-.jpop-title { font-family: 'Heebo', sans-serif; font-weight: 800; font-size: 1.3rem; margin: 10px 0 8px; color: #fff; }
-.jpop-text { margin: 0 0 18px; font-size: 0.95rem; line-height: 1.6; color: rgba(243,239,228,0.88); }
-.jpop-join { width: 100%; padding: 13px; border: none; border-radius: 999px; background: #e6b94d; color: var(--navy); font-family: 'Heebo', sans-serif; font-weight: 800; font-size: 1rem; cursor: pointer; box-shadow: 0 6px 16px rgba(230,185,77,0.3); }
-.jpop-join:hover { filter: brightness(1.05); }
-.jpop-later { width: 100%; margin-top: 10px; padding: 11px; background: transparent; border: 1.5px solid rgba(243,239,228,0.35); border-radius: 999px; color: #f3efe4; font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 0.92rem; cursor: pointer; }
-.jpop-later:hover { background: rgba(255,255,255,0.08); }
-.jpop-x { position: absolute; top: 10px; left: 10px; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid rgba(243,239,228,0.3); background: transparent; color: #f3efe4; font-size: 0.95rem; cursor: pointer; }
-.jpop-x:hover { background: rgba(255,255,255,0.1); }
 @keyframes jpopFade { from { opacity: 0; } to { opacity: 1; } }
+/* ===== זרקור לרשימת התפוצה (מחשב) — במקום החלון הקופץ, אחרי העתקה (תחילית jspot-) ===== */
+.jspot-overlay { position: fixed; inset: 0; z-index: 3350; background: rgba(12,16,22,0.62); display: none; }
+body.jspot-on .jspot-overlay { display: block; animation: jpopFade .3s ease both; }
+body.jspot-on #leftStack { z-index: 3400 !important; }
+.jspot-ring { position: fixed; z-index: 3401; pointer-events: none; border-radius: 22px; border: 3px solid #e6b94d;
+  box-shadow: 0 0 0 6px rgba(230,185,77,0.25), 0 0 40px rgba(230,185,77,0.55); display: none; animation: jspotPulse 1.6s ease-in-out infinite; }
+body.jspot-on .jspot-ring { display: block; }
+.jspot-bubble { position: fixed; z-index: 3402; width: 370px; background: #fffaf0; color: var(--navy); border-radius: 18px;
+  padding: 18px 18px 14px; box-shadow: 0 18px 46px rgba(0,0,0,0.4); display: none; animation: jpopIn .4s cubic-bezier(.22,1,.36,1) both; text-align: right; }
+body.jspot-on .jspot-bubble { display: block; }
+.jspot-bubble::before { content: ''; position: absolute; left: -10px; top: var(--jspot-arrow, 50%); width: 20px; height: 20px; background: #fffaf0; transform: translateY(-50%) rotate(45deg); border-radius: 3px; }
+.jspot-kicker { font-size: .82rem; font-weight: 800; color: #b5481f; letter-spacing: .02em; }
+.jspot-title { font-family: 'Heebo', sans-serif; font-weight: 900; font-size: 1.22rem; line-height: 1.3; margin: 4px 0 8px; }
+.jspot-text { margin: 0 0 12px; font-size: .95rem; line-height: 1.55; color: #3c4656; }
+.jspot-actions { display: flex; gap: 8px; align-items: center; }
+.jspot-join { flex: 1; padding: 11px 12px; border: none; border-radius: 999px; background: #e6b94d; color: var(--navy); font-family: 'Heebo', sans-serif; font-weight: 800; font-size: .98rem; cursor: pointer; }
+.jspot-join:hover { filter: brightness(1.05); }
+.jspot-in { padding: 10px 12px; background: transparent; border: 1.5px solid rgba(26,37,56,0.25); border-radius: 999px; color: var(--navy); font-family: 'Heebo', sans-serif; font-weight: 700; font-size: .86rem; cursor: pointer; white-space: nowrap; }
+.jspot-x { position: absolute; top: 8px; left: 8px; width: 28px; height: 28px; border: 0; border-radius: 50%; background: transparent; color: #6b7280; font-size: .9rem; cursor: pointer; }
+.jspot-x:hover { background: rgba(0,0,0,0.06); }
+@keyframes jspotPulse { 0%,100% { box-shadow: 0 0 0 6px rgba(230,185,77,0.25), 0 0 30px rgba(230,185,77,0.45); } 50% { box-shadow: 0 0 0 12px rgba(230,185,77,0.12), 0 0 56px rgba(230,185,77,0.7); } }
+@media (prefers-reduced-motion: reduce) { .jspot-ring, .jspot-bubble, body.jspot-on .jspot-overlay { animation: none; } }
+
 @keyframes jpopIn { from { opacity: 0; transform: translateY(14px) scale(.96); } to { opacity: 1; transform: none; } }
 /* ===== תזכורת ליומן למשתקם (כלי מודאלי, הכל בתחילית rem-) ===== */
 .rem-overlay { position: fixed; inset: 0; z-index: 1250; overscroll-behavior: contain; background: rgba(20,24,30,0.55); display: none; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 28px 16px; }
@@ -3914,6 +3924,53 @@ body.guides-spin #bottomNavGuides .bottom-nav-emoji { display: inline-block; }
   .rem-acts { grid-template-columns: 1fr 1fr; }
   .rem-mail { display: none !important; }
 }
+/* ===== סכומים ותאריכים (כלי מודאלי, הכל בתחילית am-) ===== */
+.am-overlay{display:none;position:fixed;inset:0;z-index:10000;background:rgba(20,24,22,.55);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 14px}
+.am-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+.am-modal{position:relative;width:100%;max-width:620px;margin:0 auto;border-radius:20px;background:#eef2f1;
+  border:1px solid rgba(0,0,0,.08);padding:44px 18px 18px;box-shadow:0 18px 50px rgba(0,0,0,.45);
+  color:#14302b;font-family:'Heebo','Assistant',system-ui,sans-serif}
+body.dark-mode .am-modal{background:#0f1a18;border-color:rgba(255,255,255,.08);color:#e3efec}
+.am-close{position:absolute;top:10px;left:10px;width:34px;height:34px;border:0;border-radius:50%;
+  background:#d3dedb;color:#14302b;font-size:1rem;font-weight:800;cursor:pointer}
+body.dark-mode .am-close{background:#2a3d39;color:#e3efec}
+.am-modal h1{font-size:1.3rem;font-weight:800;margin:0 0 4px}
+.am-sub{margin:0 0 14px;color:#5b726d;font-size:.95rem;line-height:1.5}
+body.dark-mode .am-sub{color:#93aaa4}
+.am-group{background:#fff;border-radius:14px;padding:10px 14px;margin-bottom:10px}
+body.dark-mode .am-group{background:#172623}
+.am-group summary{font-size:1rem;font-weight:800;color:#0f7a63;cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:8px;padding:4px 0}
+.am-group summary::-webkit-details-marker{display:none}
+.am-group summary::after{content:'▾';font-size:.9rem;transition:transform .15s}
+.am-group[open] summary::after{transform:rotate(180deg)}
+.am-group[open] summary{margin-bottom:6px}
+.am-count{margin-inline-start:auto;font-size:.78rem;font-weight:600;color:#5b726d}
+body.dark-mode .am-group summary{color:#4fd1ad}
+body.dark-mode .am-count{color:#93aaa4}
+.am-row{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:baseline;padding:7px 0;
+  border-top:1px solid #e3ebe9;font-size:.95rem}
+.am-row:first-of-type{border-top:0}
+body.dark-mode .am-row{border-top-color:#22332f}
+.am-val{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.am-date{font-size:.8rem;color:#5b726d;white-space:nowrap}
+body.dark-mode .am-date{color:#93aaa4}
+.am-date.am-check{background:#fbe7a6;color:#3d2c00;border-radius:8px;padding:1px 7px;font-weight:700}
+.am-fares{width:100%;border-collapse:collapse;font-size:.88rem;font-variant-numeric:tabular-nums}
+.am-fares th,.am-fares td{padding:6px 4px;text-align:right;border-top:1px solid #e3ebe9}
+body.dark-mode .am-fares th,body.dark-mode .am-fares td{border-top-color:#22332f}
+.am-fares th{font-weight:800;border-top:0}
+.am-fares td{white-space:nowrap}
+@media (max-width:600px){ .am-fares{font-size:.78rem} .am-fares th,.am-fares td{padding:5px 2px} }
+.am-notice{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;
+  background:#fbe7a6;color:#3d2c00;border-radius:12px;padding:10px 12px;margin:0 0 12px;font-weight:700;font-size:.95rem}
+body.dark-mode .am-notice{background:#e0b53c;color:#2a1e00}
+.am-foot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-top:6px;font-size:.9rem}
+.am-report{border:0;border-radius:10px;background:#0f7a63;color:#fff;font:inherit;font-weight:700;padding:8px 14px;cursor:pointer}
+body.dark-mode .am-report{background:#4fd1ad;color:#0b1916}
+@media (max-width:600px){ .am-row{grid-template-columns:1fr auto} .am-row .am-date{grid-column:1 / -1;justify-self:start;margin-top:-4px} }
+
 /* ===== שעון נוכחות (כלי מודאלי, הכל בתחילית ac-) ===== */
 .ac-overlay{display:none;position:fixed;inset:0;z-index:10000;background:rgba(20,24,22,.55);
   overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 14px}
@@ -4443,6 +4500,86 @@ html, body, body *, body *::before, body *::after, input, textarea, select, butt
   header h1.h1-wrap .h1-br { display: inline !important; }
 }
 </style>
+<script>
+/* ===== מרכז סכומים ותאריכים =====
+   כל הסכומים שמופיעים בהודעות מוגדרים כאן, במקום אחד.
+   בהודעות (HTML) כותבים {{key}}, ובקוד JS כותבים amt('key').
+   כשסכום משתנה: מעדכנים כאן את v ואת asOf — וזהו. המסך "סכומים ותאריכים" מציג את כל הטבלה לעובדים.
+   asOf ריק = לא ידוע מתי עודכן, ובמסך יופיע "לבדיקה". */
+const AMOUNTS = {
+  /* שיקום מקצועי */
+  tuitionYear:     { v: 13079, g: 'שיקום מקצועי', label: 'החזר שכר לימוד שנתי (סטודנטים)', asOf: '2026' },
+  tuitionSemA:     { v: 9100,  g: 'שיקום מקצועי', label: "שכר לימוד — סמסטר א'", asOf: '2026' },
+  tuitionSemB:     { calc: function () { return AMOUNTS.tuitionYear.v - AMOUNTS.tuitionSemA.v; }, g: 'שיקום מקצועי', label: "שכר לימוד — סמסטר ב' (היתרה, מחושב)", asOf: '2026' },
+  equipSemester:   { v: 500,   g: 'שיקום מקצועי', label: 'ציוד לימודי — לכל סמסטר', asOf: '2026' },
+  laptop:          { v: 4200,  g: 'שיקום מקצועי', label: 'מחשב נייד / אייפד (חד־פעמי)', asOf: '2026' },
+  rent:            { v: 1200,  g: 'שיקום מקצועי', label: 'השתתפות בשכר דירה — לחודש', asOf: '2026' },
+  trainingMax:     { v: 6720,  g: 'שיקום מקצועי', label: 'החזר מקסימלי — הכשרה מקצועית', asOf: '2026' },
+  quoteOne:        { v: 5000,  g: 'שיקום מקצועי', label: 'הצעות מחיר — עד סכום זה: הצעה אחת', asOf: '2026' },
+  quoteTwo:        { v: 20000, g: 'שיקום מקצועי', label: 'הצעות מחיר — עד סכום זה: 2 הצעות (מעליו 3)', asOf: '2026' },
+  /* שיקום איבה — נכים */
+  debtLoanLow:     { v: 44057, g: 'שיקום איבה — נכים', label: 'הלוואה לכיסוי חובות — עד 49% נכות', asOf: '2026' },
+  debtLoanHigh:    { v: 66838, g: 'שיקום איבה — נכים', label: 'הלוואה לכיסוי חובות — 50% נכות ומעלה', asOf: '2026' },
+  sportEiva:       { v: 4000,  g: 'שיקום איבה — נכים', label: 'החזר הוצאות ספורט — לשנה', asOf: '2026' },
+  jaGrant:         { v: 25000, g: 'שיקום איבה — כללי', label: 'הקרן לנפגעי טרור (הסוכנות) — מענק לבית אב', asOf: '2026' },
+  /* שיקום איבה — משפחות וילדים */
+  therapistExempt: { v: 290,   g: 'שיקום איבה — משפחות וילדים', label: 'החזר למפגש טיפולי — מטפל עוסק פטור', asOf: '2026' },
+  therapistLic:    { v: 342,   g: 'שיקום איבה — משפחות וילדים', label: 'החזר למפגש טיפולי — מטפל עוסק מורשה', asOf: '2026' },
+  diagDidactic:    { v: 1557,  g: 'שיקום איבה — משפחות וילדים', label: 'אבחון דידקטי', asOf: '2026' },
+  diagPsychoDid:   { v: 2683,  g: 'שיקום איבה — משפחות וילדים', label: 'אבחון פסיכו־דידקטי', asOf: '2026' },
+  diagAttention:   { v: 1470,  g: 'שיקום איבה — משפחות וילדים', label: 'אבחון קשב וריכוז', asOf: '2026' },
+  chugim2526:      { v: 5000,  g: 'שיקום איבה — משפחות וילדים', label: 'חוגי חוסן — 1.9.2025–30.8.2026', asOf: '2026' },
+  chugim2627:      { v: 3000,  g: 'שיקום איבה — משפחות וילדים', label: 'חוגי חוסן — 1.9.2026–30.8.2027', asOf: '2026' },
+  dentalWidow:     { v: 17988, g: 'טיפולי שיניים — משפחות', label: 'אלמנה/אלמן, ויתום משני הורים מגיל 18 — לשנה', asOf: '1.1.2026' },
+  dentalOrphan:    { v: 4802,  g: 'טיפולי שיניים — משפחות', label: 'יתום עד 18, ויתום משני הורים עד 18 — לשנה', asOf: '1.1.2026' },
+  dentalOrphan1821:{ v: 7500,  g: 'טיפולי שיניים — משפחות', label: 'יתום בגילאי 18–21 — לשנה', asOf: '2026' },
+  dentalConsult:   { v: 10000, g: 'טיפולי שיניים — משפחות', label: 'תוכנית טיפול מעל סכום זה — דורשת התייעצות', asOf: '2026' }
+};
+/* תעריפי תחבורה ציבורית (מחשבון נסיעות) — מחיר מלא, "דרך שווה" */
+const TRAVEL_FARES = {
+  asOf: 'צו התעריפים, יוני 2026',
+  nextUpdate: '25.1.2027 (מתוכנן)',
+  zones: [
+    { max: 15,       label: '🟡 עד 15 ק"מ',   bus: 8,     train: 11.5,  monthlyBus: 315, monthlyTrain: 323 },
+    { max: 40,       label: '🟢 עד 40 ק"מ',   bus: 14.5,  train: 21,    monthlyBus: 315, monthlyTrain: 323 },
+    { max: 75,       label: '🩵 עד 75 ק"מ',   bus: 19,    train: 27,    monthlyBus: 315, monthlyTrain: 464 },
+    { max: 120,      label: '🔵 עד 120 ק"מ',  bus: 19,    train: 30.5,  monthlyBus: 315, monthlyTrain: 684 },
+    { max: 225,      label: '🟣 עד 225 ק"מ',  bus: 30.5,  train: 52.5,  monthlyBus: 315, monthlyTrain: 684 },
+    { max: Infinity, label: '⚪ מעל 225 ק"מ', bus: 87.32, train: 87.32, monthlyBus: 684, monthlyTrain: 684 }
+  ]
+};
+function amtValue(key) {
+  const a = AMOUNTS[key];
+  if (!a) { console.warn('amt: missing key', key); return null; }
+  return typeof a.calc === 'function' ? a.calc() : a.v;
+}
+function amt(key) {
+  const v = amtValue(key);
+  return v == null ? '{{' + key + '}}' : Number(v).toLocaleString('en-US');
+}
+/* מחליף {{key}} בטקסט של העמוד (בלי לגעת באירועים/כפתורים). בטוח להריץ כמה פעמים. */
+function applyAmounts(root) {
+  root = root || document.body;
+  if (!root) return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode: function (n) { return n.nodeValue.indexOf('{{') !== -1 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; }
+  });
+  const nodes = [];
+  while (w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(function (n) {
+    n.nodeValue = n.nodeValue.replace(/\{\{(\w+)\}\}/g, function (m, k) { return AMOUNTS[k] ? amt(k) : m; });
+  });
+}
+function applyTravelText() {
+  const z = TRAVEL_FARES.zones.filter(function (x) { return x.max !== Infinity; });
+  const bus = Math.min.apply(null, z.map(function (x) { return x.monthlyBus; }));
+  const tr = z.map(function (x) { return x.monthlyTrain; });
+  const sum = bus + ' ₪ באוטובוסים, ' + Math.min.apply(null, tr) + '–' + Math.max.apply(null, tr) + ' ₪ עם רכבת ישראל, לפי המרחק';
+  document.querySelectorAll('[data-travel-summary]').forEach(function (el) { el.textContent = sum; });
+  document.querySelectorAll('[data-travel-asof]').forEach(function (el) { el.textContent = TRAVEL_FARES.asOf; });
+}
+document.addEventListener('DOMContentLoaded', function () { applyAmounts(); applyTravelText(); });
+</script>
 </head>
 <body>
 
@@ -4996,7 +5133,7 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
 טופס נוכחות בקישור:
 https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
 
-שימו לב: ההחזר המקסימלי הוא עד 6,720 ש"ח.
+שימו לב: ההחזר המקסימלי הוא עד {{trainingMax}} ש"ח.
 
 יש לשלוח את כל המסמכים הנדרשים לטיפול מהיר בהחזר! ⚡</div>
         <div class="card-footer">
@@ -5037,7 +5174,7 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
 • גיליון ציונים (אם אתם בשנה שנייה ומעלה)
 • אישור קבלה ללימודים (למי שנמצא בשנה ראשונה)
 • מערכת שעות סמסטר א' – חשוב שיהיה כתוב כמה נ"ז/ש"ס יש
-• קבלות שכר לימוד, כל קבלה שאתם משלמים העבירו אלי למייל. החזר שנתי מקסימלי הינו עד 13079 ש"ח
+• קבלות שכר לימוד, כל קבלה שאתם משלמים העבירו אלי למייל. החזר שנתי מקסימלי הינו עד {{tuitionYear}} ש"ח
 • לוח שנה אקדמי
 
 ⚠️ לגבי מערכת השעות: יש לשלוח מסמך רשמי של מקום הלימודים, שמופיעים בו שם הסטודנט/ית והלוגו של המוסד.
@@ -5346,9 +5483,9 @@ https://www.btl.gov.il/טפסים%20ואישורים/Documents/t278.pdf
 8️⃣ מספר עוסק של מוסד הלימודים (עוסק מורשה / ח.פ.)
 
 📊 כמה הצעות מחיר יש להגיש?
-🔸 עד 5,000 ₪ – הצעה אחת בלבד
-🔸 עד 20,000 ₪ – נדרשות 2 הצעות מחיר
-🔸 מעל 20,000 ₪ – נדרשות 3 הצעות מחיר
+🔸 עד {{quoteOne}} ₪ – הצעה אחת בלבד
+🔸 עד {{quoteTwo}} ₪ – נדרשות 2 הצעות מחיר
+🔸 מעל {{quoteTwo}} ₪ – נדרשות 3 הצעות מחיר
 
 ⚠️ שימו לב:
 חשוב לוודא שכל ההצעות כוללות את כל הפרטים שצוינו, על מנת לאפשר השוואה מדויקת בין המוסדות.</div>
@@ -5532,8 +5669,8 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/NefeSH_Ahat/Pages/TipulAl
 
 סכום ההלוואה:
 סכום ההלוואה המקסימלי נקבע לפי אחוזי הנכות שנקבעו לך:
-עד 49% נכות — עד 44,057 ₪
-50% נכות ומעלה — עד 66,838 ₪
+עד 49% נכות — עד {{debtLoanLow}} ₪
+50% נכות ומעלה — עד {{debtLoanHigh}} ₪
 בנסיבות מיוחדות ניתן לאשר עד 50% מהסכום כמענק.
 הנתונים נכונים לשנת 2026.
 
@@ -5711,7 +5848,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/eyva-centers/Pages/defaul
       </div>
       <div class="card-collapsible">
         <div class="card-body" id="msg29">שלום, רצינו לעדכן אתכם על מסלול סיוע נוסף שיכול להשלים את הסיוע שאתם מקבלים דרכנו 🕊️
-הקרן לנפגעי טרור של הסוכנות היהודית מעניקה מענק שיקומי משלים של עד 25,000 ₪ לבית אב, למימוש כנגד הצעות מחיר או חשבוניות בתחומי שיקום שונים.
+הקרן לנפגעי טרור של הסוכנות היהודית מעניקה מענק שיקומי משלים של עד {{jaGrant}} ₪ לבית אב, למימוש כנגד הצעות מחיר או חשבוניות בתחומי שיקום שונים.
 ℹ️ שימו לב: החל מחודש 03/2026 נדרשת דרגת נכות של 30% לפחות כדי לקבל את הסיוע.
 🔗 למידע מלא ולבדיקת זכאות:
 https://fvot.jewishagency.org/long-term-support/
@@ -5804,7 +5941,7 @@ https://fvot.jewishagency.org/long-term-support/
       <div class="card-collapsible">
         <div class="card-body" id="msg16">🏋️ החזר הוצאות ספורט לנפגעי פעולות איבה
 
-נפגעי פעולות איבה זכאים להחזר שנתי על הוצאות ספורט, בסך עד 4,000 ₪ בשנה.
+נפגעי פעולות איבה זכאים להחזר שנתי על הוצאות ספורט, בסך עד {{sportEiva}} ₪ בשנה.
 
 💰 איך מתבצע החישוב:
 מכל קבלה שתגישו מנוכים 15%, והסכום הנותר הוא ההחזר שיועבר אליכם (עד לתקרה השנתית).
@@ -5980,7 +6117,7 @@ https://drive.google.com/file/d/1KLVLyHZutq8LE0lGs25N-cDVfxNc1gHA/view?usp=shari
       </div>
       <div class="card-collapsible">
         <div class="card-body" id="msg30">שלום, רצינו לעדכן אתכם על מסלול סיוע נוסף שיכול להשלים את הסיוע שאתם מקבלים דרכנו 🕊️
-הקרן לנפגעי טרור של הסוכנות היהודית מעניקה מענק שיקומי משלים של עד 25,000 ₪ לבית אב, למימוש כנגד הצעות מחיר או חשבוניות בתחומי שיקום שונים.
+הקרן לנפגעי טרור של הסוכנות היהודית מעניקה מענק שיקומי משלים של עד {{jaGrant}} ₪ לבית אב, למימוש כנגד הצעות מחיר או חשבוניות בתחומי שיקום שונים.
 ℹ️ שימו לב: החל מחודש 03/2026 נדרשת דרגת נכות של 30% לפחות כדי לקבל את הסיוע.
 🔗 למידע מלא ולבדיקת זכאות:
 https://fvot.jewishagency.org/long-term-support/
@@ -6030,8 +6167,8 @@ https://fvot.jewishagency.org/long-term-support/
 • מכסת טיפולים: 162 מפגשים לאורך החיים.
 • היקף: מפגש פרטני של שעה אחת בשבוע.
 • גובה ההחזר המירבי למפגש:
-   - עד 290 ₪ עבור מטפל שהוא עוסק פטור.
-   - עד 342 ₪ עבור מטפל שהוא עוסק מורשה (כולל מע"מ).
+   - עד {{therapistExempt}} ₪ עבור מטפל שהוא עוסק פטור.
+   - עד {{therapistLic}} ₪ עבור מטפל שהוא עוסק מורשה (כולל מע"מ).
 • מועד תחילת הזכאות: ניתן לקבל החזר על טיפולים שהתקיימו החל מ-1.2.2026.
 
 🎨 מגוון אפשרויות הטיפול המאושרות לקבלת החזר:
@@ -6216,7 +6353,7 @@ https://www.btl.gov.il/Simulators/peulotEiva/Pages/metaplim-shikum.aspx
       </div>
       <div class="card-collapsible">
         <div class="card-body" id="msg31">שלום, רצינו לעדכן אתכם על מסלול סיוע נוסף שיכול להשלים את הסיוע שאתם מקבלים דרכנו 🕊️
-הקרן לנפגעי טרור של הסוכנות היהודית מעניקה מענק שיקומי משלים של עד 25,000 ₪ לבית אב, למימוש כנגד הצעות מחיר או חשבוניות בתחומי שיקום שונים.
+הקרן לנפגעי טרור של הסוכנות היהודית מעניקה מענק שיקומי משלים של עד {{jaGrant}} ₪ לבית אב, למימוש כנגד הצעות מחיר או חשבוניות בתחומי שיקום שונים.
 ℹ️ שימו לב: החל מחודש 03/2026 נדרשת דרגת נכות של 30% לפחות כדי לקבל את הסיוע.
 🔗 למידע מלא ולבדיקת זכאות:
 https://fvot.jewishagency.org/long-term-support/
@@ -6266,9 +6403,9 @@ https://fvot.jewishagency.org/long-term-support/
 מה מקבלים: החזר על אבחון לצורך התאמת סיוע, בהמלצת גורם מוסמך (יועצת, פסיכולוג, עו"ס וכו').
 מכסה: אבחון אחד ביסודי, ואבחון אחד בחטיבה/תיכון.
 גובה ההחזר המקסימלי:
-אבחון דידקטי – עד 1,557 ₪
-אבחון פסיכו-דידקטי – עד 2,683 ₪
-אבחון קשב וריכוז – עד 1,470 ₪
+אבחון דידקטי – עד {{diagDidactic}} ₪
+אבחון פסיכו-דידקטי – עד {{diagPsychoDid}} ₪
+אבחון קשב וריכוז – עד {{diagAttention}} ₪
 
 🤝 3. חונכות (ליווי חברתי ותפקודי)
 
@@ -6280,8 +6417,8 @@ https://fvot.jewishagency.org/long-term-support/
 
 מה מקבלים: מימון חוגים וקורסים (ספורט, אמנות וכו') לחיזוק החוסן הרגשי והתפקודי.
 גובה ההחזר (כנגד קבלות, ניתן לשלב כמה חוגים):
-1.9.2025–30.8.2026: עד 5,000 ₪
-1.9.2026–30.8.2027: עד 3,000 ₪
+1.9.2025–30.8.2026: עד {{chugim2526}} ₪
+1.9.2026–30.8.2027: עד {{chugim2627}} ₪
 לגבי השנים שאחרי כן, עדיין לא ידוע.
 
 🧠 5. טיפול נפשי
@@ -6981,6 +7118,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
 </main>
 
+<script>applyAmounts();</script>
 <script>
 </script>
 
@@ -7588,6 +7726,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     { kind: 'travel', icon: '🚌', name: 'מחשבון נסיעות ופרמטרים', kw: 'נסיעות נסיעה תחבורה אוטובוס רכבת פרמטרים החזר נסיעות דרך שווה' },
     { kind: 'attendance', icon: '🕐', name: 'שעון נוכחות', kw: 'נוכחות שעון שעות יציאה כניסה' },
     { kind: 'trum', icon: '🧭', name: 'תוכניות טרום שיקום', kw: 'טרום שיקום תוכניות תכניות' },
+    { kind: 'amounts', icon: '💰', name: 'סכומים ותאריכים', kw: 'סכומים סכום תקרה תקרות תעריפים תעריף כמה עולה החזר מקסימלי עדכון' },
     { kind: 'reminder', icon: '📅', name: 'תזכורת ליומן למשתקם', kw: 'תזכורת יומן אירוע חודשי קבלות להזכיר תאריך' }
   ];
   function srOpenTool(kind) {
@@ -8636,6 +8775,55 @@ function dashboardTileClick(filterId, tileEl) {
     openToolCalc(tool);
   }
 
+  /* ===== סכומים ותאריכים (מודאל) — נבנה מ-AMOUNTS ו-TRAVEL_FARES שב-head ===== */
+  function openAmounts() {
+    const list = document.getElementById('amList');
+    if (list && !list.dataset.built) {
+      list.dataset.built = '1';
+      const groups = {};
+      Object.keys(AMOUNTS).forEach(function (k) { const a = AMOUNTS[k]; (groups[a.g] = groups[a.g] || []).push(k); });
+      Object.keys(groups).forEach(function (g) {
+        /* קבוצות מקופלות — כדי שהמסך לא יחייב גלילה; פותחים רק את מה שצריך */
+        const box = document.createElement('details'); box.className = 'am-group';
+        const h = document.createElement('summary');
+        h.innerHTML = '<span></span><span class="am-count"></span>';
+        h.firstChild.textContent = g;
+        h.lastChild.textContent = groups[g].length + ' סכומים' + (groups[g].some(function (k) { return !AMOUNTS[k].asOf; }) ? ' · יש לבדיקה' : '');
+        box.appendChild(h);
+        groups[g].forEach(function (k) {
+          const a = AMOUNTS[k];
+          const row = document.createElement('div'); row.className = 'am-row';
+          const l = document.createElement('span'); l.textContent = a.label;
+          const v = document.createElement('span'); v.className = 'am-val'; v.textContent = amt(k) + ' ₪';
+          const d = document.createElement('span'); d.className = 'am-date' + (a.asOf ? '' : ' am-check');
+          d.textContent = a.asOf ? 'נכון ל־' + a.asOf : 'לבדיקה';
+          row.appendChild(l); row.appendChild(v); row.appendChild(d); box.appendChild(row);
+        });
+        list.appendChild(box);
+      });
+      const t = document.getElementById('amFares');
+      const f = function (n) { return n === Infinity ? '' : n; };
+      t.innerHTML = '<tr><th>מרחק</th><th>אוטובוס</th><th>רכבת</th><th>חודשי</th><th>חודשי + רכבת</th></tr>' +
+        TRAVEL_FARES.zones.map(function (z) {
+          return '<tr><td>' + z.label + '</td><td>' + z.bus + ' ₪</td><td>' + z.train + ' ₪</td><td>' + z.monthlyBus + ' ₪</td><td>' + z.monthlyTrain + ' ₪</td></tr>';
+        }).join('');
+      document.getElementById('amFaresDate').textContent = 'נכון ל' + TRAVEL_FARES.asOf + ' · עדכון הבא: ' + TRAVEL_FARES.nextUpdate;
+    }
+    document.getElementById('amountsOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('כלי: סכומים ותאריכים'); } catch (e) {}
+  }
+  function closeAmounts() {
+    document.getElementById('amountsOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function reportAmountChange() {
+    openMailToAmir('סכום שהשתנה באתר', 'שלום אמיר,\n\nאיזה סכום: \nהסכום החדש: \nמקור / תאריך: \n');
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { const o = document.getElementById('amountsOverlay'); if (o && o.classList.contains('open')) closeAmounts(); }
+  });
+
   /* ===== שעון נוכחות (מודאל) ===== */
   function openAttendance() {
     if (typeof acInitClock === 'function') acInitClock();
@@ -8843,14 +9031,7 @@ function dashboardTileClick(filterId, tileEl) {
   });
 
   /* ===== Travel calculator (scoped, prefixed tc) ===== */
-  const tcZones = [
-    { max: 15,       label: '🟡 עד 15 ק"מ',   bus: 8,     train: 11.5, monthlyBus: 315, monthlyTrain: 323 },
-    { max: 40,       label: '🟢 עד 40 ק"מ',    bus: 14.5,  train: 21,   monthlyBus: 315, monthlyTrain: 323 },
-    { max: 75,       label: '🩵 עד 75 ק"מ',    bus: 19,    train: 27,   monthlyBus: 315, monthlyTrain: 464 },
-    { max: 120,      label: '🔵 עד 120 ק"מ',   bus: 19,    train: 30.5, monthlyBus: 315, monthlyTrain: 684 },
-    { max: 225,      label: '🟣 עד 225 ק"מ',   bus: 30.5,  train: 52.5, monthlyBus: 315, monthlyTrain: 684 },
-    { max: Infinity, label: '⚪ מעל 225 ק"מ',  bus: 87.32, train: 87.32, monthlyBus: 684, monthlyTrain: 684 }
-  ];
+  const tcZones = TRAVEL_FARES.zones; /* התעריפים מוגדרים במרכז הסכומים (ב-head) */
   let tcCurrentMode = 'training';
 
   function tcSetMode(mode) {
@@ -9145,6 +9326,7 @@ function dashboardTileClick(filterId, tileEl) {
     if (kind === 'attendance') { if (typeof openAttendance === 'function') openAttendance(); }
     else if (kind === 'trum') { if (typeof openTrumPrograms === 'function') openTrumPrograms(); }
     else if (kind === 'reminder') { if (typeof openReminder === 'function') openReminder(); }
+    else if (kind === 'amounts') { if (typeof openAmounts === 'function') openAmounts(); }
     else if (typeof openDirectTool === 'function') {
       openDirectTool(kind); /* basic / vat / travel */
       /* נבחר ישירות מהפרח — אין צורך ב"חזרה לכלים נוספים" (הפרח הוא בורר הכלים); היציאה היא "חזרה למסך הבית" */
@@ -9759,34 +9941,72 @@ function dashboardTileClick(filterId, tileEl) {
     window.location.href = buildJoinMailto();
   }
 
-  /* ===== חלון הזמנה לרשימת התפוצה — זמני (עד JPOP_UNTIL), קופץ פעם אחת אחרי העתקה =====
-     אחרי סגירה/"לא עכשיו"/הצטרפות לא מוצג שוב (נשמר בדפדפן; אם הזיכרון נמחק — יופיע שוב בהעתקה הבאה) */
-  var JPOP_KEY = 'shikum_join_pop_done', JPOP_UNTIL = new Date(2026, 10, 13); /* מוצג עד סוף 12.11.2026 */
   var jpopPending = false;
-  function jpopDone() { try { return !!localStorage.getItem(JPOP_KEY); } catch (e) { return false; } }
-  function jpopMark() { try { localStorage.setItem(JPOP_KEY, '1'); } catch (e) {} }
-  function jpopClose() { var o = document.getElementById('jpopOverlay'); if (o) o.classList.remove('open'); }
-  function jpopAfterCopy() {
-    if (jpopPending || new Date() >= JPOP_UNTIL || jpopDone()) return;
-    var o = document.getElementById('jpopOverlay');
-    if (!o || o.classList.contains('open')) return;
-    jpopPending = true;
-    /* השהיה — שיספיקו לראות את "הועתק", וכרטיס בגיליון הנייד יספיק להיסגר */
-    setTimeout(function () {
-      jpopPending = false;
-      if (jpopDone()) return;
-      /* לא קופצים מעל חלון אחר שפתוח — ננסה שוב בהעתקה הבאה */
-      if (document.querySelector('.rem-overlay.open') || document.body.classList.contains('m-flower-open') || (typeof mobileSheetCard !== 'undefined' && mobileSheetCard)) return;
-      o.classList.add('open');
-      umTrack('חלון הצטרפות: הוצג');
-    }, 2200);
+  /* ===== זרקור לרשימת התפוצה — במחשב, במקום החלון הקופץ =====
+     אחרי העתקה: מחשיכים את המסך, מאירים את כרטיס ההצטרפות שבצד שמאל, ובועה עם הזמנה.
+     פעם אחת לכל עובד/ת (נשמר בדפדפן); הצטרפות/סגירה/"כבר ברשימה" — לא יוצג שוב. */
+  var JSPOT_KEY = 'shikum_join_spot_done';
+  function jspotDone() { try { return !!localStorage.getItem(JSPOT_KEY); } catch (e) { return false; } }
+  function jspotMark() { try { localStorage.setItem(JSPOT_KEY, '1'); } catch (e) {} }
+  function isDeskPointer() { try { return window.matchMedia('(hover: hover) and (pointer: fine)').matches; } catch (e) { return false; } }
+  function jspotPlace() {
+    var st = document.getElementById('leftStack'), ring = document.getElementById('jspotRing'), bub = document.getElementById('jspotBubble');
+    if (!st || !ring || !bub) return false;
+    var r = st.getBoundingClientRect();
+    if (!r.width || !r.height) return false;
+    var pad = 8;
+    ring.style.left = (r.left - pad) + 'px'; ring.style.top = (r.top - pad) + 'px';
+    ring.style.width = (r.width + pad * 2) + 'px'; ring.style.height = (r.height + pad * 2) + 'px';
+    var bh = bub.offsetHeight || 230;
+    var top = Math.max(16, Math.min(window.innerHeight - bh - 16, r.top + r.height / 2 - bh / 2));
+    bub.style.left = (r.right + pad + 22) + 'px'; bub.style.top = top + 'px';
+    bub.style.setProperty('--jspot-arrow', Math.max(24, Math.min(bh - 24, r.top + r.height / 2 - top)) + 'px');
+    return true;
   }
-  window.jpopJoin = function () { jpopMark(); jpopClose(); umTrack('חלון הצטרפות: הצטרפות'); joinUpdatesEmail(); };
-  window.jpopDismiss = function (how) { jpopMark(); jpopClose(); umTrack('חלון הצטרפות: סגירה › ' + (how || '')); };
+  function jspotClose() {
+    document.body.classList.remove('jspot-on');
+    var st = document.getElementById('leftStack');
+    if (st && st.dataset.jspotExpanded) { st.classList.remove('side-expanded'); delete st.dataset.jspotExpanded; }
+    window.removeEventListener('resize', jspotPlace);
+  }
+  function jspotShow() {
+    var st = document.getElementById('leftStack');
+    if (!st) return false;
+    /* מסך מחשב קטן: הכרטיס מוסתר מאחורי כפתור — פותחים אותו לצורך הזרקור */
+    if (document.body.classList.contains('desk-compact') && !st.classList.contains('side-expanded')) {
+      st.classList.add('side-expanded'); st.dataset.jspotExpanded = '1';
+    }
+    document.body.classList.add('jspot-on');
+    if (!jspotPlace()) { jspotClose(); return false; }
+    window.addEventListener('resize', jspotPlace);
+    umTrack('זרקור הצטרפות: הוצג');
+    return true;
+  }
+  window.jspotJoin = function () { jspotMark(); jspotClose(); umTrack('זרקור הצטרפות: הצטרפות'); joinUpdatesEmail(); };
+  window.jspotDismiss = function (how) { jspotMark(); jspotClose(); umTrack('זרקור הצטרפות: סגירה › ' + (how || '')); };
   document.addEventListener('keydown', function (e) {
-    var o = document.getElementById('jpopOverlay');
-    if (e.key === 'Escape' && o && o.classList.contains('open')) jpopDismiss('Esc');
+    if (e.key === 'Escape' && document.body.classList.contains('jspot-on')) jspotDismiss('Esc');
   });
+  /* לחיצה על כפתור ההצטרפות שבכרטיס עצמו בזמן הזרקור — נחשבת הצטרפות */
+  document.addEventListener('click', function (e) {
+    if (document.body.classList.contains('jspot-on') && e.target.closest('#leftStack .join-cta')) { jspotMark(); jspotClose(); umTrack('זרקור הצטרפות: הצטרפות מהכרטיס'); }
+  }, true);
+
+  function jpopAfterCopy() {
+    /* מחשב בלבד: זרקור (פעם אחת). בנייד — אין הזמנה קופצת אחרי העתקה */
+    if (!isDeskPointer()) return;
+    {
+      if (jpopPending || jspotDone() || document.body.classList.contains('jspot-on')) return;
+      jpopPending = true;
+      setTimeout(function () {
+        jpopPending = false;
+        if (jspotDone()) return;
+        if (document.querySelector('.rem-overlay.open, .am-overlay.open') || document.body.classList.contains('search-mode')) return;
+        jspotShow();
+      }, 1800);
+      return;
+    }
+  }
 
 
 
@@ -10380,8 +10600,8 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         {
           id: 'equip', icon: '💻', title: 'ציוד לימודי',
           items: [
-            { key: 'equip_semester', label: 'ציוד סמסטריאלי רגיל', checked: true, text: `💻 ספרים וציוד לימודי: הנך זכאי לקבל החזר סמסטריאלי קבוע בסך של כ-500 ₪ מדי סמסטר עבור ציוד מתכלה (ללא צורך בהצגת קבלות).` },
-            { key: 'equip_laptop', label: 'מחשב נייד / אייפד', checked: false, text: `💻 סיוע ברכישת מחשב נייד / אייפד: אושר עבורך החזר חד-פעמי של כ-4,200 ₪ לרכישת מחשב נייד או אייפד לצורכי לימודים (כנגד הצגת קבלה מקורית). שים לב כי בשנה שבה ממומש ההחזר על המחשב, לא ישולמו דמי הציוד הסמסטריאליים הקבועים (ה-500 ₪).` }
+            { key: 'equip_semester', label: 'ציוד סמסטריאלי רגיל', checked: true, text: `💻 ספרים וציוד לימודי: הנך זכאי לקבל החזר סמסטריאלי קבוע בסך של כ-${amt('equipSemester')} ₪ מדי סמסטר עבור ציוד מתכלה (ללא צורך בהצגת קבלות).` },
+            { key: 'equip_laptop', label: 'מחשב נייד / אייפד', checked: false, text: `💻 סיוע ברכישת מחשב נייד / אייפד: אושר עבורך החזר חד-פעמי של כ-${amt('laptop')} ₪ לרכישת מחשב נייד או אייפד לצורכי לימודים (כנגד הצגת קבלה מקורית). שים לב כי בשנה שבה ממומש ההחזר על המחשב, לא ישולמו דמי הציוד הסמסטריאליים הקבועים (ה-${amt('equipSemester')} ₪).` }
           ]
         },
         {
@@ -10407,13 +10627,13 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         {
           id: 'tuition', icon: '🎓', title: 'שכר לימוד',
           items: [
-            { key: 'tuition', label: 'שכר לימוד', checked: true, text: `🎓 החזר שכר לימוד שנתי: החזר כספי בגובה של עד 13,079 ₪ לשנת לימודים. ניתן לשלם 9,100 ₪ בסמסטר א', ואת היתרה, 3,979 ₪, בסמסטר ב'. ההחזר יתבצע אך ורק על סמך הצגת קבלות תשלום מקוריות ואישור הרשמה.` }
+            { key: 'tuition', label: 'שכר לימוד', checked: true, text: `🎓 החזר שכר לימוד שנתי: החזר כספי בגובה של עד ${amt('tuitionYear')} ₪ לשנת לימודים. ניתן לשלם ${amt('tuitionSemA')} ₪ בסמסטר א', ואת היתרה, ${amt('tuitionSemB')} ₪, בסמסטר ב'. ההחזר יתבצע אך ורק על סמך הצגת קבלות תשלום מקוריות ואישור הרשמה.` }
           ]
         },
         {
           id: 'rent', icon: '🏠', title: 'שכר דירה',
           items: [
-            { key: 'rent', label: 'שכר דירה', checked: false, text: `🏠 השתתפות בשכר דירה: עד 1,200 ₪ בחודש, למי שעבר דירה בשביל הלימודים ומקום מגוריו הקודם רחוק יותר מ-40 ק"מ ממוסד הלימודים.
+            { key: 'rent', label: 'שכר דירה', checked: false, text: `🏠 השתתפות בשכר דירה: עד ${amt('rent')} ₪ בחודש, למי שעבר דירה בשביל הלימודים ומקום מגוריו הקודם רחוק יותר מ-40 ק"מ ממוסד הלימודים.
 מה מעבירים:
 • חוזה שכירות בתוקף
 • הוכחת תשלום על החודש הראשון של הסמסטר
@@ -10421,7 +10641,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 • אם יש גמלת נכות מלאה או השלמת/הבטחת הכנסה: אישור ממשרד השיכון על זכאות או אי-זכאות לסיוע בשכר דירה
 • אם משכירים דירה שבבעלותכם בגלל המעבר: חוזה השכירות של הדירה הזו
 חשוב לדעת:
-• אם משרד השיכון משתתף, ביטוח לאומי משלים את ההפרש, עד 1,200 ₪ ולא יותר משכר הדירה בפועל. לדוגמה: שכר דירה של 1,500 ₪ ומשרד השיכון משלם 600 ₪, ביטוח לאומי משלים 900 ₪.
+• אם משרד השיכון משתתף, ביטוח לאומי משלים את ההפרש, עד ${amt('rent')} ₪ ולא יותר משכר הדירה בפועל. לדוגמה: שכר דירה של 1,500 ₪ ומשרד השיכון משלם 600 ₪, ביטוח לאומי משלים 900 ₪.
 • שכר הדירה שמקבלים על דירה בבעלותכם יקוזז מהסיוע.` }
           ]
         }
@@ -10451,7 +10671,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         {
           id: 'equip', icon: '💻', title: 'ציוד לימודי',
           items: [
-            { key: 'equip_laptop', label: 'ציוד לימודי ומחשב (עד 4,200 ₪)', checked: true, text: `💻 ספרים וציוד לימודי (כולל מחשב נייד/אייפד): גובה ההחזר המקסימלי עבור ציוד לימודי ומחשב נייד או אייפד הינו עד כ-4,200 ₪. שימו לב: לפני רכישת הציוד ושליחת קבלות, חובה לקבל אישור מראש מעובד השיקום כדי לוודא זכאות להחזר. לבדיקת הזכאות, יש לשלוח לעובד השיקום מסמך רשמי ממקום הלימודים המפרט את רשימת הציוד הנדרש וההכרחי ללימודים.` }
+            { key: 'equip_laptop', label: 'ציוד לימודי ומחשב (עד ' + amt('laptop') + ' ₪)', checked: true, text: `💻 ספרים וציוד לימודי (כולל מחשב נייד/אייפד): גובה ההחזר המקסימלי עבור ציוד לימודי ומחשב נייד או אייפד הינו עד כ-${amt('laptop')} ₪. שימו לב: לפני רכישת הציוד ושליחת קבלות, חובה לקבל אישור מראש מעובד השיקום כדי לוודא זכאות להחזר. לבדיקת הזכאות, יש לשלוח לעובד השיקום מסמך רשמי ממקום הלימודים המפרט את רשימת הציוד הנדרש וההכרחי ללימודים.` }
           ]
         },
         {
@@ -10477,13 +10697,13 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
         {
           id: 'tuition', icon: '🎓', title: 'שכר לימוד',
           items: [
-            { key: 'tuition', label: 'שכר לימוד', checked: true, text: `🎓 החזר שכר לימוד: החזר כספי בגובה של עד 13,079 ₪ לתקופת הלימודים. ההחזר יתבצע אך ורק על סמך הצגת קבלות תשלום מקוריות ואישור הרשמה.` }
+            { key: 'tuition', label: 'שכר לימוד', checked: true, text: `🎓 החזר שכר לימוד: החזר כספי בגובה של עד ${amt('tuitionYear')} ₪ לתקופת הלימודים. ההחזר יתבצע אך ורק על סמך הצגת קבלות תשלום מקוריות ואישור הרשמה.` }
           ]
         },
         {
           id: 'rent', icon: '🏠', title: 'שכר דירה',
           items: [
-            { key: 'rent', label: 'שכר דירה', checked: false, text: `🏠 השתתפות בשכר דירה: עד 1,200 ₪ בחודש, למי שעבר דירה בשביל ההכשרה ומקום מגוריו הקודם רחוק יותר מ-40 ק"מ ממקום ההכשרה.
+            { key: 'rent', label: 'שכר דירה', checked: false, text: `🏠 השתתפות בשכר דירה: עד ${amt('rent')} ₪ בחודש, למי שעבר דירה בשביל ההכשרה ומקום מגוריו הקודם רחוק יותר מ-40 ק"מ ממקום ההכשרה.
 מה מעבירים:
 • חוזה שכירות בתוקף
 • הוכחת תשלום על החודש הראשון של ההכשרה
@@ -10491,7 +10711,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 • אם יש גמלת נכות מלאה או השלמת/הבטחת הכנסה: אישור ממשרד השיכון על זכאות או אי-זכאות לסיוע בשכר דירה
 • אם משכירים דירה שבבעלותכם בגלל המעבר: חוזה השכירות של הדירה הזו
 חשוב לדעת:
-• אם משרד השיכון משתתף, ביטוח לאומי משלים את ההפרש, עד 1,200 ₪ ולא יותר משכר הדירה בפועל. לדוגמה: שכר דירה של 1,500 ₪ ומשרד השיכון משלם 600 ₪, ביטוח לאומי משלים 900 ₪.
+• אם משרד השיכון משתתף, ביטוח לאומי משלים את ההפרש, עד ${amt('rent')} ₪ ולא יותר משכר הדירה בפועל. לדוגמה: שכר דירה של 1,500 ₪ ומשרד השיכון משלם 600 ₪, ביטוח לאומי משלים 900 ₪.
 • שכר הדירה שמקבלים על דירה בבעלותכם יקוזז מהסיוע.` }
           ]
         }
@@ -10505,24 +10725,24 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
       newLabel: 'NEW',
       noSelectAll: true,
       requirePick: true,
-      staffNote: 'ℹ️ תוכנית טיפול מעל 10,000 ₪ לשנה: יש להתייעץ במערכת, תחת התוכנית "טיפול התייעצות חד פעמית". שם הרופא המייעץ ודרך הפנייה אליו מופיעים בתדריך.',
+      staffNote: 'ℹ️ תוכנית טיפול מעל ' + amt('dentalConsult') + ' ₪ לשנה: יש להתייעץ במערכת, תחת התוכנית "טיפול התייעצות חד פעמית". שם הרופא המייעץ ודרך הפנייה אליו מופיעים בתדריך.',
       pickNote: 'סמנו את האוכלוסיות הרלוונטיות (אפשר כמה יחד), וההודעה תציג רק את הכללים שלהן:',
       emptyText: 'סמנו לפחות אוכלוסייה אחת כדי לראות את ההודעה.',
       opening: `שלום,
 מצורף מידע על ההשתתפות בטיפולי שיניים.`,
-      closing: `תוכנית טיפול שעלותה מעל 10,000 ₪ לשנה דורשת בדיקה נוספת לפני האישור, לכן לפני תחילת טיפול נרחב כדאי לפנות אליי.
+      closing: `תוכנית טיפול שעלותה מעל ${amt('dentalConsult')} ₪ לשנה דורשת בדיקה נוספת לפני האישור, לכן לפני תחילת טיפול נרחב כדאי לפנות אליי.
 את הקבלות מעלים דרך מצפן הזכויות באתר האישי. צריכים הסבר איך מעלים? כתבו לי ואשלח לכם מדריך.`,
       blocks: [
         {
           id: 'dentalwho', icon: '👥', title: 'מי המבוטח?', labelWhenMulti: true,
           items: [
             { key: 'dent_parent', label: 'הורה שכול', checked: false, text: `ההשתתפות היא בגובה 50% מהתשלום בפועל, לאחר השתתפות הביטוחים.` },
-            { key: 'dent_widow', label: 'אלמנה / אלמן', checked: false, text: `ההשתתפות היא בגובה 50% מהתשלום בפועל, לאחר השתתפות הביטוחים, ועד לסך של 17,988 ₪ בשנה (נכון ל־1.1.2026).` },
-            { key: 'dent_orph18', label: 'יתום עד גיל 18', checked: false, text: `ההשתתפות היא בגובה 50% מעלות הטיפול, ועד לסך של 4,802 ₪ לכל ילד בשנה קלנדרית (נכון ל־1.1.2026).` },
-            { key: 'dent_orph1821', label: 'יתום בגילאי 18–21', checked: false, text: `ההשתתפות היא בגובה 50% מעלות הטיפול, ועד לתקרה של 7,500 ₪ בשנה קלנדרית.
+            { key: 'dent_widow', label: 'אלמנה / אלמן', checked: false, text: `ההשתתפות היא בגובה 50% מהתשלום בפועל, לאחר השתתפות הביטוחים, ועד לסך של ${amt('dentalWidow')} ₪ בשנה (נכון ל־${AMOUNTS.dentalWidow.asOf}).` },
+            { key: 'dent_orph18', label: 'יתום עד גיל 18', checked: false, text: `ההשתתפות היא בגובה 50% מעלות הטיפול, ועד לסך של ${amt('dentalOrphan')} ₪ לכל ילד בשנה קלנדרית (נכון ל־${AMOUNTS.dentalOrphan.asOf}).` },
+            { key: 'dent_orph1821', label: 'יתום בגילאי 18–21', checked: false, text: `ההשתתפות היא בגובה 50% מעלות הטיפול, ועד לתקרה של ${amt('dentalOrphan1821')} ₪ בשנה קלנדרית.
 ההחזר מאושר לאחר הצגת תוכנית טיפול והצעת מחיר, ובהמשך הצגת קבלות מקור.` },
-            { key: 'dent_orph2', label: 'יתום משני הורים, עד גיל 18', checked: false, text: `ההשתתפות היא בגובה 50% מעלות הטיפול, ועד לסך של 4,802 ₪ בשנה קלנדרית (נכון ל־1.1.2026).` },
-            { key: 'dent_orph2adult', label: 'יתום משני הורים, מגיל 18', checked: false, text: `ההשתתפות היא בגובה 50% מעלות הטיפול, ועד לסך של 17,988 ₪ בשנה קלנדרית (נכון ל־1.1.2026).` }
+            { key: 'dent_orph2', label: 'יתום משני הורים, עד גיל 18', checked: false, text: `ההשתתפות היא בגובה 50% מעלות הטיפול, ועד לסך של ${amt('dentalOrphan')} ₪ בשנה קלנדרית (נכון ל־${AMOUNTS.dentalOrphan.asOf}).` },
+            { key: 'dent_orph2adult', label: 'יתום משני הורים, מגיל 18', checked: false, text: `ההשתתפות היא בגובה 50% מעלות הטיפול, ועד לסך של ${amt('dentalWidow')} ₪ בשנה קלנדרית (נכון ל־${AMOUNTS.dentalWidow.asOf}).` }
           ]
         }
       ]
@@ -11027,6 +11247,22 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
   </div>
 </div>
 
+<div class="am-overlay" id="amountsOverlay" onclick="if(event.target===this)closeAmounts()">
+  <div class="am-modal" role="dialog" aria-modal="true" aria-label="סכומים ותאריכים" dir="rtl">
+    <button type="button" class="am-close" onclick="closeAmounts()" aria-label="סגירה">✕</button>
+    <h1>💰 סכומים ותאריכים</h1>
+    <p class="am-sub">כל הסכומים שמופיעים בהודעות באתר, במקום אחד. הסכומים מעודכנים לשנת 2026.</p>
+    <div class="am-notice">⚠️ ידוע לכם על סכום שגוי או שהשתנה? עדכנו אותי בבקשה.
+      <button type="button" class="am-report" onclick="reportAmountChange()">✉️ עדכון לאמיר</button></div>
+    <div id="amList"></div>
+    <details class="am-group">
+      <summary><span>🚌 תעריפי תחבורה ציבורית</span><span class="am-count">מחשבון נסיעות</span></summary>
+      <table class="am-fares" id="amFares"></table>
+      <div class="am-foot"><span class="am-date" id="amFaresDate"></span></div>
+    </details>
+  </div>
+</div>
+
 <div class="tools-hub-overlay" id="toolsHubOverlay" onclick="closeToolsHubOutside(event)">
   <div class="tools-hub-panel">
     <div class="tools-hub-nav-row">
@@ -11173,7 +11409,7 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
 
         <p class="tc-disclaimer">
           המחירים לפי תעריפי "דרך שווה" העדכניים (מחיר מלא, בלי הנחות זכאות).
-          חופשי־ארצי חודשי: 315 ₪ באוטובוסים, 323–684 ₪ עם רכבת ישראל, לפי המרחק.
+          חופשי־ארצי חודשי: <span data-travel-summary>315 ₪ באוטובוסים, 323–684 ₪ עם רכבת ישראל, לפי המרחק</span> (נכון ל<span data-travel-asof></span>).
           לבדיקה מדויקת יותר לפי פרופיל אישי אפשר להיכנס למחשבון הרשמי:
           <a href="https://pti.org.il/DerekhShava" target="_blank">pti.org.il/DerekhShava</a>
         </p>
@@ -11400,15 +11636,17 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
 })();
 </script>
 
-<!-- ===== חלון הזמנה לרשימת התפוצה (זמני) ===== -->
-<div class="jpop-overlay" id="jpopOverlay" onclick="if(event.target===this)jpopDismiss('רקע')">
-  <div class="jpop-box" role="dialog" aria-modal="true" aria-labelledby="jpopTitle">
-    <button type="button" class="jpop-x" aria-label="סגירה" onclick="jpopDismiss('איקס')">✕</button>
-    <div class="jpop-env" aria-hidden="true">💌</div>
-    <div class="jpop-title" id="jpopTitle">תבנית חדשה עלתה? תדעו ראשונים</div>
-    <p class="jpop-text">פעם בכמה שבועות אני שולח מייל קצר עם מה שחדש באתר: תבניות, כלים ועדכונים שחוסכים זמן בעבודה היומיומית. מצטרפים בלחיצה אחת, בלי טפסים.</p>
-    <button type="button" class="jpop-join" onclick="jpopJoin()">הצטרפות לעדכונים</button>
-    <button type="button" class="jpop-later" onclick="jpopDismiss('אני כבר בפנים')">אני כבר בפנים 👍</button>
+<!-- ===== זרקור לרשימת התפוצה (מחשב) ===== -->
+<div class="jspot-overlay" id="jspotOverlay" onclick="jspotDismiss('רקע')"></div>
+<div class="jspot-ring" id="jspotRing" aria-hidden="true"></div>
+<div class="jspot-bubble" id="jspotBubble" role="dialog" aria-labelledby="jspotTitle">
+  <button type="button" class="jspot-x" aria-label="סגירה" onclick="jspotDismiss('איקס')">✕</button>
+  <div class="jspot-kicker">👀 רגע, לפני שממשיכים</div>
+  <div class="jspot-title" id="jspotTitle">כולם כבר יודעים מה חדש. ואתם?</div>
+  <p class="jspot-text">מי שברשימת התפוצה מקבל ראשון כל תבנית חדשה, כל עדכון בסכומים וכל קיצור דרך — ישר למייל. מי שלא, מגלה במקרה, או בכלל לא.</p>
+  <div class="jspot-actions">
+    <button type="button" class="jspot-join" onclick="jspotJoin()">גם אני רוצה לדעת ←</button>
+    <button type="button" class="jspot-in" onclick="jspotDismiss('אני כבר ברשימה')">אני כבר ברשימה 👍</button>
   </div>
 </div>
 
