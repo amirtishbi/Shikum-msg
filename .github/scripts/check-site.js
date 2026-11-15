@@ -47,7 +47,7 @@ const MIN_CARDS = 40;
       const ids = {};
       document.querySelectorAll('[id]').forEach(el => { ids[el.id] = (ids[el.id] || 0) + 1; });
       /* כפילות ידועה וותיקה, לא לחסום עליה */
-      const KNOWN_DUP = ['refund-panel-eivarights'];
+      const KNOWN_DUP = [];
       Object.keys(ids).filter(k => ids[k] > 1 && KNOWN_DUP.indexOf(k) === -1).forEach(k => out.push(`id כפול: #${k}`));
       document.querySelectorAll('[onclick]').forEach(el => {
         const m = el.getAttribute('onclick').match(/(?:quickCopy|quickWa|quickMail|copyMsg|sendWhatsapp|sendEmail|sendFeedback|sendBetaFeedback)\('([^']+)'/);
