@@ -852,22 +852,29 @@ body.dark-mode .sr-ask { background: linear-gradient(160deg, #1c2638 0%, #141b28
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
   .join-banner-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(31, 43, 61, 0.3); }
-  .join-cta {
+  .join-cta, .join-share-cta {
     width: 100%; justify-content: center; gap: 10px;
     background: linear-gradient(180deg, #f0c865, #e6b94d);
     color: #1f2b3d; border: none; padding: 12px 18px;
     font-size: 1.05rem; font-weight: 900;
     box-shadow: 0 6px 18px rgba(230, 185, 77, 0.35);
   }
-  .join-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(230, 185, 77, 0.5); }
+  .join-cta:hover, .join-share-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(230, 185, 77, 0.5); }
   .join-cta-arrow { transition: transform 0.2s ease; }
-  .join-cta:hover .join-cta-arrow { transform: translateX(-4px); }
+  .join-cta:hover .join-cta-arrow, .join-share-cta:hover .join-cta-arrow { transform: translateX(-4px); }
   .join-fine { margin-top: 9px; font-size: 0.74rem; color: rgba(255, 255, 255, 0.6); text-align: center; }
   /* "פנקו חבר/ה לעבודה" — המלצה על האתר (מחשב בלבד, בכרטיס רשימת התפוצה) */
   .join-share { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; margin-top: 12px; padding: 9px 12px;
     background: transparent; border: 1.5px solid rgba(230, 185, 77, 0.55); border-radius: 999px; color: #f3d27a;
     font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: background .15s, border-color .15s; }
   .join-share:hover { background: rgba(230, 185, 77, 0.12); border-color: #e6b94d; }
+  .join-already { display: block; margin: 8px auto 0; padding: 2px 6px; background: none; border: 0; color: rgba(255, 255, 255, 0.6);
+    font-family: 'Heebo', sans-serif; font-size: 0.74rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .join-already:hover { color: #fff; }
+  /* מצב "כבר ברשימה" (body.is-joined): מחליפים את תוכן הכרטיס */
+  .join-joined { display: none; }
+  body.is-joined .join-banner .join-banner-inner:not(.join-joined) { display: none; }
+  body.is-joined .join-banner .join-joined { display: block; }
   @media (prefers-reduced-motion: reduce) { .join-env { animation: none; } }
   /* הבהוב מושך תשומת לב ב-5 השניות הראשונות */
   @keyframes joinBlink {
@@ -4631,6 +4638,20 @@ document.addEventListener('DOMContentLoaded', function () { applyAmounts(); appl
     </button>
     <div class="join-fine">לחיצה אחת, בלי טפסים 🙂</div>
     <button type="button" class="join-share" onclick="shareWithFriend()">💝 פנקו חבר/ה לעבודה</button>
+    <button type="button" class="join-already" onclick="setJoined(true, 'כרטיס')">כבר ברשימה? לחצו כאן ✓</button>
+  </div>
+  <!-- מצב "כבר ברשימה" — במקום ההזמנה להצטרף: הזמנה להמליץ לחבר/ה -->
+  <div class="join-banner-inner join-joined">
+    <div class="join-hero">
+      <span class="join-env" aria-hidden="true">💝</span>
+      <span class="join-kicker">כבר איתנו 🎉</span>
+    </div>
+    <div class="join-banner-title">יש לכם חבר/ה לעבודה שעוד לא מכיר/ה?</div>
+    <p class="join-banner-text">אתם כבר ברשימת התפוצה. עכשיו תורכם לפנק: שלחו את האתר לחבר/ה בלחיצה אחת, ההודעה והקישור מוכנים.</p>
+    <button type="button" class="join-banner-btn join-share-cta" onclick="shareWithFriend()">
+      <span>פנקו חבר/ה לעבודה</span><span class="join-cta-arrow" aria-hidden="true">←</span>
+    </button>
+    <button type="button" class="join-already" onclick="setJoined(false, 'כרטיס')">עוד לא ברשימת התפוצה? להצטרפות</button>
   </div>
 </div>
 </div>
@@ -10012,7 +10033,29 @@ function dashboardTileClick(filterId, tileEl) {
     return 'mailto:AMIRTI@NIOI.GOV.IL?subject=' + subject + '&body=' + body;
   }
 
+  /* ===== מי כבר ברשימת התפוצה (נשמר בדפדפן) =====
+     מסומן כשמצטרפים, כשלוחצים "אני כבר ברשימה" בזרקור, או "כבר ברשימה?" בכרטיס.
+     במצב הזה הכרטיס שבצד שמאל מזמין להמליץ לחבר/ה במקום להצטרף. */
+  var JOINED_KEY = 'shikum_joined';
+  function isJoined() { try { return localStorage.getItem(JOINED_KEY) === '1'; } catch (e) { return false; } }
+  function applyJoinedState() {
+    var j = isJoined();
+    document.body.classList.toggle('is-joined', j);
+    var pill = document.getElementById('pillJoin');
+    if (pill) pill.innerHTML = (j ? '💝 פנקו חבר/ה לעבודה' : '💌 הצטרפות לעדכונים') + '<span class="side-pill-chev">▲</span>';
+    if (typeof placeSloth === 'function') requestAnimationFrame(function () { if (typeof fitDeskLayout === 'function') fitDeskLayout(); });
+  }
+  window.setJoined = function (on, where) {
+    try { if (on) localStorage.setItem(JOINED_KEY, '1'); else localStorage.removeItem(JOINED_KEY); } catch (e) {}
+    if (where) umTrack((on ? 'רשימת תפוצה: סימון "כבר ברשימה"' : 'רשימת תפוצה: ביטול "כבר ברשימה"') + ' › ' + where);
+    applyJoinedState();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(applyJoinedState, 0); });
+  else setTimeout(applyJoinedState, 0);
+
   function joinUpdatesEmail() {
+    try { localStorage.setItem(JOINED_KEY, '1'); } catch (e) {}
+    setTimeout(applyJoinedState, 1500); /* אחרי שהמייל נפתח — הכרטיס עובר להזמנה להמליץ */
     umTrackNav('הצטרפות: קבוצת עדכונים');
     window.location.href = buildJoinMailto();
   }
@@ -10059,7 +10102,7 @@ function dashboardTileClick(filterId, tileEl) {
     return true;
   }
   window.jspotJoin = function () { jspotMark(); jspotClose(); umTrack('זרקור הצטרפות: הצטרפות'); joinUpdatesEmail(); };
-  window.jspotDismiss = function (how) { jspotMark(); jspotClose(); umTrack('זרקור הצטרפות: סגירה › ' + (how || '')); };
+  window.jspotDismiss = function (how) { jspotMark(); jspotClose(); umTrack('זרקור הצטרפות: סגירה › ' + (how || '')); if (how === 'אני כבר ברשימה') setJoined(true); };
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && document.body.classList.contains('jspot-on')) jspotDismiss('Esc');
   });
@@ -10072,7 +10115,7 @@ function dashboardTileClick(filterId, tileEl) {
     /* מחשב בלבד: זרקור (פעם אחת). בנייד — אין הזמנה קופצת אחרי העתקה */
     if (!isDeskPointer()) return;
     {
-      if (jpopPending || jspotDone() || document.body.classList.contains('jspot-on')) return;
+      if (jpopPending || jspotDone() || isJoined() || document.body.classList.contains('jspot-on')) return;
       jpopPending = true;
       setTimeout(function () {
         jpopPending = false;
