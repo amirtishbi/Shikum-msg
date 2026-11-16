@@ -22,7 +22,10 @@ const MIN_CARDS = 40;
   ];
   for (const [name, opt] of profiles) {
     const ctx = await browser.newContext(opt);
+    /* לא לשלוח אירועים ל-Umami מהבדיקה (אחרת ההעתקות של הבדיקה נספרות בסטטיסטיקה) */
+    await ctx.route(/umami/i, route => route.abort());
     const page = await ctx.newPage();
+    await page.addInitScript(() => { try { localStorage.setItem('umami.disabled', '1'); } catch (e) {} });
     const errs = [];
     page.on('pageerror', e => errs.push(e.message));
     await page.goto('file://' + FILE);
