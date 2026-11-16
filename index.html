@@ -863,6 +863,11 @@ body.dark-mode .sr-ask { background: linear-gradient(160deg, #1c2638 0%, #141b28
   .join-cta-arrow { transition: transform 0.2s ease; }
   .join-cta:hover .join-cta-arrow { transform: translateX(-4px); }
   .join-fine { margin-top: 9px; font-size: 0.74rem; color: rgba(255, 255, 255, 0.6); text-align: center; }
+  /* "פנקו חבר/ה לעבודה" — המלצה על האתר (מחשב בלבד, בכרטיס רשימת התפוצה) */
+  .join-share { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; margin-top: 12px; padding: 9px 12px;
+    background: transparent; border: 1.5px solid rgba(230, 185, 77, 0.55); border-radius: 999px; color: #f3d27a;
+    font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: background .15s, border-color .15s; }
+  .join-share:hover { background: rgba(230, 185, 77, 0.12); border-color: #e6b94d; }
   @media (prefers-reduced-motion: reduce) { .join-env { animation: none; } }
   /* הבהוב מושך תשומת לב ב-5 השניות הראשונות */
   @keyframes joinBlink {
@@ -4625,6 +4630,7 @@ document.addEventListener('DOMContentLoaded', function () { applyAmounts(); appl
       <span>הצטרפות במייל</span><span class="join-cta-arrow" aria-hidden="true">←</span>
     </button>
     <div class="join-fine">לחיצה אחת, בלי טפסים 🙂</div>
+    <button type="button" class="join-share" onclick="shareWithFriend()">💝 פנקו חבר/ה לעבודה</button>
   </div>
 </div>
 </div>
@@ -7363,6 +7369,19 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     const text = 'שלום אמיר, אני רוצה להוסיף את הסניף שלי לכלי ("הגעה לסניף"):\n\nשם הסניף: \n\nהסבר מפורט על ההגעה (כתובת, קומה, איך למצוא את החדר): \n\n';
     if (isDesktopDevice()) { openMailToAmir('', ''); return; }
     openMailToAmir('הוספת סניף לכלי', text);
+  }
+
+  /* "פנקו חבר/ה לעבודה" — המלצה על האתר לעמית (מחשב): הטקסט מועתק ונפתח מייל ריק.
+     הקישור עם ?from=friend — כדי לראות ב-Umami כמה נכנסו בזכות המלצה */
+  function shareWithFriend() {
+    const text = 'היי 👋\n' +
+      'רציתי לשתף אותך בכלי שחוסך לי המון זמן בעבודה: "כל התבניות במקום אחד".\n' +
+      'יש בו את כל ההודעות המוכנות למבוטחים, למטפלים ולספקים, מסודרות לפי נושאים. מעתיקים בלחיצה אחת ושולחים בוואטסאפ או במייל.\n' +
+      'יש בו גם מחשבונים, הוראות הגעה לסניפים, מדריכים למבוטחים ועוד.\n' +
+      'שווה לנסות 🙂\n' +
+      'https://amirtishbi.github.io/Shikum-msg/?from=friend';
+    umTrackNav('המלצה: פנקו חבר/ה לעבודה');
+    safeMail('', '', text, 'A tool that saves me time at work');
   }
 
   function suggestIdea() {
