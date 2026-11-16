@@ -2814,19 +2814,6 @@ body.dark-mode .refund-block { background: rgba(255,255,255,0.02); }
   transition: background 0.15s;
 }
 
-/* ===== Swipe gestures on closed cards ===== */
-.card.swipe-hint-copy .card-header-row { background: rgba(122,27,27,0.1); }
-.card.swipe-hint-wa .card-header-row { background: rgba(37,149,74,0.12); }
-@keyframes swipeFlashCopy {
-  0% { background: rgba(122,27,27,0.22); }
-  100% { background: transparent; }
-}
-@keyframes swipeFlashWa {
-  0% { background: rgba(37,149,74,0.26); }
-  100% { background: transparent; }
-}
-.card.swipe-flash-copy .card-header-row { animation: swipeFlashCopy 0.5s ease; }
-.card.swipe-flash-wa .card-header-row { animation: swipeFlashWa 0.5s ease; }
 
 .card-header-row .card-toggle {
   flex: 1;
@@ -7155,6 +7142,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   // אם הדפדפן תומך בהתקנה אוטומטית - נשתמש בה. אחרת, נציג הוראות ידניות פשוטות
   /* לבקשת אמיר: הכפתור מציג תמיד את ההסבר בלבד, ולא מנסה התקנה אוטומטית */
   function showInstallHelp() {
+    umTrack('התקנה: הוספה לשולחן העבודה');
     const overlay = document.getElementById('installHelpOverlay');
     if (overlay) overlay.classList.add('open');
   }
@@ -7166,6 +7154,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function openOutlook() {
+    umTrackNav('פנייה לאמיר: הצעה / בקשה');
     openMailToAmir('הצעה / בקשה לכלי ההודעות', '');
   }
 
@@ -7241,7 +7230,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   async function copyRightsMsg(btn) {
     const text = getRightsText();
-    trackUse('העתקה', 'msg_rights');
+    trackUse('העתקה', 'msg_rights', { items: getSelectedRights().join(', ') || 'ללא' });
     try { await navigator.clipboard.writeText(text); } catch(e) {
       const ta = document.createElement('textarea'); ta.value = text;
       ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta);
@@ -7251,10 +7240,12 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function sendRightsMsgWa() {
+    trackUse('וואטסאפ', 'msg_rights', { items: getSelectedRights().join(', ') || 'ללא' });
     openWhatsAppSafely(getRightsText(), false);
   }
 
   function sendRightsMsgEmail() {
+    trackUse('מייל', 'msg_rights', { items: getSelectedRights().join(', ') || 'ללא' });
     const a = document.createElement('a');
     a.href = 'mailto:?body=' + encodeURIComponent(getRightsText());
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
@@ -7318,7 +7309,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     safeMail('amirti@nioi.gov.il', subject, body, 'Templates tool - message to Amir');
   }
 
-  /* הודעה בניסיון (data-no-send על ה-.card): חוסמים העתקה/וואטסאפ/מייל מכל מקום — כפתורים, החלקה, חיפוש */
+  /* הודעה בניסיון (data-no-send על ה-.card): חוסמים העתקה/וואטסאפ/מייל מכל מקום — כפתורים, חיפוש */
   function blockNoSend(id) {
     const card = document.getElementById(id)?.closest('.card');
     if (!card || !card.hasAttribute('data-no-send')) return false;
@@ -7331,6 +7322,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     const card = document.getElementById(id)?.closest('.card');
     const title = card?.querySelector('.card-toggle-title')?.textContent || id;
     const body = `שלום אמיר, יש לי תגובה על הודעת הניסיון: "${title}"\n\nמה חשבתי על הנוסח:\n\nהצעה:\n`;
+    umTrackNav('משוב · BETA: ' + title, { message: title });
     openMailToAmir('תגובה על הודעת BETA: ' + title, body);
   }
 
@@ -7338,6 +7330,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     const card = document.getElementById(id)?.closest('.card');
     const title = card?.querySelector('.card-toggle-title')?.textContent || id;
     const body = `שלום אמיר, יש הצעה לתיקון בהודעה: "${title}"\n\nהבעיה:\n\nהצעה לתיקון:\n`;
+    umTrackNav('משוב · תיקון: ' + title, { message: title });
     openMailToAmir('תיקון בהודעה: ' + title, body);
   }
 
@@ -7350,6 +7343,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function footerWhatsapp() {
+    umTrackNav('פנייה לאמיר: רעיון לכלי');
     /* במחשב: אין וואטסאפ בדסקטופ (ולפי הדיווח, גם לא תמיד יעבוד) — פותחים מייל במקום.
        תוכן באנגלית, כי טקסט בעברית ב-mailto יוצא ג'יבריש ב-Outlook */
     if (isDesktopDevice()) {
@@ -7365,6 +7359,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function requestBranchWhatsapp() {
+    umTrackNav('פנייה לאמיר: הוספת סניף');
     const text = 'שלום אמיר, אני רוצה להוסיף את הסניף שלי לכלי ("הגעה לסניף"):\n\nשם הסניף: \n\nהסבר מפורט על ההגעה (כתובת, קומה, איך למצוא את החדר): \n\n';
     if (isDesktopDevice()) { openMailToAmir('', ''); return; }
     openMailToAmir('הוספת סניף לכלי', text);
@@ -7372,6 +7367,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   function suggestIdea() {
     if (isDesktopDevice()) {
+      umTrackNav('פנייה לאמיר: רעיון / הערה');
       openMailToAmir('רעיון או הערה על הכלי', 'שלום אמיר, יש לי רעיון או הערה על כלי התבניות:\n\n');
       return;
     }
@@ -7381,6 +7377,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   }
 
   function sendIdeaEmail() {
+    umTrackNav('פנייה לאמיר: רעיון / הערה');
     closeContactPopup();
     const text = 'שלום אמיר, יש לי רעיון או הערה על כלי התבניות:\n\n';
     openMailToAmir('רעיון או הערה על הכלי', text);
@@ -7504,7 +7501,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
   /* שליחת אירוע שלא הולך לאיבוד גם כשהדף עובר מיד לאפליקציה אחרת (וואטסאפ/מייל):
      שולחים ישירות לשרת של Umami עם keepalive — הבקשה ממשיכה גם אחרי שהדף עוזב */
   const UM_WEBSITE = '456ba13d-2e1d-4855-a635-9500ed668346';
-  function umTrackNav(label) {
+  function umTrackNav(label, data) {
     const name = String(label).slice(0, 50);
     try {
       if (window.fetch) {
@@ -7514,16 +7511,17 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
           body: JSON.stringify({ type: 'event', payload: {
             website: UM_WEBSITE, hostname: location.hostname, language: navigator.language,
             referrer: document.referrer, screen: screen.width + 'x' + screen.height,
-            title: document.title, url: location.pathname + location.search, name: name } })
+            title: document.title, url: location.pathname + location.search, name: name,
+            data: data || undefined } })
         }).catch(function () {});
         return;
       }
     } catch (e) {}
-    umTrack(name);
+    umTrack(name, data);
   }
-  /* שליחת אירוע ל-Umami (עד 50 תווים) */
-  function umTrack(label) {
-    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track(String(label).slice(0, 50)); } catch (e) {}
+  /* שליחת אירוע ל-Umami (עד 50 תווים; data — פרטים נוספים לאירוע, לא חובה) */
+  function umTrack(label, data) {
+    try { if (window.umami && typeof window.umami.track === 'function') { if (data) window.umami.track(String(label).slice(0, 50), data); else window.umami.track(String(label).slice(0, 50)); } } catch (e) {}
   }
   /* שם התבנית לפי מזהה גוף ההודעה */
   function cardTitleOf(bodyId) {
@@ -8292,7 +8290,7 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
   /* ===== מעקב שימוש בתבניות (Umami) — שם תבנית בעברית, ללא תוכן ההודעה ===== */
-  function trackUse(action, id) {
+  function trackUse(action, id, data) {
     try {
       let name = '';
       const el = typeof id === 'string' ? document.getElementById(id) : null;
@@ -8306,8 +8304,8 @@ function dashboardTileClick(filterId, tileEl) {
       }
       if (!name) name = String(id);
       const label = (action + ': ' + name).slice(0, 50);
-      if (action === 'וואטסאפ' || action === 'מייל') { umTrackNav(label); return; } /* יוצאים מהאתר מיד אחרי */
-      if (window.umami && typeof window.umami.track === 'function') window.umami.track(label);
+      if (action === 'וואטסאפ' || action === 'מייל') { umTrackNav(label, data); return; } /* יוצאים מהאתר מיד אחרי */
+      umTrack(label, data);
     } catch (e) {}
   }
 
@@ -8315,7 +8313,11 @@ function dashboardTileClick(filterId, tileEl) {
     try {
       const d = REFUND_DATA[tabId];
       const label = (action + ': ' + (d ? d.shortTitle : tabId)).slice(0, 50);
-      if (window.umami && typeof window.umami.track === 'function') window.umami.track(label);
+      /* אילו סעיפים סומנו — כדי לדעת אילו זכויות/אוכלוסיות הכי נפוצות */
+      const items = Array.prototype.map.call(document.querySelectorAll('input[data-refund-tab="' + tabId + '"]:checked'), function (cb) {
+        const l = cb.closest('label'); return (l ? l.textContent : cb.dataset.refundKey).trim().replace(/\s+/g, ' ');
+      }).join(' | ').slice(0, 500);
+      umTrack(label, { items: items || 'ללא' });
     } catch (e) {}
   }
 
@@ -8561,10 +8563,9 @@ function dashboardTileClick(filterId, tileEl) {
     closeCard(btn);
   }
 
-  /* ===== Swipe gestures on closed cards: right = copy, left = whatsapp ===== */
   /* ===== Personalization settings ===== */
   const SETTINGS_KEY = 'shikum_settings_v1';
-  const DEFAULT_SETTINGS = { swipeRight: 'wa', swipeLeft: 'copy', vibrate: true };
+  const DEFAULT_SETTINGS = { vibrate: true };
   let userSettings = Object.assign({}, DEFAULT_SETTINGS);
 
   function loadSettings() {
@@ -8578,8 +8579,6 @@ function dashboardTileClick(filterId, tileEl) {
   }
 
   function openSettings() {
-    document.getElementById('swipeRightSelect').value = userSettings.swipeRight;
-    document.getElementById('swipeLeftSelect').value = userSettings.swipeLeft;
     document.getElementById('vibrateToggle').checked = userSettings.vibrate;
     document.getElementById('darkModeToggle').checked = document.body.classList.contains('dark-mode');
     document.getElementById('settingsOverlay').classList.add('open');
@@ -8590,13 +8589,10 @@ function dashboardTileClick(filterId, tileEl) {
   function closeSettingsOutside(e) {
     if (e.target && e.target.id === 'settingsOverlay') closeSettings();
   }
-  function updateSwipeSetting(key, value) {
-    userSettings[key] = value;
-    saveSettings();
-  }
 
   /* ===== Tools hub modal ===== */
   function suggestToolIdea() {
+    umTrackNav('פנייה לאמיר: רעיון לכלי נוסף');
     const text = 'שלום אמיר, יש לי רעיון לכלי נוסף למגשרות:\n\n';
     if (isDesktopDevice()) { openMailToAmir('', ''); return; }
     openMailToAmir('רעיון לכלי נוסף', text);
@@ -8737,7 +8733,16 @@ function dashboardTileClick(filterId, tileEl) {
   function closeToolsHubOutside(e) {
     if (e.target && e.target.id === 'toolsHubOverlay') closeToolsHub();
   }
+  /* חישוב בפועל — נספר פעם אחת לכל פתיחה של המחשבון (לא בכל הקשה) */
+  var _calcUsed = {};
+  function trackCalcUse(tool) {
+    if (_calcUsed[tool]) return;
+    _calcUsed[tool] = true;
+    var N = { basic: 'מחשבון', travel: 'מחשבון נסיעות' };
+    umTrack('חישוב: ' + (N[tool] || tool));
+  }
   function openToolCalc(tool) {
+    _calcUsed[tool] = false;
     try {
       const TOOL_NAMES = { basic: 'מחשבון', vat: 'מחשבון מע"מ', travel: 'מחשבון נסיעות/פרמטרים' };
       const label = ('כלי: ' + (TOOL_NAMES[tool] || tool)).slice(0, 50);
@@ -8819,6 +8824,7 @@ function dashboardTileClick(filterId, tileEl) {
     document.body.style.overflow = '';
   }
   function reportAmountChange() {
+    umTrackNav('פנייה לאמיר: סכום שהשתנה');
     openMailToAmir('סכום שהשתנה באתר', 'שלום אמיר,\n\nאיזה סכום: \nהסכום החדש: \nמקור / תאריך: \n');
   }
   document.addEventListener('keydown', function (e) {
@@ -9001,6 +9007,7 @@ function dashboardTileClick(filterId, tileEl) {
     bcRender();
   }
   function bcEquals() {
+    if (typeof trackCalcUse === 'function' && bcOperator !== null) trackCalcUse('basic');
     if (bcOperator === null || bcPrev === null) return;
     const val = parseFloat(bcCurrent);
     bcCurrent = bcFormat(bcCompute(bcPrev, bcOperator, val));
@@ -9101,6 +9108,7 @@ function dashboardTileClick(filterId, tileEl) {
     totalSingleOut.textContent = tcFmt(totalSingle);
     monthlyOut.textContent = tcFmt(monthly);
     finalAmount.textContent = tcFmt(finalCost);
+    if (finalCost > 0 && typeof trackCalcUse === 'function') trackCalcUse('travel');
 
     if (monthly < totalSingle) {
       finalNote.textContent = '🎉 שווה לקנות חופשי־ארצי חודשי! חוסכים ' + tcFmt(totalSingle - monthly);
@@ -10339,104 +10347,6 @@ function dashboardTileClick(filterId, tileEl) {
     });
   });
 
-  function swipeSafeWa(card, id) {
-    if (blockNoSend(id)) return;
-    if (REQUIRES_SELECTION.has(id)) {
-      showToast(REQUIRES_SELECTION_MSGS[id] || REQUIRES_SELECTION_MSGS.msg12, true);
-      if (!card.classList.contains('open')) openCard(card);
-      return;
-    }
-    if (REQUIRES_INPUT.has(id)) {
-      showToast(REQUIRES_INPUT_MSG, true);
-      if (!card.classList.contains('open')) openCard(card);
-      return;
-    }
-    const el = document.getElementById(id);
-    const text = el ? el.textContent : '';
-    openWhatsAppSafely(text, true);
-  }
-
-  const SWIPE_ACTION_META = {
-    copy: { flashClass: 'swipe-flash-copy', run: function (card, id) { quickCopy(id, card.querySelector('.quick-copy')); } },
-    wa:   { flashClass: 'swipe-flash-wa',   run: swipeSafeWa },
-    mail: { flashClass: 'swipe-flash-wa',   run: function (card, id) { quickMail(id, card.querySelector('.quick-mail')); } }
-  };
-
-  (function initCardSwipe() {
-    let sw = null;
-    const THRESHOLD = 70;
-    const MAX_DRAG = 110;
-
-    function cardBodyId(card) {
-      const body = card.querySelector('.card-body');
-      return body ? body.id : null;
-    }
-
-    document.addEventListener('touchstart', function (e) {
-      const headerRow = e.target.closest('.card-header-row');
-      if (!headerRow) return;
-      const card = headerRow.closest('.card');
-      if (!card || card.classList.contains('open')) return;
-      const t = e.touches[0];
-      sw = { card: card, headerRow: headerRow, startX: t.clientX, startY: t.clientY, deltaX: 0, horizontal: null };
-    }, { passive: true });
-
-    document.addEventListener('touchmove', function (e) {
-      if (!sw) return;
-      const t = e.touches[0];
-      const dx = t.clientX - sw.startX;
-      const dy = t.clientY - sw.startY;
-      if (sw.horizontal === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
-        sw.horizontal = Math.abs(dx) > Math.abs(dy);
-        if (!sw.horizontal) { sw = null; return; }
-      }
-      if (!sw || !sw.horizontal) return;
-      e.preventDefault();
-      sw.deltaX = dx;
-      const clamped = Math.max(-MAX_DRAG, Math.min(MAX_DRAG, dx));
-      sw.headerRow.style.transform = 'translateX(' + clamped + 'px)';
-      let activeMeta = null;
-      if (clamped > 25) activeMeta = SWIPE_ACTION_META[userSettings.swipeRight];
-      else if (clamped < -25) activeMeta = SWIPE_ACTION_META[userSettings.swipeLeft];
-      sw.card.classList.toggle('swipe-hint-copy', !!activeMeta && activeMeta.flashClass === 'swipe-flash-copy');
-      sw.card.classList.toggle('swipe-hint-wa', !!activeMeta && activeMeta.flashClass === 'swipe-flash-wa');
-    }, { passive: false });
-
-    document.addEventListener('touchend', function () {
-      if (!sw) return;
-      const state = sw;
-      sw = null;
-      state.headerRow.style.transition = 'transform 0.2s ease';
-      state.headerRow.style.transform = 'translateX(0)';
-      setTimeout(function () { state.headerRow.style.transition = ''; }, 220);
-      state.card.classList.remove('swipe-hint-copy', 'swipe-hint-wa');
-
-      if (!state.horizontal) return;
-      const id = cardBodyId(state.card);
-      if (!id) return;
-
-      let actionKey = null;
-      if (state.deltaX > THRESHOLD) actionKey = userSettings.swipeRight;
-      else if (state.deltaX < -THRESHOLD) actionKey = userSettings.swipeLeft;
-      if (!actionKey) return;
-
-      const meta = SWIPE_ACTION_META[actionKey];
-      if (!meta) return;
-      if (userSettings.vibrate && navigator.vibrate) navigator.vibrate(35);
-      state.card.classList.add(meta.flashClass);
-      setTimeout(function () { state.card.classList.remove(meta.flashClass); }, 500);
-      meta.run(state.card, id);
-    }, { passive: true });
-
-    document.addEventListener('touchcancel', function () {
-      if (!sw) return;
-      sw.headerRow.style.transition = 'transform 0.2s ease';
-      sw.headerRow.style.transform = 'translateX(0)';
-      sw.card.classList.remove('swipe-hint-copy', 'swipe-hint-wa');
-      setTimeout(function () { if (sw) sw.headerRow.style.transition = ''; }, 220);
-      sw = null;
-    }, { passive: true });
-  })();
 
   document.addEventListener('DOMContentLoaded', loadSettings);
 
@@ -11195,26 +11105,6 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
   <div class="settings-panel">
     <button type="button" class="settings-close" onclick="closeSettings()">✕</button>
     <h3 class="settings-title">⚙️ הגדרות אישיות</h3>
-
-    <div class="settings-group">
-      <div class="settings-label">תנועות החלקה על כרטיסייה סגורה</div>
-      <div class="settings-row">
-        <span class="settings-row-label">→ ימינה מפעיל:</span>
-        <select id="swipeRightSelect" class="settings-select" onchange="updateSwipeSetting('swipeRight', this.value)">
-          <option value="copy">העתקה</option>
-          <option value="wa">וואטסאפ</option>
-          <option value="mail">מייל</option>
-        </select>
-      </div>
-      <div class="settings-row">
-        <span class="settings-row-label">← שמאלה מפעיל:</span>
-        <select id="swipeLeftSelect" class="settings-select" onchange="updateSwipeSetting('swipeLeft', this.value)">
-          <option value="copy">העתקה</option>
-          <option value="wa">וואטסאפ</option>
-          <option value="mail">מייל</option>
-        </select>
-      </div>
-    </div>
 
     <div class="settings-group">
       <label class="settings-toggle-row">
@@ -11994,6 +11884,16 @@ const IC = {
 const esc = s => (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 const REPORT_EMAIL = "Amirti@nioi.gov.il";
+/* מעקב: דיווח על תוכנית טרום שיקום (לא קיימת / פרטים שגויים) — במחשב ובנייד */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a.rep-btn[href^="mailto:"]');
+  if (!a) return;
+  try {
+    var u = new URL(a.getAttribute('href').replace(/^mailto:/, 'http://x/?to=').replace('?subject', '&subject'));
+    var subj = u.searchParams.get('subject') || '';
+    umTrackNav('דיווח: תוכנית טרום שיקום', { program: subj.replace(/^דיווח על תוכנית טרום שיקום:\s*/, '').slice(0, 120), kind: /לא קיימת/.test(u.searchParams.get('body') || '') ? 'לא קיימת' : 'פרטים שגויים' });
+  } catch (err) {}
+}, true);
 /* במחשב: קישורי "דיווח" עוברים דרך safeMail (עברית ללוח + נושא באנגלית) */
 document.addEventListener('click', function (e) {
   var a = e.target.closest && e.target.closest('a.rep-btn[href^="mailto:"]');
@@ -12033,6 +11933,7 @@ function fallbackCopy(text, done){
 }
 function copyClientText(p, btn){
   const text=buildClientText(p);
+  try { umTrack('העתקה: תוכנית טרום שיקום', { program: String(p.name || '').replace(/"/g, '').trim().slice(0, 120) }); } catch (e) {}
   const span=btn.querySelector('span'); const orig=span.textContent;
   const done=(ok)=>{ span.textContent= ok?'הועתק ✓':'העתקה נכשלה'; btn.classList.toggle('ok',ok);
     setTimeout(()=>{ span.textContent=orig; btn.classList.remove('ok'); },1900); };
