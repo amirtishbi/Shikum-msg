@@ -3857,6 +3857,32 @@ body.guides-spin #bottomNavGuides .bottom-nav-emoji { display: inline-block; }
 .meet-need { font-size: 0.8rem; color: var(--cat-routing); text-align: center; margin: -4px 0 0; }
 .meet-box .rem-prev { flex: none !important; min-height: 140px; max-height: 300px !important; overflow-y: auto; }
 @keyframes jpopFade { from { opacity: 0; } to { opacity: 1; } }
+/* ===== "פנקו חבר/ה לעבודה" — מודאל הוראות (תחילית fr-) ===== */
+.fr-overlay { position: fixed; inset: 0; z-index: 3500; background: rgba(12,16,22,0.6); display: none; align-items: center; justify-content: center; padding: 20px; }
+.fr-overlay.open { display: flex; animation: jpopFade .25s ease both; }
+.fr-modal { position: relative; width: 100%; max-width: 480px; background: #fffaf0; color: var(--navy); border-radius: 22px; padding: 26px 26px 20px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4); font-family: 'Heebo', sans-serif; text-align: right; animation: jpopIn .4s cubic-bezier(.22,1,.36,1) both; }
+.fr-x { position: absolute; top: 12px; left: 12px; width: 32px; height: 32px; border: 0; border-radius: 50%; background: rgba(0,0,0,0.06); color: #4b5563; cursor: pointer; font-size: .95rem; }
+.fr-copied { display: inline-block; background: #dcf3e6; color: #166534; font-weight: 800; font-size: .9rem; border-radius: 999px; padding: 4px 12px; }
+.fr-copied.fr-pop { animation: frPop .45s ease; }
+@keyframes frPop { 0% { transform: scale(1); } 40% { transform: scale(1.12); } 100% { transform: scale(1); } }
+.fr-title { font-size: 1.45rem; font-weight: 900; margin: 10px 0 14px; line-height: 1.25; }
+.fr-steps { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 10px; }
+.fr-steps li { display: flex; align-items: center; gap: 12px; font-size: 1.15rem; font-weight: 800; background: #fff; border: 1.5px solid rgba(26,37,56,0.1); border-radius: 14px; padding: 12px 14px; }
+.fr-n { flex: 0 0 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: #e6b94d; color: var(--navy); font-weight: 900; font-size: 1.05rem; }
+.fr-keys { white-space: nowrap; margin-inline-start: auto; font-size: .85rem; }
+.fr-steps kbd { font-family: inherit; font-size: .82rem; font-weight: 800; background: #eef1f5; border: 1px solid #cfd6df; border-bottom-width: 2px; border-radius: 6px; padding: 1px 6px; margin-inline-start: 6px; direction: ltr; }
+.fr-actions { display: flex; gap: 10px; align-items: center; }
+.fr-mail { flex: 1; padding: 12px 16px; border: 0; border-radius: 999px; background: var(--navy); color: #fff; font-family: inherit; font-weight: 800; font-size: 1rem; cursor: pointer; }
+.fr-mail:hover { filter: brightness(1.15); }
+.fr-again { padding: 11px 14px; border: 1.5px solid rgba(26,37,56,0.25); border-radius: 999px; background: transparent; color: var(--navy); font-family: inherit; font-weight: 700; font-size: .9rem; cursor: pointer; white-space: nowrap; }
+.fr-peek { margin-top: 14px; font-size: .88rem; }
+.fr-peek summary { cursor: pointer; color: #6b7280; font-weight: 700; }
+.fr-preview { white-space: pre-wrap; margin-top: 8px; background: #fff; border: 1px solid rgba(26,37,56,0.1); border-radius: 12px; padding: 10px 12px; line-height: 1.55; color: #374151; max-height: 190px; overflow: auto; }
+body.dark-mode .fr-modal { background: #1d2a3d; color: #eef2f7; }
+body.dark-mode .fr-steps li, body.dark-mode .fr-preview { background: #152031; border-color: rgba(255,255,255,0.1); color: #eef2f7; }
+body.dark-mode .fr-mail { background: #e6b94d; color: #1a2538; }
+body.dark-mode .fr-again { color: #eef2f7; border-color: rgba(238,242,247,0.4); }
 /* ===== זרקור לרשימת התפוצה (מחשב) — במקום החלון הקופץ, אחרי העתקה (תחילית jspot-) ===== */
 .jspot-overlay { position: fixed; inset: 0; z-index: 3350; background: rgba(12,16,22,0.62); display: none; }
 body.jspot-on .jspot-overlay { display: block; animation: jpopFade .3s ease both; }
@@ -7505,16 +7531,40 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     openMailToAmir('בקשה לתבנית חדשה באתר', 'שלום אמיר,\n\nהייתי שמח/ה שתתווסף לאתר הודעה בנושא:\n\nלמי היא מיועדת (מבוטח / מטפל / ספק / אחר):\n\nמה חשוב שיופיע בה:\n\nתודה!');
   }
 
-  function shareWithFriend() {
-    const text = 'היי 👋\n' +
-      'רציתי לשתף אותך בכלי שחוסך לי המון זמן בעבודה: "כל התבניות במקום אחד".\n' +
-      'יש בו את כל ההודעות המוכנות למבוטחים, למטפלים ולספקים, מסודרות לפי נושאים. מעתיקים בלחיצה אחת ושולחים בוואטסאפ או במייל.\n' +
-      'יש בו גם מחשבונים, הוראות הגעה לסניפים, מדריכים למבוטחים ועוד.\n' +
-      'שווה לנסות 🙂\n' +
-      'https://amirtishbi.github.io/Shikum-msg/?from=friend';
-    umTrackNav('המלצה: פנקו חבר/ה לעבודה');
-    safeMail('', '', text, 'A tool that saves me time at work');
+  var FRIEND_TEXT = 'היי 👋\n' +
+    'גיליתי כלי שממש עושה לי את החיים קלים יותר בעבודה, וחשבתי שגם לך הוא יעזור 🙂\n\n' +
+    '"כל התבניות במקום אחד" הוא אתר שמרכז את כל ההודעות המוכנות שאנחנו שולחים כל יום: למבוטחים, למטפלים ולספקים.\n' +
+    'מוצאים את ההודעה, מעתיקים בלחיצה, ושולחים בוואטסאפ או במייל. בלי לכתוב מאפס ובלי לחפש בקבצים ישנים.\n\n' +
+    'יש בו גם מחשבונים, הוראות הגעה לסניפים, מדריכים למבוטחים ועוד הרבה.\n' +
+    'שווה להציץ, אני בטוח/ה שתאהב/י 😉\n\n' +
+    'https://amirtishbi.github.io/Shikum-msg/?from=friend';
+  function frCopy() {
+    try { navigator.clipboard.writeText(FRIEND_TEXT); } catch (e) {}
+    var ok = document.getElementById('frCopied');
+    if (ok) { ok.classList.remove('fr-pop'); void ok.offsetWidth; ok.classList.add('fr-pop'); }
   }
+  /* "פנקו חבר/ה לעבודה": מעתיקים את ההודעה ומראים לעובד בגדול מה לעשות עכשיו */
+  function shareWithFriend() {
+    frCopy();
+    umTrack('המלצה: פנקו חבר/ה לעבודה');
+    var pre = document.getElementById('frPreview');
+    if (pre) pre.textContent = FRIEND_TEXT;
+    document.getElementById('friendOverlay').classList.add('open');
+    /* פותחים מייל חדש ב-Outlook מיד, באותה לחיצה (השהיה עלולה לגרום לדפדפן לחסום) */
+    frOpenMail(true);
+  }
+  window.closeFriend = function () { document.getElementById('friendOverlay').classList.remove('open'); };
+  window.frOpenMail = function (auto) {
+    frCopy();
+    if (!auto) umTrackNav('המלצה: פתיחת מייל ידנית');
+    var a = document.createElement('a'); a.href = 'mailto:?subject=' + encodeURIComponent('A tool that saves me time at work');
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+  window.frCopy = frCopy;
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { var o = document.getElementById('friendOverlay'); if (o && o.classList.contains('open')) closeFriend(); }
+  });
+
 
   function suggestIdea() {
     if (isDesktopDevice()) {
@@ -11749,6 +11799,25 @@ https://www.btl.gov.il/benefits/Victims_of_Hostilities/Casualties_benefits/Pages
   };
 })();
 </script>
+
+<!-- ===== "פנקו חבר/ה לעבודה" — ההודעה הועתקה + הוראות ברורות (מחשב) ===== -->
+<div class="fr-overlay" id="friendOverlay" onclick="if(event.target===this)closeFriend()">
+  <div class="fr-modal" role="dialog" aria-modal="true" aria-labelledby="frTitle" dir="rtl">
+    <button type="button" class="fr-x" onclick="closeFriend()" aria-label="סגירה">✕</button>
+    <div class="fr-copied" id="frCopied">✓ ההודעה הועתקה</div>
+    <h2 class="fr-title" id="frTitle">💝 נשאר רק לשלוח לחבר/ה</h2>
+    <ol class="fr-steps">
+      <li><span class="fr-n">1</span>Outlook נפתח עכשיו במייל חדש</li>
+      <li><span class="fr-n">2</span>כתבו את כתובת המייל של החבר/ה</li>
+      <li><span class="fr-n">3</span>הדביקו את ההודעה בתיבת הטקסט <span class="fr-keys" dir="ltr"><kbd>Ctrl</kbd>+<kbd>V</kbd></span></li>
+    </ol>
+    <div class="fr-actions">
+      <button type="button" class="fr-mail" onclick="frOpenMail()">לא נפתח? פתיחת Outlook ←</button>
+      <button type="button" class="fr-again" onclick="frCopy()">📋 העתקה שוב</button>
+    </div>
+    <details class="fr-peek"><summary>מה כתוב בהודעה?</summary><div class="fr-preview" id="frPreview"></div></details>
+  </div>
+</div>
 
 <!-- ===== זרקור לרשימת התפוצה (מחשב) ===== -->
 <div class="jspot-overlay" id="jspotOverlay" onclick="jspotDismiss('רקע')"></div>
