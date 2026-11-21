@@ -1959,8 +1959,12 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
 }
 /* טלפון: גובה לפי המסך הנראה בפועל (dvh) — כך שורת הכפתורים האחרונה לא נבלעת מתחת לסרגל הדפדפן באנדרואיד */
 .mobile-sheet-overlay { height: 100vh; height: 100dvh; bottom: auto; }
-.mobile-sheet { max-height: 86vh; max-height: 88dvh; }
-.mobile-sheet-body { overscroll-behavior: contain; padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)); }
+.mobile-sheet { max-height: calc(100vh - 140px); max-height: calc(100dvh - 62px - env(safe-area-inset-bottom, 0px) - 56px); }
+.mobile-sheet-body { overscroll-behavior: contain; padding-bottom: 0; }
+.mobile-sheet-body > .card { padding-bottom: 28px; }
+/* טלפון: כפתורי העתק/וואטסאפ דבוקים לתחתית החלון — תמיד גלויים, גם בהודעות ארוכות */
+.mobile-sheet-body .card { overflow: visible; }
+.mobile-sheet-body .card-footer { position: sticky; bottom: 0; z-index: 3; background: var(--paper-card); padding-top: 10px; padding-bottom: 10px; box-shadow: 0 -8px 14px -10px rgba(43,38,32,0.35); }
 /* Inside the sheet, the card-collapsible no longer needs the "closed card" dashed
    top border it has inline in the page — it's already the sheet's only content. */
 .mobile-sheet-body .card {
@@ -2247,7 +2251,9 @@ body.sheet-open { overflow: hidden; }
     border-top: 3px solid var(--stamp-red);
     box-shadow: 0 -4px 18px rgba(17,23,34,0.35);
   }
-  body.sheet-open .bottom-nav { display: none; }
+  /* הסרגל התחתון נשאר גלוי גם כשחלון הודעה פתוח — החלון יושב מעליו */
+  body.sheet-open .bottom-nav { z-index: 950; }
+  .mobile-sheet-overlay { padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px)); box-sizing: border-box; }
   /* טלפון: המדריכים זמינים מהסרגל התחתון — האריח מוסתר כדי שמסך הבית ייכנס בלי גלילה */
   #mobileDashboardGrid > .tile-wrap[data-radial="guides"] { display: none; }
 }
@@ -10455,6 +10461,10 @@ function dashboardTileClick(filterId, tileEl) {
     if (window.scrollY > 4) window.scrollTo({ top: 0, behavior: 'auto' });
   }
 
+  /* לחיצה על הסרגל התחתון כשחלון הודעה פתוח — סוגרת קודם את החלון */
+  document.addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('#bottomNav') && document.body.classList.contains('sheet-open') && typeof closeMobileSheet === 'function') closeMobileSheet();
+  }, true);
   function bottomNavHome() {
     if (typeof hapticTap === 'function') hapticTap();
     if (typeof mFlowerClose === 'function') mFlowerClose();
