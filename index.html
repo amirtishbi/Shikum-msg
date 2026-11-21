@@ -1957,6 +1957,10 @@ main { padding: 22px 14px 0; max-width: 640px; margin: 0 auto; }
   -webkit-overflow-scrolling: touch;
   padding: 14px 16px 26px;
 }
+/* טלפון: גובה לפי המסך הנראה בפועל (dvh) — כך שורת הכפתורים האחרונה לא נבלעת מתחת לסרגל הדפדפן באנדרואיד */
+.mobile-sheet-overlay { height: 100vh; height: 100dvh; bottom: auto; }
+.mobile-sheet { max-height: 86vh; max-height: 88dvh; }
+.mobile-sheet-body { overscroll-behavior: contain; padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)); }
 /* Inside the sheet, the card-collapsible no longer needs the "closed card" dashed
    top border it has inline in the page — it's already the sheet's only content. */
 .mobile-sheet-body .card {
