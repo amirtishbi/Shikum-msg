@@ -7839,7 +7839,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     const name = String(label).slice(0, 50);
     try {
       if (window.fetch) {
-        fetch('https://cloud.umami.is/api/send', {
+        fetch('data:,', {
           method: 'POST', keepalive: true, mode: 'cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ type: 'event', payload: {
