@@ -4752,7 +4752,7 @@ document.addEventListener('DOMContentLoaded', function () { applyAmounts(); appl
   <span class="ask-ico tour-card-ico" aria-hidden="true"><img id="tourCardImg" alt=""></span>
   <div class="ask-body">
     <div class="ask-title">חדשים באתר?</div>
-    <button type="button" class="ask-btn" onclick="tourStart(true)">סיור של חצי דקה עם העצלן <span class="ask-arrow" aria-hidden="true">←</span></button>
+    <button type="button" class="ask-btn" onclick="tourStart('כרטיס בצד')">סיור של חצי דקה עם העצלן <span class="ask-arrow" aria-hidden="true">←</span></button>
   </div>
 </div>
 <div class="ask-card" id="askCard">
@@ -4899,7 +4899,7 @@ document.addEventListener('DOMContentLoaded', function () { applyAmounts(); appl
     <!-- Tab: הסבר על המערכת -->
     <div class="info-tab-content active" id="tab-about">
       <div class="about-simple">
-        <button type="button" class="about-tour-btn" onclick="closeChangelog(); setTimeout(function(){ tourStart(true); }, 250);">🦥 סיור באתר עם העצלן</button>
+        <button type="button" class="about-tour-btn" onclick="closeChangelog(); setTimeout(function(){ tourStart('מה הולך פה'); }, 250);">🦥 סיור באתר עם העצלן</button>
         <div class="about-h">למה האתר קיים?</div>
         <p>בעבודה השוטפת אנחנו שולחים שוב ושוב את אותן הודעות: הסבר על זכאות, רשימת מסמכים, הוראות הגעה לסניף. כל אחד מנסח מחדש, וזה לוקח זמן ויוצר פערים בין עובד לעובד.</p>
         <p>כאן כל ההודעות האלה מרוכזות במקום אחד, מנוסחות ומעודכנות. ככה נשאר יותר זמן למה שבאמת חשוב: האנשים שאנחנו מלווים.</p>
@@ -12695,7 +12695,9 @@ window.closeTrumPrograms = function(){
     { sel: '#bottomNavGuides', pose: 'down', title: 'מדריכים למבוטח', text: 'מדריכים מוכנים לשליחה: איך להעלות קבלות, אילו מסמכים צריך, ועוד.' },
     { sel: '#bottomNavTools', pose: 'down', title: 'כלים שחוסכים זמן', text: 'מחשבון נסיעות, שעון נוכחות, תזכורת ליומן, סכומים ותאריכים מעודכנים.' },
     { sel: '.changelog-btn', pose: 'point', title: 'מה הולך פה?', text: 'כאן מחכים העדכונים האחרונים, הסבר על האתר, וגם הסיור הזה, אם תרצו לחזור אליו.' },
-    STEPS[6]
+    { pose: 'thumbs', title: STEPS[6].title, text: STEPS[6].text, next: 'הבא', skip: null },
+    /* חלון אחרון בטלפון: המלצה חמה לפתוח את האתר גם במחשב במשרד */
+    { pose: 'wave', title: 'נתראה גם במשרד? 💻', text: 'בטלפון אני חמוד, אבל במחשב אני ממש מבריק. פתחו את האתר במחשב בעבודה, והתשובות למבוטחים ייצאו מהר יותר ממה שעצלן מספיק למצמץ.', next: 'סגור, נתראה במשרד!', skip: null }
   ];
   var DESK_STEPS = STEPS;
   var i = 0, walkT = null;
@@ -12760,15 +12762,16 @@ window.closeTrumPrograms = function(){
   function render(walk) {
     var st = STEPS[i], last = i === STEPS.length - 1;
     $('tourSloth').src = POSE[st.pose];
-    $('tourStep').textContent = (i === 0 || last) ? '' : ('תחנה ' + i + ' מתוך ' + (STEPS.length - 2));
+    var stations = STEPS.filter(function (x) { return !!x.sel; }), si = stations.indexOf(st);
+    $('tourStep').textContent = si < 0 ? '' : ('תחנה ' + (si + 1) + ' מתוך ' + stations.length);
     $('tourTitle').textContent = st.title;
     $('tourText').textContent = st.text;
-    $('tourNext').textContent = st.next || (i === STEPS.length - 2 ? 'לסיום' : 'הבא');
+    $('tourNext').textContent = st.next || (i + 1 === STEPS.length - 1 ? 'לסיום' : 'הבא');
     var sk = $('tourSkip');
     if (st.skip === null) sk.style.display = 'none'; else { sk.style.display = ''; sk.textContent = st.skip || 'דילוג'; }
     var d = '';
-    for (var k = 1; k < STEPS.length - 1; k++) d += '<i' + (k === i ? ' class="on"' : '') + '></i>';
-    $('tourDots').innerHTML = (i === 0 || last) ? '' : d;
+    for (var k = 0; k < stations.length; k++) d += '<i' + (k === si ? ' class="on"' : '') + '></i>';
+    $('tourDots').innerHTML = si < 0 ? '' : d;
     var b = $('tourBubble'); b.style.animation = 'none'; void b.offsetWidth; b.style.animation = '';
     var g = $('tourGuide');
     if (walk) { g.classList.add('walking'); clearTimeout(walkT); walkT = setTimeout(function () { g.classList.remove('walking'); }, 760); }
@@ -12797,7 +12800,7 @@ window.closeTrumPrograms = function(){
     startFromCorner();
     render(true);
     window.addEventListener('resize', place);
-    if (manual) umTrack('סיור: התחלה', { from: 'מה הולך פה' });
+    if (manual) umTrack('סיור: התחלה', { from: typeof manual === 'string' ? manual : 'כפתור' });
   };
   window.tourNext = function () {
     if (i === 0) umTrack('סיור: התחלה', { from: 'הצעה ראשונה' });
