@@ -10412,6 +10412,7 @@ function dashboardTileClick(filterId, tileEl) {
   }, true);
 
   function jpopAfterCopy() {
+    return;   /* בוטל לבקשת אמיר (23.11.2026): לא מציגים את הזרקור "רגע, לפני שממשיכים" אחרי העתקה */
     /* מחשב בלבד: זרקור (פעם אחת). בנייד — אין הזמנה קופצת אחרי העתקה */
     if (!isDeskPointer()) return;
     {
