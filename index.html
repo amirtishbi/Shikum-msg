@@ -3,7 +3,7 @@
 <head>
 <script>
   /* מחשב: מסתירים את מסך הבית לשבריר שנייה עד שהגודל מחושב — כדי שלא תהיה קפיצה בטעינה */
-  try { if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) document.documentElement.classList.add('home-pending'); } catch (e) {}
+  try { if (window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 700px)').matches) document.documentElement.classList.add('home-pending'); } catch (e) {}
 </script>
 <meta charset="UTF-8" />
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -238,7 +238,7 @@ header p {
 }
 
 /* מחשב בלבד: אריזת כל אלמנטי שורת החיפוש בתוך בר אחיד אחד, כדי למנוע תחושת ציפה */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .search-bar-inner-row {
     max-width: 1000px;
     flex-wrap: wrap;
@@ -285,7 +285,7 @@ body.dark-mode mark.search-hl { background: color-mix(in srgb, #e6b94d 42%, tran
 
 /* ===== מחשב: שני כפתורים ראשיים במקום סרגל הכלים העמוס — "חיפוש" ו"כלים" ===== */
 
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   /* הכלים הבודדים + החיפוש והכלים עברו לאריחי הרשת — מסתירים אותם מהסרגל העליון */
   
   /* שורת החיפוש מוצגת תמיד במחשב, גדולה וברורה; אריח "חיפוש" רק מכניס אליה את הסמן */
@@ -390,7 +390,7 @@ body.search-mode .join-banner { display: none !important; }
 .sr-card-tool:hover { border-color: var(--navy); }
 .sr-acts .quick-btn.sr-tool-open { width: auto; padding: 0 14px; background: var(--navy); color: #fff; font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 0.82rem; }
 /* נייד: הכותרת מקבלת שורה מלאה; התגית והכפתורים יורדים לשורה מתחתיה */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .sr-top { flex-wrap: wrap; row-gap: 8px; }
   .sr-top .sr-title { flex: 1 1 calc(100% - 60px); }
   .sr-top .sr-acts { margin-inline-start: auto; }
@@ -408,7 +408,7 @@ body.search-mode .join-banner { display: none !important; }
 .sr-dyn-note { margin-top: 7px; font-size: 0.83rem; color: var(--ink-soft); font-weight: 600; }
 /* "פתח לבחירה" — מסגרת כחולה בלי מילוי: פותח את ההודעה, לא מעתיק (שונה מכפתור ההעתקה האדום) */
 .sr-card-dyn .copy-btn.sr-open-btn { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); box-shadow: none; }
-@media (hover: hover) and (pointer: fine) { .sr-card-dyn .copy-btn.sr-open-btn { width: auto; padding-inline: 22px; } }
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) { .sr-card-dyn .copy-btn.sr-open-btn { width: auto; padding-inline: 22px; } }
 .sr-card-dyn .copy-btn.sr-open-btn:hover { background: color-mix(in srgb, var(--navy) 8%, transparent); }
 body.dark-mode .sr-card-dyn .copy-btn.sr-open-btn { color: #e6ddc8; border-color: #e6ddc8; }
 .sr-card-dyn .sr-head { cursor: pointer; }
@@ -549,7 +549,7 @@ body.dark-mode .sr-ask { background: linear-gradient(160deg, #1c2638 0%, #141b28
 .desktop-install-promo-btn {
   display: none;
 }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .desktop-install-promo-btn {
     display: flex;
     align-items: center;
@@ -635,7 +635,7 @@ body.dark-mode .sr-ask { background: linear-gradient(160deg, #1c2638 0%, #141b28
 
 /* ===== "חדש באתר" — כרטיס מעל העצלן, באותה שפה עיצובית של רשימת התפוצה ===== */
 .home-new { display: none; }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   /* פאנל התודה הצף ו"חדש במערכת" הישן מוחלפים בכרטיס הזה (הקוד נשמר — להחזרה: למחוק את שתי השורות) */
 
 .home-new.has-items {
@@ -780,7 +780,7 @@ body.dark-mode .sr-ask { background: linear-gradient(160deg, #1c2638 0%, #141b28
 /* ===== ערימה שמאלית בדסקטופ: באנר ההצטרפות לרשימת התפוצה ===== */
 .left-stack { display: none; }
 .join-banner { display: none; }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .left-stack {
     display: flex;
     flex-direction: column;
@@ -905,7 +905,7 @@ body.dark-mode .sr-ask { background: linear-gradient(160deg, #1c2638 0%, #141b28
   body.join-blink-once #joinBanner .join-cta { animation: joinBlink 1.15s ease-in-out 3; }
   @media (prefers-reduced-motion: reduce) { body.join-blink-once #joinBanner .join-banner-btn { animation: none; } }
 }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .desktop-mascot-fab {
     display: block;
     position: fixed;
@@ -1107,7 +1107,7 @@ body.dark-mode .sr-ask { background: linear-gradient(160deg, #1c2638 0%, #141b28
 
 /* מחשב בלבד: תיבת הכלים נראית כמו חלון מסודר עם מסגרת, במקום עמוד מלא-מסך;
    וכשמחשבון הנסיעות פתוח, מרחיבים אותו ופורסים בשתי עמודות במקום עמודה צרה וגבוהה שדורשת גלילה */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .tools-hub-overlay {
     background: rgba(43,38,32,0.5);
     padding: 40px 20px;
@@ -1641,7 +1641,7 @@ body.dark-mode .vat-calc-view #vatAmount { background: #3d3616; color: var(--ink
   direction: rtl;
   box-shadow: 0 -4px 24px rgba(0,0,0,0.18);
 }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .changelog-overlay { align-items: center; }
   .changelog-panel {
     border-radius: 16px;
@@ -2003,7 +2003,7 @@ body.sheet-open { overflow: hidden; }
 .crumb-current { color: var(--ink-soft); font-weight: 700; padding: 5px 4px; }
 .crumb-cat.is-leaf { color: var(--ink-soft); pointer-events: none; }
 .crumb-cat.is-leaf:hover { background: none; }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   /* ===== מסך בית בדסקטופ: אריחי קטגוריות במקום הצפת כל ההודעות ===== */
   body:not(.mobile-cat-filtered):not(.eiva-search-active):not(.tour-show-all) main { display: none; }
   .mobile-dashboard-grid {
@@ -2066,7 +2066,7 @@ body.sheet-open { overflow: hidden; }
   .mobile-dashboard-grid .dashboard-tile-label { font-size: 1.14rem; }
   
 }
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .mobile-dashboard-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -2150,7 +2150,7 @@ body.sheet-open { overflow: hidden; }
 .tile-wrap { position: relative; display: flex; justify-content: center; align-items: center; }
 .tile-wrap > .dashboard-tile { width: 100%; }
 .tile-radial, .tile-petal, .radial-overlay { display: none; }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   /* שכבת כהייה ברקע כשהתפריט פתוח (מצב פוקוס) — בלי טשטוש, לבקשת אמיר */
   .radial-overlay {
     display: block; position: fixed; inset: 0; z-index: 108;
@@ -2244,7 +2244,7 @@ body.sheet-open { overflow: hidden; }
 
 /* ===== סרגל ניווט תחתון קבוע (מובייל בלבד) ===== */
 .bottom-nav { display: none; }
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   body { padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
   .bottom-nav {
     display: flex;
@@ -2336,7 +2336,7 @@ body.sheet-open { overflow: hidden; }
 }
 
 /* ===== אפקטים רגועים למובייל ===== */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   /* הטוסט מעל הסרגל התחתון, בכניסה רכה */
   .copy-toast {
     bottom: calc(80px + env(safe-area-inset-bottom, 0px));
@@ -2366,7 +2366,7 @@ body.sheet-open { overflow: hidden; }
   100% { transform: translate(-50%, -50%) scale(14); opacity: 0; }
 }
 /* כניסת כרטיסיות לקטגוריה — fade + החלקה עדינה מדורגת */
-@media (hover: none) and (pointer: coarse) and (prefers-reduced-motion: no-preference) {
+@media (hover: none) and (pointer: coarse) and (prefers-reduced-motion: no-preference), (max-width: 699px) and (prefers-reduced-motion: no-preference) {
   .category.cat-enter .card,
   .category.cat-enter .studies-refund-tabs,
   .category.cat-enter .eiva-tabs {
@@ -2374,7 +2374,7 @@ body.sheet-open { overflow: hidden; }
   }
 }
 /* דסקטופ: אותה כניסה מדורגת, איטית ורכה יותר; ומסכי בחירת-המשנה נכנסים אריח-אריח */
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) and (prefers-reduced-motion: no-preference) {
   .category.cat-enter .card,
   .category.cat-enter .studies-refund-tabs,
   .category.cat-enter .eiva-tabs {
@@ -2400,14 +2400,14 @@ body.sheet-open { overflow: hidden; }
 }
 
 /* ===== מובייל: בלי סרגל צ'יפים — הסינון דרך אריחי מסך הבית, קטגוריה אחת בכל פעם ===== */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .filter-bar { display: none; }
   /* אין צורך ב"חזרה לכל הקטגוריות" בטלפון — כפתור הבית בתפריט התחתון עושה זאת */
   .sub-grid-back { display: none !important; }
   /* אריחי "חיפוש"/"כלים" הם למחשב בלבד — בטלפון יש שדה חיפוש קבוע למעלה */
   .dashboard-tile-action { display: none !important; }
 }
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   /* מסך הבית נעול: ההודעות מופיעות רק אחרי בחירת קטגוריה או פתיחת חיפוש */
   body:not(.mobile-cat-filtered):not(.mobile-search-open) main { display: none; }
   body.mobile-cat-filtered .mobile-dashboard-grid,
@@ -2456,7 +2456,7 @@ body.sheet-open { overflow: hidden; }
   to { opacity: 1; transform: none; }
 }
 body.mobile-cat-filtered main { animation: viewFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   /* בדסקטופ אין אנימציה על הקונטיינר — דהייה כפולה (קונטיינר + כרטיס) יוצרת תחושה עכורה.
      הכניסה כולה שייכת לכרטיסים המדורגים. */
   body.mobile-cat-filtered main { animation: none; }
@@ -2496,11 +2496,11 @@ body.mobile-search-open .mobile-sub-grid.open { display: none; }
 }
 .sub-grid-back:hover { background: var(--navy); color: #fff; }
 .sub-grid-back-top { margin-top: 0; margin-bottom: 2px; }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   #subGrid-studies.open { grid-template-columns: repeat(2, 1fr); max-width: 620px; }
   #subGrid-eiva.open { grid-template-columns: repeat(2, 1fr); max-width: 600px; }
 }
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   #subGrid-eiva.open { grid-template-columns: 1fr 1fr; max-width: 440px; }
   .mobile-sub-grid .dashboard-tile { min-height: 96px; }
 }
@@ -2644,7 +2644,7 @@ body.mobile-search-open .mobile-sub-grid.open { display: none; }
 .studies-refund-tab.active { background: var(--cat-studies); border-color: var(--cat-studies); color: #fff; }
 
 /* סלולר בלבד: הקטנת גופן/מרווח כדי ששני הטקסטים יישארו כל אחד בשורה אחת בתוך הכפתור שלו */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .studies-refund-tab {
     min-width: 0;
     padding: 9px 6px;
@@ -2658,7 +2658,7 @@ body.mobile-search-open .mobile-sub-grid.open { display: none; }
 .cat-sub { display: inline; font-weight: 700; }
 .cat-sub:empty { display: none !important; }
 .cat-sub::before { content: " ‹ "; opacity: 0.75; font-weight: 600; }
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .eiva-tabs, .studies-refund-tabs { display: none !important; }
 }
 
@@ -2729,7 +2729,7 @@ body.dark-mode .refund-scope-note { color: #e6b94d; background: rgba(230,185,77,
 }
 
 /* מחשב בלבד: יש הרבה מקום במסך - פורסים את הבלוקים ברשת של 3 טורים (2 שורות) */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .refund-blocks-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -2873,7 +2873,7 @@ body.dark-mode .refund-block { background: rgba(255,255,255,0.02); }
 .dyn-open-btn:hover { background: color-mix(in srgb, var(--navy) 8%, transparent); }
 body.dark-mode .dyn-open-btn { color: #e6ddc8; border-color: #e6ddc8; }
 .card.open .dyn-open-btn { display: none; }
-@media (hover: none) and (pointer: coarse) { .dyn-open-btn { margin: 0 12px 12px; padding: 8px 16px; } }
+@media (hover: none) and (pointer: coarse), (max-width: 699px) { .dyn-open-btn { margin: 0 12px 12px; padding: 8px 16px; } }
 
 .card-quick-actions {
   display: flex;
@@ -2901,7 +2901,7 @@ body.dark-mode .dyn-open-btn { color: #e6ddc8; border-color: #e6ddc8; }
 .quick-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
 
 /* מחשב בלבד: מרווח נשימה קל בין הכפתורים, הגדלה קלה כי יש מקום, ומוצג רק העתק (מייל יוצא בג'יבריש ב-Outlook) */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .card-quick-actions { gap: 9px; }
   .quick-wa { display: none; }
   .quick-mail { display: none; }
@@ -2914,7 +2914,7 @@ body.dark-mode .dyn-open-btn { color: #e6ddc8; border-color: #e6ddc8; }
 }
 
 /* סלולר בלבד: הגדלת שטח הלחיצה, ומוצגים העתק + וואטסאפ + מועדפים */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .card-quick-actions { gap: 9px; }
   .quick-mail { display: none; }
   .quick-btn {
@@ -3010,7 +3010,7 @@ body.dark-mode .card-toggle-title.upload-guide-title { color: #4fd1ad; }
 }
 
 /* מחשב בלבד: טקסט קצת יותר גדול לקריאות נוחה יותר מרחוק */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .card-body {
     font-size: 0.92rem;
   }
@@ -3189,7 +3189,7 @@ body.dark-mode .staff-note { background: color-mix(in srgb, #e6b94d 20%, transpa
 .feedback-btn { display: none !important; }
 
 /* מחשב בלבד: בפוטר הכרטיס הפתוח משאירים רק העתק (מייל יוצא בג'יבריש ב-Outlook) */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .card-footer .whatsapp-btn { display: none; }
   .card-footer .email-btn { display: none; }
   .card-footer { justify-content: center; }
@@ -3202,7 +3202,7 @@ body.dark-mode .staff-note { background: color-mix(in srgb, #e6b94d 20%, transpa
 }
 
 /* סלולר בלבד: בפוטר הכרטיס הפתוח משאירים העתק + וואטסאפ + מועדפים (בהתאם לכפתורים הקטנים) */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .card-footer .email-btn { display: none; }
   .card-footer .feedback-btn { width: calc(50% - 4px); }
   
@@ -3327,7 +3327,7 @@ body.dark-mode .staff-note { background: color-mix(in srgb, #e6b94d 20%, transpa
 
 /* ===== נייד: שם הכרטיסייה מוצג במלואו (בלי חיתוך), בגודל גופן אחיד,
    וכפתורי הפעולה יורדים לשורה משלהם מתחת לשם ===== */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .card-header-row { flex-wrap: wrap; }
   .card-header-row .card-toggle { flex: 1 1 100%; padding: 12px 14px 6px 10px; }
   .card-toggle-title,
@@ -3453,7 +3453,7 @@ footer.page-footer {
 .footer-contact-wa .icon-mobile { display: none; }
 
 /* מחשב בלבד: אין וואטסאפ בדסקטופ, אז הכפתור פותח מייל — צבע כחול ואייקון מעטפה במקום ירוק/וואטסאפ */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .footer-contact-wa { background: #2a5fa8; }
   .footer-contact-wa:hover { background: #1f4a86; }
   .footer-contact-wa .icon-mobile { display: none; }
@@ -3474,7 +3474,7 @@ footer.page-footer {
 }
 
 /* ===== Branch request CTA card ===== */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   /* כפילות: פאנל "האם אתן על המפה" בצד שמאל כבר מזמין להוסיף סניף */
   .branch-cta-card { display: none; }
 }
@@ -3524,7 +3524,7 @@ footer.page-footer {
 /* ===== מחשב בלבד: אפקטי hover/לחיצה עשירים ללשוניות ולכרטיסיות הודעה =====
    שינוי עדין ברקע/במסגרת + הרמה קלה (translateY) בריחוף, "קליק" פיזי (scale)
    בלחיצה, והדגשה קבועה של הלשונית הפעילה, כדי שהמשתמש תמיד יידע איפה הוא. */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .filter-chip,
 .eiva-tab,
 .studies-refund-tab,
@@ -3786,7 +3786,7 @@ body.trum-lock { overflow: hidden; }
 .tm-row-s { display: block; margin-top: 3px; font-size: 0.78rem; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tm-row svg { flex: none; width: 18px; height: 18px; stroke: var(--ink-soft); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .tm-empty { text-align: center; color: var(--ink-soft); padding: 40px 10px; }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .tm-head { padding: 14px 24px 16px; }
   .tm-bar, .tm-search, .tm-body { max-width: 1080px; margin-inline: auto; }
   .tm-search { margin-top: 12px; }
@@ -3799,7 +3799,7 @@ body.trum-lock { overflow: hidden; }
   .tm-row:hover { background: var(--paper); border-color: var(--rule-strong); }
   .tm-all { max-width: 320px; margin-inline: auto; }
 }
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .trum-drawer { width: 100vw; }
   .dr-top { padding: 18px 18px 16px; }
   .dr-top h2 { font-size: 20px; }
@@ -3833,7 +3833,7 @@ body.trum-lock { overflow: hidden; }
 .card-body .msg-link:hover { text-decoration: none; }
 body.dark-mode .card-body .msg-link { color: #7fb3ff; }
 
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
 }
 
 /* קישור לכלי "תוכניות טרום שיקום" בטאב טרום שיקום */
@@ -3936,7 +3936,7 @@ body.tour-on #desktopMascotFab { visibility: hidden; }
 .about-tour-btn { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 9px 16px; border: 2px solid #e6b94d; border-radius: 999px; background: #fffaf0; color: var(--navy); font-family: 'Heebo', sans-serif; font-weight: 800; font-size: .95rem; cursor: pointer; }
 .about-tour-btn:hover { background: #fff3d6; }
 /* טלפון: בועה ועצלן בטור, העצלן תמיד בצד שקרוב לתחנה */
-@media not all and (hover: hover) and (pointer: fine) {
+@media not all and (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .tour-guide { width: calc(100vw - 32px); max-width: 330px; }
   .tour-sloth { height: 112px; }
   .tour-title { font-size: 1.08rem; }
@@ -4001,7 +4001,7 @@ body.jspot-on .jspot-bubble { display: block; }
 .rem-acts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .rem-acts button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 11px 8px; border-radius: 12px; border: none; color: #fff; font-weight: 700; font-size: 0.9rem; cursor: pointer; }
 .rem-acts button:disabled { opacity: 0.45; cursor: default; }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .rem-acts { grid-template-columns: 1fr 1fr; }
   .rem-wa { display: none !important; }
   /* מחשב: חלון רחב בשתי עמודות — הגדרות מימין, ההודעה משמאל — הכל במסך אחד בלי גלילה */
@@ -4016,7 +4016,7 @@ body.jspot-on .jspot-bubble { display: block; }
 .rem-copy { background: var(--stamp-red); }
 .rem-wa { background: #3f9a5d; }
 .rem-mail { background: var(--navy); }
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .rem-overlay { padding: 0; align-items: flex-start; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
   .rem-box { max-width: none; border-radius: 0; min-height: 100%; }
   .rem-row { grid-template-columns: 1fr; }
@@ -4168,7 +4168,7 @@ body.dark-mode .ac-close{background:var(--ac-line);color:var(--ac-ink)}
 
   .mobile-hint-overlay { display: none; position: fixed; inset: 0; z-index: 12000; background: rgba(0,0,0,0.45); }
   .mobile-hint-overlay.open { display: block; }
-  @media (hover: hover) and (pointer: fine) { .mobile-hint-overlay { display: none !important; } }
+  @media (hover: hover) and (pointer: fine) and (min-width: 700px) { .mobile-hint-overlay { display: none !important; } }
   .mobile-hint-sheet {
     position: absolute; left: 0; right: 0; bottom: 0;
     background: var(--paper-card);
@@ -4190,7 +4190,7 @@ body.dark-mode .ac-close{background:var(--ac-line);color:var(--ac-ink)}
   .mobile-hint-btn-ghost { background: transparent; color: var(--ink-soft); }
 
 /* ===== header מחודש (מחשב): נמוך, רחב, "מה הולך פה?" כפעולה הבולטת היחידה ===== */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   header { padding: 8px 28px; border-bottom: 2px solid #e6b94d; box-shadow: 0 2px 10px rgba(31,43,61,0.22); }
   .header-inner { max-width: 1180px; gap: 16px; }
   .header-emblem { width: 58px; height: 58px; }
@@ -4302,7 +4302,7 @@ body.m-flower-open { overflow: hidden; }
 .pi-tools { background-image: url(data:image/webp;base64,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); }
 
 /* ===== טלפון: כל אריחי מסך הבית באותו גודל (גם כשהשם בשתי שורות) ===== */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   /* שטח השם שמור לשתי שורות בכל אריח — כך כל האריחים באותו גובה */
   #mobileDashboardGrid .dashboard-tile-label { min-height: 2.6em; display: flex; align-items: center; justify-content: center; text-align: center; }
   #mobileDashboardGrid > .tile-wrap { align-items: stretch; }
@@ -4310,7 +4310,7 @@ body.m-flower-open { overflow: hidden; }
 }
 
 /* טלפון: כל השורה מגיבה ללחיצה — גם השטח הריק ליד הכפתורים */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .card-header-row .card-quick-actions { cursor: pointer; }
 }
 
@@ -4323,7 +4323,7 @@ body.m-flower-open { overflow: hidden; }
 .dashboard-tile-icon.has-img img { width: 100%; height: 100%; object-fit: contain; display: block; filter: drop-shadow(0 4px 6px rgba(43, 38, 32, 0.18)); transition: transform 0.2s ease; }
 .mobile-dashboard-grid .dashboard-tile-icon.has-img { width: 92px !important; height: 92px !important; }
 .dashboard-tile:hover .dashboard-tile-icon.has-img img { transform: scale(1.06) translateY(-2px); }
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .mobile-dashboard-grid .dashboard-tile-icon.has-img { width: 84px !important; height: 84px !important; }
 }
 .tile-wrap.radial-open > .dashboard-tile .dashboard-tile-icon.has-img { width: 72px !important; height: 72px !important; }
@@ -4331,7 +4331,7 @@ body.m-flower-open { overflow: hidden; }
 .m-flower-core { width: 132px; height: 132px; }
 
 /* מחשב: גם כאן כל האריחים באותו גובה (שם בשתי שורות לא מגדיל אריח אחד) */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   #mobileDashboardGrid .dashboard-tile-label { min-height: 2.6em; display: flex; align-items: center; justify-content: center; text-align: center; }
   #mobileDashboardGrid > .tile-wrap { align-items: stretch; }
   #mobileDashboardGrid > .tile-wrap > .dashboard-tile { height: 100%; }
@@ -4343,7 +4343,7 @@ body.m-flower-open { overflow: hidden; }
 
 /* ===== טלפון: שורת החיפוש מוסתרת — נפתחת מכפתור הזכוכית המגדלת ב-header ===== */
 
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   body:not(.m-search-show) .search-bar { display: none !important; }
 
 /* שני הכפתורים יושבים יחד באמצע הכותרת */
@@ -4351,7 +4351,7 @@ body.m-flower-open { overflow: hidden; }
 }
 
 /* טלפון: כותרת עליונה קומפקטית — שני הכפתורים נכנסים בלי לדחוס את שם האתר */
-@media (hover: none) and (pointer: coarse) and (max-width: 600px) {
+@media (max-width: 600px) {
   header { padding-top: 8px !important; padding-bottom: 8px !important; }
   .header-inner { gap: 6px !important; }
   .header-emblem { width: 54px !important; height: 54px !important; }
@@ -4362,7 +4362,7 @@ body.m-flower-open { overflow: hidden; }
 
 }
 
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .mobile-dashboard-grid .dashboard-tile-icon.has-img { width: 76px !important; height: 76px !important; }
   .mobile-home-title { margin-top: 2px !important; margin-bottom: 4px !important; }
 }
@@ -4370,7 +4370,7 @@ body.m-flower-open { overflow: hidden; }
 .bottom-nav-search-ico svg { width: 24px; height: 24px; display: block; margin: 0 auto; color: currentColor; }
 
 /* אפקט ה"וואו" של החיפוש — גם בטלפון (במקור הוגדר רק למחשב) */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   /* ===== אפקט "וואו" בפתיחת החיפוש ===== */
   .search-inner { position: relative; }
   @keyframes searchPop {
@@ -4427,13 +4427,13 @@ body.m-flower-open { overflow: hidden; }
   }
 }
 
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   body.m-search-show .search-inner { border-color: #e6b94d !important; box-shadow: 0 0 0 2px rgba(230, 185, 77, 0.45) !important; }
 }
 
 /* ===== מחשב, מסך קטן: כרטיסי הצד מתכווצים לכפתורים בפינות ===== */
 .side-pill { display: none; }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   /* העצלן לא מוסתר יותר במסך קטן — placeSloth() מושיב אותו מעל הכפתור/הכרטיס שבפינה */
   body.desk-compact .side-pill {
     display: inline-flex; align-items: center; gap: 8px;
@@ -4454,13 +4454,13 @@ body.m-flower-open { overflow: hidden; }
   body.search-mode .side-pill { display: none !important; }
 }
 
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   body.desk-sloth-off .desktop-mascot-fab { display: none !important; } /* אין מקום אפילו לעצלן קטן (placeSloth) */
   body.desk-sloth-sit .desktop-mascot-fab { z-index: 59; } /* מאחורי הכרטיס/הכפתור — כאילו נשען עליו */
   body.desk-nosloth:not(.desk-compact) #homeNew { bottom: 20px !important; max-height: calc(100vh - 110px) !important; }
 }
 
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   .side-pill-chev { font-size: 0.62rem; opacity: 0.85; margin-inline-start: 2px; transition: transform 0.2s ease; }
   body.desk-compact #homeNew.side-expanded ~ #pillNew .side-pill-chev { transform: rotate(180deg); }
   @keyframes pillNudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
@@ -4490,7 +4490,7 @@ html.home-reveal .side-pill { transition: opacity 0.3s ease; }
 
 /* ===== כניסה לקטגוריה (מחשב): כותרת אחת נקייה, לשוניות דקות, מסגרת קלה, עמודה רחבה ===== */
 .cat-sloth { display: none; }
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   body.mobile-cat-filtered main { max-width: 760px; }
   /* מסגרת קלה: קו עדין + פס צבע דק בראש במקום המסגרת העבה */
   .category { border: 1px solid var(--rule) !important; border-top-width: 5px !important; background: var(--paper-card); padding: 18px 26px 24px; box-shadow: 0 4px 16px rgba(31, 43, 61, 0.07); }
@@ -4519,7 +4519,7 @@ html.home-reveal .side-pill { transition: opacity 0.3s ease; }
 }
 
 /* ===== מחשב: גופנים גדולים יותר במסך הקטגוריה ===== */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 700px) {
   body.mobile-cat-filtered main { max-width: 820px; }
   .cat-header h2 { font-size: 1.65rem !important; }
   .cat-sloth { width: 76px; height: 76px; }
@@ -4530,7 +4530,7 @@ html.home-reveal .side-pill { transition: opacity 0.3s ease; }
 }
 /* ===== טלפון: בלי הפס הצבעוני הכפול ובלי המסגרת העבה ===== */
 
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   .category .cat-header { display: none !important; }
   .category { border: none !important; border-top: 4px solid var(--rule-strong) !important; border-radius: 12px !important; padding: 10px 2px 14px !important; box-shadow: none !important; background: transparent; }
   #studies { border-top-color: var(--cat-studies) !important; }
@@ -4544,7 +4544,7 @@ html.home-reveal .side-pill { transition: opacity 0.3s ease; }
 }
 
 /* ===== טלפון: אנימציית פתיחה לחיפוש ===== */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
 
 @keyframes mSearchIcon {
     0%, 35% { transform: rotate(0) scale(1); }
@@ -4556,7 +4556,7 @@ html.home-reveal .side-pill { transition: opacity 0.3s ease; }
 }
 
 /* ===== טלפון: כפתור החיפוש בסרגל התחתון מבליט את עצמו ===== */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   @keyframes navSpotPop {
     0%, 100% { transform: translateY(0) scale(1); }
     12% { transform: translateY(-10px) scale(1.18); }
@@ -4581,7 +4581,7 @@ html.home-reveal .side-pill { transition: opacity 0.3s ease; }
 }
 
 /* פרח בטלפון: בלי "רוח רפאים" של האריחים מאחור — הגריד מתעמעם ומסתתר, והרקע אטום יותר */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   #mobileDashboardGrid { transition: opacity 0.2s ease; }
   body.m-flower-open #mobileDashboardGrid { opacity: 0.12; }
   .m-flower.open { background: rgba(18, 22, 30, 0.8) !important; }
@@ -4596,13 +4596,13 @@ html, body, body *, body *::before, body *::after, input, textarea, select, butt
 /* בלי חיווי מספר ההודעות — לא באריחים, לא בפרח ולא בכותרת הקטגוריה */
 
 /* טלפון: הכלים עברו לסרגל התחתון — הכפתור ב-header מוסתר */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   
   .bottom-nav-tools-img { width: 26px; height: 26px; object-fit: contain; display: block; margin: 0 auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35)); }
 }
 
 /* ===== טלפון: header מסודר — לוגו + שם בשורה אחת מימין, "מה הולך פה?" בקצה השמאלי ===== */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   header { padding: 8px 12px !important; }
   .header-inner { display: flex !important; align-items: center !important; gap: 10px !important; max-width: 100% !important; }
   .header-emblem { width: 46px !important; height: 46px !important; flex: 0 0 46px !important; margin: 0 !important; position: static !important; }
@@ -4614,13 +4614,13 @@ html, body, body *, body *::before, body *::after, input, textarea, select, butt
   .changelog-btn { flex: 0 0 auto !important; margin-inline-start: auto !important; height: 34px !important; padding: 0 12px !important; font-size: 0.8rem !important; white-space: nowrap !important; }
 }
 
-@media (hover: none) and (pointer: coarse) and (max-width: 380px) {
+@media (max-width: 380px) {
   header h1 { font-size: 0.9rem !important; }
   .changelog-btn { padding: 0 9px !important; font-size: 0.74rem !important; }
   .header-inner { gap: 8px !important; }
 }
 
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 699px) {
   header h1 { text-overflow: clip !important; overflow: visible !important; }
   header h1.h1-wrap { white-space: normal !important; }
   header h1.h1-wrap .h1-br { display: inline !important; }
@@ -7587,7 +7587,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
      לכן במחשב הטקסט בעברית מועתק ללוח, המייל נפתח עם נושא באנגלית, ומוצגת הודעה להדביק.
      בנייד — mailto רגיל עם העברית. */
   function safeMail(to, subject, body, subjectEn) {
-    var desk = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var desk = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 700px)').matches;
     var href = 'mailto:' + (to || ''), params = [];
     if (desk) {
       var txt = [subject, body].filter(Boolean).join('\n\n');
@@ -7754,7 +7754,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
 
   function fitCardTitles() {
     /* בנייד השם נשבר לשורות בגודל אחיד — לא מקטינים גופן */
-    const mobileCards = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    const mobileCards = window.matchMedia('(hover: none) and (pointer: coarse), (max-width: 699px)').matches;
     document.querySelectorAll('.card-toggle-title').forEach(function (el) {
       el.style.fontSize = '';
       if (mobileCards) return;
@@ -8009,7 +8009,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     if (box) { box.hidden = true; box.innerHTML = ''; }
     var clearBtn = document.getElementById('searchClear');
     if (clearBtn) clearBtn.style.display = 'none';
-    var mobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    var mobile = window.matchMedia('(hover: none) and (pointer: coarse), (max-width: 699px)').matches;
     if (mobile && typeof bottomNavHome === 'function') bottomNavHome();
     else if (typeof deskGoHome === 'function') deskGoHome();
   }
@@ -8183,7 +8183,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     matches.length = 0;
     Array.prototype.push.apply(matches, deduped);
 
-    const isPhone = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    const isPhone = window.matchMedia('(hover: none) and (pointer: coarse), (max-width: 699px)').matches;
     const toolHits = SEARCH_TOOLS.filter(function (t) {
       const hay = sNorm(t.name + ' ' + t.kw);
       return words.every(function (w) { return hay.includes(w); }) || sNorm(t.name).includes(q);
@@ -8292,7 +8292,7 @@ https://govforms.gov.il/mw/forms/tVitour_sodiout_refuit@btl.gov.il#!detailsPlain
     input.value = '';
     doSearch('');
     /* במחשב: סגירת שדה החיפוש וחזרה למסך הבית הנקי עם האריחים */
-    var mobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    var mobile = window.matchMedia('(hover: none) and (pointer: coarse), (max-width: 699px)').matches;
     if (!mobile) { document.body.classList.remove('desk-search-open'); return; }
     /* טלפון: ניקוי סוגר את שורת החיפוש */
     document.body.classList.remove('m-search-show');
@@ -8400,7 +8400,7 @@ function animateCategoryEnter(catId) {
     if (!sec) return;
     sec.classList.remove('cat-enter');
     const animated = sec.querySelectorAll('.card, .studies-refund-tabs, .eiva-tabs');
-    const desktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const desktop = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 700px)').matches;
     const step = desktop ? 95 : 45;
     const cap = desktop ? 720 : 380;
     let i = 0;
@@ -8540,7 +8540,7 @@ function dashboardTileClick(filterId, tileEl) {
   let mobileSheetCard = null;
 
   function isMobileSheetActive() {
-    return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    return window.matchMedia('(hover: none) and (pointer: coarse), (max-width: 699px)').matches;
   }
 
   function openMobileSheetForCard(card) {
@@ -8605,7 +8605,7 @@ function dashboardTileClick(filterId, tileEl) {
 
   /* טלפון: לחיצה בכל מקום בשורת הכפתורים (שלא על כפתור) פותחת את ההודעה — כל הכרטיס הוא שטח לחיצה */
   document.addEventListener('click', function (e) {
-    if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+    if (!window.matchMedia('(hover: none) and (pointer: coarse), (max-width: 699px)').matches) return;
     var qa = e.target.closest && e.target.closest('.card-header-row .card-quick-actions');
     if (!qa || e.target.closest('button')) return;
     var row = qa.closest('.card-header-row');
@@ -8630,7 +8630,7 @@ function dashboardTileClick(filterId, tileEl) {
       .replace(/🔹/g, '-');
   }
   function isDesktopDevice() {
-    return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    return window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 700px)').matches;
   }
 
   /* ===== מעקב שימוש בתבניות (Umami) — שם תבנית בעברית, ללא תוכן ההודעה ===== */
@@ -9793,13 +9793,13 @@ function dashboardTileClick(filterId, tileEl) {
       wrap.addEventListener('click', function (e) {
         if (e.target.closest('.tile-petal')) return;
         if (!e.target.closest('.dashboard-tile')) return;
-        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        if (window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 700px)').matches) {
           e.stopPropagation();
           e.preventDefault();
           if (wrap.classList.contains('radial-open')) { close(); return; }
           radialCloseAll();
           open();
-        } else if (window.matchMedia('(hover: none) and (pointer: coarse)').matches && wrap.querySelector('.tile-petal')) {
+        } else if (window.matchMedia('(hover: none) and (pointer: coarse), (max-width: 699px)').matches && wrap.querySelector('.tile-petal')) {
           /* טלפון: הקטגוריה קופצת למרכז המסך עם תתי הקטגוריות כמו פרח */
           e.stopPropagation();
           e.preventDefault();
@@ -9869,7 +9869,7 @@ function dashboardTileClick(filterId, tileEl) {
   /* ===== מחשב: התאמה למסכים קטנים =====
      1. כשהכרטיסים בצדדים לא נכנסים לגובה/רוחב, או בתוך קטגוריה — הם מתכווצים לכפתורים בפינות (והעצלן הגדול מוסתר).
      2. הגריד של מסך הבית מוקטן/מוגדל (zoom) כך שייכנס בין הכרטיסים ובגובה המסך, בלי גלילה ובלי התנגשות. */
-  function deskIsDesktop() { return window.matchMedia('(hover: hover) and (pointer: fine)').matches; }
+  function deskIsDesktop() { return window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 700px)').matches; }
   function initDeskPills() {
     if (document.getElementById('pillNew')) return;
     const mk = function (id, cls, html, target) {
@@ -10051,7 +10051,7 @@ function dashboardTileClick(filterId, tileEl) {
 
   /* טלפון: שם האתר בכותרת — מקטינים את הגופן עד שנכנס בשורה אחת; אם עדיין לא נכנס, שוברים לשתי שורות (בלי חיתוך) */
   function fitHeaderTitle() {
-    if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+    if (!window.matchMedia('(hover: none) and (pointer: coarse), (max-width: 699px)').matches) return;
     const h1 = document.querySelector('header h1');
     const box = document.querySelector('.header-titles');
     if (!h1 || !box) return;
@@ -10368,7 +10368,7 @@ function dashboardTileClick(filterId, tileEl) {
   var JSPOT_KEY = 'shikum_join_spot_done';
   function jspotDone() { try { return !!localStorage.getItem(JSPOT_KEY); } catch (e) { return false; } }
   function jspotMark() { try { localStorage.setItem(JSPOT_KEY, '1'); } catch (e) {} }
-  function isDeskPointer() { try { return window.matchMedia('(hover: hover) and (pointer: fine)').matches; } catch (e) { return false; } }
+  function isDeskPointer() { try { return window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 700px)').matches; } catch (e) { return false; } }
   function jspotPlace() {
     var st = document.getElementById('joinBanner') || document.getElementById('leftStack'), ring = document.getElementById('jspotRing'), bub = document.getElementById('jspotBubble');
     if (!st || !ring || !bub) return false;
@@ -10498,7 +10498,7 @@ function dashboardTileClick(filterId, tileEl) {
   function crumbHome() {
     if (typeof mFlowerClose === 'function') mFlowerClose();
     if (typeof radialCloseAll === 'function') radialCloseAll();
-    var mobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    var mobile = window.matchMedia('(hover: none) and (pointer: coarse), (max-width: 699px)').matches;
     if (mobile && typeof bottomNavHome === 'function') bottomNavHome();
     else if (typeof deskGoHome === 'function') deskGoHome();
   }
@@ -10540,7 +10540,7 @@ function dashboardTileClick(filterId, tileEl) {
      מופעלת בכניסה לאתר, עד שהמשתמש לוחץ עליו בפעם הראשונה */
   document.addEventListener('DOMContentLoaded', function () {
     return; /* הבלטת כפתור החיפוש בוטלה לבקשת אמיר — להחזרה: למחוק שורה זו */
-    if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+    if (!window.matchMedia('(hover: none) and (pointer: coarse), (max-width: 699px)').matches) return;
     try { if (localStorage.getItem('shikum_msearch_used')) return; } catch (e) {}
     setTimeout(function () {
       const b = document.getElementById('bottomNavSearch');
@@ -12298,7 +12298,7 @@ document.addEventListener('click', function (e) {
 /* במחשב: קישורי "דיווח" עוברים דרך safeMail (עברית ללוח + נושא באנגלית) */
 document.addEventListener('click', function (e) {
   var a = e.target.closest && e.target.closest('a.rep-btn[href^="mailto:"]');
-  if (!a || !window.matchMedia('(hover: hover) and (pointer: fine)').matches || !window.safeMail) return;
+  if (!a || !window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 700px)').matches || !window.safeMail) return;
   e.preventDefault();
   var u = new URL(a.getAttribute('href').replace(/^mailto:/, 'http://x/?to=').replace('?subject', '&subject'));
   window.safeMail(REPORT_EMAIL, u.searchParams.get('subject') || '', u.searchParams.get('body') || '', 'Pre-rehab program report');
@@ -12544,7 +12544,7 @@ window.openTrumPrograms = function(){
   ov.scrollTop = 0;
   if (window._trumMReset) window._trumMReset();
   var q = document.getElementById('tmQ');
-  var isPhone = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  var isPhone = window.matchMedia('(hover: none) and (pointer: coarse), (max-width: 699px)').matches;
   if(q && !isPhone){ try{ q.focus(); }catch(e){} }
 };
 window.closeTrumPrograms = function(){
@@ -12704,7 +12704,7 @@ window.closeTrumPrograms = function(){
   function $(id) { return document.getElementById(id); }
   function done() { try { return !!localStorage.getItem(TOUR_KEY); } catch (e) { return false; } }
   function mark() { try { localStorage.setItem(TOUR_KEY, '1'); } catch (e) {} }
-  function desk() { return typeof isDeskPointer === 'function' ? isDeskPointer() : matchMedia('(hover: hover) and (pointer: fine)').matches; }
+  function desk() { return typeof isDeskPointer === 'function' ? isDeskPointer() : matchMedia('(hover: hover) and (pointer: fine) and (min-width: 700px)').matches; }
   function visible(el) { if (!el) return false; var r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
 
   function place() {
