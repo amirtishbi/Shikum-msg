@@ -406,11 +406,11 @@ body.search-mode .join-banner { display: none !important; }
 /* הודעה דינמית בתוצאות — פותחת את ההודעה למילוי במקום העתקה עיוורת */
 .sr-dyn-ico { font-size: 1rem; flex-shrink: 0; line-height: 1; }
 .sr-dyn-note { margin-top: 7px; font-size: 0.83rem; color: var(--ink-soft); font-weight: 600; }
-/* "פתח לבחירה" — מסגרת כחולה בלי מילוי: פותח את ההודעה, לא מעתיק (שונה מכפתור ההעתקה האדום) */
-.sr-card-dyn .copy-btn.sr-open-btn { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); box-shadow: none; }
+/* "פתח לבחירה" — כפתור זהב: פותח את ההודעה, לא מעתיק (שונה מכפתור ההעתקה האדום) */
+.sr-card-dyn .copy-btn.sr-open-btn { background: linear-gradient(180deg, #f0c75e, #d9a63a); border: 1.5px solid #c99a2e; color: #1f2b3d; box-shadow: 0 2px 6px rgba(201,154,46,0.35); }   /* זהב — בולט, ושונה מהעתקה (אדום) ומוואטסאפ (ירוק) */
 @media (hover: hover) and (pointer: fine) and (min-width: 700px) { .sr-card-dyn .copy-btn.sr-open-btn { width: auto; padding-inline: 22px; } }
-.sr-card-dyn .copy-btn.sr-open-btn:hover { background: color-mix(in srgb, var(--navy) 8%, transparent); }
-body.dark-mode .sr-card-dyn .copy-btn.sr-open-btn { color: #e6ddc8; border-color: #e6ddc8; }
+.sr-card-dyn .copy-btn.sr-open-btn:hover { filter: brightness(1.05); }
+
 .sr-card-dyn .sr-head { cursor: pointer; }
 /* אופציית "לא מצאת? כתוב לאמיר" — נבדלת ויזואלית מתוצאה אמיתית */
 .sr-ask { --rc: #e6b94d; border: 1.5px solid rgba(230,185,77,0.6) !important; background: linear-gradient(160deg, var(--navy) 0%, #1c2638 100%) !important; color: #f3efe4; text-align: center; padding: 22px 20px 20px !important; margin-top: 6px; }
@@ -2867,11 +2867,11 @@ body.dark-mode .refund-block { background: rgba(255,255,255,0.02); }
   flex-shrink: 0;
   padding: 0 10px 0 0;
 }
-/* הודעה שדורשת בחירה/מילוי — כפתור "פתח לבחירה" בכותרת הסגורה (מסגרת כחולה, כמו בחיפוש) */
-.dyn-open-btn { flex-shrink: 0; margin: 0 10px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; border: 1.5px solid var(--navy); background: transparent; color: var(--navy); font-family: 'Heebo', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+/* הודעה שדורשת בחירה/מילוי — כפתור "פתח לבחירה" בכותרת הסגורה (זהב, כמו בחיפוש) */
+.dyn-open-btn { flex-shrink: 0; margin: 0 10px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; background: linear-gradient(180deg, #f0c75e, #d9a63a); border: 1.5px solid #c99a2e; color: #1f2b3d; box-shadow: 0 2px 6px rgba(201,154,46,0.35); font-family: 'Heebo', sans-serif; font-weight: 800; font-size: 0.85rem; cursor: pointer; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
 .dyn-open-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
-.dyn-open-btn:hover { background: color-mix(in srgb, var(--navy) 8%, transparent); }
-body.dark-mode .dyn-open-btn { color: #e6ddc8; border-color: #e6ddc8; }
+.dyn-open-btn:hover { filter: brightness(1.05); }
+
 .card.open .dyn-open-btn { display: none; }
 @media (hover: none) and (pointer: coarse), (max-width: 699px) { .dyn-open-btn { margin: 0 12px 12px; padding: 8px 16px; } }
 
